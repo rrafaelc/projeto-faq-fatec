@@ -16,10 +16,18 @@
   --cinza-hover: #e6e6e6;
   --preto-escuro: #121313;
   --preto-fraco: #262b2d;
+  font-size: 62.5%;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
