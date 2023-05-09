@@ -4,6 +4,83 @@ body {
   overflow-x: hidden;
 }
 
+/* Header */
+header {
+  width: 100vw;
+  background-color: var(--cinza-fraco);
+  z-index: 999;
+  height: 80px;
+
+  position: fixed;
+  top: 0;
+}
+
+section {
+  /* Pixel do height do header mais 40px de distancia */
+  margin-top: 120px;
+}
+
+a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--titulos);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--titulos);
+}
+
+a.active {
+  color: var(--vermelho-escuro);
+}
+
+.header-content {
+  margin: 0 auto;
+  max-width: 1360px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 115px;
+  margin-top: 7px;
+  /*
+    A logo tem um fundo transparente que nao fica legal mesmo pondo no centro
+    Tive que fazer um ajuste tecnico para parecer que esta no centro
+    no figma esta assim tambem
+   */
+}
+
+.logo img {
+  width: 100%;
+}
+
+.nav-items {
+  display: flex;
+  gap: 60px;
+}
+
+.login a {
+  display: flex;
+  flex-direction: column;
+}
+
+.login p + p {
+  font-size: 1.2rem;
+}
+
+.header-content a:hover {
+  color: var(--vermelho-escuro);
+  transition: all 0.2s ease-in-out;
+}
+
 /* Filtre sua duvida */
 .keyword-container {
   width: 100vw;
