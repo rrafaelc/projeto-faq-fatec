@@ -1,307 +1,370 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+body {
+  font-family: 'Roboto', sans-serif;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
-:root {
-    font-size: 62.5%;
+/* Header */
+header {
+  width: 100vw;
+  background-color: var(--cinza-fraco);
+  z-index: 999;
+  height: 80px;
+
+  position: fixed;
+  top: 0;
+}
+
+section {
+  /* Pixel do height do header mais 40px de distancia */
+  margin-top: 120px;
 }
 
 a {
-    text-decoration: none;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    color: #004854;
-    font-weight: bold;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--titulos);
+  text-decoration: none;
 }
 
 a:visited {
-    color: #004854;
+  color: var(--titulos);
 }
 
-body {
-    font-size: 1.6rem;
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
-    min-height: 100%;
-}
-
-
-header {
-    width: 100vw;
-    background-color: #DADADA;
-    display: flex;
-    align-items: center;
-    z-index: 999;
-    height: 100px;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    height: 8rem;
-}
-
-.login {
-    font-size: 2rem;
-    color: #004854;
+a.active {
+  color: var(--vermelho-escuro);
 }
 
 .header-content {
-    margin: 0 10%;
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    align-items: center;
+  margin: 0 auto;
+  max-width: 1360px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.logo {
+  width: 115px;
+  margin-top: 7px;
+  /*
+    A logo tem um fundo transparente que nao fica legal mesmo pondo no centro
+    Tive que fazer um ajuste tecnico para parecer que esta no centro
+    no figma esta assim tambem
+   */
+}
+
+.logo img {
+  width: 100%;
+}
 
 .nav-items {
-    display: flex;
-    justify-content: space-evenly;
-    flex: 1;
+  display: flex;
+  gap: 60px;
+}
+
+.login a {
+  display: flex;
+  flex-direction: column;
+}
+
+.login p + p {
+  font-size: 1.2rem;
 }
 
 .header-content a:hover {
-    color: #7E0000;
-    transition: all .5s ease-in-out;
+  color: var(--vermelho-escuro);
+  transition: all 0.2s ease-in-out;
 }
 
+/* Filtre sua duvida */
 .keyword-container {
-    width: 100vw;
-    background-color: #004854;
-    display: flex;
-    justify-content: center;
-    height: 240px;
-    margin-top: 150px;
+  width: 100vw;
+  background-color: var(--azul-base);
+  height: 240px;
 }
 
 .keyword-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 100%;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
 .keyword-content h1 {
-    margin: 2rem 0;
-    font-size: 4rem;
-    color: white;
-    letter-spacing: 1px;
+  font-size: 4rem;
+  font-weight: 500;
+  color: var(--prata-base);
 }
 
 #formulary {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#formulary #search-input {
+  width: 600px;
+  height: 60px;
+  padding: 0 10px;
+  border-radius: 12px;
+  border: none;
+
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--preto-escuro);
+}
+
+#formulary #search-input::placeholder {
+  color: var(--cinza-texto);
+}
+
+#formulary #search-input:focus {
+  outline: none;
+}
+
+.keyword-container {
+  width: 100vw;
+  background-color: #004854;
+  display: flex;
+  justify-content: center;
+  height: 240px;
+  margin-top: 150px;
+}
+
+.keyword-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyword-content h1 {
+  margin: 2rem 0;
+  font-size: 4rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
+#formulary {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .form-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .input-container {
-    width: 30%;
-    border-radius: 10px;
-    font-size: 2rem;
-    display: flex;
-    position: relative;
-    justify-content: center;
+  width: 30%;
+  border-radius: 10px;
+  font-size: 2rem;
+  display: flex;
+  position: relative;
+  justify-content: center;
 }
 
 .input-container input {
-    min-width: 100%;
-    height: 6rem;
-    outline: none;
-    border-radius: 10px;
-    overflow: hidden;
-    border: none;
-    padding: 0 4rem;
-    font-size: 2rem;
+  min-width: 100%;
+  height: 6rem;
+  outline: none;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+  padding: 0 40rem;
+  font-size: 2rem;
 }
 
 form i {
-    color: black;
-    font-size: 25px;
-    position: absolute;
-    left: 0;
-    padding: 16px 0 0 10px;
-    color: #262B2D;
-    z-index: 99;
+  color: black;
+  font-size: 25px;
+  position: absolute;
+  left: 0;
+  padding: 16px 0 0 10px;
+  color: #262b2d;
+  z-index: 99;
 }
 
 form button {
-    min-width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    background-color: #DADADA;
+  min-width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  background-color: #dadada;
 }
 
 main {
-    width: 100%;
-    min-height: 100%;
-    justify-content: center;
-    overflow: hidden;
+  width: 100%;
+  min-height: 100%;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .wrapper {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    margin-top: 5rem;
-    flex: 1;
-    min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 5rem;
+  flex: 1;
+  min-height: 80vh;
 }
 
 .container {
-    width: 80%;
-    height: 100%;
+  width: 80%;
+  height: 100%;
 }
 
 .login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .5s ease-out;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
 }
 
 .drop {
-    transition: transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
 }
 
 .drop.rotate {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .content p {
-    font-size: 2.4rem;
-    font-weight: 500;
-    color: #121313;
-    padding: 1rem
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #121313;
+  padding: 1rem;
 }
 
 .content p:nth-child(2) {
-    color: #666666;
-    font-size: 2rem;
+  color: #666666;
+  font-size: 2rem;
 }
 
 .content i {
-    color: #DADADA;
+  color: #dadada;
 }
 
 .faq-container {
-    margin: 2rem 0;
-    cursor: pointer;
-    font-size: 2rem;
-    border-radius: 20px;
-    padding: 1rem;
+  margin: 2rem 0;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 20px;
+  padding: 1rem;
 }
 
-.faq-container h2>i {
-    font-size: 25px;
+.faq-container h2 > i {
+  font-size: 25px;
 }
 
 .question-title {
-    color: #004854;
-    font-size: 3.2rem;
+  color: #004854;
+  font-size: 3.2rem;
 }
 
 .footer-container {
-    background-color: #262B2D;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 3rem;
-    justify-content: space-between;
-    bottom: 0;
-    overflow: hidden;
-    left: 0;
-    margin-top: 5rem;
+  background-color: #262b2d;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 0;
+  overflow: hidden;
+  left: 0;
+  margin-top: 5rem;
+  height: 25vh;
 }
 
-
 .fatec-contact {
-    height: 100%;
-    line-height: 5rem;
-
+  height: 100%;
+  /* line-height: 5rem; */
 }
 
 .fatec-contact h1 {
-    color: #F8F8F8;
-    font-size: 4rem;
-
+  color: #f8f8f8;
+  font-size: 4rem;
 }
 
 .fatec-contact span {
-    color: #fff;
-    font-size: 2.4rem;
-
+  color: #fff;
+  font-size: 2.4rem;
 }
 
 .fatec-contact h2 {
-    color: #DADADA;
-    font-size: 2rem;
+  color: #dadada;
+  font-size: 2rem;
 }
 
 .fatec-footer-logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 1;
+  display: flex;
+  align-items: center;
+  /* flex-shrink: 1; */
+  /* width: 500px; */
+  height: 200px;
 }
 
 .fatec-footer-logo img {
-    width: 100%;
-    height: 100%;
+  /* width: 100%; */
+  height: 100%;
 }
 
 .cps-logo-footer {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cps-logo-footer .img-1 {
+  height: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 .cps-logo-footer img {
-    width: 60%;
-    height: 60%;
+  /* width: 60%; */
+  /* height: 60%; */
+  height: 100%;
 }
 
 .heart-clicked {
-    color: red !important;
+  color: red !important;
 }
 
 /* ---------------------------------------------------------------- */
 
 @media (max-width: 999px) {
-    .footer-container {
-        flex-direction: column;
-        gap: 50px;
-    }
+  .footer-container {
+    flex-direction: column;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .header-content {
+    max-width: 1300px;
+  }
+  .fatec-footer-logo {
+    width: 200px;
+  }
 }
