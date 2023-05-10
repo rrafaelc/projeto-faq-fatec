@@ -70,6 +70,7 @@ a.active {
 .header-content {
   margin: 0 auto;
   max-width: 1360px;
+  height: 100%;
 
   display: flex;
   align-items: center;
@@ -107,4 +108,10 @@ a.active {
 .header-content a:hover {
   color: var(--vermelho-escuro);
   transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 1400px) {
+  .header-content {
+    max-width: 1300px;
+  }
 }
