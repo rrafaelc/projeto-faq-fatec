@@ -4,6 +4,11 @@ body {
   overflow-x: hidden;
 }
 
+section {
+  /* Pixel do height do header mais 40px de distancia */
+  margin-top: 120px;
+}
+
 /* Filtre sua duvida */
 .keyword-container {
   width: 100vw;
@@ -59,7 +64,6 @@ body {
   display: flex;
   justify-content: center;
   height: 240px;
-  margin-top: 150px;
 }
 
 .keyword-content {

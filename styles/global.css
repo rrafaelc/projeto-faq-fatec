@@ -43,11 +43,6 @@ header {
   top: 0;
 }
 
-section {
-  /* Pixel do height do header mais 40px de distancia */
-  margin-top: 120px;
-}
-
 a {
   height: 100%;
   display: flex;
