@@ -2,6 +2,7 @@
   max-width: 700px;
   margin: 0 auto;
   margin-top: calc(80px + 60px);
+  padding: 60px 0;
 
   display: flex;
   flex-direction: column;
@@ -12,11 +13,13 @@
 }
 
 .container h1 {
-  margin: 30px 0 60px 0;
+  margin-bottom: 60px;
   font-size: 3.2rem;
   color: var(--titulos);
   font-weight: bold;
 }
+
+/* Formulario */
 
 form {
   display: flex;
@@ -24,7 +27,8 @@ form {
   gap: 30px;
 }
 
-form > div {
+form #email,
+form #senha {
   display: flex;
   flex-direction: column;
 }
@@ -36,10 +40,12 @@ form label {
 
 form input {
   width: 450px;
-  font-size: 2.4rem;
-  padding: 0 20px;
-  font-weight: normal;
   height: 60px;
+  padding: 0 20px;
+
+  font-size: 2.4rem;
+  font-weight: normal;
+  color: var(--preto-escuro);
 
   border-color: var(--cinza-texto);
   border-width: 2px;
@@ -47,4 +53,31 @@ form input {
 }
 
 form input::placeholder {
+  color: var(--cinza-texto);
+}
+
+form button {
+  padding: 15px 0;
+
+  border: none;
+  border-radius: 10px;
+  background-color: var(--azul-destaque);
+
+  font-weight: 500;
+  font-size: 2.4rem;
+  color: var(--preto-escuro);
+}
+
+form button:active {
+  transform: scale(0.95);
+}
+
+.info {
+  margin-top: 70px;
+  max-width: 450px;
+  text-align: center;
+
+  font-weight: 500;
+  font-size: 2rem;
+  color: var(--vermelho-base);
 }
