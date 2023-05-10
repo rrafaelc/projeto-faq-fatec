@@ -96,10 +96,6 @@ a.active {
   flex-direction: column;
 }
 
-.login p + p {
-  font-size: 1.2rem;
-}
-
 .header-content a:hover {
   color: var(--vermelho-escuro);
   transition: all 0.2s ease-in-out;
