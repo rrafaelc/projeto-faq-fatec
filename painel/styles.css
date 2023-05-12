@@ -85,8 +85,12 @@ main {
   display: flex;
 }
 
-.header .usuario img {
-  width: 70px;
+.header .usuario .foto {
+  height: 70px;
+}
+
+.header .usuario .foto img {
+  height: 100%;
   border-radius: 100%;
 }
 
