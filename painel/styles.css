@@ -1,0 +1,118 @@
+:root {
+  --vermelho-base: #b20000;
+  --vermelho-escuro: #7e0000;
+  --vermelho-fraco: #ffb5b5;
+  --azul-base: #005c6d;
+  --azul-fraco: #99efff;
+  --azul-destaque: #00c1cf;
+  --azul-secundario: #00e8e8;
+  --titulos: #004854;
+  --fatec-azul: #283337;
+  --prata-base: #f8f8f8;
+  --cinza-texto: #666666;
+  --cinza-fraco: #dadada;
+  --cinza-hover: #e6e6e6;
+  --preto-escuro: #121313;
+  --preto-fraco: #262b2d;
+}
+
+body {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-right: 30px;
+
+  display: flex;
+  gap: 30px;
+
+  background-color: var(--cinza-fraco);
+}
+
+aside {
+  background-color: var(--prata-base);
+  height: 100vh;
+  width: 280px;
+  background-color: var(--azul-base);
+  color: var(--prata-base);
+}
+
+main {
+  max-width: 1580px;
+  width: 100%;
+  min-height: 100%;
+  margin-top: 30px;
+}
+
+.header {
+  background-color: var(--prata-base);
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 40px;
+  border-radius: 10px;
+}
+
+.header .grupo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header .grupo h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--titulos);
+}
+
+.header .grupo i {
+  font-size: 1.6rem;
+  color: var(--cinza-texto);
+}
+
+.header .subgrupo {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--preto-fraco);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header .subgrupo span:first-of-type {
+  color: var(--cinza-texto);
+}
+
+.header .usuario {
+  display: flex;
+}
+
+.header .usuario img {
+  width: 70px;
+  border-radius: 100%;
+}
+
+.header .nome {
+  display: flex;
+  flex-direction: column;
+}
+
+.header .usuario {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: var(--cinza-texto);
+}
+
+.header .usuario .nome span:first-of-type {
+  font-weight: 500;
+  font-size: 2.4rem;
+}
+
+.header .usuario .nome span + span {
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.header .usuario i {
+  font-size: 2.4rem;
+}
