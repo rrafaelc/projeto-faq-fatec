@@ -58,6 +58,10 @@ body {
 }
 
 .painel-lateral .logo {
+  width: 200px;
+}
+
+.painel-lateral .logo img {
   width: 100%;
 }
 
