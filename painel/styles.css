@@ -1,21 +1,3 @@
-:root {
-  --vermelho-base: #b20000;
-  --vermelho-escuro: #7e0000;
-  --vermelho-fraco: #ffb5b5;
-  --azul-base: #005c6d;
-  --azul-fraco: #99efff;
-  --azul-destaque: #00c1cf;
-  --azul-secundario: #00e8e8;
-  --titulos: #004854;
-  --fatec-azul: #283337;
-  --prata-base: #f8f8f8;
-  --cinza-texto: #666666;
-  --cinza-fraco: #dadada;
-  --cinza-hover: #e6e6e6;
-  --preto-escuro: #121313;
-  --preto-fraco: #262b2d;
-}
-
 body {
   max-width: 1920px;
   margin: 0 auto;
@@ -89,8 +71,7 @@ body {
 
 @media (max-width: 1500px) {
   .painel-lateral {
-    min-width: 70px;
-    width: 70px;
+    min-width: 70px;    
     transition: min-width 0.5s ease;
   }
 
