@@ -53,10 +53,7 @@ const hamburgerIcon = document.querySelector('.menu-hamburger');
 const hamburgerContent = document.querySelector('.menu-hamburger-content');
 
 hamburgerIcon.addEventListener('click', function () {
+  // const keywordContainer = document.querySelector('section')
   hamburgerContent.classList.toggle('show');
-  if (hamburgerContent.classList.contains('show')) {
-    document.body.style.paddingTop = '60px';
-  } else {
-    document.body.style.paddingTop = '0px';
-  }
+  // keywordContainer.classList.toggle('hamburger-open')
 });
