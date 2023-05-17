@@ -67,6 +67,9 @@ body {
 
 .painel-lateral .icone {
   width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .painel-lateral div i {
@@ -82,6 +85,26 @@ body {
   font-size: 2rem;
   color: var(--prata-base);
   font-weight: bold;
+}
+
+@media (max-width: 1500px) {
+  .painel-lateral {
+    min-width: 70px;
+    width: 70px;
+    transition: min-width 0.5s ease;
+  }
+
+  .painel-lateral .titulo {
+    display: none;
+  }
+
+  .painel-lateral div a + a {
+    display: none;
+  }
+
+  .painel-lateral .logo {
+    display: none;
+  }
 }
 
 main {
