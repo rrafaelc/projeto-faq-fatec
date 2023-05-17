@@ -204,16 +204,17 @@ main {
   bottom: 0;
   overflow: hidden;
   left: 0;
-  padding: 0 2rem;
   margin-top: 5rem;
-  height: 25vh;
+  max-height: 250px;
+  padding: 2rem 2rem;
 }
 
 .fatec-contact {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  height: 100%;
+  line-height: 2.8rem;
 }
 
 .fatec-contact h1 {
@@ -222,12 +223,14 @@ main {
 
 .fatec-contact span {
   color: #fff;
-  font-size: 2.4rem;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
 }
 
 .fatec-contact h2 {
   color: #dadada;
   font-size: 1.5rem;
+  letter-spacing: 0.1rem;
 }
 
 .fatec-footer-logo {
@@ -235,6 +238,7 @@ main {
   align-items: center;
   min-height: 100%;
   flex: 1;
+  height: 100%;
   justify-content: center;
 }
 
@@ -247,22 +251,20 @@ main {
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  height: 80%;
-  gap: .5rem;
+  max-height: 180px;
+  gap: 1rem;
 }
 
 .cps-logo-footer .img-1 {
-  height: 100px;
   text-align: center;
+  height: 50px;
   width: 100%;
-  height: 50%;
 }
 
 .cps-logo-footer .img-2 {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 70%;
 }
 
 
@@ -284,7 +286,7 @@ main {
 
 /* ---------------------------------------------------------------- */
 
-@media (max-width: 999px) {
+@media (max-width: 1000px) {
 
   /* responsividade do footer */
   .footer-container {
@@ -294,11 +296,6 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-  }
-
-  #whatsapp {
-    white-space: unset;
   }
 
   .fatec-contact {
@@ -314,7 +311,7 @@ main {
   }
 
   .fatec-contact h2 span {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .fatec-footer-logo {
@@ -417,18 +414,4 @@ main {
     display: none;
   }
 
-}
-
-@media (max-width: 1400px) {
-  .header-content {
-    max-width: 1300px;
-  }
-
-  .header-content {
-    justify-content: space-around;
-  }
-
-  .fatec-footer-logo {
-    width: 200px;
-  }
 }
