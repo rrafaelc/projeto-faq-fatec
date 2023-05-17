@@ -5,8 +5,12 @@ body {
 }
 
 section {
-  /* Pixel do height do header mais 40px de distancia */
-  margin-top: 40px;
+  margin-top: 5rem;
+  transition: all .3s ease-in-out;
+}
+
+.hamburger-open {
+  margin-top: 15vh;
 }
 
 /* Filtre sua duvida */
@@ -159,7 +163,7 @@ main {
 
 .content p {
   font-size: 2.4rem;
-  font-weight: 500;
+  font-weight: 300;
   color: #121313;
   padding: 1rem;
 }
@@ -188,6 +192,7 @@ main {
 .question-title {
   color: #004854;
   font-size: 3.2rem;
+  font-weight: 300;
 }
 
 .footer-container {
@@ -200,60 +205,68 @@ main {
   overflow: hidden;
   left: 0;
   margin-top: 5rem;
-  height: 25vh;
+  max-height: 250px;
+  padding: 2rem 2rem;
 }
 
 .fatec-contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
-  /* line-height: 5rem; */
+  line-height: 2.8rem;
 }
 
 .fatec-contact h1 {
   color: #f8f8f8;
-  font-size: 4rem;
 }
 
 .fatec-contact span {
   color: #fff;
-  font-size: 2.4rem;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
 }
 
 .fatec-contact h2 {
   color: #dadada;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
 }
 
 .fatec-footer-logo {
   display: flex;
   align-items: center;
-  /* flex-shrink: 1; */
-  /* width: 500px; */
-  height: 200px;
+  min-height: 100%;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
 }
 
 .fatec-footer-logo img {
-  /* width: 100%; */
-  height: 100%;
+  max-height: 160px;
 }
 
 .cps-logo-footer {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  max-height: 180px;
+  gap: 1rem;
 }
 
 .cps-logo-footer .img-1 {
-  height: 80px;
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  height: 50px;
+  width: 100%;
 }
 
-.cps-logo-footer img {
-  /* width: 60%; */
-  /* height: 60%; */
-  height: 100%;
+.cps-logo-footer .img-2 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
+
 
 .heart-clicked {
   color: red !important;
@@ -273,16 +286,48 @@ main {
 
 /* ---------------------------------------------------------------- */
 
-@media (max-width: 999px) {
+@media (max-width: 1000px) {
+
+  /* responsividade do footer */
   .footer-container {
     flex-direction: column;
-    gap: 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
+  .fatec-contact {
+    line-height: 30px;
+  }
+
+  .fatec-contact h1 {
+    text-align: center;
+  }
+
+  .fatec-contact h2 {
+    font-size: 1.6rem;
+  }
+
+  .fatec-contact h2 span {
+    font-size: 1.6rem;
+  }
+
+  .fatec-footer-logo {
+    display: none;
+  }
+
+  .cps-logo-footer {
+    display: none;
+  }
+
+  /* removendo icone */
   .input-container i {
     display: none;
   }
 
+  /* responsividade navbar/menu hamburger */
   .login {
     display: none;
   }
@@ -333,6 +378,20 @@ main {
     justify-content: space-between;
   }
 
+  /* tamanho fonte responsivo */
+  .question-title {
+    font-size: 2.4rem;
+  }
+
+  .content p {
+    font-size: 2rem;
+  }
+
+  .keyword-content h1 {
+    font-size: 3rem;
+    font-weight: 500;
+  }
+
   /* formulario */
   .keyword-container h1 {
     font-size: 3.5rem;
@@ -355,19 +414,4 @@ main {
     display: none;
   }
 
-}
-
-@media (max-width: 1400px) {
-  .header-content {
-    max-width: 1300px;
-
-  }
-
-  .header-content {
-    justify-content: space-around;
-  }
-
-  .fatec-footer-logo {
-    width: 200px;
-  }
 }
