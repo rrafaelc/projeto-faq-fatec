@@ -1,12 +1,11 @@
 body {
-  font-family: 'Roboto', sans-serif;
   min-height: 100%;
   overflow-x: hidden;
 }
 
 section {
   margin-top: 5rem;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .hamburger-open {
@@ -64,7 +63,7 @@ section {
 
 .keyword-container {
   width: 100vw;
-  background-color: #004854;
+  background-color: var(--titulos);
   display: flex;
   justify-content: center;
   height: 240px;
@@ -81,7 +80,7 @@ section {
 .keyword-content h1 {
   margin: 2rem 0;
   font-size: 4rem;
-  color: white;
+  color: var(--prata-base);
   letter-spacing: 1px;
 }
 
@@ -107,7 +106,6 @@ section {
   position: relative;
   justify-content: center;
 }
-
 
 /* icone dentro do input */
 .input-container i {
@@ -164,17 +162,17 @@ main {
 .content p {
   font-size: 2.4rem;
   font-weight: 300;
-  color: #121313;
+  color: var(--preto-escuro);
   padding: 1rem;
 }
 
 .content p:nth-child(2) {
-  color: #666666;
+  color: var(--cinza-texto);
   font-size: 2rem;
 }
 
 .content i {
-  color: #dadada;
+  color: var(--cinza-fraco);
 }
 
 .faq-container {
@@ -185,18 +183,18 @@ main {
   padding: 1rem;
 }
 
-.faq-container h2>i {
+.faq-container h2 > i {
   font-size: 25px;
 }
 
 .question-title {
-  color: #004854;
+  color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
 }
 
 .footer-container {
-  background-color: #262b2d;
+  background-color: var(--preto-fraco);
   width: 100%;
   display: flex;
   align-items: center;
@@ -218,17 +216,17 @@ main {
 }
 
 .fatec-contact h1 {
-  color: #f8f8f8;
+  color: var(--prata-base);
 }
 
 .fatec-contact span {
-  color: #fff;
+  color: var(--prata-base);
   font-size: 2rem;
   letter-spacing: 0.1rem;
 }
 
 .fatec-contact h2 {
-  color: #dadada;
+  color: var(--cinza-fraco);
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
 }
@@ -267,9 +265,8 @@ main {
   width: 100%;
 }
 
-
 .heart-clicked {
-  color: red !important;
+  color: var(--vermelho-base) !important;
 }
 
 .menu-hamburger-content.show {
@@ -287,7 +284,6 @@ main {
 /* ---------------------------------------------------------------- */
 
 @media (max-width: 1000px) {
-
   /* responsividade do footer */
   .footer-container {
     flex-direction: column;
@@ -352,9 +348,9 @@ main {
     width: 30vw;
     min-width: 200px;
     text-align: center;
-    border: 0.5px solid black;
+    border: 0.5px solid var(--preto-escuro);
     border-radius: 5px;
-    background-color: #DADADA;
+    background-color: var(--cinza-fraco);
   }
 
   .menu-hamburger-content a {
@@ -362,12 +358,12 @@ main {
     padding: 1rem;
     font-size: 1.6rem;
     font-weight: bold;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
     text-decoration: none;
   }
 
   .menu-hamburger-content a:hover {
-    color: #690101
+    color: var(--vermelho-escuro);
   }
 
   .menu-hamburger-content a.active {
@@ -413,5 +409,4 @@ main {
   .input-container i {
     display: none;
   }
-
 }
