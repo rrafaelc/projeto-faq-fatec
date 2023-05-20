@@ -12,11 +12,11 @@
       src="https://kit.fontawesome.com/1aacb3a88a.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../styles/global.css" />
+    <link rel="stylesheet" href="../../styles/global.css" />
     <link rel="stylesheet" href="styles.css" />
 
     <script src="./script.js" defer></script>
-    <title>Painel</title>
+    <title>Painel - Perguntas</title>
   </head>
   <body>
     <aside class="painel-lateral">
@@ -58,7 +58,7 @@
         <a href="/">Voltar para o FAQ</a>
       </div>
       <div class="logo">
-        <img src="../img/logo-painel-lateral.svg" />
+        <img src="../../img/logo-painel-lateral.svg" />
       </div>
     </aside>
     <main>
@@ -67,6 +67,8 @@
           <h1 class="title">Início</h1>
           <div class="subgrupo">
             <span>Início</span>
+            <i class="fas fa-angle-right"></i>
+            <span>Perguntas</span>
           </div>
         </div>
         <div class="usuario">
@@ -90,7 +92,7 @@
             <i class="fas fa-database"></i>
           </div>
           <div class="info">
-            <div class="numero">135</div>
+            <div class="numero">25</div>
             <div class="descricao">Total de perguntas</div>
           </div>
         </div>
@@ -99,7 +101,7 @@
             <i class="fas fa-exclamation"></i>
           </div>
           <div class="info">
-            <div class="numero">26</div>
+            <div class="numero">4</div>
             <div class="descricao">Total de prioridades</div>
           </div>
         </div>
@@ -108,10 +110,46 @@
             <i class="fas fa-heart"></i>
           </div>
           <div class="info">
-            <div class="numero">541</div>
+            <div class="numero">84</div>
             <div class="descricao">Total de curtidas</div>
           </div>
         </div>
+      </div>
+      <div class="adicionar-pergunta">
+        <div class="titulo">
+          <h1>Adicionar pergunta</h1>
+          <i class="fas fa-angle-down botao"></i>
+        </div>
+        <form>
+          <label for="titulo">Título</label>
+          <input
+            type="text"
+            name="titulo"
+            id="titulo"
+            placeholder="Escreva aqui o título da pergunta"
+            required
+          />
+          <label for="resposta">Resposta</label>
+          <textarea
+            name="resposta"
+            id="resposta"
+            placeholder="Escreva aqui a resposta da pergunta"
+            required
+          ></textarea>
+          <div>
+            <div class="prioridade">
+              <label for="prioridade">Defina o nível de prioridade</label>
+              <input
+                class="normal"
+                type="button"
+                id="prioridade"
+                value="Normal"
+              />
+            </div>
+
+            <button type="submit">Adicionar</button>
+          </div>
+        </form>
       </div>
       <div class="dados">
         <table class="perguntas">
@@ -150,7 +188,7 @@
               <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../img/junior.jpeg" />
+                    <img src="../../img/junior.jpeg" />
                   </div>
                   <div class="nome">
                     <span>Júnior</span>
@@ -166,7 +204,7 @@
               </td>
               <td>
                 <div id="editado" class="avatar">
-                  <img src="../img/junior.jpeg" />
+                  <img src="../../img/junior.jpeg" />
                 </div>
               </td>
               <td>
@@ -198,7 +236,7 @@
               <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../img/thiago.jpeg" />
+                    <img src="../../img/thiago.jpeg" />
                   </div>
                   <div class="nome">
                     <span>Thiago</span>
@@ -214,7 +252,7 @@
               </td>
               <td>
                 <div id="editado" class="avatar">
-                  <img src="../img/thiago.jpeg" />
+                  <img src="../../img/thiago.jpeg" />
                 </div>
               </td>
               <td>
@@ -246,7 +284,7 @@
               <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../img/marcia.jpeg" />
+                    <img src="../../img/marcia.jpeg" />
                   </div>
                   <div class="nome">
                     <span>Marcia</span>
@@ -261,7 +299,7 @@
               </td>
               <td>
                 <div id="editado" class="avatar">
-                  <img src="../img/marcia.jpeg" />
+                  <img src="../../img/marcia.jpeg" />
                 </div>
               </td>
               <td>
@@ -293,7 +331,7 @@
               <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../img/thiago.jpeg" />
+                    <img src="../../img/thiago.jpeg" />
                   </div>
                   <div class="nome">
                     <span>Thiago</span>
@@ -309,7 +347,7 @@
               </td>
               <td>
                 <div id="editado" class="avatar">
-                  <img src="../img/thiago.jpeg" />
+                  <img src="../../img/thiago.jpeg" />
                 </div>
               </td>
               <td>
@@ -341,7 +379,7 @@
               <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../img/junior.jpeg" />
+                    <img src="../../img/junior.jpeg" />
                   </div>
                   <div class="nome">
                     <span>Júnior</span>
@@ -357,150 +395,7 @@
               </td>
               <td>
                 <div id="editado" class="avatar">
-                  <img src="../img/junior.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="alta">
-                  <span>Alta</span>
-                </div>
-              </td>
-
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="/painel/perguntas/editar/"
-                    ><i class="fas fa-pencil"></i
-                  ></a>
-                  <a href="#"><i class="fas fa-trash-can"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>6</span>
-                </div>
-              </td>
-              <td>
-                <div id="colaborador">
-                  <div class="avatar">
-                    <img src="../img/thiago.jpeg" />
-                  </div>
-                  <div class="nome">
-                    <span>Thiago</span>
-                    <span>Alves</span>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  Quais são as possibilidades de carreira para os profissionais
-                  formados na Fatec?
-                </div>
-              </td>
-              <td>
-                <div id="editado" class="avatar">
-                  <img src="../img/thiago.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="normal">
-                  <span>Normal</span>
-                </div>
-              </td>
-
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="/painel/perguntas/editar/"
-                    ><i class="fas fa-pencil"></i
-                  ></a>
-                  <a href="#"><i class="fas fa-trash-can"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>7</span>
-                </div>
-              </td>
-              <td>
-                <div id="colaborador">
-                  <div class="avatar">
-                    <img src="../img/marcia.jpeg" />
-                  </div>
-                  <div class="nome">
-                    <span>Marcia</span>
-                    <span>Reggiolli</span>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  Quais são as formas de ingresso na Fatec?
-                </div>
-              </td>
-              <td>
-                <div id="editado" class="avatar">
-                  <img src="../img/marcia.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="normal">
-                  <span>Normal</span>
-                </div>
-              </td>
-
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="/painel/perguntas/editar/"
-                    ><i class="fas fa-pencil"></i
-                  ></a>
-                  <a href="#"><i class="fas fa-trash-can"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>8</span>
-                </div>
-              </td>
-              <td>
-                <div id="colaborador">
-                  <div class="avatar">
-                    <img src="../img/thiago.jpeg" />
-                  </div>
-                  <div class="nome">
-                    <span>Thiago</span>
-                    <span>Alves</span>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  A Fatec oferece algum tipo de suporte para alunos com
-                  dificuldades de aprendizagem?
-                </div>
-              </td>
-              <td>
-                <div id="editado" class="avatar">
-                  <img src="../img/thiago.jpeg" />
+                  <img src="../../img/junior.jpeg" />
                 </div>
               </td>
               <td>
