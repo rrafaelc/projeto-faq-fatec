@@ -354,6 +354,18 @@ main {
   background-color: var(--prata-base);
 }
 
+.dados .titulo h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--titulos);
+}
+
+@media (max-width: 1500px) {
+  .dados .titulo h1 {
+    font-size: 2.6rem;
+  }
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
