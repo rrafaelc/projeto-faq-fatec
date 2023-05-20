@@ -60,6 +60,7 @@ main {
 
 .header .usuario {
   display: flex;
+  position: relative;
 }
 
 .header .usuario .foto {
@@ -96,6 +97,52 @@ main {
 
 .header .usuario i {
   font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.header .usuario i.ativo {
+  transform: rotate(180deg);
+}
+
+.header .usuario .dropdown {
+  user-select: none;
+  position: absolute;
+  top: 100%;
+  left: 40px;
+  z-index: 1;
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  border-radius: 0 0 10px 10px;
+  border-top: none;
+  background-color: var(--prata-base);
+  font-weight: 500;
+  display: none;
+}
+
+.header .usuario .dropdown.ativo {
+  display: flex;
+  animation-name: dropdownFadeIn;
+  animation-duration: 0.5s;
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header .usuario .dropdown a {
+  color: var(--cinza-texto);
 }
 
 .cards {
