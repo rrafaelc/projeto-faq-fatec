@@ -13,10 +13,10 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="../../styles/global.css" />
-    <link rel="stylesheet" href="/painel/perguntas/styles.css" />
+    <link rel="stylesheet" href="/painel/curtidas/styles.css" />
 
-    <script src="/painel/perguntas/script.js" defer></script>
-    <title>Painel - Perguntas</title>
+    <script src="/painel/curtidas/script.js" defer></script>
+    <title>Painel - Curtidas</title>
   </head>
   <body>
     <aside class="painel-lateral">
@@ -58,17 +58,17 @@
         <a href="/">Voltar para o FAQ</a>
       </div>
       <div class="logo">
-        <img src="../../img/logo-painel-lateral.svg" />
+        <img src="../../../img/logo-painel-lateral.svg" />
       </div>
     </aside>
     <main>
       <div class="header">
         <div class="grupo">
-          <h1 class="title">Perguntas</h1>
+          <h1 class="title">Curtidas</h1>
           <div class="subgrupo">
             <a href="/painel">Início</a>
             <i class="fas fa-angle-right"></i>
-            <span>Perguntas</span>
+            <span>Curtidas</span>
           </div>
         </div>
         <div class="usuario">
@@ -86,92 +86,44 @@
           </div>
         </div>
       </div>
-      <div class="cards">
-        <div class="card">
-          <div class="icon">
-            <i class="fas fa-database"></i>
-          </div>
-          <div class="info">
-            <div class="numero">25</div>
-            <div class="descricao">Total de perguntas</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="icon prioridade">
-            <i class="fas fa-exclamation"></i>
-          </div>
-          <div class="info">
-            <div class="numero">4</div>
-            <div class="descricao">Total de prioridades</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="icon">
-            <i class="fas fa-heart"></i>
-          </div>
-          <div class="info">
-            <div class="numero">84</div>
-            <div class="descricao">Total de curtidas</div>
-          </div>
-        </div>
-      </div>
-      <div class="adicionar-pergunta">
+      <div class="opcoes-div">
         <div class="titulo">
-          <h1>Adicionar pergunta</h1>
-          <i class="fas fa-angle-down botao"></i>
+          <h1>Opções</h1>
         </div>
         <form>
-          <label for="titulo">Título</label>
-          <input
-            type="text"
-            name="titulo"
-            id="titulo"
-            placeholder="Escreva aqui o título da pergunta"
-            required
-          />
-          <label for="resposta">Resposta</label>
-          <textarea
-            name="resposta"
-            id="resposta"
-            placeholder="Escreva aqui a resposta da pergunta"
-            required
-          ></textarea>
-          <div>
-            <div class="prioridade">
-              <label for="prioridade">Defina o nível de prioridade</label>
+          <div class="opcoes">
+            <div class="opcao">
               <input
-                class="normal"
-                type="button"
-                id="prioridade"
-                value="Normal"
+                type="radio"
+                name="opcao"
+                id="suas-perguntas"
+                value="suas-perguntas"
+                checked
               />
+              <label for="suas-perguntas">Suas perguntas</label>
             </div>
-
-            <button type="submit">Adicionar</button>
+            <div class="opcao">
+              <input type="radio" name="opcao" id="outros" value="outros" />
+              <label for="outros">Outros</label>
+            </div>
           </div>
         </form>
       </div>
       <div class="dados">
-        <div class="titulo">
-          <h1>Suas perguntas</h1>
-        </div>
         <table class="perguntas">
           <thead>
             <tr>
               <th>
                 <span>ID <i class="fas fa-sort-down"></i></span>
               </th>
+              <th class="nao-mostrar">
+                <span>Colaborador <i class="fas fa-sort-down"></i></span>
+              </th>
               <th id="pergunta">
                 <span>Pergunta <i class="fas fa-sort-down"></i></span>
               </th>
-              <th>
-                <span>Editado por <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Prioridade <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Data de edição <i class="fas fa-sort-down"></i></span>
+              <th id="curtidas">
+                <span>Curtidas <i class="fas fa-sort-down"></i></span>
               </th>
               <th>
                 <span>Ação</span>
@@ -185,24 +137,26 @@
                   <span>1</span>
                 </div>
               </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/junior.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Júnior</span>
+                    <span>Gonçalves</span>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div id="pergunta">
                   A Fatec oferece algum tipo de suporte para alunos com
                   dificuldades de aprendizagem?
                 </div>
               </td>
+
               <td>
-                <div id="editado" class="avatar">
-                  <img src="../../img/junior.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="alta">
-                  <span>Alta</span>
-                </div>
-              </td>
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
+                <div id="curtidas"><span>16</span></div>
               </td>
               <td>
                 <div id="acao">
@@ -221,24 +175,26 @@
                   <span>2</span>
                 </div>
               </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/thiago.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Thiago</span>
+                    <span>Alves</span>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div id="pergunta">
                   Quais são as possibilidades de carreira para os profissionais
                   formados na Fatec?
                 </div>
               </td>
+
               <td>
-                <div id="editado" class="avatar">
-                  <img src="../../img/thiago.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="normal">
-                  <span>Normal</span>
-                </div>
-              </td>
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
+                <div id="curtidas"><span>7</span></div>
               </td>
               <td>
                 <div id="acao">
@@ -257,23 +213,25 @@
                   <span>3</span>
                 </div>
               </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/marcia.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Marcia</span>
+                    <span>Reggiolli</span>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div id="pergunta">
                   Quais são as formas de ingresso na Fatec?
                 </div>
               </td>
+
               <td>
-                <div id="editado" class="avatar">
-                  <img src="../../img/marcia.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="normal">
-                  <span>Normal</span>
-                </div>
-              </td>
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
+                <div id="curtidas"><span>4</span></div>
               </td>
               <td>
                 <div id="acao">
@@ -292,24 +250,26 @@
                   <span>4</span>
                 </div>
               </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/thiago.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Thiago</span>
+                    <span>Alves</span>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div id="pergunta">
                   A Fatec oferece algum tipo de suporte para alunos com
                   dificuldades de aprendizagem?
                 </div>
               </td>
+
               <td>
-                <div id="editado" class="avatar">
-                  <img src="../../img/thiago.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="alta">
-                  <span>Alta</span>
-                </div>
-              </td>
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
+                <div id="curtidas"><span>10</span></div>
               </td>
               <td>
                 <div id="acao">
@@ -328,24 +288,26 @@
                   <span>5</span>
                 </div>
               </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/junior.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Júnior</span>
+                    <span>Gonçalves</span>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div id="pergunta">
                   A Fatec oferece algum tipo de suporte para alunos com
                   dificuldades de aprendizagem?
                 </div>
               </td>
+
               <td>
-                <div id="editado" class="avatar">
-                  <img src="../../img/junior.jpeg" />
-                </div>
-              </td>
-              <td>
-                <div id="prioridade" class="alta">
-                  <span>Alta</span>
-                </div>
-              </td>
-              <td>
-                <div id="edicao"><span>08/11/2023</span></div>
+                <div id="curtidas"><span>12</span></div>
               </td>
               <td>
                 <div id="acao">
@@ -358,7 +320,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="paginacao">
+        <div class="paginacao nao-mostrar">
           <div class="pg disabled">
             <span>Anterior</span>
           </div>
