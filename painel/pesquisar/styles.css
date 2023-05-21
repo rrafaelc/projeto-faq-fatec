@@ -44,7 +44,8 @@ main {
   color: var(--cinza-texto);
 }
 
-.header .subgrupo {
+.header .subgrupo,
+.header .subgrupo a {
   font-size: 1.6rem;
   font-weight: 500;
   color: var(--preto-fraco);
@@ -54,7 +55,7 @@ main {
   gap: 10px;
 }
 
-.header .subgrupo span:first-of-type {
+.header .subgrupo a {
   color: var(--cinza-texto);
 }
 
