@@ -1,0 +1,235 @@
+body {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-right: 30px;
+
+  display: flex;
+  gap: 30px;
+
+  background-color: var(--cinza-fraco);
+}
+
+main {
+  max-width: 1580px;
+  width: 100%;
+  min-height: 100%;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.header {
+  background-color: var(--prata-base);
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 40px;
+  border-radius: 10px;
+}
+
+.header .grupo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header .grupo h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--titulos);
+}
+
+.header .grupo i {
+  font-size: 1.6rem;
+  color: var(--cinza-texto);
+}
+
+.header .subgrupo,
+.header .subgrupo a {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--preto-fraco);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header .subgrupo a {
+  color: var(--cinza-texto);
+}
+
+.header .usuario {
+  display: flex;
+  position: relative;
+}
+
+.header .usuario .foto {
+  height: 70px;
+}
+
+.header .usuario .foto img {
+  height: 100%;
+  border-radius: 100%;
+}
+
+.header .nome {
+  display: flex;
+  flex-direction: column;
+}
+
+.header .usuario {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: var(--cinza-texto);
+}
+
+.header .usuario .nome span:first-of-type {
+  font-weight: 500;
+  font-size: 2.4rem;
+}
+
+.header .usuario .nome span + span {
+  font-size: 1.6rem;
+  font-weight: normal;
+}
+
+.header .usuario i {
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.header .usuario i.ativo {
+  transform: rotate(180deg);
+}
+
+.header .usuario .dropdown {
+  user-select: none;
+  position: absolute;
+  top: 100%;
+  left: 40px;
+  z-index: 1;
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  border-radius: 0 0 10px 10px;
+  border-top: none;
+  background-color: var(--prata-base);
+  font-weight: 500;
+  display: none;
+}
+
+.header .usuario .dropdown.ativo {
+  display: flex;
+  animation-name: dropdownFadeIn;
+  animation-duration: 0.5s;
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header .usuario .dropdown a {
+  color: var(--cinza-texto);
+}
+
+.editar-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px 40px;
+  border-radius: 10px;
+  background-color: var(--prata-base);
+}
+
+.editar-dados .titulo h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: var(--titulos);
+}
+
+.editar-dados .titulo span {
+  display: block;
+  margin-top: 5px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--vermelho-base);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--vermelho-base);
+  margin-bottom: 5px;
+}
+
+form input {
+  margin-bottom: 30px;
+  width: 600px;
+
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--cinza-texto);
+
+  font-size: 2.4rem;
+  color: var(--preto-escuro);
+}
+
+form button {
+  align-self: flex-start;
+  padding: 15px 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--azul-destaque);
+  color: var(--preto-escuro);
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+form button:active {
+  transform: scale(0.95);
+}
+
+form button.disabled {
+  background-color: var(--cinza-fraco);
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+@media (max-width: 1500px) {
+  .editar-dados .titulo h1 {
+    font-size: 2.6rem;
+  }
+
+  form label {
+    font-size: 1.6rem;
+  }
+
+  form input {
+    width: 500px;
+    font-size: 1.6rem;
+  }
+
+  form button {
+    font-size: 1.6rem;
+  }
+}
