@@ -137,12 +137,6 @@ main {
   padding: 0 2rem;
 }
 
-.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .content {
   max-height: 0;
@@ -197,14 +191,7 @@ main {
 }
 
 /*----------------------------------Media---------------------------------- */
-
-
 @media (max-width: 1000px) {
-
-  /* menu hamburger configs */
-  .header-content {
-    max-width: 80%;
-  }
 
   /* Footer configs */
   .footer-container {
@@ -236,52 +223,6 @@ main {
     display: none;
   }
 
-  /* responsividade navbar/menu hamburger */
-  .login {
-    display: none;
-  }
-
-  .nav-items {
-    display: none;
-  }
-
-  .nav-items {
-    display: none;
-  }
-
-  .menu-hamburger {
-    display: block;
-    position: relative;
-  }
-
-  .menu-hamburger-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    width: 30vw;
-    min-width: 200px;
-    text-align: center;
-    border: 0.5px solid var(--preto-escuro);
-    border-radius: 5px;
-    background-color: var(--cinza-fraco);
-  }
-
-  .menu-hamburger-content a {
-    display: block;
-    padding: 1rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-    letter-spacing: 0.1rem;
-    text-decoration: none;
-  }
-
-  .menu-hamburger-content a:hover {
-    color: var(--vermelho-escuro);
-  }
-
-  .menu-hamburger-content a.active {
-    background-color: #ddd;
-  }
 
   /* tamanho fonte responsivo */
   .question-title {
