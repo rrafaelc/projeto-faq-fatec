@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,6 +17,7 @@
   <script src="index.js" defer></script>
   <script src="./scripts/global.js" defer></script>
 </head>
+
 <body>
   <header>
     <div class="header-content">
@@ -23,21 +25,23 @@
         <img src="./img/fatec_ra_campinas_itapira_cor.svg" alt="Logo da fatec" />
       </div>
       <div class="nav-items">
-        <a href="/" class="active">Página inicial</a>
+        <a href="/">Página inicial</a>
         <a href="/mais-buscados">Mais buscados</a>
         <a href="/sugestoes">Sugestões</a>
         <a href="/sobre">Sobre</a>
       </div>
       <div class="login">
         <a href="/login">
-          <p>Área</p>
-          <p>Restrita</p>
+          <p class="area-r">Área</p>
+          <p class="area-r">Restrita</p>
         </a>
       </div>
       <div class="menu-hamburger">
         <i class="fa-solid fa-bars"></i>
         <div class="menu-hamburger-content">
           <a href="/">Página inicial</a>
+          <a href="/mais-buscados">Mais buscados</a>
+          <a href="/sugestoes">Sugestões</a>
           <a href="/sobre">Sobre</a>
           <a href="/login">Área Restrita</a>
         </div>
@@ -255,34 +259,36 @@
   </main>
   <footer>
     <div class="footer-container">
-        <div class="fatec-contact">
-          <h1>Fatec Itapira</h1>
-          <h2>
-            <span>Endereço: </span>Rua Tereza Lera Paoletti, 570/590 - Jardim
-            Bela Vista
-          </h2>
-          <h2><span>CEP: </span>13974-080</h2>
-          <h2><span>Telefone: </span> (19) 3843-1996</h2>
-          <h2><span>Whatsapp: </span> (19) 98933-6291 | (19) 3863-5210</h2>
-          <h2><span>E-mail: </span> contato@fatecitapira.edu.br</h2>
+      <div class="fatec-contact">
+        <h1>Fatec Itapira</h1>
+        <h2>
+          <span>Endereço: </span>Rua Tereza Lera Paoletti, 570/590 - Jardim
+          Bela Vista
+        </h2>
+        <h2><span>CEP: </span>13974-080</h2>
+        <h2><span>Telefone: </span> (19) 3843-1996</h2>
+        <h2><span>Whatsapp: </span> (19) 98933-6291 | (19) 3863-5210</h2>
+        <h2><span>E-mail: </span> contato@fatecitapira.edu.br</h2>
+      </div>
+      <div class="fatec-footer-logo">
+        <img src="./img/fatec footer branco.png" alt="Logo fatec" />
+      </div>
+      <div class="cps-logo-footer">
+        <div class="img-1">
+          <img src="./img/logo_cps_versao_br.png" alt="logo centro paula souza" />
         </div>
-        <div class="fatec-footer-logo">
-          <img src="./img/fatec footer branco.png" alt="Logo fatec" />
+        <div class="img-2">
+          <img src="./img/GOV_LOGO_HORIZONTAL_versaÌ_o MONOCROMATICA BRANCA.png" alt="logo governo do estado de sp" />
         </div>
-        <div class="cps-logo-footer">
-          <div class="img-1">
-            <img src="./img/logo_cps_versao_br.png" alt="logo centro paula souza" />
-          </div>
-          <div class="img-2">
-            <img src="./img/GOV_LOGO_HORIZONTAL_versaÌ_o MONOCROMATICA BRANCA.png" alt="logo governo do estado de sp" />
-          </div>
-        </div>
+      </div>
     </div>
     <div class="copyright">
       <p>
-        Copyright © <span id="copyright-date"></span> Fatec Itapira - Todos os Direitos Reservados - Desenvolvido por Equipe de DSM da Fatec
+        Copyright © <span id="copyright-date"></span> Fatec Itapira - Todos os Direitos Reservados - Desenvolvido por
+        Equipe de DSM da Fatec
       </p>
     </div>
   </footer>
 </body>
+
 </html>
