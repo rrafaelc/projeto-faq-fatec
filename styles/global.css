@@ -42,6 +42,19 @@ header {
   top: 0;
 }
 
+/* Menu Hamburger */
+.menu-hamburger-content.show {
+  display: block;
+}
+
+.menu-hamburger {
+  display: none;
+}
+
+.menu-hamburger i {
+  font-size: 25px;
+}
+
 a {
   height: 100%;
   display: flex;
@@ -63,7 +76,8 @@ a.active {
 
 .header-content {
   margin: 0 auto;
-  max-width: 1360px;
+  width: 80%;
+  max-width: 1920px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -86,7 +100,8 @@ a.active {
 
 .nav-items {
   display: flex;
-  gap: 60px;
+  width: 70%;
+  justify-content: space-evenly;
 }
 
 .login a {
@@ -104,6 +119,134 @@ a.active {
     max-width: 1300px;
   }
 }
+
+/*------------------------------------Footer------------------------------------*/
+footer {
+  background-color: var(--preto-fraco);
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: 2rem 2rem;
+  max-width: 1920px;
+  margin: 5rem auto 0 auto;
+}
+
+.copyright {
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .3);
+  color: white;
+  font-size: 1.6rem;
+  padding: 1rem 0.3rem;
+}
+
+.fatec-contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  line-height: 2.8rem;
+}
+
+.fatec-contact h1 {
+  color: var(--prata-base);
+}
+
+.fatec-contact span {
+  color: var(--prata-base);
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+}
+
+.fatec-contact h2 {
+  color: var(--cinza-fraco);
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+}
+
+.fatec-footer-logo {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  min-height: 180px;
+  flex: 1;
+  justify-content: center;
+}
+
+.fatec-footer-logo img {
+  max-height: 160px;
+}
+
+.cps-logo-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  min-height: 180px;
+  gap: 1rem;
+
+}
+
+.cps-logo-footer .img-1 {
+  text-align: center;
+  height: 50px;
+  width: 100%;
+}
+
+.cps-logo-footer .img-2 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Media query footer and menu hamburger */
+@media (max-width: 1000px) {
+
+  /* menu hamburger configs */
+
+  /* Footer configs */
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: auto;
+    gap: 2rem;
+  }
+
+  .fatec-contact {
+    line-height: 30px;
+    min-height: 180px;
+
+  }
+
+  .fatec-contact h1 {
+    text-align: center;
+  }
+
+  .fatec-contact h2 {
+    font-size: 1.6rem;
+  }
+
+  .fatec-contact h2 span {
+    font-size: 1.6rem;
+  }
+
+  .cps-logo-footer {
+    min-height: 180px;
+    gap: 5rem;
+  }
+
+  .fatec-footer-logo {
+    min-height: 180px;
+  }
+}
+
 
 /* Painel Lateral */
 .painel-lateral {
@@ -177,7 +320,7 @@ a.active {
     display: none;
   }
 
-  .painel-lateral div a + a {
+  .painel-lateral div a+a {
     display: none;
   }
 

@@ -7,17 +7,10 @@ const questionDiv = document.querySelectorAll('.question');
 //filter
 form.addEventListener('keyup', event => {
   event.preventDefault();
-  const searchValue = document
-    .querySelector('#search-input')
-    .value.toLowerCase();
-
+  const searchValue = document.querySelector('#search-input').value.toLowerCase();
   containers.forEach(container => {
-    const questionTitle = container
-      .querySelector('.question-title')
-      .textContent.toLowerCase();
-    const content = container
-      .querySelector('.content')
-      .textContent.toLowerCase();
+    const questionTitle = container.querySelector('.question-title').textContent.toLowerCase();
+    const content = container.querySelector('.content').textContent.toLowerCase();
 
     if (questionTitle.includes(searchValue) || content.includes(searchValue)) {
       container.style.display = 'block';
@@ -47,13 +40,4 @@ questionDiv.forEach(question => {
       dropIcon.classList.add('rotate');
     }
   });
-});
-
-const hamburgerIcon = document.querySelector('.menu-hamburger');
-const hamburgerContent = document.querySelector('.menu-hamburger-content');
-
-hamburgerIcon.addEventListener('click', function () {
-  // const keywordContainer = document.querySelector('section')
-  hamburgerContent.classList.toggle('show');
-  // keywordContainer.classList.toggle('hamburger-open')
 });
