@@ -36,10 +36,6 @@ button {
   cursor: pointer;
 }
 
-.active {
-  color: var(--vermelho-escuro) !important;
-}
-
 /* Header */
 header {
   width: 100vw;
@@ -96,6 +92,10 @@ a {
 
 a:visited {
   color: var(--titulos);
+}
+
+a.active {
+  color: var(--vermelho-escuro) !important;
 }
 
 .header-content {
