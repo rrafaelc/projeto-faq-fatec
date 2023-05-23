@@ -16,15 +16,11 @@ section {
 .keyword-container {
   width: 100vw;
   background-color: var(--azul-base);
+  min-height: 250px;
 }
 
 .keyword-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+  height: 250px;
 }
 
 .keyword-content h1 {
@@ -59,13 +55,6 @@ section {
   outline: none;
 }
 
-.keyword-container {
-  width: 100vw;
-  background-color: var(--titulos);
-  display: flex;
-  justify-content: center;
-  height: 240px;
-}
 
 .keyword-content {
   width: 100%;
@@ -175,7 +164,7 @@ main {
   padding: 1rem;
 }
 
-.faq-container h2 > i {
+.faq-container h2>i {
   font-size: 25px;
 }
 
@@ -191,6 +180,7 @@ main {
 
 /*----------------------------------Media---------------------------------- */
 @media (max-width: 1000px) {
+
   /* Footer configs */
   .footer-container {
     display: flex;
