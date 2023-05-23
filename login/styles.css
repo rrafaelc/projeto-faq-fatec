@@ -8,11 +8,8 @@
   flex-direction: column;
   align-items: center;
 
-  border: 2px solid var(--preto-escuro);
+  border: 1px solid var(--preto-escuro);
   border-radius: 10px;
-
-  /* Temporario */
-  margin-bottom: 100px;
 }
 
 .container h1 {
@@ -89,4 +86,20 @@ form button:active {
   font-weight: 500;
   font-size: 2rem;
   color: var(--vermelho-base);
+}
+
+@media (max-width: 800px) {
+  .container {
+    max-width: 90%;
+  }
+
+  form input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    border: none;
+  }
 }
