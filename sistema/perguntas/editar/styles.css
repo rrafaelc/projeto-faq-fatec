@@ -287,7 +287,6 @@ main {
 }
 
 td #prioridade {
-  cursor: pointer;
   user-select: none;
 
   padding: 10px 20px;
