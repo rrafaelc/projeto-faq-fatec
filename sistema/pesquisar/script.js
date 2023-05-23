@@ -28,9 +28,7 @@ const colaborador = inputs.querySelector('#colaborador');
 const valorID = id.querySelector('#id');
 const valorTitulo = titulo.querySelector('#titulo');
 
-const colaboradores = form.querySelectorAll(
-  'input[type="radio"][name="usuario"]',
-);
+const colaboradores = form.querySelectorAll('input[type="radio"][name="usuario"]');
 
 let opcaoEscolhida = 'id';
 let usuarioEscolhido = '';

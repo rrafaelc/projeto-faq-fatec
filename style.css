@@ -16,15 +16,7 @@ section {
 .keyword-container {
   width: 100vw;
   background-color: var(--azul-base);
-}
-
-.keyword-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+  min-height: 250px;
 }
 
 .keyword-content h1 {
@@ -59,20 +51,13 @@ section {
   outline: none;
 }
 
-.keyword-container {
-  width: 100vw;
-  background-color: var(--titulos);
-  display: flex;
-  justify-content: center;
-  height: 240px;
-}
-
 .keyword-content {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 250px;
 }
 
 .keyword-content h1 {
@@ -245,7 +230,6 @@ main {
     height: auto;
     align-items: center;
     margin: auto;
-    padding: 20px;
   }
 
   #formulary #search-input {
