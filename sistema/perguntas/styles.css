@@ -206,7 +206,7 @@ main {
 .adicionar-pergunta {
   background-color: var(--prata-base);
   border-radius: 10px;
-  padding: 30px 40px;
+  padding: 0 40px;
 
   display: flex;
   flex-direction: column;
@@ -216,6 +216,8 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding: 30px 0;
 }
 
 .adicionar-pergunta .titulo h1 {

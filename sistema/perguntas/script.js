@@ -11,6 +11,7 @@ botaoUsuario.addEventListener('click', function () {
 //==============================================================================
 
 const perguntas = document.querySelector('.adicionar-pergunta');
+const tituloPerguntas = perguntas.querySelector('.titulo');
 const botaoPerguntas = perguntas.querySelector('.botao');
 const form = perguntas.querySelector('form');
 
@@ -18,7 +19,7 @@ const titulo = form.querySelector('#titulo');
 const resposta = form.querySelector('#resposta');
 const botaoPrioridade = form.querySelector('#prioridade');
 
-botaoPerguntas.addEventListener('click', function () {
+tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
   form.classList.toggle('aberto');
 });

@@ -12,11 +12,12 @@ botaoUsuario.addEventListener('click', function () {
 
 // Gambiarras temporárias, depois sera feito com o backend
 const criarConta = document.querySelector('.criar-conta');
-const botaoAngle = criarConta.querySelector('.botao');
+const tituloCriarConta = criarConta.querySelector('.titulo');
+const botaoAngleDown = criarConta.querySelector('.botao');
 const formCriarConta = criarConta.querySelector('form');
 
-botaoAngle.addEventListener('click', function () {
-  botaoAngle.classList.toggle('aberto');
+tituloCriarConta.addEventListener('click', function () {
+  botaoAngleDown.classList.toggle('aberto');
   formCriarConta.classList.toggle('aberto');
 });
 
