@@ -19,7 +19,6 @@ section {
   min-height: 250px;
 }
 
-
 .keyword-content h1 {
   font-size: 4rem;
   font-weight: 500;
@@ -51,7 +50,6 @@ section {
 #formulary #search-input:focus {
   outline: none;
 }
-
 
 .keyword-content {
   width: 100%;
@@ -162,7 +160,7 @@ main {
   padding: 1rem;
 }
 
-.faq-container h2>i {
+.faq-container h2 > i {
   font-size: 25px;
 }
 
@@ -178,7 +176,6 @@ main {
 
 /*----------------------------------Media---------------------------------- */
 @media (max-width: 1000px) {
-
   /* Footer configs */
   .footer-container {
     display: flex;
