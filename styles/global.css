@@ -174,9 +174,10 @@ footer {
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  padding: 2rem 2rem;
+  padding: 1rem;
+  margin: 0 auto;
   max-width: 1920px;
-  margin: 5rem auto 0 auto;
+  height: 210px;
 }
 
 .copyright {
@@ -192,8 +193,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
-  line-height: 2.8rem;
+  line-height: 3rem;
 }
 
 .fatec-contact h1 {
@@ -231,7 +231,8 @@ footer {
   align-items: center;
   overflow: hidden;
   min-height: 180px;
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
 .cps-logo-footer .img-1 {
@@ -246,8 +247,10 @@ footer {
   width: 100%;
 }
 
+
 /* Media query footer and menu hamburger */
 @media (max-width: 1000px) {
+
   /* responsividade navbar/menu hamburger */
   .menu-hamburger {
     display: block;
@@ -285,8 +288,12 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-height: auto;
     gap: 2rem;
+    height: auto;
+  }
+
+  .cps-logo-footer {
+    margin-top: 0;
   }
 
   .fatec-contact {
@@ -388,7 +395,7 @@ footer {
     display: none;
   }
 
-  .painel-lateral div a + a {
+  .painel-lateral div a+a {
     display: none;
   }
 
