@@ -9,7 +9,6 @@ main {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  margin-top: 5rem;
   flex: 1;
   min-height: 80vh;
 }
@@ -18,6 +17,7 @@ main {
   max-width: 1300px;
   height: 100%;
   padding: 0 2rem;
+  margin: 15px 0;
 }
 
 .content {
@@ -47,14 +47,13 @@ main {
 }
 
 .faq-container {
-  margin: 2rem 0;
   cursor: pointer;
   font-size: 2rem;
   border-radius: 20px;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
-.faq-container h2>i {
+.faq-container h2 > i {
   font-size: 25px;
 }
 
@@ -62,4 +61,8 @@ main {
   color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
+}
+
+.footer-container {
+  margin: 0;
 }

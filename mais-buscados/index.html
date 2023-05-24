@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FAQ FATEC</title>
+    <title>Mais Buscados</title>
     <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/mais-buscados/style.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png" />
@@ -16,10 +16,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
-    <script src="index.js" defer></script>
+    <script src="/mais-buscados/script.js" defer></script>
     <script src="/scripts/global.js" defer></script>
   </head>
-
   <body>
     <header>
       <div class="header-content">
@@ -27,8 +26,8 @@
           <a href="/"><img src="/img/fatec_ra_campinas_itapira_cor.svg" alt="Logo da fatec" /></a>
         </div>
         <div class="nav-items">
-          <a href="/" class="active">Página inicial</a>
-          <a href="/mais-buscados/">Mais buscados</a>
+          <a href="/">Página inicial</a>
+          <a href="/mais-buscados" class="active">Mais buscados</a>
           <a href="/sugestoes">Sugestões</a>
           <a href="/sobre">Sobre</a>
         </div>
@@ -50,19 +49,6 @@
         </div>
       </div>
     </header>
-    <section id="keywordSection">
-      <div class="keyword-container">
-        <div class="keyword-content">
-          <h1>Filtre sua dúvida</h1>
-          <form id="formulary">
-            <div class="input-container">
-              <i class="fas fa-search"></i>
-              <input id="search-input" type="text" placeholder="Ex: O que é a Fatec Itapira?" />
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
     <main>
       <div class="wrapper">
         <div class="container">
@@ -77,10 +63,6 @@
               <p>
                 A Fatec Itapira é uma unidade da Faculdade de Tecnologia do Estado de São Paulo
                 (Fatec), que oferece cursos de graduação tecnológica na área de tecnologia e gestão.
-              </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
               </p>
             </div>
           </div>
@@ -97,10 +79,6 @@
                 ou equivalente, e ser aprovado no processo seletivo, que pode ser feito por meio de
                 vestibular ou do Enem.
               </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -115,10 +93,6 @@
                 A Fatec Itapira oferece cursos de graduação tecnológica em Gestão Empresarial e
                 Análise e Desenvolvimento de Sistemas.
               </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -130,10 +104,6 @@
             </div>
             <div class="content">
               <p>Os cursos oferecidos na Fatec Itapira têm duração de 3 anos.</p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -145,10 +115,6 @@
             </div>
             <div class="content">
               <p>Não, a Fatec Itapira oferece apenas cursos de graduação tecnológica.</p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -163,10 +129,6 @@
                 A Fatec Itapira é uma instituição pública, mantida pelo Centro Paula Souza, que é
                 uma autarquia do Estado de São Paulo.
               </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
 
@@ -179,10 +141,6 @@
             </div>
             <div class="content">
               <p>Não, a Fatec Itapira oferece apenas ensino presencial.</p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -197,10 +155,6 @@
                 Sim, a Fatec Itapira possui programas de intercâmbio com instituições de ensino em
                 diversos países, que permitem aos estudantes vivenciar outras culturas e ampliar
                 seus conhecimentos acadêmicos e profissionais.
-              </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
               </p>
             </div>
           </div>
@@ -219,10 +173,6 @@
                 moderna e completa, com laboratórios equipados e salas de aula confortáveis e
                 climatizadas.
               </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
-              </p>
             </div>
           </div>
           <div class="faq-container">
@@ -238,10 +188,6 @@
                 alimentação, além de serviços de orientação psicopedagógica e de encaminhamento ao
                 mercado de trabalho, entre outros benefícios aos estudantes em situação de
                 vulnerabilidade socioeconômica ou com desempenho acadêmico excepcional.
-              </p>
-              <p>
-                Essa resposta foi útil?
-                <i id="heart" class="fa-solid fa-heart"></i>
               </p>
             </div>
           </div>
