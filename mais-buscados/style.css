@@ -53,7 +53,7 @@ main {
   padding: 1rem 0;
 }
 
-.faq-container h2>i {
+.faq-container h2 > i {
   font-size: 25px;
 }
 

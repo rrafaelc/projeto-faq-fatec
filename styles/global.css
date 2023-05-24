@@ -247,10 +247,8 @@ footer {
   width: 100%;
 }
 
-
 /* Media query footer and menu hamburger */
 @media (max-width: 1000px) {
-
   /* responsividade navbar/menu hamburger */
   .menu-hamburger {
     display: block;
@@ -395,7 +393,7 @@ footer {
     display: none;
   }
 
-  .painel-lateral div a+a {
+  .painel-lateral div a + a {
     display: none;
   }
 
