@@ -19,7 +19,6 @@ section {
   min-height: 250px;
 }
 
-
 .keyword-content h1 {
   font-size: 4rem;
   font-weight: 500;
@@ -155,29 +154,31 @@ main {
 
 .faq-container {
   margin: 2rem 0;
-  cursor: pointer;
   font-size: 2rem;
   border-radius: 20px;
   padding: 1rem;
 }
 
-.faq-container h2>i {
+.faq-container h2 > i {
   font-size: 25px;
 }
-
+.question {
+  cursor: pointer;
+}
 .question-title {
   color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
 }
-
+#heart {
+  cursor: pointer;
+}
 .heart-clicked {
   color: var(--vermelho-base) !important;
 }
 
 /*----------------------------------Media---------------------------------- */
 @media (max-width: 1000px) {
-
   /* Footer configs */
   .footer-container {
     display: flex;
