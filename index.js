@@ -83,14 +83,14 @@ questionsContainer.innerHTML = questions
   )
   .join('');
 
-const form = document.querySelector('#formulary');
+const form = document.querySelector('form');
 const heart = document.querySelectorAll('#heart');
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
 const containers = document.querySelectorAll('.faq-container');
 form.addEventListener('keyup', event => {
   event.preventDefault();
-  const searchValue = document.querySelector('#search-input').value.toLowerCase();
+  const searchValue = form.querySelector('input').value.toLowerCase();
   containers.forEach(container => {
     const questionTitleText = container.querySelector('.question-title').textContent.toLowerCase();
     const content = container.querySelector('.content').textContent.toLowerCase();
