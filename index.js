@@ -84,7 +84,7 @@ questionsContainer.innerHTML = questions
   .join('');
 
 const form = document.querySelector('form');
-const heart = document.querySelectorAll('#heart');
+const hearts = document.querySelectorAll('#heart');
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
 const containers = document.querySelectorAll('.faq-container');
@@ -104,7 +104,7 @@ form.addEventListener('keyup', event => {
 });
 
 //deixa o coração vermelho ao clicar
-heart.forEach(heart => {
+hearts.forEach(heart => {
   heart.addEventListener('click', () => {
     heart.classList.toggle('heart-clicked');
   });
@@ -113,7 +113,7 @@ heart.forEach(heart => {
 //efeito no click na pergunta
 
 questionsContainer.addEventListener('click', e => {
-  const questionTitle = e.target.closest('.question-title'); // closest pega o elemento pai mais proximo
+  const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {
     const dropIcon = questionTitle.querySelector('.drop');
     const content = questionTitle.parentElement.nextElementSibling;
