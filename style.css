@@ -154,7 +154,6 @@ main {
 
 .faq-container {
   margin: 2rem 0;
-  cursor: pointer;
   font-size: 2rem;
   border-radius: 20px;
   padding: 1rem;
@@ -163,13 +162,17 @@ main {
 .faq-container h2 > i {
   font-size: 25px;
 }
-
+.question {
+  cursor: pointer;
+}
 .question-title {
   color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
 }
-
+#heart {
+  cursor: pointer;
+}
 .heart-clicked {
   color: var(--vermelho-base) !important;
 }
