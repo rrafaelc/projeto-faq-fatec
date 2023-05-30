@@ -1,7 +1,7 @@
-const mostSearchedQuestions = document.querySelector('.container');
+const mostSearchedQuestionsContainer = document.querySelector('.container');
 
 // Mostrar as perguntas na tela
-const perguntasMaisBuscadas = [
+const mostSearchedQuestions = [
   {
     titulo: 'Quais são as áreas de atuação dos cursos da Fatec Itapira?',
     conteudo:
@@ -39,7 +39,7 @@ const perguntasMaisBuscadas = [
   },
 ];
 
-mostSearchedQuestions.innerHTML = perguntasMaisBuscadas
+mostSearchedQuestionsContainer.innerHTML = mostSearchedQuestions
   .map(
     pergunta =>
       `
@@ -63,7 +63,7 @@ const form = document.querySelector('form');
 const hearts = document.querySelectorAll('#heart');
 
 //efeito no click na pergunta
-mostSearchedQuestions.addEventListener('click', e => {
+mostSearchedQuestionsContainer.addEventListener('click', e => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {
     const dropIcon = questionTitle.querySelector('.drop');
