@@ -1,4 +1,4 @@
-const maisBuscadosQuestionsContainer = document.querySelector('.container');
+const mostSearchedQuestions = document.querySelector('.container');
 
 // Mostrar as perguntas na tela
 const perguntasMaisBuscadas = [
@@ -39,7 +39,7 @@ const perguntasMaisBuscadas = [
   },
 ];
 
-maisBuscadosQuestionsContainer.innerHTML = perguntasMaisBuscadas
+mostSearchedQuestions.innerHTML = perguntasMaisBuscadas
   .map(
     pergunta =>
       `
@@ -63,7 +63,7 @@ const form = document.querySelector('form');
 const hearts = document.querySelectorAll('#heart');
 
 //efeito no click na pergunta
-maisBuscadosQuestionsContainer.addEventListener('click', e => {
+mostSearchedQuestions.addEventListener('click', e => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {
     const dropIcon = questionTitle.querySelector('.drop');
