@@ -193,7 +193,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 3rem;
+  line-height: 2.5rem;
 }
 
 .fatec-contact h1 {
@@ -279,7 +279,19 @@ footer {
   .menu-hamburger-content a.active {
     background-color: #ddd;
   }
+  /* tamanho fonte responsivo */
+  .question-title {
+    font-size: 2.4rem;
+  }
 
+  .content p {
+    font-size: 2rem;
+  }
+
+  .keyword-content h1 {
+    font-size: 3rem;
+    font-weight: 500;
+  }
   /* Footer configs */
   .footer-container {
     display: flex;
@@ -399,5 +411,12 @@ footer {
 
   .painel-lateral .logo {
     display: none;
+  }
+}
+
+/* ajuste no contato do footer */
+@media (min-width: 1180px) {
+  .fatec-contact {
+    line-height: 3rem;
   }
 }

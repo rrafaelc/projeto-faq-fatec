@@ -179,50 +179,10 @@ main {
 
 /*----------------------------------Media---------------------------------- */
 @media (max-width: 1000px) {
-  /* Footer configs */
-  .footer-container {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .fatec-contact {
-    line-height: 30px;
-  }
-
-  .fatec-contact h1 {
-    text-align: center;
-  }
-
-  .fatec-contact h2 {
-    font-size: 1.6rem;
-  }
-
-  .fatec-contact h2 span {
-    font-size: 1.6rem;
-  }
-
   /* removendo icone */
   .input-container i {
     display: none;
   }
-
-  /* tamanho fonte responsivo */
-  .question-title {
-    font-size: 2.4rem;
-  }
-
-  .content p {
-    font-size: 2rem;
-  }
-
-  .keyword-content h1 {
-    font-size: 3rem;
-    font-weight: 500;
-  }
-
   /* formulario */
   .keyword-container h1 {
     font-size: 3.5rem;
