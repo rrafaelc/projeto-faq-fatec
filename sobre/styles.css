@@ -19,7 +19,7 @@ a:visited {
   flex-direction: column;
   align-items: center;
   color: var(--titulos);
-  margin-top: 15px;
+  margin: 3rem 0;
 }
 
 .lista {
@@ -30,41 +30,41 @@ a:visited {
 }
 
 .integrantes {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 10rem auto;
+}
+.integrantes h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: var(--titulos);
+}
+.integrantes-container {
+  width: 100%;
 }
 
-.left-side {
-  width: 50%;
-  display: grid;
-  place-items: center;
-  margin-bottom: 100px;
-}
-
-.avatar {
+.integrantes-info {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.avatar {
+  margin: 5rem 0;
+  width: 45%;
+  display: flex;
   align-items: center;
-  gap: 20px;
   justify-content: center;
+  height: 200px;
+  gap: 15px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px 2px rgba(0, 72, 84, 0.2);
 }
-
-.right-side {
-  width: 50%;
-  display: grid;
-  place-items: center;
-  margin-bottom: 100px;
-}
-
 .integrantes img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  display: inline-block;
 }
 
 .dados-fatec p {
@@ -72,14 +72,12 @@ a:visited {
   font-weight: bold;
 }
 
-#claudinei {
-  word-break: break-all;
-}
-
 .linkedin a {
   display: flex;
   align-items: center;
-  gap: 10px;
+  width: 15vw;
+  gap: 15px;
+  overflow: hidden;
 }
 
 .linkedin img {
@@ -90,5 +88,26 @@ a:visited {
 @media (max-width: 500px) {
   .integrantes {
     justify-content: flex-start;
+  }
+}
+@media (max-width: 1000px) {
+  .integrantes-info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .avatar {
+    width: 80%;
+    justify-content: space-evenly;
+    padding: 5rem;
+  }
+  .linkedin {
+    width: 70%;
+  }
+  .linkedin a {
+    width: 100%;
   }
 }
