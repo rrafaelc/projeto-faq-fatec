@@ -1,65 +1,101 @@
 const questionsContainer = document.querySelector('.container');
 
+const addLinksToContent = content => {
+  const linkRegex = /((http|https):\/\/[^\s]+)/g;
+  const linkReplacement = '<a href="$1" target="_blank">$1</a>';
+  return content.replace(linkRegex, linkReplacement);
+};
 // Mostrar as perguntas na tela
 const questions = [
   {
-    titulo: 'O que é a Fatec Itapira?',
+    titulo: 'Como faço para trancar minha matrícula?',
     conteudo:
-      'A Fatec Itapira é uma instituição de ensino superior localizada na cidade de Itapira, no estado de São Paulo, Brasil. Ela faz parte do Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS) e oferece cursos superiores de tecnologia.',
+      'De acordo com o artigo 35 do Regulamento Geral dos Cursos das Fatecs, o aluno veterano tem a opção de fazer até dois trancamentos de matrícula, seja de forma consecutiva ou não. Para solicitar o trancamento, o aluno deve comparecer à Secretaria Acadêmica da Unidade com a sua carteirinha e preencher um requerimento de solicitação de trancamento. É importante observar que o pedido de trancamento de matrícula só pode ser realizado dentro do prazo final estipulado no Calendário Acadêmico, disponível no site da Fatec de Itapira https://fatecitapira.edu.br',
   },
   {
-    titulo: 'Quais cursos são oferecidos pela Fatec Itapira?',
-    conteudo:
-      'A Fatec Itapira oferece cursos superiores de tecnologia em Análise e Desenvolvimento de Sistemas (ADS) e em Gestão da Tecnologia da Informação (GTI). Esses cursos têm duração de três anos.',
+    titulo: 'Como faço para pedir um atestado?',
+    conteudo: `Os atestados devem ser solicitados no sistema SIGA (Sistema Integrado de Gestão Acadêmica), na opção Solicitação de Documentos. 
+
+      O acesso ao SIGA pode ser feito pelo seguinte link: https://siga.cps.sp.gov.br/aluno/login.aspx  
+
+      Após 3 dias úteis o atestado ficará disponível na tela de Solicitação de Documentos e também será enviado para o aluno na plataforma Ms Teams. `,
   },
   {
-    titulo: 'Como é o processo seletivo para ingressar na Fatec Itapira?',
+    titulo: 'Como faço para ver o meu horário de aula? ',
     conteudo:
-      'O processo seletivo da Fatec Itapira é realizado por meio de um vestibular, que geralmente ocorre duas vezes ao ano. Os candidatos precisam se inscrever, realizar a prova e obter uma pontuação mínima para serem classificados.',
+      'Para obter o horário de aula atualizado da Fatec de Itapira, aconselho acessar o site oficial da instituição em https://fatecitapira.edu.br Lá, você encontrará informações detalhadas sobre os horários de aula de cada curso oferecido, bem como outras informações relevantes sobre a instituição. É sempre recomendável verificar o site da Fatec de Itapira regularmente, pois o horário de aula pode ser atualizado a cada semestre ou período letivo. ',
   },
   {
-    titulo: 'A Fatec Itapira é uma instituição gratuita?',
-    conteudo:
-      'Sim, a Fatec Itapira é uma instituição pública e, portanto, seus cursos são gratuitos. Os alunos aprovados não precisam pagar mensalidades para estudar na Fatec. No entanto, é importante observar que existem outros custos associados à vida acadêmica, como material didático e transporte.',
+    titulo: 'Como fazer minha rematrícula?',
+    conteudo: `Para fazer a rematrícula o aluno deve acessar o sistema SIGA (Sistema Integrado de Gestão Acadêmica) dentro do prazo de rematrícula, conforme previsão do Calendário de Escolar e clicar em Rematrícula. Cabe lembrar que a rematrícula só estará liberada após a entrega de todos os documentos originais solicitados pela secretaria, e após a confirmação de recebimento do e-mail com as instruções para a rematrícula. 
+
+      O acesso ao SIGA pode ser feito pelo seguinte link https://siga.cps.sp.gov.br/aluno/login.aspx e o Calendário Escolar poderá ser consultado em https://fatecitapira.edu.br 
+      `,
   },
   {
-    titulo: 'Quais são as áreas de atuação dos cursos da Fatec Itapira?',
+    titulo: 'Perdi minha senha do e-mail, como eu resolvo? ',
     conteudo:
-      'Os cursos de Análise e Desenvolvimento de Sistemas e Gestão da Tecnologia da Informação da Fatec Itapira capacitam os alunos para atuarem em diversas áreas do mercado de tecnologia da informação. Os formados podem trabalhar como programadores, desenvolvedores de software, analistas de sistemas, gerentes de projetos de TI, entre outras possibilidades.',
+      'O aluno que perder a sua senha do e-mail deve procurar a Secretaria Acadêmica da Unidade para solicitar a redefinição de senha do e-mail.',
   },
   {
-    titulo: 'A Fatec Itapira oferece algum tipo de suporte aos estudantes?',
+    titulo: 'Não consigo acessar o SIGA, como eu faço?',
     conteudo:
-      'Sim, a Fatec Itapira oferece suporte aos estudantes de várias formas. Existem programas de assistência estudantil, como bolsas de estudo e auxílio transporte, para aqueles que se qualificam. Além disso, a instituição conta com biblioteca, laboratórios de informática e outros recursos para auxiliar no aprendizado dos alunos.',
+      'O aluno que não conseguir acessar o sistema SIGA (Sistema Integrado de Gestão Acadêmica) deverá enviar uma mensagem eletrônica, DO SEU E-MAIL INSTITUCIONAL, para o endereço f278acad@cps.sp.gov.br solicitando uma nova senha ou o desbloqueio do seu acesso. Caso o problema de acesso seja o esquecimento da senha, a Secretaria Acadêmica irá responder este e-mail com a nova senha temporária.',
   },
   {
-    titulo: 'Qual é a localização da Fatec Itapira?',
-    conteudo:
-      'A Fatec Itapira está localizada na Rua São Paulo, 720 - Centro, Itapira - SP, CEP 13970-160, Brasil.',
+    titulo: 'Quem é o coordenador? (alunos ingressantes) ',
+    conteudo: `Cada curso na Fatec de Itapira possui um coordenador responsável por auxiliar os alunos. O Coordenador é um docente eleito pelos docentes e designado pela Direção para desempenhar um papel importante na orientação dos estudantes, no acompanhamento do currículo do curso e na resolução de questões acadêmicas relacionadas ao programa de estudos. 
+      O Coordenador do curso está disponível para esclarecer dúvidas, fornecer orientações sobre disciplinas, carga horária, estágios, projetos, entre outros assuntos relacionados ao curso. Além disso, o Coordenador pode ajudar a resolver questões administrativas e fornecer informações relevantes sobre a área de estudo do curso. 
+    CST em Gestão da Produção Industrial – Prof. José Marcos Romão Júnior  (jose.romao@fatec.sp.gov.br) 
+
+    CST em Gestão Empresarial – Prof. Gilberto Brandão Marcon (gilberto.marcon@fatec.sp.gov.br) 
+
+    CST em Desenvolvimento de Software Multiplataforma – Profa. Márcia Regina Reggiolli (marcia.reggiolli@fatec.sp.gov.br)
+
+    CST em Gestão da Tecnologia da Informação – Prof. Mateus Guilherme Fuini (mateus.fuini@fatec.sp.gov.br) </pre></strong> `,
   },
   {
-    titulo: 'A Fatec Itapira oferece cursos de pós-graduação?',
-    conteudo:
-      'Atualmente, a Fatec Itapira oferece apenas cursos de graduação, não oferecendo programas de pós-graduação.',
+    titulo: 'Posso usar a biblioteca/laboratório fora do horário de aula? ',
+    conteudo: ` Sim, os alunos da Fatec de Itapira têm permissão para utilizar a biblioteca e as salas de estudos fora do horário de aula, desde que esses espaços estejam abertos e haja funcionários presentes. A Fatec de Itapira reconhece a importância do acesso a recursos educacionais e espaços adequados para estudo, e, portanto, permite que os alunos façam uso dessas instalações quando disponíveis. 
+      É importante ressaltar que o acesso à biblioteca e às salas de estudos fora do horário de aula pode variar de acordo com as políticas internas da instituição e as restrições aplicáveis em determinados períodos. Por isso, é recomendável verificar os horários de funcionamento e as regras específicas junto à administração da Fatec de Itapira ou com os responsáveis pela biblioteca e pelas salas de estudos. 
+      `,
   },
   {
-    titulo: 'Como posso entrar em contato com a Fatec Itapira?',
-    conteudo:
-      'Você pode entrar em contato com a Fatec Itapira através do telefone (19) 3863-7240 ou pelo e-mail fatec.itapira@fatec.sp.gov.br. Também é possível visitar o site oficial da instituição para obter mais informações.',
+    titulo: 'Qual o horário de funcionamento da biblioteca? ',
+    conteudo: `O horário de funcionamento da biblioteca e da sala de estudos neste 1º semestre de 2023 ocorre: 
+    <strong>
+    Segunda-feira – das 14h às 19h e das 21h às 22h 
+    Terça-feira – das 17h às 22h 
+    Quarta-feira – das 13h às 22h 
+    Quinta-feira – das 18h às 20h 
+    Sexta-feira – das 13h às 18h 
+    Sábado – das 10h às 14h</strong>`,
   },
   {
-    titulo: 'A Fatec Itapira possui parcerias com empresas ou instituições?',
-    conteudo:
-      'Sim, a Fatec Itapira busca estabelecer parcerias com empresas e instituições do mercado, proporcionando oportunidades de estágio e projetos conjuntos. Essas parcerias visam aproximar os estudantes do ambiente profissional e promover a inserção no mercado de trabalho.',
+    titulo: 'Quando abre o vestibular? ',
+    conteudo: `O Processo Seletivo Vestibular da Fatec de Itapira para ingresso de novos alunos acontece duas vezes por ano. Essas datas costumam ser nos últimos meses de cada semestre. 
+      As aulas para o 1º semestre geralmente começam na primeira quinzena do mês de fevereiro. Esse é o período em que os alunos aprovados no vestibular iniciam suas atividades acadêmicas na instituição. 
+      Já as aulas para o 2º semestre normalmente têm início na primeira quinzena do mês de agosto. Nesse momento, novos alunos aprovados no processo seletivo têm a oportunidade de começar sua trajetória na Fatec de Itapira. 
+      É importante lembrar que essas informações são baseadas em padrões gerais e podem estar sujeitas a alterações. Recomenda-se que os interessados em ingressar na Fatec de Itapira consultem o site oficial da instituição ou entrem em contato com a Fatec de Itapira para obter informações atualizadas sobre o calendário do processo seletivo e o início das aulas em cada semestre. 
+      `,
   },
   {
-    titulo: 'A Fatec Itapira possui programas de intercâmbio?',
-    conteudo:
-      'A Fatec Itapira pode oferecer programas de intercâmbio acadêmico em parceria com outras instituições de ensino, proporcionando aos alunos a oportunidade de vivenciar experiências internacionais. É recomendado verificar junto à instituição quais são as possibilidades e requisitos para participar de programas de intercâmbio.',
+    titulo: 'Quais os cursos?  ',
+    conteudo: `Atualmente a Fatec de Itapira oferece um total de 120 vagas, distribuídas entre os seguintes Cursos Superiores Tecnológicos: 
+
+      - CST em Gestão da Produção Industrial – saiba mais em https://fatecitapira.edu.br/gpi.html 
+
+      - CST em Gestão Empresarial – saiba mais em https://fatecitapira.edu.br/ge.html 
+
+      - CST em Desenvolvimento de Software Multiplataforma – saiba mais em https://fatecitapira.edu.br/dsm.html`,
+  },
+  {
+    titulo: 'Posso trocar de curso?',
+    conteudo: `De acordo com o Regulamento dos Cursos de Graduação das Fatecs existe a opção de transferência intercursos dentro das Fatecs, porém como pré-requisito o aluno deve possuir pelo menos metade das disciplinas do 1º semestre do curso desejado eliminadas com aproveitamento de estudos. Em seguida o candidato deverá acessar o site da Fatec de Itapira https://fatecitapira.edu.br e fazer o download do Edital de Transferência Interna. A divulgação do edital ocorre um pouco antes período das inscrições para transferência cujas datas estão especificadas no Calendário Escolar também disponível no site https://fatecitapira.edu.br.   `,
   },
 ];
 
-questionsContainer.innerHTML = questions
+questionsContainer.innerHTML += questions
   .map(
     question =>
       `
@@ -72,7 +108,7 @@ questionsContainer.innerHTML = questions
         </div>
         <div class="content">
           <p>
-            ${question.conteudo}
+            ${addLinksToContent(question.conteudo)}
           </p>
           <p>
             Essa resposta foi útil?
