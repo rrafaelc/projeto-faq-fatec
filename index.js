@@ -5,7 +5,7 @@ const replaceLineBreaks = content => {
 };
 
 const addLinksToContent = content => {
-  const linkRegex = /((http|https):\/\/[^\s]+)/g;
+  const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
   const linkReplacement = '<a href="$1" target="_blank">$1</a>';
   return content.replace(linkRegex, linkReplacement);
 };
