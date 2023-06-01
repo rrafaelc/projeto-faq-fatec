@@ -164,8 +164,7 @@ questionsContainer.addEventListener('click', e => {
     dropIcon.classList.toggle('rotate');
 
     if (content.classList.contains('show')) {
-      // content.style.maxHeight = `${content.scrollHeight}px`;
-      content.style.maxHeight = '2000px';
+      content.style.maxHeight = `${content.scrollHeight}px`;
     } else {
       content.style.maxHeight = null;
     }
