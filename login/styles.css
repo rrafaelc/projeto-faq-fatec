@@ -16,7 +16,7 @@
   margin-bottom: 60px;
   font-size: 3.2rem;
   color: var(--titulos);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 /* Formulario */
@@ -43,7 +43,7 @@ form input {
   padding: 0 20px;
 
   font-size: 2.4rem;
-  font-weight: normal;
+  font-weight: 400;
   color: var(--preto-escuro);
 
   border-color: var(--cinza-texto);

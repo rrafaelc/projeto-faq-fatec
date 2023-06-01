@@ -93,7 +93,7 @@ main {
 
 .header .usuario .nome span + span {
   font-size: 1.6rem;
-  font-weight: normal;
+  font-weight: 400;
 }
 
 .header .usuario i {
