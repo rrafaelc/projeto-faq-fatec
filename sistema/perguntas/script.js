@@ -9,6 +9,21 @@ botaoUsuario.addEventListener('click', function () {
   dropdown.classList.toggle('ativo');
 });
 //==============================================================================
+// Impedir que o tab pule para o proximo elemento
+const textarea = document.querySelector('textarea');
+
+textarea.addEventListener('keydown', function (event) {
+  if (event.key === 'Tab') {
+    event.preventDefault();
+
+    // Adiciona uma tabulação manual ao conteúdo do textarea
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
+    this.value = this.value.substring(0, start) + '\t' + this.value.substring(end);
+    this.selectionStart = this.selectionEnd = start + 1;
+  }
+});
+//==============================================================================
 
 const perguntas = document.querySelector('.adicionar-pergunta');
 const tituloPerguntas = perguntas.querySelector('.titulo');

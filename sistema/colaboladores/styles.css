@@ -190,7 +190,7 @@ main {
 }
 
 .criar-conta form.aberto {
-  margin-top: 30px;
+  padding-bottom: 30px;
   max-height: 1000px;
   transition: all 0.3s ease-in;
 }
