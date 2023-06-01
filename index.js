@@ -45,14 +45,15 @@ const questions = [
   {
     titulo: 'Quem é o coordenador? (alunos ingressantes) ',
     conteudo: `Cada curso na Fatec de Itapira possui um coordenador responsável por auxiliar os alunos. O Coordenador é um docente eleito pelos docentes e designado pela Direção para desempenhar um papel importante na orientação dos estudantes, no acompanhamento do currículo do curso e na resolução de questões acadêmicas relacionadas ao programa de estudos. 
-      O Coordenador do curso está disponível para esclarecer dúvidas, fornecer orientações sobre disciplinas, carga horária, estágios, projetos, entre outros assuntos relacionados ao curso. Além disso, o Coordenador pode ajudar a resolver questões administrativas e fornecer informações relevantes sobre a área de estudo do curso. 
+      O Coordenador do curso está disponível para esclarecer dúvidas, fornecer orientações sobre disciplinas, carga horária, estágios, projetos, entre outros assuntos relacionados ao curso. Além disso, o Coordenador pode ajudar a resolver questões administrativas e fornecer informações relevantes sobre a área de estudo do curso.
+    Coordenadores:  
     CST em Gestão da Produção Industrial – Prof. José Marcos Romão Júnior  (jose.romao@fatec.sp.gov.br) 
 
     CST em Gestão Empresarial – Prof. Gilberto Brandão Marcon (gilberto.marcon@fatec.sp.gov.br) 
 
     CST em Desenvolvimento de Software Multiplataforma – Profa. Márcia Regina Reggiolli (marcia.reggiolli@fatec.sp.gov.br)
 
-    CST em Gestão da Tecnologia da Informação – Prof. Mateus Guilherme Fuini (mateus.fuini@fatec.sp.gov.br) </pre></strong> `,
+    CST em Gestão da Tecnologia da Informação – Prof. Mateus Guilherme Fuini (mateus.fuini@fatec.sp.gov.br)> `,
   },
   {
     titulo: 'Posso usar a biblioteca/laboratório fora do horário de aula? ',
@@ -63,13 +64,12 @@ const questions = [
   {
     titulo: 'Qual o horário de funcionamento da biblioteca? ',
     conteudo: `O horário de funcionamento da biblioteca e da sala de estudos neste 1º semestre de 2023 ocorre: 
-    <strong>
     Segunda-feira – das 14h às 19h e das 21h às 22h 
     Terça-feira – das 17h às 22h 
     Quarta-feira – das 13h às 22h 
     Quinta-feira – das 18h às 20h 
     Sexta-feira – das 13h às 18h 
-    Sábado – das 10h às 14h</strong>`,
+    Sábado – das 10h às 14h`,
   },
   {
     titulo: 'Quando abre o vestibular? ',
