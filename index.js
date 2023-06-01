@@ -1,14 +1,16 @@
 const questionsContainer = document.querySelector('.container');
 
+const addLinksToContent = content => {
+  const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
+  const linkReplacement = '<a href="$1" target="_blank" style="display: inline">clique aqui</a>';
+
+  return content.replace(linkRegex, linkReplacement);
+};
+
 const replaceLineBreaks = content => {
   return content.replace(/\n/g, '<br>');
 };
 
-const addLinksToContent = content => {
-  const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
-  const linkReplacement = '<a href="$1" target="_blank">$1</a>';
-  return content.replace(linkRegex, linkReplacement);
-};
 // Mostrar as perguntas na tela
 const questions = [
   {
@@ -27,7 +29,7 @@ const questions = [
   {
     titulo: 'Como faço para ver o meu horário de aula?',
     conteudo:
-      'Para obter o horário de aula atualizado da Fatec de Itapira, aconselho acessar o site oficial da instituição em https://fatecitapira.edu.br Lá, você encontrará informações detalhadas sobre os horários de aula de cada curso oferecido, bem como outras informações relevantes sobre a instituição. É sempre recomendável verificar o site da Fatec de Itapira regularmente, pois o horário de aula pode ser atualizado a cada semestre ou período letivo.',
+      'Para obter o horário de aula atualizado da Fatec de Itapira, aconselho acessar o site oficial da instituição em https://fatecitapira.edu.br. Lá, você encontrará informações detalhadas sobre os horários de aula de cada curso oferecido, bem como outras informações relevantes sobre a instituição. É sempre recomendável verificar o site da Fatec de Itapira regularmente, pois o horário de aula pode ser atualizado a cada semestre ou período letivo.',
   },
   {
     titulo: 'Como fazer minha rematrícula?',
@@ -112,7 +114,7 @@ questionsContainer.innerHTML += questions
         </div>
         <div class="content">
           <p>
-            ${addLinksToContent(replaceLineBreaks(question.conteudo))}
+            ${replaceLineBreaks(addLinksToContent(question.conteudo))}
           </p>
           <p>
             Essa resposta foi útil?
@@ -162,7 +164,8 @@ questionsContainer.addEventListener('click', e => {
     dropIcon.classList.toggle('rotate');
 
     if (content.classList.contains('show')) {
-      content.style.maxHeight = `${content.scrollHeight}px`;
+      // content.style.maxHeight = `${content.scrollHeight}px`;
+      content.style.maxHeight = '2000px';
     } else {
       content.style.maxHeight = null;
     }
