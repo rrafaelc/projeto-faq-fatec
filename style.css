@@ -117,9 +117,10 @@ main {
 }
 
 .container {
-  max-width: 1300px;
+  width: 80%;
   height: 100%;
   padding: 0 2rem;
+  max-width: 1300px;
 }
 
 .content {
