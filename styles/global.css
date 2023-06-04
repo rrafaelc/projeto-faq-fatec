@@ -241,6 +241,7 @@ footer {
 }
 
 .cps-logo-footer .img-1 {
+  display: block;
   text-align: center;
   height: 50px;
   width: 100%;
