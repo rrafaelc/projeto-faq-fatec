@@ -1,0 +1,121 @@
+.box-sugestao {
+  border: 2px solid var(--preto-escuro);
+  border-radius: 10px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: var(--titulos);
+  width: 70%;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+#suaduvida {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: var(--vermelho-escuro);
+  margin: 3rem 0;
+  width: 70%;
+  font-weight: 500;
+  font-size: 3rem;
+
+  text-align: center;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.inputs > div {
+  width: 70%;
+}
+
+.inputs input {
+  min-width: 100%;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 2rem;
+}
+
+.aluno {
+  width: 70%;
+  text-align: left;
+  margin-top: 40px;
+}
+
+#sim-nao {
+  width: 70%;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.duvida-sugestao {
+  margin-top: 10px;
+  width: 70%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.texto-sugestao {
+  height: 250px;
+  font-weight: 500;
+  resize: none;
+  border-width: 2px;
+
+  border-radius: 10px;
+  padding: 15px 10px;
+  font-size: 2rem;
+}
+
+.botao {
+  width: 300px;
+  margin: 20px 0;
+  background-color: var(--azul-destaque);
+  border: none;
+  font-size: 2.4rem;
+
+  padding: 15px 0;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+.botao:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 1000px) {
+  #suaduvida {
+    width: 90%;
+  }
+}
+
+@media (max-width: 650px) {
+  .box-sugestao {
+    border: none;
+    margin-top: 1rem;
+  }
+
+  #suaduvida {
+    margin-top: 0;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .inputs > div,
+  .duvida-sugestao,
+  .aluno,
+  #sim-nao {
+    width: 100%;
+  }
+}
