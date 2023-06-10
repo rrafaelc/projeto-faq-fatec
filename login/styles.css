@@ -65,13 +65,13 @@ form button {
   font-weight: 500;
   font-size: 2.4rem;
   color: var(--preto-escuro);
+
+  transition: background-color 0.2s ease-in-out;
 }
 
 form button:hover {
   background-color: transparent;
   border: 2px solid var(--azul-destaque);
-
-  transition: background-color 0.2s ease-in-out;
 }
 
 form button:active {
