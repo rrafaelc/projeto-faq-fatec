@@ -2,8 +2,7 @@ name: Format the code
 
 on:
   push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   format:
@@ -14,7 +13,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-          token: ${{secrets.PAT}}
       - name: Prettier
         run: npx prettier --write .
         env:
