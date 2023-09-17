@@ -68,6 +68,6 @@ form.addEventListener('submit', function (event) {
   botaoVoltar.classList.add('disabled');
 
   setTimeout(function () {
-    window.location.href = '/sistema/perguntas/';
+    window.location.href = '../../../sistema/perguntas/';
   }, 2000);
 });

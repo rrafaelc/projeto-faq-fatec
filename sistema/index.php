@@ -28,7 +28,7 @@
       <div class="grupo">
         <h1 class="title">Início</h1>
         <div class="subgrupo">
-          <a href="/sistema">Início</a>
+          <a href="../sistema">Início</a>
         </div>
       </div>
       <div class="usuario">
@@ -41,8 +41,8 @@
         </div>
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
-          <a href="/sistema/editar-dados">Editar dados</a>
-          <a href="/login">Deslogar</a>
+          <a href="../sistema/editar-dados">Editar dados</a>
+          <a href="../login">Deslogar</a>
         </div>
       </div>
     </div>
@@ -142,7 +142,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -187,7 +187,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -230,7 +230,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -276,7 +276,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -322,7 +322,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -367,7 +367,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -410,7 +410,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -456,7 +456,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>

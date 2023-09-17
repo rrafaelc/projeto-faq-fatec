@@ -29,7 +29,7 @@
       <div class="grupo">
         <h1 class="title">Editar pergunta</h1>
         <div class="subgrupo">
-          <a href="/sistema">Início</a>
+          <a href="../../../sistema">Início</a>
           <i class="fas fa-angle-right"></i>
           <span>Editar pergunta</span>
         </div>
@@ -44,8 +44,8 @@
         </div>
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
-          <a href="/sistema/editar-dados">Editar dados</a>
-          <a href="/login">Deslogar</a>
+          <a href="../../../sistema/editar-dados">Editar dados</a>
+          <a href="../../../login">Deslogar</a>
         </div>
       </div>
     </div>
@@ -66,7 +66,10 @@ Os cursos da Fatec tem duração de no mínimo 3 anos e no máximo 5 anos.</text
           </div>
 
           <div class="botoes">
-            <a href="/sistema/perguntas/"><button type="button" id="voltar">Voltar</button></a>
+            <a href="<?php echo isset($_SERVER['HTTP_REFERER'])
+                        ? $_SERVER['HTTP_REFERER']
+                        : '../../../sistema'; ?>">
+              <button type="button" id="voltar">Voltar</button></a>
             <button type="submit">Editar</button>
           </div>
         </div>

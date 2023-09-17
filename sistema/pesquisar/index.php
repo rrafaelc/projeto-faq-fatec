@@ -28,7 +28,7 @@
       <div class="grupo">
         <h1 class="title">Pesquisar</h1>
         <div class="subgrupo">
-          <a href="/sistema">Início</a>
+          <a href="../../sistema">Início</a>
           <i class="fas fa-angle-right"></i>
           <span>Pesquisar</span>
         </div>
@@ -43,8 +43,8 @@
         </div>
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
-          <a href="/sistema/editar-dados">Editar dados</a>
-          <a href="/login">Deslogar</a>
+          <a href="../../sistema/editar-dados">Editar dados</a>
+          <a href="../../login">Deslogar</a>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
                 <input type="radio" name="usuario" id="usuario1" value="f749b7ca-8868-4225-ae3f-c6f1b659a3fe" />
                 <label for="usuario1">
                   <div class="avatar">
-                    <img src="../../../img/junior.jpeg" />
+                    <img src="../../img/junior.jpeg" />
                   </div>
                   <span>Júnior Gonçalves</span>
                 </label>
@@ -90,7 +90,7 @@
                 <input type="radio" name="usuario" id="usuario2" value="bb7d5d61-cb48-4fb5-a70a-be294ee16266" />
                 <label for="usuario2">
                   <div class="avatar">
-                    <img src="../../../img/junior.jpeg" />
+                    <img src="../../img/junior.jpeg" />
                   </div>
                   <span>Júnior Gonçalves</span>
                 </label>
@@ -99,7 +99,7 @@
                 <input type="radio" name="usuario" id="usuario3" value="e6cab7a4-8075-4186-9c42-e31042bb771d" />
                 <label for="usuario3">
                   <div class="avatar">
-                    <img src="../../../img/junior.jpeg" />
+                    <img src="../../img/junior.jpeg" />
                   </div>
                   <span>Júnior Gonçalves</span>
                 </label>
@@ -108,7 +108,7 @@
                 <input type="radio" name="usuario" id="usuario4" value="525fb523-54cf-4647-8ec2-377dc2e04de4" />
                 <label for="usuario4">
                   <div class="avatar">
-                    <img src="../../../img/thiago.jpeg" />
+                    <img src="../../img/thiago.jpeg" />
                   </div>
                   <span>Thiago Alves</span>
                 </label>
@@ -117,7 +117,7 @@
                 <input type="radio" name="usuario" id="usuario5" value="fb653929e-0880-4e36-ab8e-488c9bd3e7f4" />
                 <label for="usuario5">
                   <div class="avatar">
-                    <img src="../../../img/thiago.jpeg" />
+                    <img src="../../img/thiago.jpeg" />
                   </div>
                   <span>Thiago Alves</span>
                 </label>
@@ -126,7 +126,7 @@
                 <input type="radio" name="usuario" id="usuario6" value="347e4c40-1097-49e1-8f0f-f6f07d7fe5ab" />
                 <label for="usuario6">
                   <div class="avatar">
-                    <img src="../../../img/thiago.jpeg" />
+                    <img src="../../img/thiago.jpeg" />
                   </div>
                   <span>Thiago Alves</span>
                 </label>
@@ -135,7 +135,7 @@
                 <input type="radio" name="usuario" id="usuario7" value="029ed740-3168-46e1-ba19-934208556637" />
                 <label for="usuario7">
                   <div class="avatar">
-                    <img src="../../../img/marcia.jpeg" />
+                    <img src="../../img/marcia.jpeg" />
                   </div>
                   <span>Marcia Reggiolli</span>
                 </label>
@@ -144,7 +144,7 @@
                 <input type="radio" name="usuario" id="usuario8" value="b2a60ac2-4149-4218-91e2-2ddbb89909a0" />
                 <label for="usuario8">
                   <div class="avatar">
-                    <img src="../../../img/marcia.jpeg" />
+                    <img src="../../img/marcia.jpeg" />
                   </div>
                   <span>Marcia Reggiolli</span>
                 </label>
@@ -153,7 +153,7 @@
                 <input type="radio" name="usuario" id="usuario9" value="3369227b-7af4-4804-a46f-bd44ff03f448" />
                 <label for="usuario9">
                   <div class="avatar">
-                    <img src="../../../img/marcia.jpeg" />
+                    <img src="../../img/marcia.jpeg" />
                   </div>
                   <span>Marcia Reggiolli</span>
                 </label>
@@ -232,7 +232,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -277,7 +277,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -320,7 +320,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -366,7 +366,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>
@@ -412,7 +412,7 @@
             </td>
             <td>
               <div id="acao">
-                <a href="/sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
                 <a href="#"><i class="fas fa-trash-can"></i></a>
               </div>
             </td>

@@ -28,7 +28,7 @@
       <div class="grupo">
         <h1 class="title">Editar dados</h1>
         <div class="subgrupo">
-          <a href="/sistema">Início</a>
+          <a href="../../sistema">Início</a>
           <i class="fas fa-angle-right"></i>
           <span>Editar dados</span>
         </div>
@@ -43,8 +43,8 @@
         </div>
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
-          <a href="/sistema/editar-dados">Editar dados</a>
-          <a href="/login">Deslogar</a>
+          <a href="../../sistema/editar-dados">Editar dados</a>
+          <a href="../../login">Deslogar</a>
         </div>
       </div>
     </div>
