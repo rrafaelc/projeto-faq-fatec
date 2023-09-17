@@ -57,35 +57,7 @@
     </form>
   </main>
 
-  <footer>
-    <div class="footer-container">
-      <div class="fatec-contact">
-        <h1>Fatec Itapira</h1>
-        <h2><span>Endereço: </span>Rua Tereza Lera Paoletti, 570/590 - Jardim Bela Vista</h2>
-        <h2><span>CEP: </span>13974-080</h2>
-        <h2><span>Telefone: </span> (19) 3843-1996</h2>
-        <h2><span>Whatsapp: </span> (19) 98933-6291 | (19) 3863-5210</h2>
-        <h2><span>E-mail: </span> contato@fatecitapira.edu.br</h2>
-      </div>
-      <div class="fatec-footer-logo">
-        <img src="../img/fatec footer branco.png" alt="Logo fatec" />
-      </div>
-      <div class="cps-logo-footer">
-        <div class="img-1">
-          <img src="../img/logo_cps_versao_br.png" alt="logo centro paula souza" />
-        </div>
-        <div class="img-2">
-          <img src="../img/GOV_LOGO_HORIZONTAL_versaÌ_o MONOCROMATICA BRANCA.png" alt="logo governo do estado de sp" />
-        </div>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>
-        Copyright © <span id="copyright-date"></span> Fatec Itapira - Todos os Direitos Reservados
-        - Desenvolvido pelos alunos de DSM do 1º Semestre de 2023
-      </p>
-    </div>
-  </footer>
+  <?php include "../layouts/footer.php" ?>
 </body>
 
 </html>
