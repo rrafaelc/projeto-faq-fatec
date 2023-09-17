@@ -27,6 +27,6 @@ form.addEventListener('submit', function (event) {
   button.classList.add('disabled');
 
   setTimeout(function () {
-    window.location.href = '/sistema/';
+    window.location.href = '../../sistema/';
   }, 2000);
 });
