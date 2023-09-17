@@ -1,46 +1,20 @@
 name: Format the code
+
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - review_requested
-      - review_request_removed
-      - closed
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   format:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
+    name: Format Files
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Verificar aprovação dos revisores
-        run: |
-          if [ "${{ github.event_name }}" != "pull_request" ]; then
-            echo "Este não é um evento de pull request. Saindo..."
-            exit 0
-          fi
-
-          if [ "${{ github.event.pull_request.state }}" != "open" ]; then
-            echo "Esta pull request não está aberta. Saindo..."
-            exit 0
-          fi
-
-          if [ "${{ github.event.pull_request.reviews.nodes[0].state }}" != "APPROVED" ]; then
-            echo "Esta pull request não foi aprovada pelos revisores. Saindo..."
-            exit 0
-          fi
-
-          echo "A pull request foi aprovada pelos revisores. Continuando com o fluxo de trabalho..."
-
-      - name: Setup Node.js      
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Format prettier
+      - name: Prettier
         run: npx prettier --write .
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
