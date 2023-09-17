@@ -259,6 +259,7 @@ footer {
   .menu-hamburger {
     display: block;
     position: relative;
+    cursor: pointer;
   }
 
   .nav-items {
