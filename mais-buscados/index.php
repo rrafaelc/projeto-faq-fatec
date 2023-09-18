@@ -37,7 +37,7 @@
           </div>
           <div class="content">
             <p>
-              A Fatec Itapira é uma unidade da Faculdade de Tecnologia do Estado de São Paulo
+              A Fatec Itapira é uma unidade da Faculdade de Tecnologia do Estado da Idiocracia
               (Fatec), que oferece cursos de graduação tecnológica na área de tecnologia e gestão.
             </p>
           </div>
