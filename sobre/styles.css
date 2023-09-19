@@ -1,17 +1,12 @@
 a:visited {
-  color: var(--titulos);
-}
+  color: var(--titulos);}
 
-.container {
-  display: flex;
-  flex-direction: column;
-}
+.container {  display: flex;  flex-direction: column;}
 
 .barra-portal {
   display: flex;
   gap: 15px;
-  justify-content: center;
-}
+  justify-content: center;}
 
 .corpo-site {
   display: flex;
