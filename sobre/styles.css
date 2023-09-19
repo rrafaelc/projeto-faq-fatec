@@ -1,19 +1,27 @@
 a:visited {
-  color: var(--titulos);}
+  color: var(--titulos);
+}
 
-.container {  display: flex;  flex-direction: column;}
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
 .barra-portal {
   display: flex;
   gap: 15px;
-  justify-content: center;}
+  justify-content: center;
+}
 
 .corpo-site {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  color: var(--titulos);  margin-top: 3rem;}.corpo-site h1 {
+  color: var(--titulos);
+  margin-top: 3rem;
+}
+.corpo-site h1 {
   font-size: 50px;
   margin-bottom: 20px;
   color: var(--vermelho-escuro);
