@@ -2,8 +2,7 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8" />  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ FATEC</title>
   <link rel="stylesheet" href="./styles/global.css" />
@@ -21,10 +20,8 @@
 <body>
   <?php
   $dir = '.';
-  $pagina = 'principal';
-  include "./layouts/header.php";
+  $pagina = 'principal';  include "./layouts/header.php";
   ?>
-
   <section id="keywordSection">
     <div class="keyword-container">
       <div class="keyword-content">
@@ -32,15 +29,12 @@
         <form id="formulary">
           <div class="input-container">
             <i class="fas fa-search"></i>
-            <input id="search-input" type="text" placeholder="Ex: O que é a Fatec Itapira?" />
-          </div>
-        </form>
+            <input id="search-input" type="text" placeholder="Ex: O que é a Fatec Itapira?" />     </div>       </form>
       </div>
     </div>
   </section>
   <main>
-    <div class="wrapper">
-      <div class="container"></div>
+    <div class="wrapper">      <div class="container"></div>
     </div>
   </main>
 
