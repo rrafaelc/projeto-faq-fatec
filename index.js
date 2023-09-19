@@ -7,8 +7,7 @@ const addLinksToContent = content => {
   return content.replace(linkRegex, linkReplacement);
 };
 
-const replaceLineBreaks = content => {
-  return content.replace(/\n/g, '<br>');
+const replaceLineBreaks = content => {  return content.replace(/\n/g, '<br>');
 };
 
 // Mostrar as perguntas na tela
