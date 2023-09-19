@@ -7,18 +7,17 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Set git to use CRLF
-        run: |
-          git config --global core.autocrlf true
-          git config --global core.eol crlf
-
-      - uses: actions/checkout@v2
+    steps:      
       - name: Checkout
         uses: actions/checkout@v3
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
+          
+      - name: Set git to use CRLF
+        run: |
+          git config --global core.autocrlf true
+          git config --global core.eol crlf
 
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
