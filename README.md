@@ -12,6 +12,7 @@ O FAQ da Fatec de Itapira é uma ferramenta essencial para fornecer suporte e es
 
 ## Tecnologias utilizadas
 
+- PHP
 - HTML
 - CSS
 - JavaScript
