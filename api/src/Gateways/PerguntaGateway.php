@@ -29,7 +29,6 @@ class PerguntaGateway
 
   public function create(array $data): string
   {
-    $userId = 1;
     $prioridade = "Normal";
 
     // Criar a pergunta
@@ -43,7 +42,7 @@ class PerguntaGateway
     // $stmt->bindValue(":size", $data["size"] ?? 0, PDO::PARAM_INT);
     // $stmt->bindValue(":is_available", (bool) $data["is_available"] ?? false, PDO::PARAM_BOOL);
     $stmt->bindValue(":prioridade",  $prioridade, PDO::PARAM_STR);
-    $stmt->bindValue(":criado_por", $userId, PDO::PARAM_INT);
+    $stmt->bindValue(":criado_por", $data["userId"], PDO::PARAM_INT);
 
     $stmt->execute();
 
@@ -56,7 +55,7 @@ class PerguntaGateway
     $stmt = $this->conn->prepare($sql);
 
     $stmt->bindValue(":pergunta_id", $perguntaId, PDO::PARAM_INT);
-    $stmt->bindValue(":usuario_id", $userId, PDO::PARAM_INT);
+    $stmt->bindValue(":usuario_id", $data["userId"], PDO::PARAM_INT);
 
     $stmt->execute();
 

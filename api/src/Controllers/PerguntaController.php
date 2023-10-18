@@ -27,6 +27,7 @@ class PerguntaController
         break;
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
+        $data["userId"] = 1;
 
         $perguntaId = $this->gateway->create($data);
 
