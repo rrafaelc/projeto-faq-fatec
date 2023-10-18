@@ -42,7 +42,7 @@ class PerguntaController
         $data = (array) json_decode(file_get_contents("php://input"), true);
         $data["usuarioId"] = 1;
 
-        $errors = $this->getValidationErrors($data);
+        $errors = $this->createValidationErrors($data);
 
         if (!empty($errors)) {
           http_response_code(422);
@@ -62,7 +62,7 @@ class PerguntaController
     }
   }
 
-  private function getValidationErrors(array $data): array
+  private function createValidationErrors(array $data): array
   {
     $errors = [];
 
@@ -76,6 +76,14 @@ class PerguntaController
 
     if (empty($data["resposta"])) {
       $errors[] = "resposta é obrigatório";
+    }
+
+    if (isset($data["prioridade"])) {
+      $prioridade = $data["prioridade"];
+
+      if ($prioridade !== "Alta" && $prioridade !== "Normal") {
+        $errors[] = "prioridade deve ser 'Alta' ou 'Normal'";
+      }
     }
 
     // if (array_key_exists("size", $data))

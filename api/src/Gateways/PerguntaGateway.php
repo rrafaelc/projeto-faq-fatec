@@ -29,7 +29,7 @@ class PerguntaGateway
 
   public function create(array $data): array | false
   {
-    $prioridade = "Normal";
+    $prioridade = $data["prioridade"] ?? "Normal";
 
     // Criar a pergunta
     $sql = "INSERT INTO pergunta (pergunta, resposta, prioridade, criado_por)
