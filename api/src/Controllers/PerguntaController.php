@@ -109,13 +109,6 @@ class PerguntaController
       }
     }
 
-    // if (array_key_exists("size", $data))
-    // {
-    //   if (filter_Var($data["size"], FILTER_VALIDATE_INT) === false){
-    //     $errors[] = "size muste be an integer";
-    //   }
-    // }
-
     return $errors;
   }
 
