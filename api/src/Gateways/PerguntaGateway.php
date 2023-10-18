@@ -27,7 +27,7 @@ class PerguntaGateway
     return $data;
   }
 
-  public function create(array $data): string
+  public function create(array $data)
   {
     $prioridade = "Normal";
 
@@ -54,7 +54,16 @@ class PerguntaGateway
     $stmt->bindValue(":usuario_id", $data["usuarioId"], PDO::PARAM_INT);
     $stmt->execute();
 
+    // Consulta a pergunta recém-criada
+    $sql = "SELECT * FROM pergunta WHERE id = :pergunta_id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":pergunta_id", $perguntaId, PDO::PARAM_INT);
     $stmt->execute();
+    $pergunta = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Retorna a pergunta criada
+    return $pergunta;
+  }
 
     return $perguntaId;
   }
