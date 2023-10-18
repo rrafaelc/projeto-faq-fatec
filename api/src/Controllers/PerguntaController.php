@@ -31,7 +31,7 @@ class PerguntaController
 
         $errors = $this->getValidationErrors($data);
 
-        if (!empty($errors)){
+        if (!empty($errors)) {
           http_response_code(422);
           echo json_encode(["errors" => $errors]);
           break;
@@ -45,6 +45,10 @@ class PerguntaController
           "perguntaId" =>  $perguntaId,
         ]);
         break;
+
+      default:
+        http_response_code(405);
+        header("Allow: GET, POST");
     }
   }
 
@@ -52,18 +56,15 @@ class PerguntaController
   {
     $errors = [];
 
-    if (empty($data["usuarioId"]))
-    {
+    if (empty($data["usuarioId"])) {
       $errors[] = "usuarioId é obrigatório";
     }
 
-    if (empty($data["pergunta"]))
-    {
+    if (empty($data["pergunta"])) {
       $errors[] = "pergunta é obrigatório";
     }
 
-    if (empty($data["resposta"]))
-    {
+    if (empty($data["resposta"])) {
       $errors[] = "resposta é obrigatório";
     }
 
