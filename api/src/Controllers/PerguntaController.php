@@ -17,6 +17,9 @@ class PerguntaController
 
   private function processResourceRequest(string $method, string $id): void
   {
+    $pergunta = $this->gateway->get($id);
+
+    echo json_encode($pergunta);
   }
 
   private function processCollectionRequest(string $method): void
