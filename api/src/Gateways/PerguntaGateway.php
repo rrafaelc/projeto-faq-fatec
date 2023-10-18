@@ -83,4 +83,40 @@ class PerguntaGateway
 
     return $data;
   }
+
+  public function update(array $current, array $new): array | false
+  {
+    $sql = "UPDATE pergunta
+            SET pergunta = :pergunta, resposta = :resposta, curtidas = :curtidas, prioridade = :prioridade
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":pergunta", $new["pergunta"] ?? $current["pergunta"], PDO::PARAM_STR);
+    $stmt->bindValue(":resposta", $new["resposta"] ?? $current["resposta"], PDO::PARAM_STR);
+    $stmt->bindValue(":curtidas", $new["curtidas"] ?? $current["curtidas"], PDO::PARAM_INT);
+    $stmt->bindValue(":prioridade", $new["prioridade"] ?? $current["prioridade"], PDO::PARAM_STR);
+
+    $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
+    $stmt->execute();
+
+    # atualiza o usuario onde o id da tabela pergunta_editada_por seja igual a pergunta_id
+    $sql = "UPDATE pergunta_editada_por
+            SET usuario_id = :usuario_id
+            WHERE pergunta_id = :pergunta_id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":pergunta_id", $current["id"], PDO::PARAM_INT);
+    $stmt->bindValue(":usuario_id", $new["usuarioId"], PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Consulta a pergunta recém-atualizada
+    $sql = "SELECT * FROM pergunta WHERE id = :pergunta_id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":pergunta_id", $current["id"], PDO::PARAM_INT);
+    $stmt->execute();
+    $pergunta = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Retorna a pergunta atualizada
+    return $pergunta;
+  }
 }
