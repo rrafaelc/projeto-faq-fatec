@@ -12,6 +12,7 @@ foreach (glob(__DIR__ . '/src/**/*.php') as $todasClasses) {
   require_once $todasClasses;
 }
 
+set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
 header("Content-type: application/json; charset=UTF-8");
