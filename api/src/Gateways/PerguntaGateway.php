@@ -27,7 +27,7 @@ class PerguntaGateway
     return $data;
   }
 
-  public function create(array $data)
+  public function create(array $data): array | false
   {
     $prioridade = "Normal";
 
