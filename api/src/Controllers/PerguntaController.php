@@ -25,7 +25,11 @@ class PerguntaController
       return;
     }
 
-    echo json_encode($pergunta);
+    switch ($method) {
+      case "GET":
+        echo json_encode($pergunta);
+        break;
+    }
   }
 
   private function processCollectionRequest(string $method): void
