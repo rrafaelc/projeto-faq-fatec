@@ -19,6 +19,12 @@ class PerguntaController
   {
     $pergunta = $this->gateway->get($id);
 
+    if (!$pergunta) {
+      http_response_code(404);
+      echo json_encode(["message" => "Pergunta não encontrada"]);
+      return;
+    }
+
     echo json_encode($pergunta);
   }
 
