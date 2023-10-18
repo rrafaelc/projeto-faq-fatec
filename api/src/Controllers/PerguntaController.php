@@ -37,13 +37,10 @@ class PerguntaController
           break;
         }
 
-        $perguntaId = $this->gateway->create($data);
+        $perguntaCriada = $this->gateway->create($data);
 
         http_response_code(201);
-        echo json_encode([
-          "message" => "Pergunta criada",
-          "perguntaId" =>  $perguntaId,
-        ]);
+        echo json_encode($perguntaCriada);
         break;
 
       default:
