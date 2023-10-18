@@ -44,10 +44,15 @@ class PerguntaController
 
         echo json_encode($perguntaAtualizada);
         break;
+      case "DELETE":
+        $this->gateway->delete($id);
+
+        http_response_code(204);
+        break;
 
       default:
         http_response_code(405);
-        header("Allow: GET, PATCH");
+        header("Allow: GET, PATCH, DELETE");
     }
   }
 

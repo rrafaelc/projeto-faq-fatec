@@ -119,4 +119,14 @@ class PerguntaGateway
     // Retorna a pergunta atualizada
     return $pergunta;
   }
+
+  public function delete(string $id): void
+  {
+    $sql = "DELETE FROM pergunta
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
 }
