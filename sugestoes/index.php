@@ -36,18 +36,6 @@
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" required placeholder="Digite seu nome" />
         </div>
-        <div class="email">
-          <label for="email">Email</label>
-          <input id="email" type="email" name="email" required placeholder="Digite seu email" />
-        </div>
-      </div>
-      <label class="aluno" for="aluno">Você é aluno da Fatec?</label>
-      <div id="sim-nao">
-        <input type="radio" name="aluno" value="sim" id="sim" />
-        <label for="sim">Sim</label>
-
-        <input type="radio" name="aluno" value="nao" id="nao" />
-        <label for="nao">Não</label>
       </div>
       <div class="duvida-sugestao">
         <label for="mensagem">Dúvida/Sugestão</label>
