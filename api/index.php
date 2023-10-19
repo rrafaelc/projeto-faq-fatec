@@ -23,10 +23,10 @@ $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
 if ($parts[1] == "perguntas") {
-  if (isset($parts[2]) && $parts[2] == "editar") {
-    var_dump("editar");
-    return;
-  }
+  // if (isset($parts[2]) && $parts[2] == "editar") {
+  //   var_dump("editar");
+  //   return;
+  // }
 
   $gateway = new PerguntaGateway($database);
   $controller = new PerguntaController($gateway);
@@ -34,9 +34,9 @@ if ($parts[1] == "perguntas") {
   $id = $parts[2] ?? null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
-} elseif ($parts[1] == "perguntasEditadaPor") {
-  $gateway = new PerguntaEditadaPorGateway($database);
-  $controller = new PerguntaEditadaPorController($gateway);
+} elseif ($parts[1] == "usuario") {
+  $gateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($gateway);
 
   $id = $parts[2] ?? null;
 
