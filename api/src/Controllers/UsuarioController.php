@@ -6,28 +6,34 @@ class UsuarioController
   {
   }
 
-  public function processRequest(string $method, ?string $id): void
+  public function processRequest(string $method, ?array $params): void
   {
-    if ($id) {
-      $this->processResourceRequest($method, $id);
+    if ($params) {
+      $this->processResourceRequest($method, $params);
     } else {
       $this->processCollectionRequest($method);
     }
   }
 
-  private function processResourceRequest(string $method, string $id): void
+  private function processResourceRequest(string $method, array $params): void
   {
-    $pergunta = $this->gateway->get($id);
+    if (isset($params["id"])) {
+      $usuario = $this->gateway->get($params["id"]);
+    } elseif (isset($params["ra"])) {
+      $usuario = $this->gateway->getByRa($params["ra"]);
+    } elseif (isset($params["email"])) {
+      $usuario = $this->gateway->getByEmail($params["email"]);
+    }
 
-    if (!$pergunta) {
+    if (!$usuario) {
       http_response_code(404);
-      echo json_encode(["message" => "Pergunta não encontrada"]);
+      echo json_encode(["message" => "Usuario não encontrado"]);
       return;
     }
 
     switch ($method) {
       case "GET":
-        echo json_encode($pergunta);
+        echo json_encode($usuario);
         break;
       case "PATCH":
         $data = (array) json_decode(file_get_contents("php://input"), true);
@@ -40,12 +46,12 @@ class UsuarioController
           echo json_encode(["errors" => $errors]);
           break;
         }
-        $perguntaAtualizada = $this->gateway->update($pergunta, $data);
+        $usuarioAtualizada = $this->gateway->update($usuario, $data);
 
-        echo json_encode($perguntaAtualizada);
+        echo json_encode($usuarioAtualizada);
         break;
       case "DELETE":
-        $this->gateway->delete($id);
+        $this->gateway->delete($usuario->id);
 
         http_response_code(204);
         break;
@@ -64,9 +70,22 @@ class UsuarioController
         break;
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        $data["usuarioId"] = 1;
 
         $errors = $this->createValidationErrors($data);
+
+        $usuarioExisteRa = $this->gateway->getByRa($data["ra"]);
+
+        if ($usuarioExisteRa) {
+          echo json_encode(["errors" => ["Usuário já existe com esse ra"]]);
+          return;
+        }
+
+        $usuarioExisteEmail = $this->gateway->getByEmail($data["email"]);
+
+        if ($usuarioExisteEmail) {
+          echo json_encode(["errors" => ["Usuário já existe com esse email"]]);
+          return;
+        }
 
         if (!empty($errors)) {
           http_response_code(422);
@@ -90,27 +109,43 @@ class UsuarioController
   {
     $errors = [];
 
-    if (array_key_exists("usuarioId", $data)) {
-      if (filter_Var($data["usuarioId"], FILTER_VALIDATE_INT) === false) {
-        $errors[] = "usuarioId deve ser do tipo inteiro";
+    if (!empty($data["nome_completo"])) {
+      if (strlen($data["nome_completo"]) < 3) {
+        $errors[] = "nome_completo mínimo 3 caracteres";
       }
     } else {
-      $errors[] = "usuarioId é obrigatório";
+      $errors[] = "nome_completo é obrigatório";
     }
 
-    if (empty($data["pergunta"])) {
-      $errors[] = "pergunta é obrigatório";
+    if (!empty($data["ra"])) {
+      if (strlen($data["ra"]) < 3) {
+        $errors[] = "ra mínimo 3 caracteres";
+      }
+    } else {
+      $errors[] = "ra é obrigatório";
     }
 
-    if (empty($data["resposta"])) {
-      $errors[] = "resposta é obrigatório";
+    if (!empty($data["email"])) {
+      if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "O endereço de e-mail é inválido.";
+    }
+    } else {
+      $errors[] = "email é obrigatório";
     }
 
-    if (isset($data["prioridade"])) {
-      $prioridade = $data["prioridade"];
+    if (!empty($data["senha"])) {
+      if (strlen($data["senha"]) < 8) {
+        $errors[] = "senha mínimo 8 caracteres";
+      }
+    } else {
+      $errors[] = "senha é obrigatório";
+    }
 
-      if ($prioridade !== "Alta" && $prioridade !== "Normal") {
-        $errors[] = "prioridade deve ser 'Alta' ou 'Normal'";
+    if (isset($data["cargo"])) {
+      $cargo = $data["cargo"];
+
+      if ($cargo !== "Colaborador" && $cargo !== "Moderador" && $cargo !== "Administrador" && $cargo !== "Diretor") {
+        $errors[] = "cargo deve ser 'Colaborador', 'Moderador', 'Administrador' ou 'Diretor'";
       }
     }
 

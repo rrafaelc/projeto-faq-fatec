@@ -38,10 +38,25 @@ if ($parts[1] == "perguntas") {
   $gateway = new UsuarioGateway($database);
   $controller = new UsuarioController($gateway);
 
-  $id = $parts[2] ?? null;
+  if (isset($parts[2]) && $parts[2] == "ra") {
+    $params =  ["ra" => $parts[3]];
 
-  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
+    return;
+  }
+
+  if (isset($parts[2]) && $parts[2] == "email") {
+    $params =  ["email" => $parts[3]];
+
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
+    return;
+  }
+
+  $params = isset($parts[2]) ? ["id" => $parts[2]] : null;
+
+  $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
 } else {
+
   http_response_code(404);
   exit;
 }

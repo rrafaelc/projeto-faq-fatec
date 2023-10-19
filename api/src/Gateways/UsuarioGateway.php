@@ -52,7 +52,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM usuario
@@ -67,7 +67,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByRa(string $ra): array | false
+  public function getByRa(string $ra)
   {
     $sql = "SELECT *
             FROM usuario
@@ -82,7 +82,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByEmail(string $email): array | false
+  public function getByEmail(string $email)
   {
     $sql = "SELECT *
             FROM usuario
@@ -109,10 +109,10 @@ class UsuarioGateway
     $stmt->bindValue(":nome_completo", $new["nome_completo"] ?? $current["nome_completo"], PDO::PARAM_STR);
     $stmt->bindValue(":ra", $new["ra"] ?? $current["ra"], PDO::PARAM_STR);
     $stmt->bindValue(":email", $new["email"] ?? $current["email"], PDO::PARAM_STR);
-    $stmt->bindValue(":foto_uri", $new["foto_uri"] ?? $current["foto_uri"], PDO::PARAM_STR);
+    $stmt->bindValue(":foto_uri", $new["foto_uri"] ?? $current["foto_uri"] ?? null, PDO::PARAM_STR);
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
     $stmt->bindValue(":cargo", $new["cargo"] ?? $current["cargo"], PDO::PARAM_STR);
-    $stmt->bindValue(":esta_suspenso", (bool) $new["esta_suspenso"] ?? $current["esta_suspenso"], PDO::PARAM_BOOL);
+    $stmt->bindValue(":esta_suspenso", (bool) $new["esta_suspenso"] ?? (bool) $current["esta_suspenso"] ?? false, PDO::PARAM_BOOL);
 
 
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
