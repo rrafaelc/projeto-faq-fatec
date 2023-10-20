@@ -57,7 +57,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function get(string $id)
+  public function get(string $id): array | false
   {
     $sql = "SELECT *
             FROM usuario
@@ -76,7 +76,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByRa(string $ra)
+  public function getByRa(string $ra): array | false
   {
     $sql = "SELECT *
             FROM usuario
@@ -95,7 +95,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByEmail(string $email)
+  public function getByEmail(string $email): array | false
   {
     $sql = "SELECT *
             FROM usuario
@@ -114,7 +114,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function update(array $current, array $new)
+  public function update(array $current, array $new): array | false
   {
     $sql = "UPDATE usuario
             SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso)
@@ -147,7 +147,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function delete(string $id)
+  public function delete(string $id): void
   {
     $sql = "DELETE FROM usuario
             WHERE id = :id";

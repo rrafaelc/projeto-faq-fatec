@@ -51,7 +51,7 @@ class UsuarioController
         echo json_encode($usuarioAtualizada);
         break;
       case "DELETE":
-        $this->gateway->delete($usuario->id);
+        $this->gateway->delete($usuario["id"]);
 
         http_response_code(204);
         break;
@@ -156,12 +156,12 @@ class UsuarioController
   {
     $errors = [];
 
-    if (array_key_exists("usuarioId", $data)) {
-      if (filter_Var($data["usuarioId"], FILTER_VALIDATE_INT) === false) {
-        $errors[] = "usuarioId deve ser do tipo inteiro";
+    if (array_key_exists("id", $data)) {
+      if (filter_Var($data["id"], FILTER_VALIDATE_INT) === false) {
+        $errors[] = "id deve ser do tipo inteiro";
       }
     } else {
-      $errors[] = "usuarioId é obrigatório";
+      $errors[] = "id é obrigatório";
     }
 
     if (isset($data["pergunta"])) {
@@ -170,9 +170,35 @@ class UsuarioController
       }
     }
 
-    if (isset($data["resposta"])) {
-      if (empty($data["resposta"])) {
-        $errors[] = "resposta não pode estar vazio";
+    if (isset($data["nome_completo"])) {
+      if (strlen($data["nome_completo"]) < 3) {
+        $errors[] = "nome_completo mínimo 3 caracteres";
+      }
+    }
+
+    if (isset($data["ra"])) {
+      if (strlen($data["ra"]) < 3) {
+        $errors[] = "ra mínimo 3 caracteres";
+      }
+    }
+
+    if (isset($data["email"])) {
+      if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "O endereço de e-mail é inválido.";
+    }
+    }
+
+    if (isset($data["senha"])) {
+      if (strlen($data["senha"]) < 8) {
+        $errors[] = "senha mínimo 8 caracteres";
+      }
+    }
+
+    if (isset($data["cargo"])) {
+      $cargo = $data["cargo"];
+
+      if ($cargo !== "Colaborador" && $cargo !== "Moderador" && $cargo !== "Administrador" && $cargo !== "Diretor") {
+        $errors[] = "cargo deve ser 'Colaborador', 'Moderador', 'Administrador' ou 'Diretor'";
       }
     }
 

@@ -22,7 +22,7 @@ $database = new Database("localhost", "projeto-faq", "root", "");
 $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
-if ($parts[1] == "perguntas") {
+if ($parts[1] == "pergunta") {
   // if (isset($parts[2]) && $parts[2] == "editar") {
   //   var_dump("editar");
   //   return;
