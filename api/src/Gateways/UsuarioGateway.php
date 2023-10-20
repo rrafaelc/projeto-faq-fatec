@@ -50,6 +50,10 @@ class UsuarioGateway
     $stmt->execute();
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if ($usuario !== false) {
+      $usuario["esta_suspenso"] = (bool) $usuario["esta_suspenso"];
+    }
+
     return $usuario;
   }
 
@@ -135,6 +139,10 @@ class UsuarioGateway
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
     $stmt->execute();
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario !== false) {
+      $usuario["esta_suspenso"] = (bool) $usuario["esta_suspenso"];
+    }
 
     return $usuario;
   }
