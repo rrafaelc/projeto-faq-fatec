@@ -19,8 +19,9 @@ class UsuarioGateway
     $data = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      $row["esta_suspenso"] = (bool) $row["esta_suspenso"];
       $data[] = $row;
-    }
+  }
 
     return $data;
   }
@@ -64,6 +65,10 @@ class UsuarioGateway
 
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if ($data !== false) {
+      $data["esta_suspenso"] = (bool) $data["esta_suspenso"];
+    }
+
     return $data;
   }
 
@@ -79,6 +84,10 @@ class UsuarioGateway
 
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if ($data !== false) {
+      $data["esta_suspenso"] = (bool) $data["esta_suspenso"];
+    }
+
     return $data;
   }
 
@@ -93,6 +102,10 @@ class UsuarioGateway
     $stmt->execute();
 
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($data !== false) {
+      $data["esta_suspenso"] = (bool) $data["esta_suspenso"];
+    }
 
     return $data;
   }
