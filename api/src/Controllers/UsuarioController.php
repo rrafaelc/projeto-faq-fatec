@@ -37,7 +37,20 @@ class UsuarioController
         break;
       case "PATCH":
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        $data["usuarioId"] = 2;
+
+        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
+
+        if ($usuarioExisteRa) {
+          echo json_encode(["errors" => ["Usuário já existe com esse ra"]]);
+          return;
+        }
+
+        $usuarioExisteEmail = isset($data["email"]) && $this->gateway->getByEmail($data["email"]) ?? false;
+
+        if ($usuarioExisteEmail) {
+          echo json_encode(["errors" => ["Usuário já existe com esse email"]]);
+          return;
+        }
 
         $errors = $this->patchValidationErrors($data);
 
@@ -128,7 +141,7 @@ class UsuarioController
     if (!empty($data["email"])) {
       if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "O endereço de e-mail é inválido.";
-    }
+      }
     } else {
       $errors[] = "email é obrigatório";
     }
@@ -156,20 +169,6 @@ class UsuarioController
   {
     $errors = [];
 
-    if (array_key_exists("id", $data)) {
-      if (filter_Var($data["id"], FILTER_VALIDATE_INT) === false) {
-        $errors[] = "id deve ser do tipo inteiro";
-      }
-    } else {
-      $errors[] = "id é obrigatório";
-    }
-
-    if (isset($data["pergunta"])) {
-      if (empty($data["pergunta"])) {
-        $errors[] = "pergunta não pode estar vazio";
-      }
-    }
-
     if (isset($data["nome_completo"])) {
       if (strlen($data["nome_completo"]) < 3) {
         $errors[] = "nome_completo mínimo 3 caracteres";
@@ -185,7 +184,7 @@ class UsuarioController
     if (isset($data["email"])) {
       if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "O endereço de e-mail é inválido.";
-    }
+      }
     }
 
     if (isset($data["senha"])) {
@@ -202,21 +201,9 @@ class UsuarioController
       }
     }
 
-    if (array_key_exists("curtidas", $data)) {
-      if (filter_Var($data["curtidas"], FILTER_VALIDATE_INT) === false) {
-        $errors[] = "curtidas deve ser do tipo inteiro";
-      }
-
-      if ($data["curtidas"] < 0) {
-        $errors[] = "curtidas deve ser maior ou igual à 0";
-      }
-    }
-
-    if (isset($data["prioridade"])) {
-      $prioridade = $data["prioridade"];
-
-      if ($prioridade !== "Alta" && $prioridade !== "Normal") {
-        $errors[] = "prioridade deve ser 'Alta' ou 'Normal'";
+    if (array_key_exists("esta_suspenso", $data)) {
+      if (!is_bool($data["esta_suspenso"])) {
+        $errors[] = "esta_suspenso deve ser um valor booleano (true ou false)";
       }
     }
 
