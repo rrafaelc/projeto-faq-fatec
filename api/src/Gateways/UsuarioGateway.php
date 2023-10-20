@@ -97,7 +97,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function update(array $current, array $new): array | false
+  public function update(array $current, array $new)
   {
     $sql = "UPDATE usuario
             SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso)
@@ -114,7 +114,6 @@ class UsuarioGateway
     $stmt->bindValue(":cargo", $new["cargo"] ?? $current["cargo"], PDO::PARAM_STR);
     $stmt->bindValue(":esta_suspenso", (bool) $new["esta_suspenso"] ?? (bool) $current["esta_suspenso"] ?? false, PDO::PARAM_BOOL);
 
-
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
     $stmt->execute();
 
@@ -127,7 +126,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function delete(string $id): void
+  public function delete(string $id)
   {
     $sql = "DELETE FROM usuario
             WHERE id = :id";
