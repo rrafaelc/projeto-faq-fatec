@@ -21,7 +21,10 @@ class PerguntaController
 
     if (!$pergunta) {
       http_response_code(404);
-      echo json_encode(["message" => "Pergunta não encontrada"]);
+      echo json_encode([
+        "status" => "error",
+        "message" => "Pergunta não encontrada"
+      ]);
       return;
     }
 
@@ -37,7 +40,10 @@ class PerguntaController
 
         if (!empty($errors)) {
           http_response_code(422);
-          echo json_encode(["errors" => $errors]);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
           break;
         }
         $perguntaAtualizada = $this->gateway->update($pergunta, $data);
@@ -70,7 +76,10 @@ class PerguntaController
 
         if (!empty($errors)) {
           http_response_code(422);
-          echo json_encode(["errors" => $errors]);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
           break;
         }
 

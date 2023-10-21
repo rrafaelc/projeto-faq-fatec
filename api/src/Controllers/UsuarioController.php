@@ -27,7 +27,10 @@ class UsuarioController
 
     if (!$usuario) {
       http_response_code(404);
-      echo json_encode(["message" => "Usuario não encontrado"]);
+      echo json_encode([
+        "status" => "error",
+        "message" => "Usuario não encontrado"
+      ]);
       return;
     }
 
@@ -38,30 +41,42 @@ class UsuarioController
       case "PATCH":
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
+        $errors = $this->patchValidationErrors($data);
+
+        if (!empty($errors)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
+          break;
+        }
+
         $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
 
         if ($usuarioExisteRa) {
-          echo json_encode(["errors" => ["Usuário já existe com esse ra"]]);
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse ra"]
+          ]);
           return;
         }
 
         $usuarioExisteEmail = isset($data["email"]) && $this->gateway->getByEmail($data["email"]) ?? false;
 
         if ($usuarioExisteEmail) {
-          echo json_encode(["errors" => ["Usuário já existe com esse email"]]);
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse email"]
+          ]);
           return;
         }
 
-        $errors = $this->patchValidationErrors($data);
+        $usuarioAtualizado = $this->gateway->update($usuario, $data);
 
-        if (!empty($errors)) {
-          http_response_code(422);
-          echo json_encode(["errors" => $errors]);
-          break;
-        }
-        $usuarioAtualizada = $this->gateway->update($usuario, $data);
-
-        echo json_encode($usuarioAtualizada);
+        echo json_encode($usuarioAtualizado);
         break;
       case "DELETE":
         $this->gateway->delete($usuario["id"]);
@@ -89,20 +104,29 @@ class UsuarioController
         $usuarioExisteRa = $this->gateway->getByRa($data["ra"]);
 
         if ($usuarioExisteRa) {
-          echo json_encode(["errors" => ["Usuário já existe com esse ra"]]);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse ra"]
+          ]);
           return;
         }
 
         $usuarioExisteEmail = $this->gateway->getByEmail($data["email"]);
 
         if ($usuarioExisteEmail) {
-          echo json_encode(["errors" => ["Usuário já existe com esse email"]]);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse email"]
+          ]);
           return;
         }
 
         if (!empty($errors)) {
           http_response_code(422);
-          echo json_encode(["errors" => $errors]);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
           break;
         }
 

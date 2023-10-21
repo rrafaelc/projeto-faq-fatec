@@ -55,8 +55,25 @@ if ($parts[1] == "pergunta") {
   $params = isset($parts[2]) ? ["id" => $parts[2]] : null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
-} else {
+} elseif ($parts[1] == "auth") {
+  $gateway = new UsuarioGateway($database);
+  $controller = new AuthController($gateway);
 
+  if (isset($parts[2]) && $parts[2] == "login") {
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], null);
+    return;
+  }
+
+  if (isset($parts[2]) && $parts[2] == "logout" && isset($parts[3])) {
+    $id = $parts[3];
+
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
+    return;
+  }
+
+  http_response_code(404);
+  exit;
+} else {
   http_response_code(404);
   exit;
 }
