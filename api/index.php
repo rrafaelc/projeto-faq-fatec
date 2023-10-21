@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-// spl_autoload_register(function ($class) {
-//   require __DIR__ . "/src/$class.php";
-// });
+require 'vendor/autoload.php';
 
 require_once __DIR__ . '/src/ErrorHandler.php';
 
 foreach (glob(__DIR__ . '/src/**/*.php') as $todasClasses) {
   require_once $todasClasses;
 }
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
