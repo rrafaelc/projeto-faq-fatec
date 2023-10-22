@@ -70,7 +70,6 @@ if ($parts[1] == "pergunta") {
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
 } elseif ($parts[1] == "auth") {
-
   if (isset($parts[2]) && $parts[2] == "refresh_token") {
     $authController->processRequest($_SERVER["REQUEST_METHOD"], true);
     return;
@@ -88,6 +87,16 @@ if ($parts[1] == "pergunta") {
 
   http_response_code(404);
   exit;
+} elseif ($parts[1] == "tem-usuarios") {
+  $gateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($gateway, $config, $authController, $token);
+
+  $controller->temUsuarios();
+} elseif ($parts[1] == "criar-primeira-conta") {
+  $gateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($gateway, $config, $authController, $token);
+
+  $controller->criarPrimeiraConta($_SERVER["REQUEST_METHOD"]);
 } else {
   http_response_code(404);
   exit;

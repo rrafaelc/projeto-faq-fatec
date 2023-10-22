@@ -94,11 +94,20 @@ class UsuarioController
   {
     $temUsuarios = $this->gateway->getCount();
 
-    $usuario = $temUsuarios ? $this->authController->verifyAccessToken($this->config, $this->token) : false;
+    if (!$temUsuarios) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Sistema não tem úsuarios"],
+        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+      ]);
 
-    if ($temUsuarios) {
-      if (!$usuario) return;
+      return;
     }
+
+    $usuario = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuario) return;
 
     switch ($method) {
       case "GET":
@@ -107,7 +116,7 @@ class UsuarioController
       case "POST":
         $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
 
-        if ($temUsuarios && !in_array($usuario["cargo"], $cargosPermitidos)) {
+        if (!in_array($usuario["cargo"], $cargosPermitidos)) {
           http_response_code(403);
           echo json_encode([
             "status" => "error",
@@ -121,19 +130,16 @@ class UsuarioController
 
         $criarCargosPermitidos = [CargoEnum::COLABORADOR, CargoEnum::MODERADOR, CargoEnum::ADMINISTRADOR];
 
-        if (!$temUsuarios) {
-          $data["cargo"] = CargoEnum::DIRETOR;
-        } else {
-          if (!in_array($data["cargo"], $criarCargosPermitidos)) {
-            http_response_code(403);
-            echo json_encode([
-              "status" => "error",
-              "errors" => ["cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . " ou " . CargoEnum::ADMINISTRADOR],
-            ]);
+        if (!in_array($data["cargo"], $criarCargosPermitidos)) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . " ou " . CargoEnum::ADMINISTRADOR],
+          ]);
 
-            return;
-          }
+          return;
         }
+
 
         $errors = $this->createValidationErrors($data);
 
@@ -167,6 +173,7 @@ class UsuarioController
         }
 
         $usuarioCriado = $this->gateway->create($data);
+        unset($usuarioCriado["senha"]);
 
         http_response_code(201);
         echo json_encode($usuarioCriado);
@@ -175,6 +182,58 @@ class UsuarioController
       default:
         http_response_code(405);
         header("Allow: GET, POST");
+    }
+  }
+
+  public function temUsuarios(): void
+  {
+    $temUsuarios = $this->gateway->getCount();
+
+    echo json_encode((bool) $temUsuarios);
+  }
+
+  public function criarPrimeiraConta(string $method): void
+  {
+    $temUsuarios = $this->gateway->getCount();
+
+    if ($temUsuarios) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Acesso negado"],
+        "message" => "Sistema tem usuários"
+      ]);
+
+      return;
+    }
+
+    switch ($method) {
+      case "POST":
+        $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        $data["cargo"] = CargoEnum::DIRETOR;
+
+        $errors = $this->createValidationErrors($data);
+
+        if (!empty($errors)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
+          break;
+        }
+
+        $diretorCriado = $this->gateway->create($data);
+        unset($diretorCriado["senha"]);
+
+        http_response_code(201);
+        echo json_encode($diretorCriado);
+        break;
+
+      default:
+        http_response_code(405);
+        header("Allow:  POST");
     }
   }
 
