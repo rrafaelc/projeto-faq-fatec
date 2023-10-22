@@ -21,7 +21,7 @@ class UsuarioGateway
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $row["esta_suspenso"] = (bool) $row["esta_suspenso"];
       $data[] = $row;
-  }
+    }
 
     return $data;
   }
@@ -117,7 +117,7 @@ class UsuarioGateway
   public function update(array $current, array $new): array | false
   {
     $sql = "UPDATE usuario
-            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso
+            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso, refresh_token = :refresh_token
             WHERE id = :id";
 
     $hashSenha = isset($new["senha"]) ? password_hash($new["senha"], PASSWORD_DEFAULT) : $current["senha"];
@@ -130,6 +130,7 @@ class UsuarioGateway
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
     $stmt->bindValue(":cargo", $new["cargo"] ?? $current["cargo"], PDO::PARAM_STR);
     $stmt->bindValue(":esta_suspenso", isset($new["esta_suspenso"]) && (bool) $new["esta_suspenso"] ?? (bool) $current["esta_suspenso"] ?? false, PDO::PARAM_BOOL);
+    $stmt->bindValue(":refresh_token", $new["refresh_token"], PDO::PARAM_STR);
 
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
     $stmt->execute();
@@ -155,5 +156,37 @@ class UsuarioGateway
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
+  }
+
+  public function saveRefreshToken(string $refresh_token, string $id): void
+  {
+    $sql = "UPDATE usuario
+            SET refresh_token = :refresh_token
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":refresh_token", $refresh_token);
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+    $stmt->execute();
+  }
+
+  public function getByRefreshToken(string $refresh_token): array | false
+  {
+    $sql = "SELECT *
+            FROM usuario
+            WHERE refresh_token = :refresh_token";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":refresh_token", $refresh_token, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($data !== false) {
+      $data["esta_suspenso"] = (bool) $data["esta_suspenso"];
+    }
+
+    return $data;
   }
 }

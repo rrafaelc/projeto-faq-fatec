@@ -6,7 +6,7 @@ class PerguntaController
   {
   }
 
-  public function processRequest(string $method, ?string $id): void
+  public function processRequest(string $method, ?string $id, array $usuario = null): void
   {
     if ($id) {
       $this->processResourceRequest($method, $id);

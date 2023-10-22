@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-require 'vendor/autoload.php';
-
 require_once __DIR__ . '/src/ErrorHandler.php';
+
+require 'vendor/autoload.php';
+require 'config.php';
 
 foreach (glob(__DIR__ . '/src/**/*.php') as $todasClasses) {
   require_once $todasClasses;
@@ -17,6 +18,14 @@ set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
 header("Content-type: application/json; charset=UTF-8");
+
+$config = [
+  "secret_key" => $_ENV["JWT_KEY"],
+  "issuedat_claim" => $issuedat_claim,
+  "notbefore_claim" => $notbefore_claim,
+  "expire_claim" => $expire_claim,
+  "refresh_token_expiration" => $refresh_token_expiration,
+];
 
 $database = new Database("localhost", "projeto-faq", "root", "");
 
@@ -58,17 +67,22 @@ if ($parts[1] == "pergunta") {
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
 } elseif ($parts[1] == "auth") {
   $gateway = new UsuarioGateway($database);
-  $controller = new AuthController($gateway);
+  $controller = new AuthController($gateway, $config);
 
-  if (isset($parts[2]) && $parts[2] == "login") {
-    $controller->processRequest($_SERVER["REQUEST_METHOD"], null);
+  if (isset($parts[2]) && $parts[2] == "refresh_token") {
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], true);
     return;
   }
 
-  if (isset($parts[2]) && $parts[2] == "logout" && isset($parts[3])) {
-    $id = $parts[3];
+  if (isset($parts[2]) && $parts[2] == "login") {
+    $controller->processRequest($_SERVER["REQUEST_METHOD"]);
+    return;
+  }
 
-    $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
+  if (isset($parts[2]) && $parts[2] == "logout") {
+    $token = getBearerToken();
+
+    $controller->logout($_SERVER["REQUEST_METHOD"], $config, $token);
     return;
   }
 

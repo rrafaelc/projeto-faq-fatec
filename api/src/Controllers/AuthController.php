@@ -1,88 +1,69 @@
 <?php
 
+use Firebase\JWT\Key;
+
 class AuthController
 {
-  public function __construct(private UsuarioGateway $gateway)
+  public function __construct(private UsuarioGateway $gateway, private array $config)
   {
   }
 
-  public function processRequest(string $method, ?string $id): void
-  {
-    if ($id) {
-      $this->processResourceRequest($method, $id);
-    } else {
-      $this->processCollectionRequest($method);
-    }
-  }
-
-  private function processResourceRequest(string $method, string $id): void
+  public function processRequest(string $method, bool $isRefreshToken = false): void
   {
 
-    $usuario = $this->gateway->get($id);
-
-
-    if (!$usuario) {
-      http_response_code(404);
-      echo json_encode(["message" => "Usuario não encontrado"]);
-      return;
-    }
-
-    switch ($method) {
-      case "GET":
-        echo json_encode($usuario);
-        break;
-      case "PATCH":
-        $data = (array) json_decode(file_get_contents("php://input"), true);
-
-        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
-
-        if ($usuarioExisteRa) {
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
-          ]);
-          return;
-        }
-
-        $usuarioExisteEmail = isset($data["email"]) && $this->gateway->getByEmail($data["email"]) ?? false;
-
-        if ($usuarioExisteEmail) {
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse email"]
-          ]);
-          return;
-        }
-
-        if (!empty($errors)) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => $errors
-          ]);
-          break;
-        }
-        $usuarioAtualizada = $this->gateway->update($usuario, $data);
-
-        echo json_encode($usuarioAtualizada);
-        break;
-      case "DELETE":
-        $this->gateway->delete($usuario["id"]);
-
-        http_response_code(204);
-        break;
-
-      default:
-        http_response_code(405);
-        header("Allow: GET, PATCH, DELETE");
-    }
+    $this->processCollectionRequest($method, $this->config, $isRefreshToken);
   }
 
-  private function processCollectionRequest(string $method): void
+  private function processCollectionRequest(string $method, array $config, bool $isRefreshToken): void
   {
     switch ($method) {
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        if ($isRefreshToken) {
+          $errors = $this->refreshTokenValidationErrors($data);
+
+          if (!empty($errors)) {
+            http_response_code(422);
+            echo json_encode([
+              "status" => "error",
+              "errors" => $errors
+            ]);
+            break;
+          }
+
+          $usuarioValido = $this->gateway->getByRefreshToken($data["refresh_token"]);
+
+          if (!$usuarioValido) {
+            http_response_code(401);
+            echo json_encode([
+              "status" => "error",
+              "errors" => ["Token inválido"]
+            ]);
+            return;
+          }
+
+          try {
+            $token = \Firebase\JWT\JWT::decode($data["refresh_token"], new Key($config["secret_key"], 'HS256'));
+
+            $usuario = $this->gateway->get($token->sub);
+            $access_token = $this->generateToken($config, $token->sub);
+
+            $usuario["access_token"] = $access_token;
+            unset($usuario["senha"]);
+
+            echo json_encode($usuario);
+          } catch (Exception $e) {
+            http_response_code(401);
+            echo json_encode([
+              "status" => "error",
+              "message" => "Token inválido",
+              "exception" => $e->getMessage(),
+            ]);
+          }
+
+          return;
+        }
 
         $errors = $this->loginValidationErrors($data);
 
@@ -115,15 +96,88 @@ class AuthController
           return;
         }
 
+        $access_token = $this->generateToken($config, $usuario["id"]);
 
-        http_response_code(200);
-        echo json_encode(["message" => "Logado"]);
+        $refresh_token_payload = array(
+          "sub" => $usuario["id"],
+          "exp" => $config["refresh_token_expiration"],
+        );
+
+        $refresh_token = \Firebase\JWT\JWT::encode($refresh_token_payload, $config["secret_key"], 'HS256');
+
+        $this->gateway->saveRefreshToken($refresh_token, $usuario["id"]);
+
+        $usuario["access_token"] = $access_token;
+        $usuario["refresh_token"] = $refresh_token;
+        unset($usuario["senha"]);
+
+        echo json_encode($usuario);
         break;
 
       default:
         http_response_code(405);
         header("Allow: POST");
     }
+  }
+
+  public function logout(string $method, array $config, ?string $access_token): void
+  {
+    switch ($method) {
+      case "POST":
+        if (empty($access_token)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Token obrigatório"]
+          ]);
+          return;
+        }
+
+        $usuario = $this->verifyAccessToken($config, $access_token);
+
+        if (!$usuario) return;
+
+        $this->gateway->update($usuario, ["refresh_token" => null]);
+
+        break;
+      default:
+        http_response_code(405);
+        header("Allow: POST");
+    }
+  }
+
+  public function verifyAccessToken(array $config, string $access_token): array | false
+  {
+    try {
+      $token = \Firebase\JWT\JWT::decode($access_token, new Key($config["secret_key"], 'HS256'));
+
+      $usuario = $this->gateway->get($token->sub);
+
+      return $usuario;
+    } catch (Exception $e) {
+      http_response_code(401);
+      echo json_encode([
+        "status" => "error",
+        "message" => "Token inválido",
+        "exception" => $e->getMessage(),
+      ]);
+
+      return false;
+    }
+  }
+
+  private function generateToken(array $config, string $id): string
+  {
+    $payload = array(
+      "iat" => $config["issuedat_claim"],
+      "nbf" => $config["notbefore_claim"],
+      "exp" => $config["expire_claim"],
+      "sub" => $id,
+    );
+
+    $token = \Firebase\JWT\JWT::encode($payload, $config["secret_key"], 'HS256');
+
+    return $token;
   }
 
   private function loginValidationErrors(array $data): array
@@ -140,6 +194,17 @@ class AuthController
 
     if (empty($data["senha"])) {
       $errors[] = "senha é obrigatório";
+    }
+
+    return $errors;
+  }
+
+  private function refreshTokenValidationErrors(array $data): array
+  {
+    $errors = [];
+
+    if (empty($data["refresh_token"])) {
+      $errors[] = "refresh_token é obrigatório";
     }
 
     return $errors;
