@@ -60,11 +60,12 @@ class AuthController
 
           $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
-          $usuario["access_token"] = $access_token;
-          $usuario["refresh_token"] = $refresh_token;
-          unset($usuario["senha"]);
+          echo json_encode([
+            "access_token" => $access_token,
+            "refresh_token" => $refresh_token,
+            "expires_in" => $config["access_token_expiration"] - time(),
+          ]);
 
-          echo json_encode($usuario);
           return;
         }
 
@@ -107,13 +108,13 @@ class AuthController
 
         $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
-        $usuario["access_token"] = $access_token;
-        $usuario["refresh_token"] = $refresh_token;
-        unset($usuario["senha"]);
+        echo json_encode([
+          "access_token" => $access_token,
+          "refresh_token" => $refresh_token,
+          "expires_in" => $config["access_token_expiration"] - time(),
+        ]);
 
-        echo json_encode($usuario);
         break;
-
       default:
         http_response_code(405);
         header("Allow: POST");
