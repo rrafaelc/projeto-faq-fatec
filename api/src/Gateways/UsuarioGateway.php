@@ -126,7 +126,7 @@ class UsuarioGateway
   public function update(array $current, array $new): array | false
   {
     $sql = "UPDATE usuario
-            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso
+            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo
             WHERE id = :id";
 
     $hashSenha = isset($new["senha"]) ? password_hash($new["senha"], PASSWORD_DEFAULT) : $current["senha"];
@@ -138,7 +138,6 @@ class UsuarioGateway
     $stmt->bindValue(":foto_uri", $new["foto_uri"] ?? $current["foto_uri"] ?? null, PDO::PARAM_STR);
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
     $stmt->bindValue(":cargo", $new["cargo"] ?? $current["cargo"], PDO::PARAM_STR);
-    $stmt->bindValue(":esta_suspenso", isset($new["esta_suspenso"]) && (bool) $new["esta_suspenso"] ?? (bool) $current["esta_suspenso"] ?? false, PDO::PARAM_BOOL);
 
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
     $stmt->execute();
@@ -162,6 +161,18 @@ class UsuarioGateway
             WHERE id = :id";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
+
+  public function updateSuspensao(bool $suspender, string $id): void {
+    $sql = "UPDATE usuario
+            SET esta_suspenso = :esta_suspenso
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":esta_suspenso", $suspender, PDO::PARAM_BOOL);
+
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
   }

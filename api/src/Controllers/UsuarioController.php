@@ -17,25 +17,51 @@ class UsuarioController
 
   private function processResourceRequest(string $method, array $params): void
   {
+    $temUsuarios = $this->gateway->getCount();
+
+    if (!$temUsuarios) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Sistema não tem úsuarios"],
+        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+      ]);
+
+      return;
+    }
+
+    $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuarioLogado) return;
+
     if (isset($params["id"])) {
       $usuario = $this->gateway->get($params["id"]);
     } elseif (isset($params["ra"])) {
       $usuario = $this->gateway->getByRa($params["ra"]);
     } elseif (isset($params["email"])) {
       $usuario = $this->gateway->getByEmail($params["email"]);
+    } else {
+      http_response_code(422);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Nenhum paramêtro enviado"]
+      ]);
+      return;
     }
 
     if (!$usuario) {
       http_response_code(404);
       echo json_encode([
         "status" => "error",
-        "message" => "Usuario não encontrado"
+        "error" => ["Usuário não encontrado"]
       ]);
+
       return;
     }
 
     switch ($method) {
       case "GET":
+        unset($usuario["senha"]);
         echo json_encode($usuario);
         break;
       case "PATCH":
@@ -185,6 +211,84 @@ class UsuarioController
     }
   }
 
+  public function suspender(string $method, ?string $id)
+  {
+    $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuarioLogado) return;
+
+    if (!$id) {
+      http_response_code(422);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Nenhum paramêtro enviado"]
+      ]);
+      return;
+    }
+
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+
+    if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Acesso negado"],
+      ]);
+
+      return;
+    }
+
+    $usuario = $this->gateway->get($id);
+
+    if (!$usuario) {
+      http_response_code(404);
+      echo json_encode([
+        "status" => "error",
+        "error" => ["Usuário não encontrado"]
+      ]);
+
+      return;
+    }
+
+    if ($usuarioLogado["id"] == $id) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "error" => ["Não permitido alterar a suspensão da sua própria conta"]
+      ]);
+
+      return;
+    }
+
+    switch ($method) {
+      case "POST":
+        $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        if (!array_key_exists("esta_suspenso", $data)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["esta_suspenso é obrigatório"]
+          ]);
+          return;
+        } elseif (!is_bool($data["esta_suspenso"])) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["esta_suspenso deve ser um valor booleano (true ou false)"]
+          ]);
+          return;
+        }
+
+        $this->gateway->updateSuspensao($data["esta_suspenso"], $id);
+
+        break;
+      default:
+        http_response_code(405);
+        header("Allow:  POST");
+    }
+  }
+
   public function temUsuarios(): void
   {
     $temUsuarios = $this->gateway->getCount();
@@ -317,12 +421,6 @@ class UsuarioController
 
       if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
         $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
-      }
-    }
-
-    if (array_key_exists("esta_suspenso", $data)) {
-      if (!is_bool($data["esta_suspenso"])) {
-        $errors[] = "esta_suspenso deve ser um valor booleano (true ou false)";
       }
     }
 

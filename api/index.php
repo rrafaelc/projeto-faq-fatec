@@ -53,16 +53,23 @@ if ($parts[1] == "pergunta") {
   $controller = new UsuarioController($gateway, $config, $authController, $token);
 
   if (isset($parts[2]) && $parts[2] == "ra") {
-    $params =  ["ra" => $parts[3]];
+    $params =  isset($parts[3]) ? ["ra" => $parts[3]] : [""];
 
     $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
     return;
   }
 
   if (isset($parts[2]) && $parts[2] == "email") {
-    $params =  ["email" => $parts[3]];
+    $params =  isset($parts[3]) ? ["email" => $parts[3]] : [""];
 
     $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
+    return;
+  }
+
+  if (isset($parts[2]) && $parts[2] == "suspender") {
+    $id =  isset($parts[3]) ? $parts[3] : "";
+
+    $controller->suspender($_SERVER["REQUEST_METHOD"], $id);
     return;
   }
 
