@@ -21,9 +21,8 @@ header("Content-type: application/json; charset=UTF-8");
 
 $config = [
   "secret_key" => $_ENV["JWT_KEY"],
-  "issuedat_claim" => $issuedat_claim,
-  "notbefore_claim" => $notbefore_claim,
-  "expire_claim" => $expire_claim,
+  "iat" => $iat,
+  "access_token_expiration" => $access_token_expiration,
   "refresh_token_expiration" => $refresh_token_expiration,
 ];
 
@@ -32,21 +31,26 @@ $database = new Database("localhost", "projeto-faq", "root", "");
 $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
+$token = getBearerToken();
+
+$usuarioGateway = new UsuarioGateway($database);
+$authController = new AuthController($usuarioGateway, $config);
+
 if ($parts[1] == "pergunta") {
   // if (isset($parts[2]) && $parts[2] == "editar") {
   //   var_dump("editar");
   //   return;
   // }
 
-  $gateway = new PerguntaGateway($database);
-  $controller = new PerguntaController($gateway);
+  $perguntaGateway = new PerguntaGateway($database);
+  $controller = new PerguntaController($perguntaGateway, $config, $authController, $token);
 
   $id = $parts[2] ?? null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
 } elseif ($parts[1] == "usuario") {
   $gateway = new UsuarioGateway($database);
-  $controller = new UsuarioController($gateway);
+  $controller = new UsuarioController($gateway, $config, $authController, $token);
 
   if (isset($parts[2]) && $parts[2] == "ra") {
     $params =  ["ra" => $parts[3]];
@@ -66,23 +70,19 @@ if ($parts[1] == "pergunta") {
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
 } elseif ($parts[1] == "auth") {
-  $gateway = new UsuarioGateway($database);
-  $controller = new AuthController($gateway, $config);
 
   if (isset($parts[2]) && $parts[2] == "refresh_token") {
-    $controller->processRequest($_SERVER["REQUEST_METHOD"], true);
+    $authController->processRequest($_SERVER["REQUEST_METHOD"], true);
     return;
   }
 
   if (isset($parts[2]) && $parts[2] == "login") {
-    $controller->processRequest($_SERVER["REQUEST_METHOD"]);
+    $authController->processRequest($_SERVER["REQUEST_METHOD"]);
     return;
   }
 
   if (isset($parts[2]) && $parts[2] == "logout") {
-    $token = getBearerToken();
-
-    $controller->logout($_SERVER["REQUEST_METHOD"], $config, $token);
+    $authController->logout($_SERVER["REQUEST_METHOD"], $config, $token);
     return;
   }
 

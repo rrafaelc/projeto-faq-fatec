@@ -54,6 +54,8 @@ class AuthController
 
           $access_token = $this->generateToken($config, $usuario["id"]);
 
+          $this->gateway->updateToken($access_token, $usuario["refresh_token"], $usuario["refresh_token_expiration"], $usuario["id"]);
+
           $usuario["access_token"] = $access_token;
           $usuario["refresh_token"] = $data["refresh_token"];
           unset($usuario["senha"]);
@@ -99,7 +101,7 @@ class AuthController
 
         $expiration_date = date('Y-m-d H:i:s', $config["refresh_token_expiration"]);
 
-        $this->gateway->saveRefreshToken($refresh_token, $expiration_date, $usuario["id"]);
+        $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
         $usuario["access_token"] = $access_token;
         $usuario["refresh_token"] = $refresh_token;
@@ -131,7 +133,7 @@ class AuthController
 
         if (!$usuario) return;
 
-        $this->gateway->saveRefreshToken(null, null, $usuario["id"]);
+        $this->gateway->updateToken(null, null, null, $usuario["id"]);
 
         break;
       default:
@@ -140,20 +142,39 @@ class AuthController
     }
   }
 
-  public function verifyAccessToken(array $config, string $access_token): array | false
+  public function verifyAccessToken(array $config, ?string $access_token): array | false
   {
+    if (empty($access_token)) {
+      http_response_code(422);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Token obrigatório"]
+      ]);
+
+      return false;
+    }
+
     try {
       $token = \Firebase\JWT\JWT::decode($access_token, new Key($config["secret_key"], 'HS256'));
 
       $usuario = $this->gateway->get($token->sub);
+
+      if ($usuario["access_token"] !== $access_token) {
+        http_response_code(401);
+        echo json_encode([
+          "status" => "error",
+          "errors" => ["Token inválido"]
+        ]);
+
+        return false;
+      }
 
       return $usuario;
     } catch (Exception $e) {
       http_response_code(401);
       echo json_encode([
         "status" => "error",
-        "message" => "Token inválido",
-        "exception" => $e->getMessage(),
+        "errors" => ["Token inválido"]
       ]);
 
       return false;
@@ -163,9 +184,8 @@ class AuthController
   private function generateToken(array $config, string $id): string
   {
     $payload = array(
-      "iat" => $config["issuedat_claim"],
-      "nbf" => $config["notbefore_claim"],
-      "exp" => $config["expire_claim"],
+      "iat" => $config["iat"],
+      "exp" => $config["access_token_expiration"],
       "sub" => $id,
     );
 

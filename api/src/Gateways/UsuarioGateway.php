@@ -157,13 +157,14 @@ class UsuarioGateway
     $stmt->execute();
   }
 
-  public function saveRefreshToken(?string $refresh_token, ?string $expiration_date, string $id): void
+  public function updateToken(?string $access_token, ?string $refresh_token, ?string $expiration_date, string $id): void
   {
     $sql = "UPDATE usuario
-            SET refresh_token = :refresh_token, refresh_token_expiration = :refresh_token_expiration
+            SET access_token = :access_token, refresh_token = :refresh_token, refresh_token_expiration = :refresh_token_expiration
             WHERE id = :id";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":access_token", $access_token, PDO::PARAM_STR);
     $stmt->bindValue(":refresh_token", $refresh_token, PDO::PARAM_STR);
     $stmt->bindValue(":refresh_token_expiration", $expiration_date, PDO::PARAM_STR);
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);

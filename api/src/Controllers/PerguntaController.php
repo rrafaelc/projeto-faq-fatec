@@ -2,11 +2,11 @@
 
 class PerguntaController
 {
-  public function __construct(private PerguntaGateway $gateway)
+  public function __construct(private PerguntaGateway $gateway, private array $config, private AuthController $authController, private ?string $token)
   {
   }
 
-  public function processRequest(string $method, ?string $id, array $usuario = null): void
+  public function processRequest(string $method, ?string $id): void
   {
     if ($id) {
       $this->processResourceRequest($method, $id);

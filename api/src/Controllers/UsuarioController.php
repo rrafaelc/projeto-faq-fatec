@@ -2,7 +2,7 @@
 
 class UsuarioController
 {
-  public function __construct(private UsuarioGateway $gateway)
+  public function __construct(private UsuarioGateway $gateway, private array $config, private AuthController $authController, private ?string $token)
   {
   }
 
@@ -92,6 +92,10 @@ class UsuarioController
 
   private function processCollectionRequest(string $method): void
   {
+    $usuario = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuario) return;
+
     switch ($method) {
       case "GET":
         echo json_encode($this->gateway->getAll());
