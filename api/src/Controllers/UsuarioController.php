@@ -105,6 +105,43 @@ class UsuarioController
         echo json_encode($usuarioAtualizado);
         break;
       case "DELETE":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if (isset($params["id"])) {
+          $usuario = $this->gateway->get($params["id"]);
+        } else {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Nenhum paramêtro enviado"]
+          ]);
+          return;
+        }
+
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+
+        if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Acesso negado"],
+          ]);
+
+          return;
+        }
+
+        if ($usuarioLogado["id"] == $usuario["id"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "error" => ["Não permitido excluir sua própria conta"]
+          ]);
+
+          return;
+        }
+
         $this->gateway->delete($usuario["id"]);
 
         http_response_code(204);
@@ -165,7 +202,6 @@ class UsuarioController
 
           return;
         }
-
 
         $errors = $this->createValidationErrors($data);
 
