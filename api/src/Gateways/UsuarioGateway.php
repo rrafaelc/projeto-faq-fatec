@@ -9,6 +9,15 @@ class UsuarioGateway
     $this->conn = $database->getConnection();
   }
 
+  public function getCount(): int
+  {
+    $sql = "SELECT COUNT(*) AS total FROM usuario";
+    $stmt = $this->conn->query($sql);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return (int) $result['total'];
+  }
+
   public function getAll(): array
   {
     $sql = "SELECT *

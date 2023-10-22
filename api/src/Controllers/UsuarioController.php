@@ -92,16 +92,48 @@ class UsuarioController
 
   private function processCollectionRequest(string $method): void
   {
-    $usuario = $this->authController->verifyAccessToken($this->config, $this->token);
+    $temUsuarios = $this->gateway->getCount();
 
-    if (!$usuario) return;
+    $usuario = $temUsuarios ? $this->authController->verifyAccessToken($this->config, $this->token) : false;
+
+    if ($temUsuarios) {
+      if (!$usuario) return;
+    }
 
     switch ($method) {
       case "GET":
         echo json_encode($this->gateway->getAll());
         break;
       case "POST":
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+
+        if ($temUsuarios && !in_array($usuario["cargo"], $cargosPermitidos)) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Acesso negado"],
+          ]);
+
+          return;
+        }
+
         $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        $criarCargosPermitidos = [CargoEnum::COLABORADOR, CargoEnum::MODERADOR, CargoEnum::ADMINISTRADOR];
+
+        if (!$temUsuarios) {
+          $data["cargo"] = CargoEnum::DIRETOR;
+        } else {
+          if (!in_array($data["cargo"], $criarCargosPermitidos)) {
+            http_response_code(403);
+            echo json_encode([
+              "status" => "error",
+              "errors" => ["cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . " ou " . CargoEnum::ADMINISTRADOR],
+            ]);
+
+            return;
+          }
+        }
 
         $errors = $this->createValidationErrors($data);
 
@@ -185,8 +217,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== "Colaborador" && $cargo !== "Moderador" && $cargo !== "Administrador" && $cargo !== "Diretor") {
-        $errors[] = "cargo deve ser 'Colaborador', 'Moderador', 'Administrador' ou 'Diretor'";
+      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
       }
     }
 
@@ -224,8 +256,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== "Colaborador" && $cargo !== "Moderador" && $cargo !== "Administrador" && $cargo !== "Diretor") {
-        $errors[] = "cargo deve ser 'Colaborador', 'Moderador', 'Administrador' ou 'Diretor'";
+      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
       }
     }
 
