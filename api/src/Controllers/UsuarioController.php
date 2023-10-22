@@ -130,10 +130,10 @@ class UsuarioController
           break;
         }
 
-        $perguntaCriada = $this->gateway->create($data);
+        $usuarioCriado = $this->gateway->create($data);
 
         http_response_code(201);
-        echo json_encode($perguntaCriada);
+        echo json_encode($usuarioCriado);
         break;
 
       default:

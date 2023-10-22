@@ -117,7 +117,7 @@ class UsuarioGateway
   public function update(array $current, array $new): array | false
   {
     $sql = "UPDATE usuario
-            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso, refresh_token = :refresh_token
+            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo, esta_suspenso = :esta_suspenso
             WHERE id = :id";
 
     $hashSenha = isset($new["senha"]) ? password_hash($new["senha"], PASSWORD_DEFAULT) : $current["senha"];
@@ -130,7 +130,6 @@ class UsuarioGateway
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
     $stmt->bindValue(":cargo", $new["cargo"] ?? $current["cargo"], PDO::PARAM_STR);
     $stmt->bindValue(":esta_suspenso", isset($new["esta_suspenso"]) && (bool) $new["esta_suspenso"] ?? (bool) $current["esta_suspenso"] ?? false, PDO::PARAM_BOOL);
-    $stmt->bindValue(":refresh_token", $new["refresh_token"], PDO::PARAM_STR);
 
     $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
     $stmt->execute();
@@ -158,14 +157,15 @@ class UsuarioGateway
     $stmt->execute();
   }
 
-  public function saveRefreshToken(string $refresh_token, string $id): void
+  public function saveRefreshToken(?string $refresh_token, ?string $expiration_date, string $id): void
   {
     $sql = "UPDATE usuario
-            SET refresh_token = :refresh_token
+            SET refresh_token = :refresh_token, refresh_token_expiration = :refresh_token_expiration
             WHERE id = :id";
 
     $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":refresh_token", $refresh_token);
+    $stmt->bindValue(":refresh_token", $refresh_token, PDO::PARAM_STR);
+    $stmt->bindValue(":refresh_token_expiration", $expiration_date, PDO::PARAM_STR);
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
 
     $stmt->execute();

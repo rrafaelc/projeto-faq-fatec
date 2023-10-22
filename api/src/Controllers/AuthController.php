@@ -32,36 +32,33 @@ class AuthController
             break;
           }
 
-          $usuarioValido = $this->gateway->getByRefreshToken($data["refresh_token"]);
+          $usuario = $this->gateway->getByRefreshToken($data["refresh_token"]);
 
-          if (!$usuarioValido) {
+          if (!$usuario) {
             http_response_code(401);
             echo json_encode([
               "status" => "error",
-              "errors" => ["Token inválido"]
+              "errors" => ["Refresh Token inválido ou expirado"]
             ]);
             return;
           }
 
-          try {
-            $token = \Firebase\JWT\JWT::decode($data["refresh_token"], new Key($config["secret_key"], 'HS256'));
-
-            $usuario = $this->gateway->get($token->sub);
-            $access_token = $this->generateToken($config, $token->sub);
-
-            $usuario["access_token"] = $access_token;
-            unset($usuario["senha"]);
-
-            echo json_encode($usuario);
-          } catch (Exception $e) {
+          if (time() > strtotime($usuario["refresh_token_expiration"])) {
             http_response_code(401);
             echo json_encode([
               "status" => "error",
-              "message" => "Token inválido",
-              "exception" => $e->getMessage(),
+              "errors" => ["Refresh Token inválido ou expirado"]
             ]);
+            return;
           }
 
+          $access_token = $this->generateToken($config, $usuario["id"]);
+
+          $usuario["access_token"] = $access_token;
+          $usuario["refresh_token"] = $data["refresh_token"];
+          unset($usuario["senha"]);
+
+          echo json_encode($usuario);
           return;
         }
 
@@ -98,14 +95,11 @@ class AuthController
 
         $access_token = $this->generateToken($config, $usuario["id"]);
 
-        $refresh_token_payload = array(
-          "sub" => $usuario["id"],
-          "exp" => $config["refresh_token_expiration"],
-        );
+        $refresh_token = bin2hex(random_bytes(32));
 
-        $refresh_token = \Firebase\JWT\JWT::encode($refresh_token_payload, $config["secret_key"], 'HS256');
+        $expiration_date = date('Y-m-d H:i:s', $config["refresh_token_expiration"]);
 
-        $this->gateway->saveRefreshToken($refresh_token, $usuario["id"]);
+        $this->gateway->saveRefreshToken($refresh_token, $expiration_date, $usuario["id"]);
 
         $usuario["access_token"] = $access_token;
         $usuario["refresh_token"] = $refresh_token;
@@ -137,7 +131,7 @@ class AuthController
 
         if (!$usuario) return;
 
-        $this->gateway->update($usuario, ["refresh_token" => null]);
+        $this->gateway->saveRefreshToken(null, null, $usuario["id"]);
 
         break;
       default:
