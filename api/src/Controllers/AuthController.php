@@ -54,10 +54,14 @@ class AuthController
 
           $access_token = $this->generateToken($config, $usuario["id"]);
 
-          $this->gateway->updateToken($access_token, $usuario["refresh_token"], $usuario["refresh_token_expiration"], $usuario["id"]);
+          $refresh_token = bin2hex(random_bytes(32));
+
+          $expiration_date = date('Y-m-d H:i:s', $config["refresh_token_expiration"]);
+
+          $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
           $usuario["access_token"] = $access_token;
-          $usuario["refresh_token"] = $data["refresh_token"];
+          $usuario["refresh_token"] = $refresh_token;
           unset($usuario["senha"]);
 
           echo json_encode($usuario);
