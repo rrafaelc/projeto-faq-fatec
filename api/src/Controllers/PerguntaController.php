@@ -33,8 +33,22 @@ class PerguntaController
         echo json_encode($pergunta);
         break;
       case "PATCH":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Não permitido alterar pergunta de outro usuário"]
+          ]);
+
+          return;
+        }
+
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        $data["usuarioId"] = 2;
+        $data["usuarioId"] = $usuarioLogado["id"];
 
         $errors = $this->patchValidationErrors($data);
 
