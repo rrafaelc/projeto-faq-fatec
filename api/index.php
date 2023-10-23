@@ -26,7 +26,7 @@ $config = [
   "refresh_token_expiration" => $refresh_token_expiration,
 ];
 
-$database = new Database("localhost", "projeto-faq", "root", "");
+$database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"]);
 
 $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
