@@ -127,6 +127,33 @@ class PerguntaController
     }
   }
 
+  public function incrementarCurtidas(string $method, string $id): void
+  {
+    switch ($method) {
+      case "PATCH":
+        $pergunta = $this->gateway->get($id);
+
+        if (!$pergunta) {
+          http_response_code(404);
+          echo json_encode([
+            "status" => "error",
+            "message" => "Pergunta não encontrada"
+          ]);
+          return;
+        }
+
+        $perguntaCurtidasIncrementada = $this->gateway->updateCurtidas($pergunta, ["curtidas" => $pergunta["curtidas"] + 1]);
+
+        http_response_code(201);
+        echo json_encode($perguntaCurtidasIncrementada);
+        break;
+
+      default:
+        http_response_code(405);
+        header("Allow: PATCH");
+    }
+  }
+
   private function createValidationErrors(array $data): array
   {
     $errors = [];

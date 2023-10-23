@@ -40,6 +40,14 @@ if ($parts[1] == "pergunta") {
   $perguntaGateway = new PerguntaGateway($database);
   $controller = new PerguntaController($perguntaGateway, $config, $authController, $token);
 
+  if (isset($parts[2]) && $parts[2] == "incrementar-curtidas") {
+    $id =  isset($parts[3]) ? $parts[3] : "";
+
+    $controller->incrementarCurtidas($_SERVER["REQUEST_METHOD"], $id);
+    return;
+  }
+
+
   $id = $parts[2] ?? null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);

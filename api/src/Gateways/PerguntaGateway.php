@@ -121,4 +121,25 @@ class PerguntaGateway
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
   }
+
+  public function updateCurtidas(array $current, array $new): array | false
+  {
+    $sql = "UPDATE pergunta
+            SET curtidas = :curtidas
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":curtidas", $new["curtidas"] ?? $current["curtidas"], PDO::PARAM_INT);
+
+    $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
+    $stmt->execute();
+
+    $sql = "SELECT * FROM pergunta WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":id", $current["id"], PDO::PARAM_INT);
+    $stmt->execute();
+    $pergunta = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $pergunta;
+  }
 }
