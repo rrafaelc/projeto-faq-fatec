@@ -51,6 +51,20 @@ class PerguntaController
         echo json_encode($perguntaAtualizada);
         break;
       case "DELETE":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Não permitido deletar pergunta de outro usuário"]
+          ]);
+
+          return;
+        }
+
         $this->gateway->delete($id);
 
         http_response_code(204);
