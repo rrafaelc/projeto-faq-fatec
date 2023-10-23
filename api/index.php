@@ -47,6 +47,12 @@ if ($parts[1] == "pergunta") {
     return;
   }
 
+  if (isset($parts[2]) && $parts[2] == "decrementar-curtidas") {
+    $id =  isset($parts[3]) ? $parts[3] : "";
+
+    $controller->decrementarCurtidas($_SERVER["REQUEST_METHOD"], $id);
+    return;
+  }
 
   $id = $parts[2] ?? null;
 
