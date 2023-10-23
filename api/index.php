@@ -43,9 +43,16 @@ if ($parts[1] == "pergunta") {
   $id = $parts[2] ?? null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
+} else if ($parts[1] == "pergunta-sugerida") {
+  $perguntaSugeridaGateway = new PerguntaSugeridaGateway($database);
+  $controller = new PerguntaSugeridaController($perguntaSugeridaGateway);
+
+  $id = $parts[2] ?? null;
+
+  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
 } elseif ($parts[1] == "usuario") {
-  $gateway = new UsuarioGateway($database);
-  $controller = new UsuarioController($gateway, $config, $authController, $token);
+  $usuarioGateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($usuarioGateway, $config, $authController, $token);
 
   if (isset($parts[2]) && $parts[2] == "ra") {
     $params =  isset($parts[3]) ? ["ra" => $parts[3]] : [""];
@@ -90,13 +97,13 @@ if ($parts[1] == "pergunta") {
   http_response_code(404);
   exit;
 } elseif ($parts[1] == "tem-usuarios") {
-  $gateway = new UsuarioGateway($database);
-  $controller = new UsuarioController($gateway, $config, $authController, $token);
+  $usuarioGateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($usuarioGateway, $config, $authController, $token);
 
   $controller->temUsuarios();
 } elseif ($parts[1] == "criar-primeira-conta") {
-  $gateway = new UsuarioGateway($database);
-  $controller = new UsuarioController($gateway, $config, $authController, $token);
+  $usuarioGateway = new UsuarioGateway($database);
+  $controller = new UsuarioController($usuarioGateway, $config, $authController, $token);
 
   $controller->criarPrimeiraConta($_SERVER["REQUEST_METHOD"]);
 } else {

@@ -25,6 +25,21 @@ class PerguntaGateway
     return $data;
   }
 
+  public function get(string $id): array | false
+  {
+    $sql = "SELECT *
+            FROM pergunta
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $data;
+  }
+
   public function create(array $data): array | false
   {
     $prioridade = $data["prioridade"] ?? "Normal";
@@ -59,21 +74,6 @@ class PerguntaGateway
 
     // Retorna a pergunta criada
     return $pergunta;
-  }
-
-  public function get(string $id): array | false
-  {
-    $sql = "SELECT *
-            FROM pergunta
-            WHERE id = :id";
-
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-    $stmt->execute();
-
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $data;
   }
 
   public function update(array $current, array $new): array | false
