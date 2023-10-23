@@ -15,7 +15,6 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <script src="script.js" defer></script>
   <script src="../scripts/global.js" defer></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -36,8 +35,6 @@
         <label for="senha">Senha</label>
         <input type="password" placeholder="Sua senha" required />
       </div>
-
-      <div class="g-recaptcha" data-sitekey="6Lf_9folAAAAAMU9IJsYU3y0wR4wzZHs7-Wo1ED7"></div>
 
       <button type="submit">Login</button>
     </form>

@@ -30,6 +30,10 @@
         </div>
         <div class="lista">
           <div>
+            <i class="fa-brands fa-php"></i>
+            <p>PHP</p>
+          </div>
+          <div>
             <i class="fa-brands fa-html5"></i>
             <p>HTML</p>
           </div>
@@ -57,25 +61,25 @@
           <img src="../img/sobre/claudinei_pereira.png" alt="Claudinei Rodrigues" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/claudinei-pereira-rodrigues/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="Claudinei Rodrigues" />
               <h5>Claudinei Rodrigues</h5>
             </a>
           </div>
         </div>
         <div class="avatar">
-          <img src="../img/sobre/João_Pedro_Doni.png" alt="João Pedro Doni" />
+          <img src="../img/sobre/João_Pedro_Doni.jpeg" alt="João Pedro Doni" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/jo%C3%A3o-pedro-doni/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="João Pedro Doni" />
               <h5>João Pedro Doni</h5>
             </a>
           </div>
         </div>
         <div class="avatar">
-          <img src="../img/sobre/Luan_Francisco.png" alt="Luan Francisco" />
+          <img src="../img/sobre/Luan_Francisco.jpeg" alt="Luan Francisco" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/luan-frc/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="Luan Francisco" />
               <h5>Luan Francisco</h5>
             </a>
           </div>
@@ -84,7 +88,7 @@
           <img src="../img/sobre/Erick_Silva.png" alt="Erick Vinicius Perereira Silva" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/erickvps/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="Erick P Silva" />
               <h5>Erick P Silva</h5>
             </a>
           </div>
@@ -93,16 +97,16 @@
           <img src="../img/sobre/Leandro_Ribeiro.png" alt="Leandro Ribeiro" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/leandro-ribeiro82/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="Leandro Ribeiro" />
               <h5>Leandro Ribeiro</h5>
             </a>
           </div>
         </div>
         <div class="avatar">
-          <img src="../img/sobre/Rafael_Costa.png" alt="Rafael Costa" />
+          <img src="../img/sobre/Rafael_Costa.jpeg" alt="Rafael Costa" />
           <div class="linkedin">
             <a href="https://www.linkedin.com/in/rrafaelc/" target="_blank">
-              <img src="../img/sobre/linkedin.png" alt="" />
+              <img src="../img/sobre/linkedin.png" alt="Rafael Costa" />
               <h5>Rafael Costa</h5>
             </a>
           </div>
