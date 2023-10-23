@@ -37,11 +37,6 @@ $usuarioGateway = new UsuarioGateway($database);
 $authController = new AuthController($usuarioGateway, $config);
 
 if ($parts[1] == "pergunta") {
-  // if (isset($parts[2]) && $parts[2] == "editar") {
-  //   var_dump("editar");
-  //   return;
-  // }
-
   $perguntaGateway = new PerguntaGateway($database);
   $controller = new PerguntaController($perguntaGateway, $config, $authController, $token);
 

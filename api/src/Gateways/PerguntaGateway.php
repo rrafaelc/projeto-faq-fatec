@@ -19,8 +19,6 @@ class PerguntaGateway
     $data = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      // $row["is_available"] = (bool) $row["is_available"];
-
       $data[] = $row;
     }
 
@@ -38,8 +36,6 @@ class PerguntaGateway
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":pergunta", $data["pergunta"], PDO::PARAM_STR);
     $stmt->bindValue(":resposta", $data["resposta"], PDO::PARAM_STR);
-    // $stmt->bindValue(":size", $data["size"] ?? 0, PDO::PARAM_INT);
-    // $stmt->bindValue(":is_available", (bool) $data["is_available"] ?? false, PDO::PARAM_BOOL);
     $stmt->bindValue(":prioridade",  $prioridade, PDO::PARAM_STR);
     $stmt->bindValue(":criado_por", $data["usuarioId"], PDO::PARAM_INT);
     $stmt->execute();
