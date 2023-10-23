@@ -59,7 +59,7 @@ if ($parts[1] == "pergunta") {
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
 } else if ($parts[1] == "pergunta-sugerida") {
   $perguntaSugeridaGateway = new PerguntaSugeridaGateway($database);
-  $controller = new PerguntaSugeridaController($perguntaSugeridaGateway);
+  $controller = new PerguntaSugeridaController($perguntaSugeridaGateway, $config, $authController, $token);
 
   $id = $parts[2] ?? null;
 

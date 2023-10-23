@@ -2,7 +2,7 @@
 
 class PerguntaSugeridaController
 {
-  public function __construct(private PerguntaSugeridaGateway $gateway)
+  public function __construct(private PerguntaSugeridaGateway $gateway, private array $config, private AuthController $authController, private ?string $token)
   {
   }
 
@@ -33,6 +33,19 @@ class PerguntaSugeridaController
         echo json_encode($perguntaSugerida);
         break;
       case "DELETE":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
         $this->gateway->delete($id);
 
         http_response_code(204);
