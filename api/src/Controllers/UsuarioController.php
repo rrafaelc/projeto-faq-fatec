@@ -64,46 +64,6 @@ class UsuarioController
         unset($usuario["senha"]);
         echo json_encode($usuario);
         break;
-      case "PATCH":
-        $data = (array) json_decode(file_get_contents("php://input"), true);
-
-        $errors = $this->patchValidationErrors($data);
-
-        if (!empty($errors)) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => $errors
-          ]);
-          break;
-        }
-
-        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
-
-        if ($usuarioExisteRa) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
-          ]);
-          return;
-        }
-
-        $usuarioExisteEmail = isset($data["email"]) && $this->gateway->getByEmail($data["email"]) ?? false;
-
-        if ($usuarioExisteEmail) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse email"]
-          ]);
-          return;
-        }
-
-        $usuarioAtualizado = $this->gateway->update($usuario, $data);
-
-        echo json_encode($usuarioAtualizado);
-        break;
       case "DELETE":
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
 
@@ -149,7 +109,7 @@ class UsuarioController
 
       default:
         http_response_code(405);
-        header("Allow: GET, PATCH, DELETE");
+        header("Allow: GET, DELETE");
     }
   }
 
@@ -241,9 +201,58 @@ class UsuarioController
         echo json_encode($usuarioCriado);
         break;
 
+      case "PATCH":
+        $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        if (!password_verify($data["senha_atual"], $usuario["senha"])) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Senha incorreta"]
+          ]);
+          return;
+        }
+
+        $errors = $this->patchValidationErrors($data);
+
+        if (!empty($errors)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => $errors
+          ]);
+          break;
+        }
+
+        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
+
+        if ($usuarioExisteRa) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse ra"]
+          ]);
+          return;
+        }
+
+        $usuarioExisteEmail = isset($data["email"]) && $this->gateway->getByEmail($data["email"]) ?? false;
+
+        if ($usuarioExisteEmail) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário já existe com esse email"]
+          ]);
+          return;
+        }
+
+        $usuarioAtualizado = $this->gateway->update($usuario, $data);
+
+        echo json_encode($usuarioAtualizado);
+        break;
       default:
         http_response_code(405);
-        header("Allow: GET, POST");
+        header("Allow: GET, POST, PATCH");
     }
   }
 
@@ -427,6 +436,10 @@ class UsuarioController
   private function patchValidationErrors(array $data): array
   {
     $errors = [];
+
+    if (empty($data["senha_atual"])) {
+      $errors[] = "senha_atual é obrigatório";
+    }
 
     if (isset($data["nome_completo"])) {
       if (strlen($data["nome_completo"]) < 3) {
