@@ -111,6 +111,16 @@ class UsuarioController
           return;
         }
 
+        if ($usuario["cargo"] == CargoEnum::DIRETOR) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "error" => ["Não permitido excluir conta do Diretor(a)"]
+          ]);
+
+          return;
+        }
+
         $this->gateway->delete($usuario["id"]);
 
         http_response_code(204);
