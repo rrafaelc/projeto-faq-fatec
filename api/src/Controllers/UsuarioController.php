@@ -92,6 +92,15 @@ class UsuarioController
           return;
         }
 
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
         if ($usuarioLogado["id"] == $usuario["id"]) {
           http_response_code(403);
           echo json_encode([
@@ -146,6 +155,15 @@ class UsuarioController
             "errors" => ["Acesso negado"],
           ]);
 
+          return;
+        }
+
+        if ((bool) $usuario["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
           return;
         }
 
@@ -295,6 +313,15 @@ class UsuarioController
       return;
     }
 
+    if ((bool) $usuarioLogado["esta_suspenso"]) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Usuário suspenso, acesso negado"]
+      ]);
+      return;
+    }
+
     $usuario = $this->gateway->get($id);
 
     if (!$usuario) {
@@ -355,6 +382,7 @@ class UsuarioController
         header("Allow:  POST");
     }
   }
+
   public function resetarSenha(string $method, ?string $id)
   {
     $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);

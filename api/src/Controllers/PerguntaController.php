@@ -37,6 +37,15 @@ class PerguntaController
 
         if (!$usuarioLogado) return;
 
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
         if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
           http_response_code(403);
           echo json_encode([
@@ -69,6 +78,15 @@ class PerguntaController
 
         if (!$usuarioLogado) return;
 
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
         if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
           http_response_code(403);
           echo json_encode([
@@ -100,6 +118,15 @@ class PerguntaController
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
 
         if (!$usuarioLogado) return;
+
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
 
         $data = (array) json_decode(file_get_contents("php://input"), true);
         $data["usuarioId"] = $usuarioLogado["id"];
