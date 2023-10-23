@@ -248,6 +248,18 @@ class UsuarioController
 
         $usuarioAtualizado = $this->gateway->update($usuario, $data);
 
+        if ($data["senha"]) {
+          $this->gateway->updateToken(null, null, null, $usuario["id"]);
+
+          unset($usuarioAtualizado["senha"]);
+          $usuarioAtualizado["access_token"] = null;
+          $usuarioAtualizado["refresh_token"] = null;
+          $usuarioAtualizado["refresh_token_expiration"] = null;
+
+          echo json_encode($usuarioAtualizado);
+          return;
+        }
+
         echo json_encode($usuarioAtualizado);
         break;
       default:
@@ -305,6 +317,16 @@ class UsuarioController
       return;
     }
 
+    if ($usuario["cargo"] == CargoEnum::DIRETOR) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "error" => ["Não permitido suspender o(a) Diretor(a)"]
+      ]);
+
+      return;
+    }
+
     switch ($method) {
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
@@ -331,6 +353,71 @@ class UsuarioController
       default:
         http_response_code(405);
         header("Allow:  POST");
+    }
+  }
+  public function resetarSenha(string $method, ?string $id)
+  {
+    $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuarioLogado) return;
+
+    if (!$id) {
+      http_response_code(422);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Nenhum paramêtro enviado"]
+      ]);
+      return;
+    }
+
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+
+    if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Acesso negado"],
+      ]);
+
+      return;
+    }
+
+    if ((bool) $usuarioLogado["esta_suspenso"]) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Usuário suspenso, acesso negado"]
+      ]);
+      return;
+    }
+
+    $usuario = $this->gateway->get($id);
+
+    if (!$usuario) {
+      http_response_code(404);
+      echo json_encode([
+        "status" => "error",
+        "error" => ["Usuário não encontrado"]
+      ]);
+
+      return;
+    }
+
+    switch ($method) {
+      case "PATCH":
+        $senhaResetada =  bin2hex(random_bytes(4));
+
+        $this->gateway->update($usuario, ["senha" => $senhaResetada]);
+
+        $this->gateway->updateToken(null, null, null, $usuario["id"]);
+
+        echo json_encode([
+          "nova_senha" => $senhaResetada
+        ]);
+        break;
+      default:
+        http_response_code(405);
+        header("Allow: PATCH");
     }
   }
 

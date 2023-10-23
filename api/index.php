@@ -75,6 +75,13 @@ if ($parts[1] == "pergunta") {
     return;
   }
 
+  if (isset($parts[2]) && $parts[2] == "resetar-senha") {
+    $id =  isset($parts[3]) ? $parts[3] : "";
+
+    $controller->resetarSenha($_SERVER["REQUEST_METHOD"], $id);
+    return;
+  }
+
   if (isset($parts[2]) && $parts[2] == "email") {
     $params =  isset($parts[3]) ? ["email" => $parts[3]] : [""];
 
