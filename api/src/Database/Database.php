@@ -7,12 +7,13 @@ class Database
     private string $name,
     private string $user,
     private string $password,
+    private string $port,
   ) {
   }
 
   public function getConnection(): PDO
   {
-    $dsn = "mysql:host={$this->host};dbname={$this->name};charset=utf8";
+    $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->name};charset=utf8";
 
     return new PDO($dsn, $this->user, $this->password, [
       PDO::ATTR_EMULATE_PREPARES => false,
