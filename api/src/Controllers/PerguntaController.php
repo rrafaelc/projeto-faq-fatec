@@ -69,8 +69,12 @@ class PerguntaController
         echo json_encode($this->gateway->getAll());
         break;
       case "POST":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        $data["usuarioId"] = 1;
+        $data["usuarioId"] = $usuarioLogado["id"];
 
         $errors = $this->createValidationErrors($data);
 

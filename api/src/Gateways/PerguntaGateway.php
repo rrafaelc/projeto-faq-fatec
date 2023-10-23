@@ -77,10 +77,6 @@ class PerguntaGateway
 
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // if ($data !== false) {
-    //   $data["is_available"] = (bool) $data["is_available"];
-    // }
-
     return $data;
   }
 
