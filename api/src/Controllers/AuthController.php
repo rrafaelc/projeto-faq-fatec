@@ -108,11 +108,12 @@ class AuthController
 
         $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
-        echo json_encode([
-          "access_token" => $access_token,
-          "refresh_token" => $refresh_token,
-          "expires_in" => $config["access_token_expiration"] - time(),
-        ]);
+        $usuario["access_token"] = $access_token;
+        $usuario["refresh_token"] = $refresh_token;
+        $usuario["expires_in"] = $config["access_token_expiration"] - time();
+        unset($usuario["senha"]);
+
+        echo json_encode($usuario);
 
         break;
       default:
