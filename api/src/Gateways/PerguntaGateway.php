@@ -9,10 +9,19 @@ class PerguntaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(): array
+  public function getAll(bool $orderByMaisAlta = false): array
   {
     $sql = "SELECT *
             FROM pergunta";
+
+    if ($orderByMaisAlta) {
+      $sql = "SELECT *
+              FROM pergunta
+              ORDER BY CASE
+                WHEN prioridade = 'Alta' THEN 1
+                WHEN prioridade = 'Normal' THEN 2
+              END";
+    }
 
     $stmt = $this->conn->query($sql);
 

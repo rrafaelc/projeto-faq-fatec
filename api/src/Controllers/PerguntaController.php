@@ -112,7 +112,7 @@ class PerguntaController
   {
     switch ($method) {
       case "GET":
-        echo json_encode($this->gateway->getAll());
+        echo json_encode($this->gateway->getAll(true));
         break;
       case "POST":
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
