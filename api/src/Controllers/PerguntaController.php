@@ -6,12 +6,12 @@ class PerguntaController
   {
   }
 
-  public function processRequest(string $method, ?string $id): void
+  public function processRequest(string $method, ?string $id, array $ordenacao): void
   {
     if ($id) {
       $this->processResourceRequest($method, $id);
     } else {
-      $this->processCollectionRequest($method);
+      $this->processCollectionRequest($method, $ordenacao);
     }
   }
 
@@ -108,11 +108,11 @@ class PerguntaController
     }
   }
 
-  private function processCollectionRequest(string $method): void
+  private function processCollectionRequest(string $method, array $ordenacao): void
   {
     switch ($method) {
       case "GET":
-        echo json_encode($this->gateway->getAll(true));
+        echo json_encode($this->gateway->getAll($ordenacao));
         break;
       case "POST":
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
