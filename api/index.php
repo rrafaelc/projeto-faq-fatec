@@ -44,6 +44,7 @@ if ($parts[1] == "pergunta") {
     $id =  isset($parts[3]) ? $parts[3] : "";
 
     $controller->incrementarCurtidas($_SERVER["REQUEST_METHOD"], $id);
+    
     return;
   }
 
@@ -51,12 +52,20 @@ if ($parts[1] == "pergunta") {
     $id =  isset($parts[3]) ? $parts[3] : "";
 
     $controller->decrementarCurtidas($_SERVER["REQUEST_METHOD"], $id);
+
+    return;
+  }
+
+  if (isset($parts[2]) && $parts[2] == "mais-buscados") {
+
+    $controller->processRequest($_SERVER["REQUEST_METHOD"], null, ["MaisCurtidas" => true]);
+
     return;
   }
 
   $id = $parts[2] ?? null;
 
-  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
+  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => true]);
 } else if ($parts[1] == "pergunta-sugerida") {
   $perguntaSugeridaGateway = new PerguntaSugeridaGateway($database);
   $controller = new PerguntaSugeridaController($perguntaSugeridaGateway, $config, $authController, $token);
