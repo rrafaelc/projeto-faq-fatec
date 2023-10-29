@@ -14,15 +14,18 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../../img/favicon/site.webmanifest" />
 
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js" defer></script>
   <title>Sistema FAQ | Editar dados</title>
 </head>
 
-<body>
+<body class="no-scroll">
   <?php
   $dir = '../..';
   include '../../layouts/painel-lateral.php';
   ?>
+  <div class="spinnerFull">
+    <div class="loader"></div>
+  </div>
   <main>
     <div class="header">
       <div class="grupo">

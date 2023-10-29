@@ -1,4 +1,9 @@
 // =============================================================================
+
+import { serverUrl } from '../../scripts/constants/serverUrl.js';
+import { deslogar } from '../../scripts/deslogar.js';
+import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+
 // Header
 const usuario = document.querySelector('.usuario');
 const botaoUsuario = usuario.querySelector('.botao');
@@ -34,7 +39,7 @@ let opcaoEscolhida = 'id';
 let usuarioEscolhido = '';
 let resposta = '';
 
-opcoes.forEach(radio => {
+opcoes.forEach((radio) => {
   radio.addEventListener('change', function () {
     if (this.checked) {
       opcaoEscolhida = this.value;
@@ -44,7 +49,7 @@ opcoes.forEach(radio => {
         titulo.classList.remove('ativo');
         colaborador.classList.remove('ativo');
 
-        tbodys.forEach(tbody => {
+        tbodys.forEach((tbody) => {
           tbody.classList.add('nao-mostrar');
         });
         paginacao.classList.add('nao-mostrar');
@@ -53,7 +58,7 @@ opcoes.forEach(radio => {
         id.classList.remove('ativo');
         colaborador.classList.remove('ativo');
 
-        tbodys.forEach(tbody => {
+        tbodys.forEach((tbody) => {
           tbody.classList.remove('nao-mostrar');
         });
         paginacao.classList.remove('nao-mostrar');
@@ -62,7 +67,7 @@ opcoes.forEach(radio => {
         id.classList.remove('ativo');
         titulo.classList.remove('ativo');
 
-        tbodys.forEach(tbody => {
+        tbodys.forEach((tbody) => {
           tbody.classList.remove('nao-mostrar');
         });
         paginacao.classList.remove('nao-mostrar');
@@ -71,7 +76,7 @@ opcoes.forEach(radio => {
   });
 });
 
-colaboradores.forEach(radio => {
+colaboradores.forEach((radio) => {
   radio.addEventListener('change', function () {
     if (this.checked) {
       usuarioEscolhido = this.value;
@@ -95,3 +100,19 @@ form.addEventListener('submit', function (event) {
     resposta,
   });
 });
+
+const spinner = document.querySelector('.spinnerFull');
+const deslogarBotao = document.querySelector('#deslogar');
+spinner.classList.remove('hideElement');
+
+const loggedIn = await isLoggedIn();
+if (!loggedIn) window.location.href = `${serverUrl}/login`;
+
+const execute = () => {
+  document.body.classList.remove('no-scroll');
+  spinner.classList.add('hideElement');
+
+  deslogarBotao.addEventListener('click', () => deslogar());
+};
+
+loggedIn && execute();

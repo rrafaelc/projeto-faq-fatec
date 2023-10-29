@@ -232,15 +232,6 @@ class UsuarioController
       case "PATCH":
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        if (!password_verify($data["senha_atual"], $usuario["senha"])) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Senha incorreta"]
-          ]);
-          return;
-        }
-
         $errors = $this->patchValidationErrors($data);
 
         if (!empty($errors)) {
@@ -251,6 +242,16 @@ class UsuarioController
           ]);
           break;
         }
+
+        if (!password_verify($data["senha_atual"], $usuario["senha"])) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Senha incorreta"]
+          ]);
+          return;
+        }
+
 
         $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
 
@@ -276,7 +277,7 @@ class UsuarioController
 
         $usuarioAtualizado = $this->gateway->update($usuario, $data);
 
-        if ($data["senha"]) {
+        if (isset($data["senha"]) && $data["senha"]) {
           $this->gateway->updateToken(null, null, null, $usuario["id"]);
 
           unset($usuarioAtualizado["senha"]);

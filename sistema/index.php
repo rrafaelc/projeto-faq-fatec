@@ -14,15 +14,19 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
 
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js"></script>
   <title>Sistema FAQ</title>
 </head>
 
-<body>
+<body class="no-scroll">
+
   <?php
   $dir = '..';
   include '../layouts/painel-lateral.php';
   ?>
+  <div class="spinnerFull">
+    <div class="loader"></div>
+  </div>
   <main>
     <div class="header">
       <div class="grupo">
@@ -42,7 +46,7 @@
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
           <a href="../sistema/editar-dados">Editar dados</a>
-          <a href="../login">Deslogar</a>
+          <a id="deslogar">Deslogar</a>
         </div>
       </div>
     </div>

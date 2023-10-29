@@ -13,7 +13,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js" defer></script>
   <script src="../scripts/global.js" defer></script>
 </head>
 
@@ -24,19 +24,27 @@
   include "../layouts/header.php";
   ?>
   <div class="container">
+
+
     <h1>Fazer Login Sistema FAQ</h1>
 
-    <form>
+    <form method="POST">
       <div id="email">
         <label for="email">Email</label>
-        <input type="email" placeholder="Seu email" required />
+        <input id="email" name="email" type="email" placeholder="Digite o email" required />
       </div>
       <div id="senha">
         <label for="senha">Senha</label>
-        <input type="password" placeholder="Sua senha" required />
+        <input id="senha" name="senha" type="password" placeholder="Digite a senha" required />
       </div>
 
-      <button type="submit">Login</button>
+      <div class="submit">
+        <button class="hideElement" type="submit">
+          Login
+        </button>
+        <div class="spinner loader"></div>
+        <span id="erro" class="hideElement">Email ou Senha incorretos</span>
+      </div>
     </form>
 
     <span class="info">Entre em contato com a Secretaria Acadêmica Fatec Itapira para criar conta ou resetar a
@@ -45,5 +53,6 @@
 
   <?php include "../layouts/footer.php" ?>
 </body>
+
 
 </html>
