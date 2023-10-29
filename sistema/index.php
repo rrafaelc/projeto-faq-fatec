@@ -46,7 +46,7 @@
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
           <a href="../sistema/editar-dados">Editar dados</a>
-          <a href="../login">Deslogar</a>
+          <a id="deslogar">Deslogar</a>
         </div>
       </div>
     </div>
