@@ -1,4 +1,9 @@
 // =============================================================================
+
+import { serverUrl } from '../../scripts/constants/serverUrl.js';
+import { deslogar } from '../../scripts/deslogar.js';
+import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+
 // Header
 const usuario = document.querySelector('.usuario');
 const botaoUsuario = usuario.querySelector('.botao');
@@ -42,7 +47,7 @@ const valorNome = nome.querySelector('#nome');
 
 const button = pesquisar.querySelector('button[type="submit"]');
 
-opcoes.forEach(radio => {
+opcoes.forEach((radio) => {
   radio.addEventListener('change', function () {
     if (this.checked) {
       opcaoEscolhida = this.value;
@@ -82,7 +87,7 @@ opcoes.forEach(radio => {
 const cargos = dados.querySelectorAll('.cargo');
 const suspensos = dados.querySelectorAll('.suspenso');
 
-cargos.forEach(cargo => {
+cargos.forEach((cargo) => {
   cargo.addEventListener('click', function () {
     const cargoBotao = cargo.querySelector('button');
 
@@ -112,7 +117,7 @@ cargos.forEach(cargo => {
   });
 });
 
-suspensos.forEach(suspenso => {
+suspensos.forEach((suspenso) => {
   suspenso.addEventListener('click', function () {
     const suspensoBotao = suspenso.querySelector('button');
 
@@ -140,3 +145,19 @@ form.addEventListener('submit', function (event) {
 formCriarConta.addEventListener('submit', function (event) {
   event.preventDefault();
 });
+
+const spinner = document.querySelector('.spinnerFull');
+const deslogarBotao = document.querySelector('#deslogar');
+spinner.classList.remove('hideElement');
+
+const loggedIn = await isLoggedIn();
+if (!loggedIn) window.location.href = `${serverUrl}/login`;
+
+const execute = () => {
+  document.body.classList.remove('no-scroll');
+  spinner.classList.add('hideElement');
+
+  deslogarBotao.addEventListener('click', () => deslogar());
+};
+
+loggedIn && execute();
