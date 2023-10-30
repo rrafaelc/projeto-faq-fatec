@@ -1,7 +1,7 @@
 // =============================================================================
 
+import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
-import { deslogar } from '../../scripts/deslogar.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 
 // Header

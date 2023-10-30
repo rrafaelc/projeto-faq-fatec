@@ -96,7 +96,7 @@
             <input class="normal" type="button" id="prioridade" value="Normal" />
           </div>
 
-          <button type="submit">Adicionar</button>
+          <button class="enviar" type="submit">Adicionar</button>
         </div>
       </form>
     </div>

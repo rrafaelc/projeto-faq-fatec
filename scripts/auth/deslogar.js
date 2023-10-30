@@ -1,6 +1,6 @@
-import { apiUrl } from './constants/apiUrl.js';
-import { serverUrl } from './constants/serverUrl.js';
-import { isLoggedIn } from './middlewares/isLoggedIn.js';
+import { apiUrl } from '../constants/apiUrl.js';
+import { serverUrl } from '../constants/serverUrl.js';
+import { isLoggedIn } from '../middlewares/isLoggedIn.js';
 
 export const deslogar = async () => {
   const loggedIn = await isLoggedIn();
