@@ -37,11 +37,11 @@
       </div>
       <div class="usuario">
         <div class="foto">
-          <img src="https://github.com/timbl.png" />
+          <img src="" />
         </div>
         <div class="nome">
-          <span>Tim Berners-Lee</span>
-          <span>Diretor(a)</span>
+          <span class="nome_completo"></span>
+          <span class="cargo"></span>
         </div>
         <i class="fas fa-angle-down botao"></i>
         <div class="dropdown">
