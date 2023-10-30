@@ -3,6 +3,8 @@
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { deslogar } from '../../scripts/deslogar.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
+import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -77,11 +79,13 @@ spinner.classList.remove('hideElement');
 const loggedIn = await isLoggedIn();
 if (!loggedIn) window.location.href = `${serverUrl}/login`;
 
-const execute = () => {
+const execute = async () => {
   document.body.classList.remove('no-scroll');
   spinner.classList.add('hideElement');
+  deslogarBotao.addEventListener('click', async () => await deslogar());
 
-  deslogarBotao.addEventListener('click', () => deslogar());
+  const user = await getLoggedUseInfo();
+  fillHeaderUserData(user);
 };
 
-loggedIn && execute();
+loggedIn && (await execute());

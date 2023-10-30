@@ -47,7 +47,7 @@ const execute = () => {
   document.body.classList.remove('no-scroll');
   spinner.classList.add('hideElement');
 
-  deslogarBotao.addEventListener('click', () => deslogar());
+  deslogarBotao.addEventListener('click', async () => await deslogar());
 };
 
 loggedIn && execute();
