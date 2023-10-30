@@ -3,6 +3,7 @@
 import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 
@@ -40,6 +41,7 @@ const form = perguntas.querySelector('form');
 const titulo = form.querySelector('#titulo');
 const resposta = form.querySelector('#resposta');
 const botaoPrioridade = form.querySelector('#prioridade');
+const botaoEnviar = form.querySelector('.enviar');
 
 tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
@@ -62,16 +64,6 @@ botaoPrioridade.addEventListener('click', function () {
   }
 });
 
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
-
-  console.log({
-    titulo: titulo.value,
-    resposta: resposta.value,
-    prioridade: botaoPrioridade.value,
-  });
-});
-
 const spinner = document.querySelector('.spinnerFull');
 const deslogarBotao = document.querySelector('#deslogar');
 spinner.classList.remove('hideElement');
@@ -86,6 +78,27 @@ const execute = async () => {
 
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    botaoEnviar.disabled = true;
+    botaoEnviar.textContent = 'Carregando';
+
+    const perguntaCriada = await criarPergunta({
+      pergunta: titulo.value,
+      resposta: resposta.value,
+      prioridade: botaoPrioridade.value,
+    });
+
+    if (perguntaCriada) {
+      window.location.href = '.';
+    } else {
+      botaoEnviar.disabled = false;
+      botaoEnviar.textContent = 'Adicionar';
+      alert('Erro ao criar a pergunta');
+    }
+  });
 };
 
 loggedIn && (await execute());
