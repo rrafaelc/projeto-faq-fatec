@@ -1,5 +1,17 @@
-const questionsContainer = document.querySelector('.container');
+import { apiUrl } from "./scripts/constants/apiUrl.js";
 
+const listarUrl = `${apiUrl}/pergunta`
+
+const listarPerguntas = async() =>{
+  const perguntas = await fetch(listarUrl)
+
+
+  return perguntas.json()
+
+}
+const perguntas = await listarPerguntas();
+const questionsContainer = document.querySelector('.container');
+ 
 const addLinksToContent = content => {
   const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
   const linkReplacement = '<a href="$1" target="_blank" style="display: inline">clique aqui</a>';
@@ -101,20 +113,19 @@ const questions = [
   },
 ];
 
-questionsContainer.innerHTML += questions
-  .map(
+questionsContainer.innerHTML += perguntas.map(
     question =>
       `
       <div class="faq-container">
         <div class="question">
           <h2 class="question-title">
-            ${question.titulo}
+            ${question.pergunta}
             <i class="fa-solid fa-chevron-down drop"> </i>
           </h2>
         </div>
         <div class="content">
           <p>
-            ${replaceLineBreaks(addLinksToContent(question.conteudo))}
+            ${replaceLineBreaks(addLinksToContent(question.resposta))}
           </p>
           <p>
             Essa resposta foi útil?
