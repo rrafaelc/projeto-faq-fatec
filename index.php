@@ -14,7 +14,7 @@
   <link rel="manifest" href="./img/favicon/site.webmanifest" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
-  <script src="index.js" defer></script>
+  <script src="index.js" type="module" defer></script>
   <script src="./scripts/global.js" defer></script>
 </head>
 
