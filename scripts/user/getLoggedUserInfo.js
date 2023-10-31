@@ -22,10 +22,8 @@ export const getLoggedUseInfo = async () => {
       email: data.email,
       foto_uri: data.foto_uri,
       cargo: data.cargo,
-      esta_suspenso: data.esta_suspenso
-    }
-
-
+      esta_suspenso: data.esta_suspenso,
+    };
   } catch (error) {
     console.log(error);
   }
