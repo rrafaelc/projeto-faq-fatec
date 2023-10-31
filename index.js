@@ -11,6 +11,13 @@ const replaceLineBreaks = content => {
   return content.replace(/\n/g, '<br>');
 };
 
+
+
+
+
+
+
+
 // Mostrar as perguntas na tela
 const questions = [
   {
@@ -48,6 +55,11 @@ const questions = [
     conteudo:
       'O aluno que não conseguir acessar o sistema SIGA (Sistema Integrado de Gestão Acadêmica) deverá enviar uma mensagem eletrônica, DO SEU E-MAIL INSTITUCIONAL, para o endereço f278acad@cps.sp.gov.br solicitando uma nova senha ou o desbloqueio do seu acesso. Caso o problema de acesso seja o esquecimento da senha, a Secretaria Acadêmica irá responder este e-mail com a nova senha temporária.',
   },
+
+
+
+
+  
   {
     titulo: 'Quem é o coordenador? (alunos ingressantes)',
     conteudo: `Cada curso na Fatec de Itapira possui um coordenador responsável por auxiliar os alunos. O Coordenador é um docente eleito pelos docentes e designado pela Direção para desempenhar um papel importante na orientação dos estudantes, no acompanhamento do currículo do curso e na resolução de questões acadêmicas relacionadas ao programa de estudos.
