@@ -27,9 +27,13 @@
   <div class="container">
 
 
-    <h1>Fazer Login Sistema FAQ</h1>
+    <h1>Criar Primeira Conta</h1>
 
     <form method="POST">
+      <div id="nome">
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Digite o nome" required />
+      </div>
       <div>
         <label for="email">Email</label>
         <input id="email" name="email" type="email" placeholder="Digite o email" required />
@@ -43,18 +47,25 @@
           </div>
         </div>
       </div>
+      <div>
+        <label for="confirmarSenha">Confirmar senha</label>
+        <div class="confirmarSenha">
+          <input id="confirmarSenha" name="confirmarSenha" type="password" placeholder="Digite a senha novamente" required />
+          <div class="eye-container">
+            <i class="eye bi bi-eye-slash"></i>
+          </div>
+        </div>
+      </div>
 
       <div class="submit">
         <button class="hideElement" type="submit">
-          Login
+          Criar
         </button>
         <div class="spinner loader"></div>
         <span id="erro" class="hideElement">Email ou Senha incorretos</span>
       </div>
     </form>
 
-    <span class="info">Entre em contato com a Secretaria Acadêmica Fatec Itapira para criar conta ou resetar a
-      senha</span>
   </div>
 
   <?php include "../layouts/footer.php" ?>

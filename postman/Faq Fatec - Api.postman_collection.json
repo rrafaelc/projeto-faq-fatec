@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \n    \"pergunta\": \"Pergunta Colaborador\",\n    \"resposta\": \"Resposta Colaborador\"\n}",
+							"raw": "{    \n    \"pergunta\": \"Pergunta\",\n    \"resposta\": \"Resposta\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -244,35 +244,6 @@
 					"response": []
 				},
 				{
-					"name": "Buscar por ra",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/usuario/ra/123456789",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"usuario",
-								"ra",
-								"123456789"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Buscar por email",
 					"request": {
 						"auth": {
@@ -346,7 +317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \n    \"nome_completo\": \"Colaborador\",\n    \"ra\": \"987654321\",\n    \"email\": \"colaborador@email.com\",\n    \"senha\": \"12345678\",\n    \"cargo\": \"Colaborador\"\n}",
+							"raw": "{    \n    \"nome_completo\": \"Moderador\",   \n    \"email\": \"moderador@email.com\",\n    \"senha\": \"12345678\",\n    \"cargo\": \"Moderador\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -454,7 +425,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome_completo\": \"Diretor\",\n    \"ra\": \"123\",\n    \"email\": \"diretor@email.com\",\n    \"senha\": \"12345678\"\n}",
+							"raw": "{\n    \"nome_completo\": \"Administrador\",    \n    \"email\": \"administrador@email.com\",\n    \"senha\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -539,7 +510,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"colaborador@email.com\",\n    \"senha\": \"12345678\"\n}",
+							"raw": "{\n    \"email\": \"administrador@email.com\",\n    \"senha\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

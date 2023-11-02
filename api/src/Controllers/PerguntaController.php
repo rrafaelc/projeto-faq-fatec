@@ -46,7 +46,7 @@ class PerguntaController
           return;
         }
 
-        if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
+        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
           http_response_code(403);
           echo json_encode([
             "status" => "error",
@@ -87,7 +87,7 @@ class PerguntaController
           return;
         }
 
-        if ($usuarioLogado["cargo"] == CargoEnum::COLABORADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
+        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
           http_response_code(403);
           echo json_encode([
             "status" => "error",

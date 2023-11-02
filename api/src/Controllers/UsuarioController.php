@@ -24,7 +24,7 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "errors" => ["Sistema não tem úsuarios"],
-        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+        "message" => "Crie Administrador(a) em /api/criar-primeira-conta",
       ]);
 
       return;
@@ -36,8 +36,6 @@ class UsuarioController
 
     if (isset($params["id"])) {
       $usuario = $this->gateway->get($params["id"]);
-    } elseif (isset($params["ra"])) {
-      $usuario = $this->gateway->getByRa($params["ra"]);
     } elseif (isset($params["email"])) {
       $usuario = $this->gateway->getByEmail($params["email"]);
     } else {
@@ -80,7 +78,7 @@ class UsuarioController
           return;
         }
 
-        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
         if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
           http_response_code(403);
@@ -111,16 +109,6 @@ class UsuarioController
           return;
         }
 
-        if ($usuario["cargo"] == CargoEnum::DIRETOR) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "error" => ["Não permitido excluir conta do Diretor(a)"]
-          ]);
-
-          return;
-        }
-
         $this->gateway->delete($usuario["id"]);
 
         http_response_code(204);
@@ -141,7 +129,7 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "errors" => ["Sistema não tem úsuarios"],
-        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+        "message" => "Crie Administrador(a) em /api/criar-primeira-conta",
       ]);
 
       return;
@@ -156,7 +144,7 @@ class UsuarioController
         echo json_encode($this->gateway->getAll());
         break;
       case "POST":
-        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
         if (!in_array($usuario["cargo"], $cargosPermitidos)) {
           http_response_code(403);
@@ -179,29 +167,19 @@ class UsuarioController
 
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $criarCargosPermitidos = [CargoEnum::COLABORADOR, CargoEnum::MODERADOR, CargoEnum::ADMINISTRADOR];
+        $criarCargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::MODERADOR];
 
         if (!in_array($data["cargo"], $criarCargosPermitidos)) {
           http_response_code(403);
           echo json_encode([
             "status" => "error",
-            "errors" => ["cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . " ou " . CargoEnum::ADMINISTRADOR],
+            "errors" => ["cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR],
           ]);
 
           return;
         }
 
         $errors = $this->createValidationErrors($data);
-
-        $usuarioExisteRa = $this->gateway->getByRa($data["ra"]);
-
-        if ($usuarioExisteRa) {
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
-          ]);
-          return;
-        }
 
         $usuarioExisteEmail = $this->gateway->getByEmail($data["email"]);
 
@@ -248,18 +226,6 @@ class UsuarioController
           echo json_encode([
             "status" => "error",
             "errors" => ["Senha incorreta"]
-          ]);
-          return;
-        }
-
-
-        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
-
-        if ($usuarioExisteRa) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
           ]);
           return;
         }
@@ -312,7 +278,7 @@ class UsuarioController
       return;
     }
 
-    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
     if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
       http_response_code(403);
@@ -350,16 +316,6 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "error" => ["Não permitido alterar a suspensão da sua própria conta"]
-      ]);
-
-      return;
-    }
-
-    if ($usuario["cargo"] == CargoEnum::DIRETOR) {
-      http_response_code(403);
-      echo json_encode([
-        "status" => "error",
-        "error" => ["Não permitido suspender o(a) Diretor(a)"]
       ]);
 
       return;
@@ -409,7 +365,7 @@ class UsuarioController
       return;
     }
 
-    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
     if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
       http_response_code(403);
@@ -486,7 +442,7 @@ class UsuarioController
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $data["cargo"] = CargoEnum::DIRETOR;
+        $data["cargo"] = CargoEnum::ADMINISTRADOR;
 
         $errors = $this->createValidationErrors($data);
 
@@ -499,11 +455,11 @@ class UsuarioController
           break;
         }
 
-        $diretorCriado = $this->gateway->create($data);
-        unset($diretorCriado["senha"]);
+        $administradorCriado = $this->gateway->create($data);
+        unset($administradorCriado["senha"]);
 
         http_response_code(201);
-        echo json_encode($diretorCriado);
+        echo json_encode($administradorCriado);
         break;
 
       default:
@@ -522,14 +478,6 @@ class UsuarioController
       }
     } else {
       $errors[] = "nome_completo é obrigatório";
-    }
-
-    if (!empty($data["ra"])) {
-      if (strlen($data["ra"]) < 3) {
-        $errors[] = "ra mínimo 3 caracteres";
-      }
-    } else {
-      $errors[] = "ra é obrigatório";
     }
 
     if (!empty($data["email"])) {
@@ -551,8 +499,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
-        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
+      if ($cargo !== CargoEnum::ADMINISTRADOR  && $cargo !== CargoEnum::MODERADOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR;
       }
     }
 
@@ -573,12 +521,6 @@ class UsuarioController
       }
     }
 
-    if (isset($data["ra"])) {
-      if (strlen($data["ra"]) < 3) {
-        $errors[] = "ra mínimo 3 caracteres";
-      }
-    }
-
     if (isset($data["email"])) {
       if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "O endereço de e-mail é inválido.";
@@ -594,8 +536,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
-        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
+      if ($cargo !== CargoEnum::ADMINISTRADOR  && $cargo !== CargoEnum::MODERADOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR;
       }
     }
 
