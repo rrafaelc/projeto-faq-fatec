@@ -454,7 +454,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome_completo\": \"Diretor\",\n    \"ra\": \"123\",\n    \"email\": \"diretor@email.com\",\n    \"senha\": \"12345678\"\n}",
+							"raw": "{\n    \"nome_completo\": \"Administrador\",\n    \"ra\": \"123\",\n    \"email\": \"administrador@email.com\",\n    \"senha\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -539,7 +539,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"colaborador@email.com\",\n    \"senha\": \"12345678\"\n}",
+							"raw": "{\n    \"email\": \"administrador@email.com\",\n    \"senha\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
