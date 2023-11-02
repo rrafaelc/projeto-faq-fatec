@@ -244,35 +244,6 @@
 					"response": []
 				},
 				{
-					"name": "Buscar por ra",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/usuario/ra/123456789",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"usuario",
-								"ra",
-								"123456789"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Buscar por email",
 					"request": {
 						"auth": {
