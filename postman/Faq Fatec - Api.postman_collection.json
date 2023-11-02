@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \n    \"pergunta\": \"Pergunta Colaborador\",\n    \"resposta\": \"Resposta Colaborador\"\n}",
+							"raw": "{    \n    \"pergunta\": \"Pergunta\",\n    \"resposta\": \"Resposta\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
