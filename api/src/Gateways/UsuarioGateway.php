@@ -105,7 +105,7 @@ class UsuarioGateway
     $stmt->bindValue(":email", $data["email"], PDO::PARAM_STR);
     $stmt->bindValue(":foto_uri", $data["foto_uri"] ?? NULL, PDO::PARAM_STR);
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
-    $stmt->bindValue(":cargo", $data["cargo"] ?? "Colaborador", PDO::PARAM_STR);
+    $stmt->bindValue(":cargo", $data["cargo"] ?? "Moderador", PDO::PARAM_STR);
     $stmt->execute();
     $usuarioId = $this->conn->lastInsertId();
 
