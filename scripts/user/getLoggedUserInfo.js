@@ -18,7 +18,6 @@ export const getLoggedUseInfo = async () => {
     return {
       id: data.id,
       nome_completo: data.nome_completo,
-      ra: data.ra,
       email: data.email,
       foto_uri: data.foto_uri,
       cargo: data.cargo,
