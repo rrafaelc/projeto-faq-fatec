@@ -31,8 +31,10 @@ form {
   gap: 30px;
 }
 
+form #nome,
 form #email,
-form #senha {
+form #senha,
+form #confirmarSenha {
   display: flex;
   flex-direction: column;
 }
@@ -42,7 +44,8 @@ form label {
   color: var(--titulos);
 }
 
-.senha {
+.senha,
+.confirmarSenha {
   display: flex;
   position: relative;
 }
@@ -73,10 +76,6 @@ form input {
   border-width: 1px;
   border-radius: 10px;
   outline-color: var(--cinza-texto);
-}
-
-form input#senha {
-  padding-right: 60px;
 }
 
 form input.erro {
