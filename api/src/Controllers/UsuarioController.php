@@ -24,7 +24,7 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "errors" => ["Sistema não tem úsuarios"],
-        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+        "message" => "Crie Administrador(a) em /api/criar-primeira-conta",
       ]);
 
       return;
@@ -80,7 +80,7 @@ class UsuarioController
           return;
         }
 
-        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
         if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
           http_response_code(403);
@@ -111,16 +111,6 @@ class UsuarioController
           return;
         }
 
-        if ($usuario["cargo"] == CargoEnum::DIRETOR) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "error" => ["Não permitido excluir conta do Diretor(a)"]
-          ]);
-
-          return;
-        }
-
         $this->gateway->delete($usuario["id"]);
 
         http_response_code(204);
@@ -141,7 +131,7 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "errors" => ["Sistema não tem úsuarios"],
-        "message" => "Crie Diretor(a) em /api/criar-primeira-conta",
+        "message" => "Crie Administrador(a) em /api/criar-primeira-conta",
       ]);
 
       return;
@@ -156,7 +146,7 @@ class UsuarioController
         echo json_encode($this->gateway->getAll());
         break;
       case "POST":
-        $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+        $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
         if (!in_array($usuario["cargo"], $cargosPermitidos)) {
           http_response_code(403);
@@ -179,13 +169,13 @@ class UsuarioController
 
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $criarCargosPermitidos = [CargoEnum::COLABORADOR, CargoEnum::MODERADOR, CargoEnum::ADMINISTRADOR];
+        $criarCargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::MODERADOR];
 
         if (!in_array($data["cargo"], $criarCargosPermitidos)) {
           http_response_code(403);
           echo json_encode([
             "status" => "error",
-            "errors" => ["cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . " ou " . CargoEnum::ADMINISTRADOR],
+            "errors" => ["cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR],
           ]);
 
           return;
@@ -312,7 +302,7 @@ class UsuarioController
       return;
     }
 
-    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
     if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
       http_response_code(403);
@@ -350,16 +340,6 @@ class UsuarioController
       echo json_encode([
         "status" => "error",
         "error" => ["Não permitido alterar a suspensão da sua própria conta"]
-      ]);
-
-      return;
-    }
-
-    if ($usuario["cargo"] == CargoEnum::DIRETOR) {
-      http_response_code(403);
-      echo json_encode([
-        "status" => "error",
-        "error" => ["Não permitido suspender o(a) Diretor(a)"]
       ]);
 
       return;
@@ -409,7 +389,7 @@ class UsuarioController
       return;
     }
 
-    $cargosPermitidos = [CargoEnum::ADMINISTRADOR, CargoEnum::DIRETOR];
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
 
     if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
       http_response_code(403);
@@ -486,7 +466,7 @@ class UsuarioController
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $data["cargo"] = CargoEnum::DIRETOR;
+        $data["cargo"] = CargoEnum::ADMINISTRADOR;
 
         $errors = $this->createValidationErrors($data);
 
@@ -499,11 +479,11 @@ class UsuarioController
           break;
         }
 
-        $diretorCriado = $this->gateway->create($data);
-        unset($diretorCriado["senha"]);
+        $administradorCriado = $this->gateway->create($data);
+        unset($administradorCriado["senha"]);
 
         http_response_code(201);
-        echo json_encode($diretorCriado);
+        echo json_encode($administradorCriado);
         break;
 
       default:
@@ -551,8 +531,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
-        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
+      if ($cargo !== CargoEnum::ADMINISTRADOR  && $cargo !== CargoEnum::MODERADOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR;
       }
     }
 
@@ -594,8 +574,8 @@ class UsuarioController
     if (isset($data["cargo"])) {
       $cargo = $data["cargo"];
 
-      if ($cargo !== CargoEnum::COLABORADOR  && $cargo !== CargoEnum::MODERADOR  && $cargo !== CargoEnum::ADMINISTRADOR && $cargo !== CargoEnum::DIRETOR) {
-        $errors[] = "cargo deve ser " . CargoEnum::COLABORADOR . ", " . CargoEnum::MODERADOR . ", " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::DIRETOR;
+      if ($cargo !== CargoEnum::ADMINISTRADOR  && $cargo !== CargoEnum::MODERADOR) {
+        $errors[] = "cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR;
       }
     }
 

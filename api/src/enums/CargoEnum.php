@@ -1,7 +1,6 @@
 <?php
-class CargoEnum {
-  const COLABORADOR = 'Colaborador';
-  const MODERADOR = 'Moderador';
+class CargoEnum
+{
   const ADMINISTRADOR = 'Administrador';
-  const DIRETOR = 'Diretor';
+  const MODERADOR = 'Moderador';
 }
