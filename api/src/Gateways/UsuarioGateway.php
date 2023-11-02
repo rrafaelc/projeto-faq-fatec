@@ -54,25 +54,6 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByRa(string $ra): array | false
-  {
-    $sql = "SELECT *
-            FROM usuario
-            WHERE ra = :ra";
-
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":ra", $ra, PDO::PARAM_STR);
-    $stmt->execute();
-
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($data !== false) {
-      $data["esta_suspenso"] = (bool) $data["esta_suspenso"];
-    }
-
-    return $data;
-  }
-
   public function getByEmail(string $email): array | false
   {
     $sql = "SELECT *
@@ -94,14 +75,13 @@ class UsuarioGateway
 
   public function create(array $data): array | false
   {
-    $sql = "INSERT INTO usuario (nome_completo, ra, email, foto_uri, senha, cargo)
-            VALUES (:nome_completo, :ra, :email, :foto_uri, :senha, :cargo)";
+    $sql = "INSERT INTO usuario (nome_completo, email, foto_uri, senha, cargo)
+            VALUES (:nome_completo, :email, :foto_uri, :senha, :cargo)";
 
     $hashSenha = password_hash($data["senha"], PASSWORD_DEFAULT);
 
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":nome_completo", $data["nome_completo"], PDO::PARAM_STR);
-    $stmt->bindValue(":ra", $data["ra"], PDO::PARAM_STR);
     $stmt->bindValue(":email", $data["email"], PDO::PARAM_STR);
     $stmt->bindValue(":foto_uri", $data["foto_uri"] ?? NULL, PDO::PARAM_STR);
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);
@@ -126,14 +106,13 @@ class UsuarioGateway
   public function update(array $current, array $new): array | false
   {
     $sql = "UPDATE usuario
-            SET nome_completo = :nome_completo, ra = :ra, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo
+            SET nome_completo = :nome_completo, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo
             WHERE id = :id";
 
     $hashSenha = isset($new["senha"]) ? password_hash($new["senha"], PASSWORD_DEFAULT) : $current["senha"];
 
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":nome_completo", $new["nome_completo"] ?? $current["nome_completo"], PDO::PARAM_STR);
-    $stmt->bindValue(":ra", $new["ra"] ?? $current["ra"], PDO::PARAM_STR);
     $stmt->bindValue(":email", $new["email"] ?? $current["email"], PDO::PARAM_STR);
     $stmt->bindValue(":foto_uri", $new["foto_uri"] ?? $current["foto_uri"] ?? null, PDO::PARAM_STR);
     $stmt->bindValue(":senha", $hashSenha, PDO::PARAM_STR);

@@ -36,8 +36,6 @@ class UsuarioController
 
     if (isset($params["id"])) {
       $usuario = $this->gateway->get($params["id"]);
-    } elseif (isset($params["ra"])) {
-      $usuario = $this->gateway->getByRa($params["ra"]);
     } elseif (isset($params["email"])) {
       $usuario = $this->gateway->getByEmail($params["email"]);
     } else {
@@ -183,16 +181,6 @@ class UsuarioController
 
         $errors = $this->createValidationErrors($data);
 
-        $usuarioExisteRa = $this->gateway->getByRa($data["ra"]);
-
-        if ($usuarioExisteRa) {
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
-          ]);
-          return;
-        }
-
         $usuarioExisteEmail = $this->gateway->getByEmail($data["email"]);
 
         if ($usuarioExisteEmail) {
@@ -238,18 +226,6 @@ class UsuarioController
           echo json_encode([
             "status" => "error",
             "errors" => ["Senha incorreta"]
-          ]);
-          return;
-        }
-
-
-        $usuarioExisteRa = isset($data["ra"]) && $this->gateway->getByRa($data["ra"]) ?? false;
-
-        if ($usuarioExisteRa) {
-          http_response_code(422);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Usuário já existe com esse ra"]
           ]);
           return;
         }
@@ -504,14 +480,6 @@ class UsuarioController
       $errors[] = "nome_completo é obrigatório";
     }
 
-    if (!empty($data["ra"])) {
-      if (strlen($data["ra"]) < 3) {
-        $errors[] = "ra mínimo 3 caracteres";
-      }
-    } else {
-      $errors[] = "ra é obrigatório";
-    }
-
     if (!empty($data["email"])) {
       if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "O endereço de e-mail é inválido.";
@@ -550,12 +518,6 @@ class UsuarioController
     if (isset($data["nome_completo"])) {
       if (strlen($data["nome_completo"]) < 3) {
         $errors[] = "nome_completo mínimo 3 caracteres";
-      }
-    }
-
-    if (isset($data["ra"])) {
-      if (strlen($data["ra"]) < 3) {
-        $errors[] = "ra mínimo 3 caracteres";
       }
     }
 

@@ -44,7 +44,7 @@ if ($parts[1] == "pergunta") {
     $id =  isset($parts[3]) ? $parts[3] : "";
 
     $controller->incrementarCurtidas($_SERVER["REQUEST_METHOD"], $id);
-    
+
     return;
   }
 
@@ -76,13 +76,6 @@ if ($parts[1] == "pergunta") {
 } elseif ($parts[1] == "usuario") {
   $usuarioGateway = new UsuarioGateway($database);
   $controller = new UsuarioController($usuarioGateway, $config, $authController, $token);
-
-  if (isset($parts[2]) && $parts[2] == "ra") {
-    $params =  isset($parts[3]) ? ["ra" => $parts[3]] : [""];
-
-    $controller->processRequest($_SERVER["REQUEST_METHOD"], $params);
-    return;
-  }
 
   if (isset($parts[2]) && $parts[2] == "resetar-senha") {
     $id =  isset($parts[3]) ? $parts[3] : "";
