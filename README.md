@@ -37,5 +37,6 @@ Durante o desenvolvimento deste projeto, os membros da equipe aprenderam a traba
 - Claudinei
 - Leandro
 - João
+- Luis
 
 ## Grupo do primeiro semestre de Desenvolvimento de Software Multiplataforma da Fatec Itapira 2023
