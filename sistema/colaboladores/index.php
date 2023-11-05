@@ -59,11 +59,8 @@
       <form>
         <label for="conta-nome">Nome</label>
         <input type="text" name="nome" id="conta-nome" placeholder="Escreva o nome do colaborador" required />
-        <label for="conta-ra">RA (Registro Acadêmico)</label>
-        <input type="text" name="ra" id="conta-ra" placeholder="Escreva o RA do colaborador" required />
         <label for="conta-email">E-mail</label>
         <input type="email" name="email" id="conta-email" placeholder="Escreva o e-mail do colaborador" required />
-
         <label for="conta-senha">Senha</label>
         <input type="password" name="senha" id="conta-senha" placeholder="Escreva a senha do colaborador" required />
         <label for="conta-confirmar-senha">Confirmar senha</label>
