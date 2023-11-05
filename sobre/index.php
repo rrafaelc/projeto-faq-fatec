@@ -111,8 +111,16 @@
             </a>
           </div>
         </div>
+        <div class="avatar">
+          <img src="../img/sobre/Luis_Henrique.jpeg" alt="Luis Henrique" />
+          <div class="linkedin">
+            <a href="https://www.linkedin.com/in/luis-henrique-26350b241/" target="_blank">
+              <img src="../img/sobre/linkedin.png" alt="Luis Henrique" />
+              <h5>Luis Henrique</h5>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
   </main>
 
   <?php include "../layouts/footer.php" ?>
