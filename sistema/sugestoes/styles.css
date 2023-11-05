@@ -203,7 +203,7 @@ main {
   color: var(--cinza-texto);
 }
 
-.sugestoes-base{
+.sugestoes-base {
   background-color: var(--prata-base);
   display: flex;
 }

@@ -41,7 +41,7 @@ const mostSearchedQuestions = [
 
 mostSearchedQuestionsContainer.innerHTML = mostSearchedQuestions
   .map(
-    pergunta =>
+    (pergunta) =>
       `
       <div class="faq-container">
         <div class="question">
@@ -63,7 +63,7 @@ const form = document.querySelector('form');
 const hearts = document.querySelectorAll('#heart');
 
 //efeito no click na pergunta
-mostSearchedQuestionsContainer.addEventListener('click', e => {
+mostSearchedQuestionsContainer.addEventListener('click', (e) => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {
     const dropIcon = questionTitle.querySelector('.drop');

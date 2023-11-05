@@ -1,13 +1,13 @@
 const questionsContainer = document.querySelector('.container');
 
-const addLinksToContent = content => {
+const addLinksToContent = (content) => {
   const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
   const linkReplacement = '<a href="$1" target="_blank" style="display: inline">clique aqui</a>';
 
   return content.replace(linkRegex, linkReplacement);
 };
 
-const replaceLineBreaks = content => {
+const replaceLineBreaks = (content) => {
   return content.replace(/\n/g, '<br>');
 };
 
@@ -103,7 +103,7 @@ const questions = [
 
 questionsContainer.innerHTML += questions
   .map(
-    question =>
+    (question) =>
       `
       <div class="faq-container">
         <div class="question">
@@ -130,10 +130,10 @@ const hearts = document.querySelectorAll('#heart');
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
 const containers = document.querySelectorAll('.faq-container');
-form.addEventListener('keyup', event => {
+form.addEventListener('keyup', (event) => {
   event.preventDefault();
   const searchValue = form.querySelector('input').value.toLowerCase();
-  containers.forEach(container => {
+  containers.forEach((container) => {
     const questionTitleText = container.querySelector('.question-title').textContent.toLowerCase();
     const content = container.querySelector('.content').textContent.toLowerCase();
 
@@ -146,7 +146,7 @@ form.addEventListener('keyup', event => {
 });
 
 //deixa o coração vermelho ao clicar
-hearts.forEach(heart => {
+hearts.forEach((heart) => {
   heart.addEventListener('click', () => {
     heart.classList.toggle('heart-clicked');
   });
@@ -154,7 +154,7 @@ hearts.forEach(heart => {
 
 //efeito no click na pergunta
 
-questionsContainer.addEventListener('click', e => {
+questionsContainer.addEventListener('click', (e) => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {
     const dropIcon = questionTitle.querySelector('.drop');
