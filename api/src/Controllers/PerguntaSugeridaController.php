@@ -77,6 +77,14 @@ class PerguntaSugeridaController
           break;
         }
 
+        if (!isset($data["email"]) || empty($data["email"])) {
+          $data["email"] = "";
+        }
+
+        if (!isset($data["telefone"]) || empty($data["telefone"])) {
+          $data["telefone"] = "";
+        }
+
         $perguntaSugeridaCriada = $this->gateway->create($data);
 
         http_response_code(201);
@@ -101,8 +109,8 @@ class PerguntaSugeridaController
 
     if (empty($data["pergunta"])) {
       $errors[] = "pergunta é obrigatório";
-    } else if (strlen($data["pergunta"]) < 30 || strlen($data["pergunta"]) > 2000) {
-      $errors[] = "pergunta mínimo 30 e máximo 2000 caracteres";
+    } else if (strlen($data["pergunta"]) < 10 || strlen($data["pergunta"]) > 2000) {
+      $errors[] = "pergunta mínimo 10 e máximo 2000 caracteres";
     }
 
     return $errors;
