@@ -63,118 +63,51 @@
               <th>
                 <span>Nome <i class="fas fa-sort-down"></i></span>
               </th>
+              <th>
+                <span>Email <i class="fas fa-sort-down"></i></span>
+              </th>
+              <th>
+                <span>Telefone<i class="fas fa-sort-down"></i></span>
+              </th>
               <th id="pergunta">
                 <span>Sugestão <i class="fas fa-sort-down"></i></span>
               </th>
               <th>
-                <span>Data de publicação <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Ação</span>
+                <span>Ações</span>
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>Joaozinho</span>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                  aprendizagem?
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  11/09/2023
-                </div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="../../sistema/sugestoes"><i class="fas fa-comment"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>Joaozinho</span>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                  aprendizagem?
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  11/09/2023
-                </div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="../../sistema/sugestoes"><i class="fas fa-comment"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>Joaozinho</span>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                  aprendizagem?
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  11/09/2023
-                </div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="../../sistema/sugestoes"><i class="fas fa-comment"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <td>
-                <div id="id">
-                  <span>Joaozinho</span>
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                  aprendizagem?
-                </div>
-              </td>
-              <td>
-                <div id="pergunta">
-                  11/09/2023
-                </div>
-              </td>
-              <td>
-                <div id="acao">
-                  <a href="../../sistema/sugestoes"><i class="fas fa-comment"></i></a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
 
+          <tbody>
+            <tr>
+              <td>
+                <div id="id">
+                  <span>Joaozinho</span>
+                </div>
+              </td>
+              <td>
+                <div id="email">
+                  <span>email@email.com</span>
+                </div>
+              </td>
+              <td>
+                <div id="telefone">
+                  <span>19999999999</span>
+                </div>
+              </td>
+              <td>
+                <div id="pergunta">
+                  A Fatec oferece algum tipo de suporte para alunos com dificuldades de
+                  aprendizagem?
+                </div>
+              </td>
+              <td>
+                <div id="acao">
+                  <a href="../../sistema/sugestoes"><i class="fas fa-comment"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <div class="paginacao">
           <div class="pg disabled">
