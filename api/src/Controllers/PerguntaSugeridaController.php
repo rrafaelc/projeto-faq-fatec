@@ -2,11 +2,20 @@
 
 class PerguntaSugeridaController
 {
-  public function __construct(private PerguntaSugeridaGateway $gateway, private array $config, private AuthController $authController, private ?string $token)
+  private $gateway;
+  private $config;
+  private $authController;
+  private $token;
+
+  public function __construct(PerguntaSugeridaGateway $gateway, array $config, AuthController $authController, ?string $token)
   {
+    $this->gateway = $gateway;
+    $this->config = $config;
+    $this->authController = $authController;
+    $this->token = $token;
   }
 
-  public function processRequest(string $method, ?string $id): void
+  public function processRequest(string $method, ?string $id)
   {
     if ($id) {
       $this->processResourceRequest($method, $id);
@@ -15,7 +24,7 @@ class PerguntaSugeridaController
     }
   }
 
-  private function processResourceRequest(string $method, string $id): void
+  private function processResourceRequest(string $method, string $id)
   {
     $perguntaSugerida = $this->gateway->get($id);
 
@@ -57,7 +66,7 @@ class PerguntaSugeridaController
     }
   }
 
-  private function processCollectionRequest(string $method): void
+  private function processCollectionRequest(string $method)
   {
     switch ($method) {
       case "GET":
@@ -97,7 +106,7 @@ class PerguntaSugeridaController
     }
   }
 
-  private function createValidationErrors(array $data): array
+  private function createValidationErrors(array $data)
   {
     $errors = [];
 

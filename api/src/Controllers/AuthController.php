@@ -4,17 +4,22 @@ use Firebase\JWT\Key;
 
 class AuthController
 {
-  public function __construct(private UsuarioGateway $gateway, private array $config)
+  private $gateway;
+  private $config;
+
+  public function __construct(UsuarioGateway $gateway, array $config)
   {
+    $this->gateway = $gateway;
+    $this->config = $config;
   }
 
-  public function processRequest(string $method, bool $isRefreshToken = false): void
+  public function processRequest(string $method, bool $isRefreshToken = false)
   {
 
     $this->processCollectionRequest($method, $this->config, $isRefreshToken);
   }
 
-  private function processCollectionRequest(string $method, array $config, bool $isRefreshToken): void
+  private function processCollectionRequest(string $method, array $config, bool $isRefreshToken)
   {
     switch ($method) {
       case "POST":
@@ -122,7 +127,7 @@ class AuthController
     }
   }
 
-  public function logout(string $method, array $config, ?string $access_token): void
+  public function logout(string $method, array $config, ?string $access_token)
   {
     switch ($method) {
       case "POST":
@@ -148,7 +153,7 @@ class AuthController
     }
   }
 
-  public function verifyAccessToken(array $config, ?string $access_token): array | false
+  public function verifyAccessToken(array $config, ?string $access_token)
   {
     if (empty($access_token)) {
       http_response_code(422);
@@ -187,7 +192,7 @@ class AuthController
     }
   }
 
-  private function generateToken(array $config, string $id): string
+  private function generateToken(array $config, string $id)
   {
     $payload = array(
       "iat" => $config["iat"],
@@ -200,7 +205,7 @@ class AuthController
     return $token;
   }
 
-  private function loginValidationErrors(array $data): array
+  private function loginValidationErrors(array $data)
   {
     $errors = [];
 
@@ -219,7 +224,7 @@ class AuthController
     return $errors;
   }
 
-  private function refreshTokenValidationErrors(array $data): array
+  private function refreshTokenValidationErrors(array $data)
   {
     $errors = [];
 

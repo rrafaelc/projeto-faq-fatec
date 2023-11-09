@@ -9,7 +9,7 @@ class UsuarioGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getCount(): int
+  public function getCount()
   {
     $sql = "SELECT COUNT(*) AS total FROM usuario";
     $stmt = $this->conn->query($sql);
@@ -18,7 +18,7 @@ class UsuarioGateway
     return (int) $result['total'];
   }
 
-  public function getAll(): array
+  public function getAll()
   {
     $sql = "SELECT *
             FROM usuario";
@@ -35,7 +35,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM usuario
@@ -54,7 +54,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function getByEmail(string $email): array | false
+  public function getByEmail(string $email)
   {
     $sql = "SELECT *
             FROM usuario
@@ -73,7 +73,7 @@ class UsuarioGateway
     return $data;
   }
 
-  public function create(array $data): array | false
+  public function create(array $data)
   {
     $sql = "INSERT INTO usuario (nome_completo, email, foto_uri, senha, cargo)
             VALUES (:nome_completo, :email, :foto_uri, :senha, :cargo)";
@@ -103,7 +103,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function update(array $current, array $new): array | false
+  public function update(array $current, array $new)
   {
     $sql = "UPDATE usuario
             SET nome_completo = :nome_completo, email = :email, foto_uri = :foto_uri, senha = :senha, cargo = :cargo
@@ -134,7 +134,7 @@ class UsuarioGateway
     return $usuario;
   }
 
-  public function delete(string $id): void
+  public function delete(string $id)
   {
     $sql = "DELETE FROM usuario
             WHERE id = :id";
@@ -144,7 +144,7 @@ class UsuarioGateway
     $stmt->execute();
   }
 
-  public function updateSuspensao(bool $suspender, string $id): void
+  public function updateSuspensao(bool $suspender, string $id)
   {
     $sql = "UPDATE usuario
             SET esta_suspenso = :esta_suspenso
@@ -157,7 +157,7 @@ class UsuarioGateway
     $stmt->execute();
   }
 
-  public function updateToken(?string $access_token, ?string $refresh_token, ?string $expiration_date, string $id): void
+  public function updateToken(?string $access_token, ?string $refresh_token, ?string $expiration_date, string $id)
   {
     $sql = "UPDATE usuario
             SET access_token = :access_token, refresh_token = :refresh_token, refresh_token_expiration = :refresh_token_expiration
@@ -172,7 +172,7 @@ class UsuarioGateway
     $stmt->execute();
   }
 
-  public function getByRefreshToken(string $refresh_token): array | false
+  public function getByRefreshToken(string $refresh_token)
   {
     $sql = "SELECT *
             FROM usuario

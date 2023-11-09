@@ -2,11 +2,21 @@
 
 class UsuarioController
 {
-  public function __construct(private UsuarioGateway $gateway, private array $config, private AuthController $authController, private ?string $token)
+  private $gateway;
+  private $config;
+  private $authController;
+  private $token;
+
+  public function __construct(UsuarioGateway $gateway, array $config, AuthController $authController, ?string $token)
   {
+    $this->gateway = $gateway;
+    $this->config = $config;
+    $this->authController = $authController;
+    $this->token = $token;
   }
 
-  public function processRequest(string $method, ?array $params): void
+
+  public function processRequest(string $method, ?array $params)
   {
     if ($params) {
       $this->processResourceRequest($method, $params);
@@ -15,7 +25,7 @@ class UsuarioController
     }
   }
 
-  private function processResourceRequest(string $method, array $params): void
+  private function processResourceRequest(string $method, array $params)
   {
     $temUsuarios = $this->gateway->getCount();
 
@@ -120,7 +130,7 @@ class UsuarioController
     }
   }
 
-  private function processCollectionRequest(string $method): void
+  private function processCollectionRequest(string $method)
   {
     $temUsuarios = $this->gateway->getCount();
 
@@ -416,14 +426,14 @@ class UsuarioController
     }
   }
 
-  public function temUsuarios(): void
+  public function temUsuarios()
   {
     $temUsuarios = $this->gateway->getCount();
 
     echo json_encode((bool) $temUsuarios);
   }
 
-  public function criarPrimeiraConta(string $method): void
+  public function criarPrimeiraConta(string $method)
   {
     $temUsuarios = $this->gateway->getCount();
 
@@ -468,7 +478,7 @@ class UsuarioController
     }
   }
 
-  private function createValidationErrors(array $data): array
+  private function createValidationErrors(array $data)
   {
     $errors = [];
 
@@ -507,7 +517,7 @@ class UsuarioController
     return $errors;
   }
 
-  private function patchValidationErrors(array $data): array
+  private function patchValidationErrors(array $data)
   {
     $errors = [];
 

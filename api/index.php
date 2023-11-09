@@ -30,7 +30,7 @@ $config = [
 
 $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"], $_ENV["DB_PORT"]);
 
-$getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
+$getPath = explode("/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
 $token = getBearerToken();

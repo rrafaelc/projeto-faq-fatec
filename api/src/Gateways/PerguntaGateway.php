@@ -9,7 +9,7 @@ class PerguntaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(array $ordenacao): array
+  public function getAll(array $ordenacao)
   {
     $sql = "SELECT *
             FROM pergunta";
@@ -40,7 +40,7 @@ class PerguntaGateway
     return $data;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM pergunta
@@ -55,7 +55,7 @@ class PerguntaGateway
     return $data;
   }
 
-  public function create(array $data): array | false
+  public function create(array $data)
   {
     $prioridade = $data["prioridade"] ?? "Normal";
 
@@ -91,7 +91,7 @@ class PerguntaGateway
     return $pergunta;
   }
 
-  public function update(array $current, array $new): array | false
+  public function update(array $current, array $new)
   {
     $sql = "UPDATE pergunta
             SET pergunta = :pergunta, resposta = :resposta, curtidas = :curtidas, prioridade = :prioridade
@@ -127,7 +127,7 @@ class PerguntaGateway
     return $pergunta;
   }
 
-  public function delete(string $id): void
+  public function delete(string $id)
   {
     $sql = "DELETE FROM pergunta
             WHERE id = :id";
@@ -137,7 +137,7 @@ class PerguntaGateway
     $stmt->execute();
   }
 
-  public function updateCurtidas(array $current, array $new): array | false
+  public function updateCurtidas(array $current, array $new)
   {
     $sql = "UPDATE pergunta
             SET curtidas = :curtidas

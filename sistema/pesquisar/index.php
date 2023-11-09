@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../styles/global.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/pesquisar/styles.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="../../img/favicon/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../../img/favicon/site.webmanifest" />
 
-  <script type="module" src="script.js" defer></script>
+  <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/pesquisar/script.js" defer></script>
   <title>Sistema FAQ | Pesquisar</title>
 </head>
 

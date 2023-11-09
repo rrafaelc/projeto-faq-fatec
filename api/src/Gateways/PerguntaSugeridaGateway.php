@@ -9,7 +9,7 @@ class PerguntaSugeridaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(): array
+  public function getAll()
   {
     $sql = "SELECT *
             FROM pergunta_sugerida";
@@ -25,7 +25,7 @@ class PerguntaSugeridaGateway
     return $data;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM pergunta_sugerida
@@ -40,7 +40,7 @@ class PerguntaSugeridaGateway
     return $data;
   }
 
-  public function create(array $data): array | false
+  public function create(array $data)
   {
     $sql = "INSERT INTO pergunta_sugerida (nome, pergunta, email, telefone) VALUES (:nome, :pergunta, :email, :telefone)";
 
@@ -62,7 +62,7 @@ class PerguntaSugeridaGateway
     return $perguntaSugerida;
   }
 
-  public function delete(string $id): void
+  public function delete(string $id)
   {
     $sql = "DELETE FROM pergunta_sugerida
             WHERE id = :id";
