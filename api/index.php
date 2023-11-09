@@ -11,7 +11,7 @@ foreach (glob(__DIR__ . '/src/**/*.php') as $todasClasses) {
   require_once $todasClasses;
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.prod');
 $dotenv->load();
 
 set_error_handler("ErrorHandler::handleError");
