@@ -1,8 +1,4 @@
-DROP DATABASE IF EXISTS `projeto-faq`;
-
-CREATE DATABASE `projeto-faq`;
-
-USE `projeto-faq`;
+USE `faqfatecitapira_projetofaq`;
 
 CREATE TABLE usuario (
   id INT(11) PRIMARY KEY AUTO_INCREMENT,

@@ -1,0 +1,10 @@
+{
+  "projectName": "projeto-faq-fatec",
+  "meta": {
+    "type": "backend"
+  },
+  "backend": {
+    "platform": "php7.4"
+  },
+  "hash": "f0be1640"
+}
