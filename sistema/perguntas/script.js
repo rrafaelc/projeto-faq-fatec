@@ -68,6 +68,12 @@ const spinner = document.querySelector('.spinnerFull');
 const deslogarBotao = document.querySelector('#deslogar');
 spinner.classList.remove('hideElement');
 
+const mostrarSugestoes = document.querySelector('.mostrar-sugestoes');
+const sugestao = document.querySelector('.sugestoes-base');
+mostrarSugestoes.addEventListener('click', () => {
+  sugestao.classList.toggle('toggle-sugestoes');
+});
+
 const loggedIn = await isLoggedIn();
 if (!loggedIn) window.location.href = `${serverUrl}/login`;
 
@@ -102,12 +108,3 @@ const execute = async () => {
 };
 
 loggedIn && (await execute());
-
-const mostrarSugestoes = document.querySelector('.mostrar-sugestoes');
-
-const sugestao = document.querySelector('.sugestoes-base');
-
-mostrarSugestoes.addEventListener('click', () => {
-  console.log('dasdas');
-  sugestao.classList.toggle('toggle-sugestoes');
-});
