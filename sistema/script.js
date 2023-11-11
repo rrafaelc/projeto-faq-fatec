@@ -32,4 +32,3 @@ const execute = async () => {
 };
 
 loggedIn && (await execute());
-
