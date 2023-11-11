@@ -129,6 +129,7 @@ if ($parts[1] == "pergunta") {
   $controller = new UsuarioController($usuarioGateway, $config, $authController, $token);
 
   $controller->criarPrimeiraConta($_SERVER["REQUEST_METHOD"]);
+} else if (($parts[1] == "sistema" && $parts[2] == "perguntas")) {
 } else {
   http_response_code(404);
   exit;

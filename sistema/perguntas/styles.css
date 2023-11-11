@@ -530,3 +530,13 @@ td #acao .fa-trash-can {
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
 }
+
+.sugestoes-base {
+  opacity: 0;
+  background-color: var(--prata-base);
+  transition: opacity 1s ease-in-out;
+}
+
+.toggle-sugestoes {
+  opacity: 1;
+}

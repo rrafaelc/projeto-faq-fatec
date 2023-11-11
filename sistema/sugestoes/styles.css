@@ -203,10 +203,7 @@ main {
   color: var(--cinza-texto);
 }
 
-.sugestoes-base {
-  background-color: var(--prata-base);
-  display: flex;
-}
+
 
 .adicionar-pergunta {
   background-color: var(--prata-base);
@@ -534,4 +531,34 @@ td #acao .fa-trash-can {
   background-color: var(--vermelho-base);
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
+}
+
+.no-style-input {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  width: auto; /* Ajuste isso conforme necessário */
+  outline: none; /* Remover a borda de foco ao clicar no input */
+}
+
+.comment-link {
+  all: initial;
+  color: var(--azul-base);
+}
+
+#myDialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  border: 0;
+  outline: 0;
 }

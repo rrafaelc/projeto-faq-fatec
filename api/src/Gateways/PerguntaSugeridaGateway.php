@@ -42,11 +42,13 @@ class PerguntaSugeridaGateway
 
   public function create(array $data): array | false
   {
-    $sql = "INSERT INTO pergunta_sugerida (nome, pergunta) VALUES (:nome, :pergunta)";
+    $sql = "INSERT INTO pergunta_sugerida (nome, pergunta, email, telefone) VALUES (:nome, :pergunta, :email, :telefone)";
 
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":nome", $data["nome"], PDO::PARAM_STR);
     $stmt->bindValue(":pergunta", $data["pergunta"], PDO::PARAM_STR);
+    $stmt->bindValue(":email", $data["email"], PDO::PARAM_STR);
+    $stmt->bindValue(":telefone", $data["telefone"], PDO::PARAM_STR);
     $stmt->execute();
 
     $perguntaSugeridaId = $this->conn->lastInsertId();

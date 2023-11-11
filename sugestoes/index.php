@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <script src="../scripts/global.js" defer></script>
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +24,6 @@
   $pagina = 'sugestoes';
   include "../layouts/header.php";
   ?>
-
   <main>
     <form class="box-sugestao">
       <h1 id="suaduvida">
@@ -35,6 +34,14 @@
         <div class="nome">
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" required placeholder="Digite seu nome" />
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="Digite seu E-mail" />
+        </div>
+        <div>
+          <label for="telefone">Telefone</label>
+          <input type="text" id="phone" name="telefone" required placeholder="Digite seu telefone" />
         </div>
       </div>
       <div class="duvida-sugestao">

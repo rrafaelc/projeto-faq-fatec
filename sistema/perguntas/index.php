@@ -1,3 +1,8 @@
+<?php
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -80,6 +85,7 @@
         </div>
       </div>
     </div>
+
     <div class="adicionar-pergunta">
       <div class="titulo">
         <h1>Adicionar pergunta</h1>
@@ -95,11 +101,60 @@
             <label for="prioridade">Defina o nível de prioridade</label>
             <input class="normal" type="button" id="prioridade" value="Normal" />
           </div>
-
           <button class="enviar" type="submit">Adicionar</button>
         </div>
       </form>
+      <div class="titulo mostrar-sugestoes">
+        <h1>Mostrar sugestoes</h1>
+        <i class="fas fa-angle-down botao"></i>
+      </div>
+      <div class="sugestoes-base">
+        <div class="dados">
+          <div class="titulo">
+            <h1>Sugestões</h1>
+          </div>
+          <table class="perguntas">
+            <thead>
+              <tr>
+                <th>
+                  <span>Nome <i class="fas fa-sort-down"></i></span>
+                </th>
+                <th>
+                  <span>Email <i class="fas fa-sort-down"></i></span>
+                </th>
+                <th>
+                  <span>Telefone<i class="fas fa-sort-down"></i></span>
+                </th>
+                <th id="pergunta">
+                  <span>Sugestão <i class="fas fa-sort-down"></i></span>
+                </th>
+                <th>
+                  <span>Ações</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="paginacao">
+            <div class="pg disabled">
+              <span>Anterior</span>
+            </div>
+            <div class="numeros">
+              <div class="numero active">1</div>
+              <div class="numero">2</div>
+              <div class="numero">3</div>
+              <div class="numero">4</div>
+              <div class="numero">5</div>
+            </div>
+            <div class="pg">
+              <span>Próximo</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="dados">
       <div class="titulo">
         <h1>Suas perguntas</h1>
