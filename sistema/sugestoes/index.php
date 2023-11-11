@@ -52,6 +52,7 @@ $baseUrl = 'http://localhost/projeto-faq-fatec';
               </th>
             </tr>
           </thead>
+
           <tbody>
           </tbody>
         </table>
