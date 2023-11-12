@@ -4,6 +4,7 @@ import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
+import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 import { toast } from '../../scripts/utils/toast.js';
@@ -48,6 +49,7 @@ const sugestaoContainer = document.querySelector('.sugestao-container');
 const tituloSugestao = sugestaoContainer.querySelector('.titulo-sugestao');
 const botaoSugestao = sugestaoContainer.querySelector('.botao');
 const dadosSugestoes = sugestaoContainer.querySelector('.dados-sugestoes');
+const sugestoesTable = sugestaoContainer.querySelector('.sugestoes-table');
 
 tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
@@ -126,6 +128,71 @@ const execute = async () => {
       botaoEnviar.textContent = 'Adicionar';
       toast('Erro ao criar a pergunta', true);
     }
+  });
+
+  const handleResponderSugestao = (id, pergunta) => {
+    toast(`Responder sugestao com id ${id}`);
+  };
+
+  const sugestoes = await listarSugestoes();
+
+  sugestoesTable.innerHTML = `
+  <thead>
+      <tr>
+        <th>
+          <span>Nome <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Email <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Telefone<i class="fas fa-sort-down"></i></span>
+        </th>
+        <th id="pergunta">
+          <span>Sugestão <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Ações</span>
+        </th>
+      </tr>
+    </thead>`;
+
+  sugestoesTable.innerHTML += sugestoes
+    .map(
+      (sugestao) => `
+    <tbody>
+      <td>
+        <span>${sugestao.nome}</span>
+      </td>
+      <td>
+        <span>${sugestao.email}</span>
+      </td>
+      <td>
+        <span>${sugestao.telefone}</span>
+      </td>
+      <td>
+        <span>${sugestao.pergunta}</span>
+      </td>
+      <td>
+        <div id="acao">
+          <button class="botao-responder-sugestao" title="Responder a sugestão" data-id="${sugestao.id}" data-pergunta="${sugestao.pergunta}">
+            <i class="fas fa-comment"></i>
+          </button>
+        </div>
+      </td>
+    </tbody>
+  `,
+    )
+    .join('');
+
+  const botoesResponderSugestao = document.querySelectorAll('.botao-responder-sugestao');
+
+  botoesResponderSugestao.forEach((botao) => {
+    botao.addEventListener('click', function () {
+      const id = this.getAttribute('data-id');
+      const pergunta = this.getAttribute('data-pergunta');
+      handleResponderSugestao(id, pergunta);
+    });
   });
 };
 

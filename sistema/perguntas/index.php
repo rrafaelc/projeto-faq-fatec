@@ -83,137 +83,14 @@
       </div>
     </div>
 
+
     <div class="container sugestao-container">
       <div class="titulo titulo-sugestao">
         <h1>Sugestões dos visitantes</h1>
         <i class="fas fa-angle-down botao"></i>
       </div>
       <div class="dados-sugestoes">
-        <table class="sugestoes">
-          <thead>
-            <tr>
-              <th>
-                <span>Nome <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Email <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Telefone<i class="fas fa-sort-down"></i></span>
-              </th>
-              <th id="pergunta">
-                <span>Sugestão <i class="fas fa-sort-down"></i></span>
-              </th>
-              <th>
-                <span>Ações</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <td>
-              <span>Rafael</span>
-            </td>
-            <td>
-              <span>rafael@email.com</span>
-            </td>
-            <td>
-              <span>19999999999</span>
-            </td>
-            <td>
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
-            </td>
-            <td>
-              <div id="acao">
-                <button title="Responder a sugestão">
-                  <i class="fas fa-comment"></i>
-                </button>
-              </div>
-            </td>
-          </tbody>
-          <tbody>
-            <td>
-              <span>Rafael</span>
-            </td>
-            <td>
-              <span>rafael@email.com</span>
-            </td>
-            <td>
-              <span>19999999999</span>
-            </td>
-            <td>
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
-            </td>
-            <td>
-              <div id="acao">
-                <button title="Responder a sugestão">
-                  <i class="fas fa-comment"></i>
-                </button>
-              </div>
-            </td>
-          </tbody>
-          <tbody>
-            <td>
-              <span>Rafael</span>
-            </td>
-            <td>
-              <span>rafael@email.com</span>
-            </td>
-            <td>
-              <span>19999999999</span>
-            </td>
-            <td>
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
-            </td>
-            <td>
-              <div id="acao">
-                <button title="Responder a sugestão">
-                  <i class="fas fa-comment"></i>
-                </button>
-              </div>
-            </td>
-          </tbody>
-          <tbody>
-            <td>
-              <span>Rafael</span>
-            </td>
-            <td>
-              <span>rafael@email.com</span>
-            </td>
-            <td>
-              <span>19999999999</span>
-            </td>
-            <td>
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
-            </td>
-            <td>
-              <div id="acao">
-                <button title="Responder a sugestão">
-                  <i class="fas fa-comment"></i>
-                </button>
-              </div>
-            </td>
-          </tbody>
-          <tbody>
-            <td>
-              <span>Rafael</span>
-            </td>
-            <td>
-              <span>rafael@email.com</span>
-            </td>
-            <td>
-              <span>19999999999</span>
-            </td>
-            <td>
-              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
-            </td>
-            <td>
-              <div id="acao">
-                <button title="Responder a sugestão">
-                  <i class="fas fa-comment"></i>
-                </button>
-              </div>
-            </td>
-          </tbody>
+        <table class="sugestoes sugestoes-table">
         </table>
         <div class="paginacao">
           <div class="pg disabled">
