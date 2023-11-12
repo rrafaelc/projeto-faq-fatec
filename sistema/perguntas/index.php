@@ -116,6 +116,9 @@
         <i class="fas fa-angle-down botao"></i>
       </div>
       <form>
+        <input id="sugestao-id" name="sugestao-id" type="hidden">
+        <label class="pergunta-sugestao-classe" for="pergunta-sugestao">Responda a essa sugestão</label>
+        <textarea name="pergunta-sugestao" id="pergunta-sugestao" class="pergunta-sugestao-classe" disabled></textarea>
         <label for="titulo">Título</label>
         <input type="text" name="titulo" id="titulo" placeholder="Escreva o título da pergunta" required />
         <label for="resposta">Resposta</label>

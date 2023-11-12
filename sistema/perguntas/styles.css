@@ -203,6 +203,14 @@ main {
   color: var(--cinza-texto);
 }
 
+.pergunta-sugestao-classe {
+  display: none;
+}
+
+.pergunta-sugestao-classe.mostrar {
+  display: block;
+}
+
 .container {
   background-color: var(--prata-base);
   border-radius: 10px;

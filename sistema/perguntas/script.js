@@ -4,7 +4,9 @@ import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
+import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
 import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
+import { responderSugestao } from '../../scripts/sugestoes/responderSugestao.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 import { toast } from '../../scripts/utils/toast.js';
@@ -89,8 +91,26 @@ const execute = async () => {
   spinner.classList.add('hideElement');
   deslogarBotao.addEventListener('click', async () => await deslogar());
 
+  const sugestaoId = document.querySelector('#sugestao-id');
+  const perguntaSugestao = document.querySelector('#pergunta-sugestao');
+  const perguntaSugestaoClasse = document.querySelectorAll('.pergunta-sugestao-classe');
+
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  const handleResponderSugestao = (id, pergunta) => {
+    sugestaoId.value = id;
+    perguntaSugestao.value = pergunta;
+
+    perguntaSugestaoClasse.forEach((p) => p.classList.add('mostrar'));
+
+    botaoSugestao.classList.remove('aberto');
+    dadosSugestoes.classList.remove('aberto');
+    botaoPerguntas.classList.remove('aberto');
+    form.classList.remove('aberto');
+    botaoPerguntas.classList.add('aberto');
+    form.classList.add('aberto');
+  };
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -105,6 +125,31 @@ const execute = async () => {
     });
 
     if (perguntaCriada) {
+      if (sugestaoId.value && perguntaSugestao.value) {
+        try {
+          const perguntaSugeridaRespondida = await responderSugestao(sugestaoId.value);
+
+          if (perguntaSugeridaRespondida) {
+            toast('Sugestão respondida com sucesso');
+          }
+
+          setTimeout(() => {
+            window.location = `${serverUrl}/sistema/perguntas`;
+          }, 3000);
+        } catch (error) {
+          toast('Houve um problema ao atualizar a sugestão', true);
+          console.log(error);
+
+          try {
+            deletarPergunta(perguntaCriada.id);
+          } catch (error) {
+            console.log(error.message);
+          }
+
+          return;
+        }
+      }
+
       botaoPerguntas.classList.toggle('aberto');
       form.classList.toggle('aberto');
       titulo.value = '';
@@ -129,10 +174,6 @@ const execute = async () => {
       toast('Erro ao criar a pergunta', true);
     }
   });
-
-  const handleResponderSugestao = (id, pergunta) => {
-    toast(`Responder sugestao com id ${id}`);
-  };
 
   const sugestoes = await listarSugestoes();
 
