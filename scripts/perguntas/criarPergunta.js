@@ -7,7 +7,7 @@ export const criarPergunta = async ({ pergunta, resposta, prioridade }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: getAuthorization(),
+        Authorization: await getAuthorization(),
       },
       body: JSON.stringify({
         pergunta,
