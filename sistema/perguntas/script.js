@@ -6,6 +6,7 @@ import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -113,11 +114,17 @@ const execute = async () => {
       botaoEnviar.disabled = false;
       botaoPrioridade.value = 'Normal';
       botaoEnviar.textContent = 'Adicionar';
-      alert('Pergunta criada com sucesso');
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+
+      toast('Pergunta criada com sucesso');
     } else {
       botaoEnviar.disabled = false;
       botaoEnviar.textContent = 'Adicionar';
-      alert('Erro ao criar a pergunta');
+      toast('Erro ao criar a pergunta', true);
     }
   });
 };
