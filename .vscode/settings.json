@@ -3,5 +3,6 @@
   "files.autoSaveDelay": 3000,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
-  }
+  },
+  "javascript.preferences.importModuleSpecifierEnding": "js"
 }

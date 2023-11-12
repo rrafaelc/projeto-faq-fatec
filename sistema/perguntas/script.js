@@ -4,8 +4,12 @@ import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
+import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
+import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
+import { responderSugestao } from '../../scripts/sugestoes/responderSugestao.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -34,7 +38,7 @@ textarea.addEventListener('keydown', function (event) {
 //==============================================================================
 
 const perguntas = document.querySelector('.adicionar-pergunta');
-const tituloPerguntas = perguntas.querySelector('.titulo');
+const tituloPerguntas = perguntas.querySelector('.titulo-pergunta');
 const botaoPerguntas = perguntas.querySelector('.botao');
 const form = perguntas.querySelector('form');
 
@@ -43,9 +47,20 @@ const resposta = form.querySelector('#resposta');
 const botaoPrioridade = form.querySelector('#prioridade');
 const botaoEnviar = form.querySelector('.enviar');
 
+const sugestaoContainer = document.querySelector('.sugestao-container');
+const tituloSugestao = sugestaoContainer.querySelector('.titulo-sugestao');
+const botaoSugestao = sugestaoContainer.querySelector('.botao');
+const dadosSugestoes = sugestaoContainer.querySelector('.dados-sugestoes');
+const sugestoesTable = sugestaoContainer.querySelector('.sugestoes-table');
+
 tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
   form.classList.toggle('aberto');
+});
+
+tituloSugestao.addEventListener('click', function () {
+  botaoSugestao.classList.toggle('aberto');
+  dadosSugestoes.classList.toggle('aberto');
 });
 
 botaoPrioridade.addEventListener('click', function () {
@@ -76,8 +91,26 @@ const execute = async () => {
   spinner.classList.add('hideElement');
   deslogarBotao.addEventListener('click', async () => await deslogar());
 
+  const sugestaoId = document.querySelector('#sugestao-id');
+  const perguntaSugestao = document.querySelector('#pergunta-sugestao');
+  const perguntaSugestaoClasse = document.querySelectorAll('.pergunta-sugestao-classe');
+
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  const handleResponderSugestao = (id, pergunta) => {
+    sugestaoId.value = id;
+    perguntaSugestao.value = pergunta;
+
+    perguntaSugestaoClasse.forEach((p) => p.classList.add('mostrar'));
+
+    botaoSugestao.classList.remove('aberto');
+    dadosSugestoes.classList.remove('aberto');
+    botaoPerguntas.classList.remove('aberto');
+    form.classList.remove('aberto');
+    botaoPerguntas.classList.add('aberto');
+    form.classList.add('aberto');
+  };
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -92,12 +125,115 @@ const execute = async () => {
     });
 
     if (perguntaCriada) {
-      window.location.href = '.';
+      if (sugestaoId.value && perguntaSugestao.value) {
+        try {
+          const perguntaSugeridaRespondida = await responderSugestao(sugestaoId.value);
+
+          if (perguntaSugeridaRespondida) {
+            toast('Sugestão respondida com sucesso');
+          }
+
+          setTimeout(() => {
+            window.location = `${serverUrl}/sistema/perguntas`;
+          }, 3000);
+        } catch (error) {
+          toast('Houve um problema ao atualizar a sugestão', true);
+          console.log(error);
+
+          try {
+            deletarPergunta(perguntaCriada.id);
+          } catch (error) {
+            console.log(error.message);
+          }
+
+          return;
+        }
+      }
+
+      botaoPerguntas.classList.toggle('aberto');
+      form.classList.toggle('aberto');
+      titulo.value = '';
+      resposta.value = '';
+      botaoPrioridade.value = 'Normal';
+      botaoPrioridade.classList.remove('alta');
+      botaoPrioridade.classList.remove('normal');
+      botaoPrioridade.classList.add('normal');
+      botaoEnviar.disabled = false;
+      botaoPrioridade.value = 'Normal';
+      botaoEnviar.textContent = 'Adicionar';
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+
+      toast('Pergunta criada com sucesso');
     } else {
       botaoEnviar.disabled = false;
       botaoEnviar.textContent = 'Adicionar';
-      alert('Erro ao criar a pergunta');
+      toast('Erro ao criar a pergunta', true);
     }
+  });
+
+  const sugestoes = await listarSugestoes();
+
+  sugestoesTable.innerHTML = `
+  <thead>
+      <tr>
+        <th>
+          <span>Nome <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Email <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Telefone<i class="fas fa-sort-down"></i></span>
+        </th>
+        <th id="pergunta">
+          <span>Sugestão <i class="fas fa-sort-down"></i></span>
+        </th>
+        <th>
+          <span>Ações</span>
+        </th>
+      </tr>
+    </thead>`;
+
+  sugestoesTable.innerHTML += sugestoes
+    .map(
+      (sugestao) => `
+    <tbody>
+      <td>
+        <span>${sugestao.nome}</span>
+      </td>
+      <td>
+        <span>${sugestao.email}</span>
+      </td>
+      <td>
+        <span>${sugestao.telefone}</span>
+      </td>
+      <td>
+        <span>${sugestao.pergunta}</span>
+      </td>
+      <td>
+        <div id="acao">
+          <button class="botao-responder-sugestao" title="Responder a sugestão" data-id="${sugestao.id}" data-pergunta="${sugestao.pergunta}">
+            <i class="fas fa-comment"></i>
+          </button>
+        </div>
+      </td>
+    </tbody>
+  `,
+    )
+    .join('');
+
+  const botoesResponderSugestao = document.querySelectorAll('.botao-responder-sugestao');
+
+  botoesResponderSugestao.forEach((botao) => {
+    botao.addEventListener('click', function () {
+      const id = this.getAttribute('data-id');
+      const pergunta = this.getAttribute('data-pergunta');
+      handleResponderSugestao(id, pergunta);
+    });
   });
 };
 

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d7f7e3e2-6c89-4c08-9b6e-b1b09d836e9a",
+		"_postman_id": "38a65899-11b9-4ad7-a011-1066151ef974",
 		"name": "Faq Fatec - Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30845207"
+		"_exporter_id": "23523136"
 	},
 	"item": [
 		{
@@ -609,6 +609,16 @@
 				{
 					"name": "Listar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -626,6 +636,16 @@
 				{
 					"name": "Buscar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -642,7 +662,7 @@
 					"response": []
 				},
 				{
-					"name": "Deletar",
+					"name": "Responder",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -654,7 +674,7 @@
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/pergunta-sugerida/1",

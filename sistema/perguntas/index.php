@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../../img/favicon/site.webmanifest" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   <script type="module" src="script.js" defer></script>
   <title>Sistema FAQ | Perguntas</title>
@@ -80,12 +82,43 @@
         </div>
       </div>
     </div>
-    <div class="adicionar-pergunta">
-      <div class="titulo">
+
+
+    <div class="container sugestao-container">
+      <div class="titulo titulo-sugestao">
+        <h1>Sugestões dos visitantes</h1>
+        <i class="fas fa-angle-down botao"></i>
+      </div>
+      <div class="dados-sugestoes">
+        <table class="sugestoes sugestoes-table">
+        </table>
+        <div class="paginacao">
+          <div class="pg disabled">
+            <span>Anterior</span>
+          </div>
+          <div class="numeros">
+            <div class="numero active">1</div>
+            <div class="numero">2</div>
+            <div class="numero">3</div>
+            <div class="numero">4</div>
+            <div class="numero">5</div>
+          </div>
+          <div class="pg">
+            <span>Próximo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container adicionar-pergunta">
+      <div class="titulo titulo-pergunta">
         <h1>Adicionar pergunta</h1>
         <i class="fas fa-angle-down botao"></i>
       </div>
       <form>
+        <input id="sugestao-id" name="sugestao-id" type="hidden">
+        <label class="pergunta-sugestao-classe" for="pergunta-sugestao">Responda a essa sugestão</label>
+        <textarea name="pergunta-sugestao" id="pergunta-sugestao" class="pergunta-sugestao-classe" disabled></textarea>
         <label for="titulo">Título</label>
         <input type="text" name="titulo" id="titulo" placeholder="Escreva o título da pergunta" required />
         <label for="resposta">Resposta</label>
@@ -95,11 +128,11 @@
             <label for="prioridade">Defina o nível de prioridade</label>
             <input class="normal" type="button" id="prioridade" value="Normal" />
           </div>
-
           <button class="enviar" type="submit">Adicionar</button>
         </div>
       </form>
     </div>
+
     <div class="dados">
       <div class="titulo">
         <h1>Suas perguntas</h1>

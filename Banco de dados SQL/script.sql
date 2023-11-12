@@ -47,8 +47,11 @@ CREATE TABLE pergunta_sugerida (
   pergunta TEXT NOT NULL,
 	email TEXT,
 	telefone TEXT,
+  respondido_por INT(11),
+  foi_respondido BOOLEAN NOT NULL DEFAULT false,
   criado_em DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+  atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  FOREIGN KEY (respondido_por) REFERENCES usuario(id) ON DELETE SET NULL
 );
 
 INSERT INTO pergunta (pergunta, resposta) VALUES

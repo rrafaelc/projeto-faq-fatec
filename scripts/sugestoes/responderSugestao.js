@@ -1,26 +1,20 @@
 import { apiUrl } from '../constants/apiUrl.js';
 import { getAuthorization } from '../utils/getAuthorization.js';
 
-export const criarPergunta = async ({ pergunta, resposta, prioridade }) => {
+export const responderSugestao = async (id) => {
   try {
-    const response = await fetch(`${apiUrl}/pergunta`, {
-      method: 'POST',
+    const response = await fetch(`${apiUrl}/pergunta-sugerida/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: await getAuthorization(),
       },
-      body: JSON.stringify({
-        pergunta,
-        resposta,
-        prioridade,
-      }),
     });
 
     if (!response.ok) return false;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
 
-  return true;
+    return true;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };

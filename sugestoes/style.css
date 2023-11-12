@@ -78,6 +78,7 @@
 }
 
 .botao {
+  display: none;
   width: 300px;
   margin: 20px 0;
   background-color: var(--azul-destaque);
@@ -91,6 +92,19 @@
 
 .botao:active {
   transform: scale(0.95);
+}
+
+.botao.mostrar {
+  display: block;
+}
+
+.spinner {
+  display: none;
+  margin: 20px 0;
+}
+
+.spinner.mostrar {
+  display: block;
 }
 
 @media (max-width: 1000px) {

@@ -1,40 +1,24 @@
-import { apiUrl } from '../constants/apiUrl.js';
+import { refreshToken } from '../utils/refreshToken.js';
 
 export const isLoggedIn = async () => {
-  const refreshToken = localStorage.getItem('refresh_token');
+  const refresh_token = localStorage.getItem('refresh_token');
+  const access_token = localStorage.getItem('access_token');
+  const access_token_expires_in = localStorage.getItem('access_token_expires_in');
 
-  if (!refreshToken) {
+  if (!refresh_token || !access_token) {
     localStorage.clear();
 
     return false;
   }
 
-  try {
-    const response = await fetch(`${apiUrl}/auth/refresh_token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
+  if (new Date() > new Date(access_token_expires_in)) {
+    const response = await refreshToken();
 
-    const responseData = await response.json();
-
-    if (response.status >= 400 && response.status < 500) {
+    if (!response) {
       localStorage.clear();
 
       return false;
     }
-
-    if (responseData.access_token && responseData.refresh_token && responseData.expires_in) {
-      localStorage.setItem('access_token', responseData.access_token);
-      localStorage.setItem('refresh_token', responseData.refresh_token);
-      localStorage.setItem('expires_in', responseData.expires_in);
-    }
-  } catch (error) {
-    localStorage.clear();
-
-    return false;
   }
 
   return true;
