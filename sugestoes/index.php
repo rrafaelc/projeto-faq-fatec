@@ -14,6 +14,8 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="../scripts/global.js" defer></script>
   <script type="module" src="script.js" defer></script>
 </head>
@@ -48,9 +50,12 @@
         <label for="mensagem">Dúvida/Sugestão</label>
         <textarea cols="50" rows="50" class="texto-sugestao" id="mensagem" name="mensagem" required placeholder="Digite sua dúvida ou sugestão"></textarea>
       </div>
-      <button class="botao" type="submit">ENVIAR</button>
+      <button class="botao mostrar" type="submit">ENVIAR</button>
+      <div class="spinner loader"></div>
     </form>
   </main>
+
+
 
   <?php include "../layouts/footer.php" ?>
 </body>

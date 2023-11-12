@@ -1,39 +1,70 @@
+import { criarSugestao } from '../scripts/sugestoes/criarSugestao.js';
+import { toast } from '../scripts/utils/toast.js';
 const form = document.querySelector('form');
-import { apiUrl } from '../scripts/constants/apiUrl.js';
-const insertSuggestionsUrl = `${apiUrl}/pergunta-sugerida`;
+const spinner = document.querySelector('.spinner');
+const botao = document.querySelector('.botao');
+
+const nome = form.querySelector('#nome');
+const email = form.querySelector('#email');
+const telefone = form.querySelector('#phone');
+const pergunta = form.querySelector('#mensagem');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const inputName = form.querySelector('[name="nome"]');
-  const inputEmail = form.querySelector('[name="email"]');
-  const inputPhone = form.querySelector('[name="telefone"]');
-  const inputMessage = form.querySelector('[name="mensagem"]');
 
-  const userName = inputName.value;
-  const userEmail = inputEmail.value;
-  const userPhone = inputPhone.value;
-  const userSuggestion = inputMessage.value;
+  spinner.classList.toggle('mostrar');
+  botao.classList.toggle('mostrar');
 
-  const data = {
-    nome: userName,
-    pergunta: userSuggestion,
-    email: userEmail,
-    telefone: userPhone,
-  };
+  if (nome.value.length < 3) {
+    toast('Nome precisa de no mínimo 3 caracteres', true);
 
-  const insertSuggestedQuestion = async () => {
-    try {
-      await fetch(insertSuggestionsUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      console.log(err);
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+    return;
+  } else if (nome.value.length > 100) {
+    toast('Nome máximo permitido 100 caracteres', true);
+
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+    return;
+  }
+
+  if (pergunta.value.length < 10) {
+    toast('Dúvida precisa de no mínimo 10 caracteres', true);
+
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+    return;
+  } else if (pergunta.value.length > 2000) {
+    toast('Dúvida máximo permitido 2000 caracteres', true);
+
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+    return;
+  }
+
+  try {
+    const sugestaoCriada = await criarSugestao({
+      nome: nome.value,
+      email: email.value,
+      telefone: telefone.value,
+      pergunta: pergunta.value,
+    });
+
+    if (sugestaoCriada) {
+      toast('Sugestão enviada com sucesso');
+      nome.value = '';
+      email.value = '';
+      telefone.value = '';
+      pergunta.value = '';
+    } else {
+      toast('Houve um erro ao criar a sugestão', true);
     }
-  };
-
-  insertSuggestedQuestion();
+  } catch (err) {
+    toast('Houve um erro ao criar a sugestão', true);
+    console.error(err);
+  } finally {
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+  }
 });
