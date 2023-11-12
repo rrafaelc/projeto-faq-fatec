@@ -203,7 +203,7 @@ main {
   color: var(--cinza-texto);
 }
 
-.adicionar-pergunta {
+.container {
   background-color: var(--prata-base);
   border-radius: 10px;
   padding: 0 40px;
@@ -212,7 +212,7 @@ main {
   flex-direction: column;
 }
 
-.adicionar-pergunta .titulo {
+.container .titulo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -221,23 +221,24 @@ main {
   cursor: pointer;
 }
 
-.adicionar-pergunta .titulo h1 {
+.container .titulo h1 {
   font-size: 3.2rem;
   font-weight: 500;
   color: var(--titulos);
 }
 
-.adicionar-pergunta .titulo i {
+.container .titulo i {
   cursor: pointer;
   font-size: 32px;
   color: var(--titulos);
 }
 
-.adicionar-pergunta .titulo i.aberto {
+.container .titulo i.aberto {
   transform: rotate(180deg);
 }
 
-.adicionar-pergunta form {
+.adicionar-pergunta form,
+.dados-sugestoes {
   display: flex;
   flex-direction: column;
 
@@ -246,10 +247,15 @@ main {
   transition: all 0.3s ease-out;
 }
 
-.adicionar-pergunta form.aberto {
+.adicionar-pergunta form.aberto,
+.dados-sugestoes.aberto {
   padding-bottom: 30px;
   max-height: 1000px;
   transition: all 0.3s ease-in;
+}
+
+.dados-sugestoes table {
+  margin-bottom: 30px;
 }
 
 .adicionar-pergunta form label {
@@ -331,11 +337,11 @@ main {
 }
 
 @media (max-width: 1500px) {
-  .adicionar-pergunta .titulo h1 {
+  .container .titulo h1 {
     font-size: 2.6rem;
   }
 
-  .adicionar-pergunta .titulo i {
+  .container .titulo i {
     font-size: 28px;
   }
 
@@ -414,6 +420,10 @@ td {
   color: var(--preto-escuro);
 }
 
+.dados-sugestoes td {
+  padding: 20px 10px;
+}
+
 td #id {
   font-size: 2rem;
 }
@@ -479,12 +489,21 @@ td #acao {
   gap: 10px;
 }
 
+td #acao button {
+  border: none;
+}
+
 td #acao i {
   font-size: 24px;
   cursor: pointer;
 }
 
-td #acao .fa-pencil {
+td #acao .fa-comment {
+  font-size: 30px;
+}
+
+td #acao .fa-pencil,
+td #acao .fa-comment {
   color: var(--azul-base);
 }
 
@@ -529,14 +548,4 @@ td #acao .fa-trash-can {
   background-color: var(--vermelho-base);
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
-}
-
-.sugestoes-base {
-  opacity: 0;
-  background-color: var(--prata-base);
-  transition: opacity 1s ease-in-out;
-}
-
-.toggle-sugestoes {
-  opacity: 1;
 }

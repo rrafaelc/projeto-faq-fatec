@@ -81,8 +81,158 @@
       </div>
     </div>
 
-    <div class="adicionar-pergunta">
-      <div class="titulo">
+    <div class="container sugestao-container">
+      <div class="titulo titulo-sugestao">
+        <h1>Sugestões dos visitantes</h1>
+        <i class="fas fa-angle-down botao"></i>
+      </div>
+      <div class="dados-sugestoes">
+        <table class="sugestoes">
+          <thead>
+            <tr>
+              <th>
+                <span>Nome <i class="fas fa-sort-down"></i></span>
+              </th>
+              <th>
+                <span>Email <i class="fas fa-sort-down"></i></span>
+              </th>
+              <th>
+                <span>Telefone<i class="fas fa-sort-down"></i></span>
+              </th>
+              <th id="pergunta">
+                <span>Sugestão <i class="fas fa-sort-down"></i></span>
+              </th>
+              <th>
+                <span>Ações</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <td>
+              <span>Rafael</span>
+            </td>
+            <td>
+              <span>rafael@email.com</span>
+            </td>
+            <td>
+              <span>19999999999</span>
+            </td>
+            <td>
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
+            </td>
+            <td>
+              <div id="acao">
+                <button title="Responder a sugestão">
+                  <i class="fas fa-comment"></i>
+                </button>
+              </div>
+            </td>
+          </tbody>
+          <tbody>
+            <td>
+              <span>Rafael</span>
+            </td>
+            <td>
+              <span>rafael@email.com</span>
+            </td>
+            <td>
+              <span>19999999999</span>
+            </td>
+            <td>
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
+            </td>
+            <td>
+              <div id="acao">
+                <button title="Responder a sugestão">
+                  <i class="fas fa-comment"></i>
+                </button>
+              </div>
+            </td>
+          </tbody>
+          <tbody>
+            <td>
+              <span>Rafael</span>
+            </td>
+            <td>
+              <span>rafael@email.com</span>
+            </td>
+            <td>
+              <span>19999999999</span>
+            </td>
+            <td>
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
+            </td>
+            <td>
+              <div id="acao">
+                <button title="Responder a sugestão">
+                  <i class="fas fa-comment"></i>
+                </button>
+              </div>
+            </td>
+          </tbody>
+          <tbody>
+            <td>
+              <span>Rafael</span>
+            </td>
+            <td>
+              <span>rafael@email.com</span>
+            </td>
+            <td>
+              <span>19999999999</span>
+            </td>
+            <td>
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
+            </td>
+            <td>
+              <div id="acao">
+                <button title="Responder a sugestão">
+                  <i class="fas fa-comment"></i>
+                </button>
+              </div>
+            </td>
+          </tbody>
+          <tbody>
+            <td>
+              <span>Rafael</span>
+            </td>
+            <td>
+              <span>rafael@email.com</span>
+            </td>
+            <td>
+              <span>19999999999</span>
+            </td>
+            <td>
+              <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit incidunt repellat voluptate maiores laudantium est, quod facere commodi quam. Inventore ea sint odio quos a sequi et tempore rem veritatis.</span>
+            </td>
+            <td>
+              <div id="acao">
+                <button title="Responder a sugestão">
+                  <i class="fas fa-comment"></i>
+                </button>
+              </div>
+            </td>
+          </tbody>
+        </table>
+        <div class="paginacao">
+          <div class="pg disabled">
+            <span>Anterior</span>
+          </div>
+          <div class="numeros">
+            <div class="numero active">1</div>
+            <div class="numero">2</div>
+            <div class="numero">3</div>
+            <div class="numero">4</div>
+            <div class="numero">5</div>
+          </div>
+          <div class="pg">
+            <span>Próximo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container adicionar-pergunta">
+      <div class="titulo titulo-pergunta">
         <h1>Adicionar pergunta</h1>
         <i class="fas fa-angle-down botao"></i>
       </div>
@@ -99,55 +249,6 @@
           <button class="enviar" type="submit">Adicionar</button>
         </div>
       </form>
-      <div class="titulo mostrar-sugestoes">
-        <h1>Mostrar sugestoes</h1>
-        <i class="fas fa-angle-down botao"></i>
-      </div>
-      <div class="sugestoes-base">
-        <div class="dados">
-          <div class="titulo">
-            <h1>Sugestões</h1>
-          </div>
-          <table class="perguntas">
-            <thead>
-              <tr>
-                <th>
-                  <span>Nome <i class="fas fa-sort-down"></i></span>
-                </th>
-                <th>
-                  <span>Email <i class="fas fa-sort-down"></i></span>
-                </th>
-                <th>
-                  <span>Telefone<i class="fas fa-sort-down"></i></span>
-                </th>
-                <th id="pergunta">
-                  <span>Sugestão <i class="fas fa-sort-down"></i></span>
-                </th>
-                <th>
-                  <span>Ações</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-          <div class="paginacao">
-            <div class="pg disabled">
-              <span>Anterior</span>
-            </div>
-            <div class="numeros">
-              <div class="numero active">1</div>
-              <div class="numero">2</div>
-              <div class="numero">3</div>
-              <div class="numero">4</div>
-              <div class="numero">5</div>
-            </div>
-            <div class="pg">
-              <span>Próximo</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="dados">

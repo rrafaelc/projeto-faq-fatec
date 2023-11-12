@@ -34,7 +34,7 @@ textarea.addEventListener('keydown', function (event) {
 //==============================================================================
 
 const perguntas = document.querySelector('.adicionar-pergunta');
-const tituloPerguntas = perguntas.querySelector('.titulo');
+const tituloPerguntas = perguntas.querySelector('.titulo-pergunta');
 const botaoPerguntas = perguntas.querySelector('.botao');
 const form = perguntas.querySelector('form');
 
@@ -43,9 +43,19 @@ const resposta = form.querySelector('#resposta');
 const botaoPrioridade = form.querySelector('#prioridade');
 const botaoEnviar = form.querySelector('.enviar');
 
+const sugestaoContainer = document.querySelector('.sugestao-container');
+const tituloSugestao = sugestaoContainer.querySelector('.titulo-sugestao');
+const botaoSugestao = sugestaoContainer.querySelector('.botao');
+const dadosSugestoes = sugestaoContainer.querySelector('.dados-sugestoes');
+
 tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
   form.classList.toggle('aberto');
+});
+
+tituloSugestao.addEventListener('click', function () {
+  botaoSugestao.classList.toggle('aberto');
+  dadosSugestoes.classList.toggle('aberto');
 });
 
 botaoPrioridade.addEventListener('click', function () {
@@ -68,11 +78,11 @@ const spinner = document.querySelector('.spinnerFull');
 const deslogarBotao = document.querySelector('#deslogar');
 spinner.classList.remove('hideElement');
 
-const mostrarSugestoes = document.querySelector('.mostrar-sugestoes');
-const sugestao = document.querySelector('.sugestoes-base');
-mostrarSugestoes.addEventListener('click', () => {
-  sugestao.classList.toggle('toggle-sugestoes');
-});
+// const mostrarSugestoes = document.querySelector('.mostrar-sugestoes');
+// const sugestao = document.querySelector('.sugestoes-base');
+// mostrarSugestoes.addEventListener('click', () => {
+//   sugestao.classList.toggle('toggle-sugestoes');
+// });
 
 const loggedIn = await isLoggedIn();
 if (!loggedIn) window.location.href = `${serverUrl}/login`;
