@@ -1,14 +1,19 @@
-import { apiUrl } from './scripts/constants/apiUrl.js';
+import { listarPerguntas } from './scripts/perguntas/listarPerguntas.js';
+import { toast } from './scripts/utils/toast.js';
 
-const listarUrl = `${apiUrl}/pergunta`;
-
-const listarPerguntas = async () => {
-  const perguntas = await fetch(listarUrl);
-
-  return perguntas.json();
-};
-const perguntas = await listarPerguntas();
+const spinnerContainer = document.querySelector('.spinnerContainer');
 const questionsContainer = document.querySelector('.container');
+
+let perguntas = [];
+
+try {
+  perguntas = await listarPerguntas();
+} catch (error) {
+  toast('Houve um erro ao carregar as perguntas', true);
+  console.log(error);
+} finally {
+  spinnerContainer.classList.remove('mostrar');
+}
 
 const addLinksToContent = (content) => {
   const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
