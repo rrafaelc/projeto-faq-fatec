@@ -21,6 +21,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Content-type: application/json; charset=UTF-8");
 
+date_default_timezone_set('America/Sao_Paulo');
+
 $config = [
   "secret_key" => $_ENV["JWT_KEY"],
   "iat" => $iat,

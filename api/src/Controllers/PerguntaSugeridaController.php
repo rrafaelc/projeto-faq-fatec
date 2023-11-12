@@ -39,9 +39,13 @@ class PerguntaSugeridaController
 
     switch ($method) {
       case "GET":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
         echo json_encode($perguntaSugerida);
         break;
-      case "DELETE":
+      case "PUT":
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
 
         if (!$usuarioLogado) return;
@@ -55,14 +59,15 @@ class PerguntaSugeridaController
           return;
         }
 
-        $this->gateway->delete($id);
+        $perguntaSugeridaAtualizada = $this->gateway->update($id, $usuarioLogado["id"]);
 
-        http_response_code(204);
+        http_response_code(200);
+        echo json_encode($perguntaSugeridaAtualizada);
         break;
 
       default:
         http_response_code(405);
-        header("Allow: GET, DELETE");
+        header("Allow: GET, PUT");
     }
   }
 
@@ -70,6 +75,10 @@ class PerguntaSugeridaController
   {
     switch ($method) {
       case "GET":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
         echo json_encode($this->gateway->getAll());
         break;
       case "POST":
