@@ -9,7 +9,7 @@ export const getLoggedUseInfo = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: getAuthorization(),
+        Authorization: await getAuthorization(),
       },
     });
 

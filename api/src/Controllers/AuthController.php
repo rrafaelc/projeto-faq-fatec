@@ -57,6 +57,13 @@ class AuthController
             return;
           }
 
+          $dataAtual = new DateTime();
+
+          // 15 minutos à data atual
+          $dataExpiracao = $dataAtual->add(new DateInterval('PT15M'));
+
+          $accessTokenDataExpiracao = $dataExpiracao->format('Y-m-d H:i:s');
+
           $access_token = $this->generateToken($config, $usuario["id"]);
 
           $refresh_token = bin2hex(random_bytes(32));
@@ -67,6 +74,7 @@ class AuthController
 
           echo json_encode([
             "access_token" => $access_token,
+            "access_token_expires_in" => $accessTokenDataExpiracao,
             "refresh_token" => $refresh_token,
             "expires_in" => $config["access_token_expiration"] - time(),
           ]);
@@ -105,6 +113,13 @@ class AuthController
           return;
         }
 
+        $dataAtual = new DateTime();
+
+        // 15 minutos à data atual
+        $dataExpiracao = $dataAtual->add(new DateInterval('PT15M'));
+
+        $accessTokenDataExpiracao = $dataExpiracao->format('Y-m-d H:i:s');
+
         $access_token = $this->generateToken($config, $usuario["id"]);
 
         $refresh_token = bin2hex(random_bytes(32));
@@ -114,6 +129,7 @@ class AuthController
         $this->gateway->updateToken($access_token, $refresh_token, $expiration_date, $usuario["id"]);
 
         $usuario["access_token"] = $access_token;
+        $usuario["access_token_expires_in"] = $accessTokenDataExpiracao;
         $usuario["refresh_token"] = $refresh_token;
         $usuario["expires_in"] = $config["access_token_expiration"] - time();
         unset($usuario["senha"]);

@@ -1,38 +1,42 @@
 import { apiUrl } from '../constants/apiUrl.js';
 
-export const login = async ({ email, senha }) => {
-  localStorage.clear();
+export const refreshToken = async () => {
+  const refreshToken = localStorage.getItem('refresh_token');
+
+  if (!refreshToken) {
+    localStorage.clear();
+
+    return false;
+  }
 
   try {
-    const response = await fetch(`${apiUrl}/auth/login`, {
+    const response = await fetch(`${apiUrl}/auth/refresh_token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, senha }),
+      body: JSON.stringify({ refresh_token: refreshToken }),
     });
 
     const responseData = await response.json();
 
     if (response.status >= 400 && response.status < 500) {
-      throw new Error('Email ou senha incorretos');
+      localStorage.clear();
+
+      return false;
     }
 
-    if (
-      responseData.id &&
-      responseData.cargo &&
-      responseData.access_token &&
-      responseData.refresh_token &&
-      responseData.expires_in
-    ) {
-      localStorage.setItem('id', responseData.id);
-      localStorage.setItem('cargo', responseData.cargo);
+    if (responseData.access_token && responseData.refresh_token && responseData.expires_in) {
       localStorage.setItem('access_token', responseData.access_token);
       localStorage.setItem('access_token_expires_in', responseData.access_token_expires_in);
       localStorage.setItem('refresh_token', responseData.refresh_token);
       localStorage.setItem('expires_in', responseData.expires_in);
     }
   } catch (error) {
-    throw new Error(error);
+    localStorage.clear();
+
+    return false;
   }
+
+  return true;
 };

@@ -14,8 +14,10 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="../scripts/global.js" defer></script>
-  <script src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sugestoes/script.js" defer></script>
+  <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sugestoes/script.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +26,6 @@
   $pagina = 'sugestoes';
   include "../layouts/header.php";
   ?>
-
   <main>
     <form class="box-sugestao">
       <h1 id="suaduvida">
@@ -36,14 +37,25 @@
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" required placeholder="Digite seu nome" />
         </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="Digite seu E-mail" />
+        </div>
+        <div>
+          <label for="telefone">Telefone</label>
+          <input type="text" id="phone" name="telefone" required placeholder="Digite seu telefone" />
+        </div>
       </div>
       <div class="duvida-sugestao">
         <label for="mensagem">Dúvida/Sugestão</label>
         <textarea cols="50" rows="50" class="texto-sugestao" id="mensagem" name="mensagem" required placeholder="Digite sua dúvida ou sugestão"></textarea>
       </div>
-      <button class="botao" type="submit">ENVIAR</button>
+      <button class="botao mostrar" type="submit">ENVIAR</button>
+      <div class="spinner loader"></div>
     </form>
   </main>
+
+
 
   <?php include "../layouts/footer.php" ?>
 </body>
