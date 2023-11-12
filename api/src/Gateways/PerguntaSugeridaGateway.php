@@ -62,13 +62,24 @@ class PerguntaSugeridaGateway
     return $perguntaSugerida;
   }
 
-  public function delete(string $id): void
+  public function update(string $id, string $userId)
   {
-    $sql = "DELETE FROM pergunta_sugerida
+    $sql = "UPDATE pergunta_sugerida
+            SET respondido_por = :respondido_por, foi_respondido = :foi_respondido
             WHERE id = :id";
 
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":respondido_por", $userId, PDO::PARAM_INT);
+    $stmt->bindValue(":foi_respondido", true, PDO::PARAM_BOOL);
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
+
+    $sql = "SELECT * FROM pergunta_sugerida WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $perguntaSugerida = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $perguntaSugerida;
   }
 }
