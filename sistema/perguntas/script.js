@@ -135,7 +135,7 @@ const execute = async () => {
 
           setTimeout(() => {
             window.location = `${serverUrl}/sistema/perguntas`;
-          }, 3000);
+          }, 1000);
         } catch (error) {
           toast('Houve um problema ao atualizar a sugestão', true);
           console.log(error);
