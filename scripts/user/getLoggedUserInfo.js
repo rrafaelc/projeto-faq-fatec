@@ -1,4 +1,5 @@
 import { apiUrl } from '../constants/apiUrl.js';
+import { serverUrl } from '../constants/serverUrl.js';
 import { getAuthorization } from '../utils/getAuthorization.js';
 
 export const getLoggedUseInfo = async () => {
@@ -12,6 +13,11 @@ export const getLoggedUseInfo = async () => {
         Authorization: await getAuthorization(),
       },
     });
+
+    if (!response.ok) {
+      localStorage.clear();
+      window.location = `${serverUrl}/login`;
+    }
 
     const data = await response.json();
 
