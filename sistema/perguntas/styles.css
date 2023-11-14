@@ -396,6 +396,11 @@ td {
   text-align: left;
 }
 
+.th-acao-sugestao {
+  display: flex;
+  justify-content: center;
+}
+
 th {
   padding: 0px;
   padding-bottom: 20px;
@@ -515,8 +520,15 @@ td #acao .fa-comment {
   color: var(--azul-base);
 }
 
-td #acao .fa-trash-can {
+td #acao .fa-trash-can,
+td #acao.td-acao-sugestao .fa-trash {
   color: var(--vermelho-base);
+}
+
+td #acao.td-acao-sugestao {
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .paginacao {

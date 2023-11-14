@@ -5,6 +5,7 @@ import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
 import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
+import { deletarSugestao } from '../../scripts/sugestoes/deletarSugestao.js';
 import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
 import { responderSugestao } from '../../scripts/sugestoes/responderSugestao.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
@@ -112,6 +113,27 @@ const execute = async () => {
     form.classList.add('aberto');
   };
 
+  const handleDeletarSugestao = async (id) => {
+    const result = await deletarSugestao(id);
+
+    perguntaSugestaoClasse.forEach((p) => p.classList.remove('mostrar'));
+    botaoSugestao.classList.remove('aberto');
+    dadosSugestoes.classList.remove('aberto');
+    botaoPerguntas.classList.remove('aberto');
+    form.classList.remove('aberto');
+
+    if (!result) {
+      toast('Houve um erro ao deletar a sugestão', true);
+      return;
+    }
+
+    toast('Sugestão deletada com sucesso');
+
+    setTimeout(() => {
+      window.location = `${serverUrl}/sistema/perguntas`;
+    }, 1000);
+  };
+
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -192,7 +214,7 @@ const execute = async () => {
         <th id="pergunta">
           <span>Sugestão <i class="fas fa-sort-down"></i></span>
         </th>
-        <th>
+        <th class="th-acao-sugestao">
           <span>Ações</span>
         </th>
       </tr>
@@ -215,9 +237,12 @@ const execute = async () => {
         <span>${sugestao.pergunta}</span>
       </td>
       <td>
-        <div id="acao">
+        <div id="acao" class="td-acao-sugestao">
           <button class="botao-responder-sugestao" title="Responder a sugestão" data-id="${sugestao.id}" data-pergunta="${sugestao.pergunta}">
             <i class="fas fa-comment"></i>
+          </button>
+          <button class="botao-deletar-sugestao" title="Deletar a sugestão" data-id="${sugestao.id}">
+            <i class="fas fa-trash"></i>
           </button>
         </div>
       </td>
@@ -227,12 +252,31 @@ const execute = async () => {
     .join('');
 
   const botoesResponderSugestao = document.querySelectorAll('.botao-responder-sugestao');
+  const botoesDeletarSugestao = document.querySelectorAll('.botao-deletar-sugestao');
 
   botoesResponderSugestao.forEach((botao) => {
     botao.addEventListener('click', function () {
       const id = this.getAttribute('data-id');
       const pergunta = this.getAttribute('data-pergunta');
       handleResponderSugestao(id, pergunta);
+    });
+  });
+
+  botoesDeletarSugestao.forEach((botao) => {
+    botao.addEventListener('click', function () {
+      const id = this.getAttribute('data-id');
+
+      Swal.fire({
+        title: 'Tem certezar que quer excluir a sugestão?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handleDeletarSugestao(id);
+        }
+      });
     });
   });
 };
