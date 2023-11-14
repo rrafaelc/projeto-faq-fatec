@@ -56,9 +56,28 @@ class PerguntaSugeridaController
         echo json_encode($perguntaSugeridaAtualizada);
         break;
 
+      case "DELETE":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
+        $this->gateway->delete($id);
+
+        http_response_code(204);
+        break;
+
       default:
         http_response_code(405);
-        header("Allow: GET, PUT");
+        header("Allow: GET, PUT, DELETE");
     }
   }
 
