@@ -15,6 +15,7 @@
   <link rel="manifest" href="../../img/favicon/site.webmanifest" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/perguntas/script.js" defer></script>
   <title>Sistema FAQ | Perguntas</title>
@@ -82,7 +83,6 @@
         </div>
       </div>
     </div>
-
 
     <div class="container sugestao-container">
       <div class="titulo titulo-sugestao">

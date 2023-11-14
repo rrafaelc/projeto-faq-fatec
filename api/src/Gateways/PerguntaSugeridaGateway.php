@@ -82,4 +82,15 @@ class PerguntaSugeridaGateway
 
     return $perguntaSugerida;
   }
+
+  public function delete(string $id)
+  {
+    $sql = "DELETE FROM pergunta_sugerida
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
 }
