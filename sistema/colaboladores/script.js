@@ -8,6 +8,7 @@ import { criarContaUsuario } from '../../scripts/user/criarContaUsuario.js';
 import { deletarContaUsuario } from '../../scripts/user/deletarContaUsuario.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
+import { resetarSenhaUsuario } from '../../scripts/user/resetarSenhaUsuario.js';
 import { suspenderContaUsuario } from '../../scripts/user/suspenderContaUsuario.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 import { toast } from '../../scripts/utils/toast.js';
@@ -158,7 +159,7 @@ const execute = async () => {
         </td>
         <td class="acao">
           <div>
-            <button>Resetar senha</button>
+            <button data-id="${usuario.id}" class="resetar-senha">Resetar senha</button>
             <button data-id="${usuario.id}" class="deletar-usuario">Deletar conta</button>
           </div>
         </td>
@@ -171,6 +172,7 @@ const execute = async () => {
   const cargos = dados.querySelectorAll('.cargo');
   const suspensos = dados.querySelectorAll('.suspenso');
   const deletarButtons = dados.querySelectorAll('.deletar-usuario');
+  const resetarButtons = dados.querySelectorAll('.resetar-senha');
 
   cargos.forEach((cargo) => {
     cargo.addEventListener('click', async function () {
@@ -178,7 +180,7 @@ const execute = async () => {
       const id = this.getAttribute('data-id');
 
       Swal.fire({
-        title: 'Tem certeza que quer mudar o cargo?',
+        title: 'Tem certeza que quer mudar o cargo dessa conta?',
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
@@ -230,7 +232,7 @@ const execute = async () => {
       const id = this.getAttribute('data-id');
 
       Swal.fire({
-        title: 'Tem certeza que quer mudar a suspensão?',
+        title: 'Tem certeza que quer mudar a suspensão dessa conta?',
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
@@ -282,7 +284,7 @@ const execute = async () => {
       const id = this.getAttribute('data-id');
 
       Swal.fire({
-        title: 'Tem certeza que quer deletar a conta?',
+        title: 'Tem certeza que quer deletar essa conta?',
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
@@ -300,6 +302,50 @@ const execute = async () => {
           } catch (error) {
             toast(error.message, true);
           }
+        }
+      });
+    });
+  });
+
+  resetarButtons.forEach((botao) => {
+    botao.addEventListener('click', async function () {
+      const id = this.getAttribute('data-id');
+
+      Swal.fire({
+        title: 'Tem certeza que quer resetar a senha dessa conta?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title:
+              'Importante: Após redefinir a senha do usuário, informe-a imediatamente e faça login. Altere a senha após o login para segurança. Se esquecer, a recuperação só é possível ao redefinir a senha. Mantenha a senha segura. Se esta for sua conta, copie-a e faça login novamente.',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, irei anotar!',
+            cancelButtonText: 'Não',
+            icon: 'info',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              try {
+                const novaSenha = await resetarSenhaUsuario({ id });
+
+                Swal.fire({
+                  title: `Por favor, copie cuidadosamente a nova senha e forneça-a ao usuário correspondente.\n\nNova senha: ${novaSenha}\n\n\n\n`,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  allowEscapeKey: false,
+                  allowEnterKey: false,
+                  stopKeydownPropagation: true,
+                  confirmButtonText: 'Certo, copiei a nova senha!',
+                  icon: 'info',
+                });
+              } catch (error) {
+                toast(error.message, true);
+              }
+            }
+          });
         }
       });
     });
