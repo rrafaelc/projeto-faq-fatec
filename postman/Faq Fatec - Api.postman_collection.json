@@ -499,6 +499,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Alterar Cargo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cargo\": \"Administrador\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/usuario/alterar-cargo/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuario",
+								"alterar-cargo",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

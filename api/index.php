@@ -93,6 +93,13 @@ if ($parts[1] == "pergunta") {
     return;
   }
 
+  if (isset($parts[2]) && $parts[2] == "alterar-cargo") {
+    $id =  isset($parts[3]) ? $parts[3] : "";
+
+    $controller->alterarCargo($_SERVER["REQUEST_METHOD"], $id);
+    return;
+  }
+
   if (isset($parts[2]) && $parts[2] == "suspender") {
     $id =  isset($parts[3]) ? $parts[3] : "";
 

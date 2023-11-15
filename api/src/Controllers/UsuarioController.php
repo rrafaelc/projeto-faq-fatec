@@ -264,6 +264,95 @@ class UsuarioController
     }
   }
 
+  public function alterarCargo(string $method, ?string $id)
+  {
+    $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+    if (!$usuarioLogado) return;
+
+    if (!$id) {
+      http_response_code(422);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Nenhum paramêtro enviado"]
+      ]);
+      return;
+    }
+
+    $cargosPermitidos = [CargoEnum::ADMINISTRADOR];
+
+    if (!in_array($usuarioLogado["cargo"], $cargosPermitidos)) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Acesso negado"],
+      ]);
+
+      return;
+    }
+
+    if ((bool) $usuarioLogado["esta_suspenso"]) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Usuário suspenso, acesso negado"]
+      ]);
+      return;
+    }
+
+    $usuario = $this->gateway->get($id);
+
+    if (!$usuario) {
+      http_response_code(404);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Usuário não encontrado"]
+      ]);
+
+      return;
+    }
+
+    if ($usuarioLogado["id"] == $id) {
+      http_response_code(403);
+      echo json_encode([
+        "status" => "error",
+        "errors" => ["Não permitido alterar o cargo da sua própria conta"]
+      ]);
+
+      return;
+    }
+
+    switch ($method) {
+      case "POST":
+        $data = (array) json_decode(file_get_contents("php://input"), true);
+
+        if (!array_key_exists("cargo", $data)) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["cargo é obrigatório"]
+          ]);
+          return;
+        }
+
+        if ($data["cargo"] !== CargoEnum::ADMINISTRADOR && $data["cargo"] !== CargoEnum::MODERADOR) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["cargo deve ser " . CargoEnum::ADMINISTRADOR . " ou " . CargoEnum::MODERADOR]
+          ]);
+          return;
+        }
+
+        $this->gateway->updateCargo($data["cargo"], $id);
+
+        break;
+      default:
+        http_response_code(405);
+        header("Allow:  POST");
+    }
+  }
+
   public function suspender(string $method, ?string $id)
   {
     $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);

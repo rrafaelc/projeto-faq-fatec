@@ -267,7 +267,7 @@ const execute = async () => {
       const id = this.getAttribute('data-id');
 
       Swal.fire({
-        title: 'Tem certezar que quer excluir a sugestão?',
+        title: 'Tem certeza que quer excluir a sugestão?',
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',

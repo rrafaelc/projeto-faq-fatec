@@ -3,6 +3,7 @@
 import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+import { alterarCargoUsuario } from '../../scripts/user/alterarCargoUsuario.js';
 import { criarContaUsuario } from '../../scripts/user/criarContaUsuario.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
@@ -148,7 +149,7 @@ const execute = async () => {
             </div>
           </div>
         </td>
-        <td class="cargo ${usuario.cargo.toLowerCase()}">
+        <td data-id="${usuario.id}" class="cargo ${usuario.cargo.toLowerCase()}">
           <button>${usuario.cargo}</button>
         </td>
         <td data-id="${usuario.id}" class="suspenso ${usuario.esta_suspenso ? 'sim' : 'nao'}">
@@ -170,32 +171,54 @@ const execute = async () => {
   const suspensos = dados.querySelectorAll('.suspenso');
 
   cargos.forEach((cargo) => {
-    cargo.addEventListener('click', function () {
+    cargo.addEventListener('click', async function () {
       const cargoBotao = cargo.querySelector('button');
+      const id = this.getAttribute('data-id');
 
-      switch (cargoBotao.textContent) {
-        case 'Administrador':
-          cargoBotao.textContent = 'Moderador';
+      Swal.fire({
+        title: 'Tem certeza que quer mudar o cargo?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          switch (cargoBotao.textContent) {
+            case 'Administrador':
+              try {
+                await alterarCargoUsuario({
+                  id,
+                  cargo: 'Moderador',
+                });
+                cargoBotao.textContent = 'Moderador';
 
-          cargo.classList.add('moderador');
-          cargo.classList.remove('administrador');
-          cargo.classList.remove('colaborador');
-          break;
-        case 'Moderador':
-          cargoBotao.textContent = 'Colaborador';
+                cargo.classList.add('moderador');
+                cargo.classList.remove('administrador');
 
-          cargo.classList.add('colaborador');
-          cargo.classList.remove('administrador');
-          cargo.classList.remove('moderador');
-          break;
-        case 'Colaborador':
-          cargoBotao.textContent = 'Administrador';
+                toast('Cargo alterado com sucesso');
+              } catch (error) {
+                toast(error.message, true);
+              }
+              break;
+            case 'Moderador':
+              try {
+                await alterarCargoUsuario({
+                  id,
+                  cargo: 'Administrador',
+                });
+                cargoBotao.textContent = 'Administrador';
 
-          cargo.classList.add('administrador');
-          cargo.classList.remove('moderador');
-          cargo.classList.remove('colaborador');
-          break;
-      }
+                cargo.classList.add('administrador');
+                cargo.classList.remove('moderador');
+
+                toast('Cargo alterado com sucesso');
+              } catch (error) {
+                toast(error.message, true);
+              }
+              break;
+          }
+        }
+      });
     });
   });
 
@@ -205,7 +228,7 @@ const execute = async () => {
       const id = this.getAttribute('data-id');
 
       Swal.fire({
-        title: 'Tem certezar que quer mudar a suspensão?',
+        title: 'Tem certeza que quer mudar a suspensão?',
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
