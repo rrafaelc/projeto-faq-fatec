@@ -14,8 +14,14 @@ export const login = async ({ email, senha }) => {
 
     const responseData = await response.json();
 
-    if (response.status >= 400 && response.status < 500) {
-      throw new Error('Email ou senha incorretos');
+    if (response.status === 403) {
+      console.log(responseData);
+      throw new Error(responseData.errors[0]);
+    }
+
+    if (!response.ok) {
+      console.log(responseData);
+      throw new Error(responseData.errors[0]);
     }
 
     if (
@@ -33,6 +39,7 @@ export const login = async ({ email, senha }) => {
       localStorage.setItem('expires_in', responseData.expires_in);
     }
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
+    throw new Error(error.message);
   }
 };
