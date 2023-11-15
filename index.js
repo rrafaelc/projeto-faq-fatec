@@ -1,3 +1,5 @@
+import { decrementarCurtidas } from './scripts/perguntas/decrementarCurtidas.js';
+import { incrementarCurtidas } from './scripts/perguntas/incrementarCurtidas.js';
 import { listarPerguntas } from './scripts/perguntas/listarPerguntas.js';
 import { toast } from './scripts/utils/toast.js';
 
@@ -26,6 +28,7 @@ const replaceLineBreaks = (content) => {
   return content.replace(/\n/g, '<br>');
 };
 
+
 questionsContainer.innerHTML += perguntas
   .map(
     (question) =>
@@ -43,7 +46,7 @@ questionsContainer.innerHTML += perguntas
           </p>
           <p>
             Essa resposta foi útil?
-            <i id="heart" class="fa-solid fa-heart"></i>
+            <i data-id="${question.id}" class="fa-solid fa-heart heart"></i>
           </p>
         </div>
       </div>`,
@@ -51,7 +54,7 @@ questionsContainer.innerHTML += perguntas
   .join('');
 
 const form = document.querySelector('form');
-const hearts = document.querySelectorAll('#heart');
+
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
 const containers = document.querySelectorAll('.faq-container');
@@ -70,12 +73,38 @@ form.addEventListener('keyup', (event) => {
   });
 });
 
-//deixa o coração vermelho ao clicar
+//deixa o coração vermelho ao clicar e chama a funçao de incrementar
+const hearts = document.querySelectorAll('.heart');
+let curtidasLocalStorage = []
+
+
 hearts.forEach((heart) => {
-  heart.addEventListener('click', () => {
-    heart.classList.toggle('heart-clicked');
+  heart.addEventListener('click', async function () {
+    const id = this.getAttribute('data-id');
+    if (localStorage.getItem('idCurtidas').includes(id)) {
+      await decrementarCurtidas(id);
+      const index = curtidasLocalStorage.findIndex(item => item.id === id)
+      curtidasLocalStorage.splice(index, 1)
+      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      heart.classList.remove('heart-clicked');
+    } else {
+      await incrementarCurtidas(id);
+      curtidasLocalStorage.push({id: id})
+      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      heart.classList.add('heart-clicked');
+    }
   });
 });
+
+
+hearts.forEach(function(heart){
+  const dataId = heart.getAttribute('data-id')
+
+  if(localStorage.getItem('idCurtidas').includes(dataId)){
+    heart.classList.add('heart-clicked')
+  }
+})
+
 
 //efeito no click na pergunta
 
