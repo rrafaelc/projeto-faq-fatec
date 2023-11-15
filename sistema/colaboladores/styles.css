@@ -398,12 +398,6 @@ main {
 table {
   border-collapse: collapse;
   width: 100%;
-
-  display: none;
-}
-
-table.mostrar {
-  display: table;
 }
 
 th,
@@ -460,8 +454,7 @@ td #colaborador {
 }
 
 td #colaborador .nome {
-  display: flex;
-  flex-direction: column;
+  width: 200px;
 }
 
 td button {

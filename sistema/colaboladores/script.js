@@ -4,6 +4,7 @@ import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
+import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 
 // Header
@@ -28,121 +29,9 @@ tituloCriarConta.addEventListener('click', function () {
   formCriarConta.classList.toggle('aberto');
 });
 
-const pesquisar = document.querySelector('.pesquisar-por');
-const form = pesquisar.querySelector('form');
-
-const opcoes = form.querySelectorAll('input[type="radio"][name="opcao"]');
-const inputs = form.querySelector('.inputs');
-
 const dados = document.querySelector('.dados');
 const paginacao = dados.querySelector('.paginacao');
-
-const todos = inputs.querySelector('#input-todos');
-const id = inputs.querySelector('#input-id');
-const nome = inputs.querySelector('#input-nome');
-
-const tabela1 = dados.querySelector('#tabela-1');
-const tabela2 = dados.querySelector('#tabela-2');
-
-const valorID = id.querySelector('#id');
-const valorNome = nome.querySelector('#nome');
-
-const button = pesquisar.querySelector('button[type="submit"]');
-
-opcoes.forEach((radio) => {
-  radio.addEventListener('change', function () {
-    if (this.checked) {
-      opcaoEscolhida = this.value;
-
-      if (opcaoEscolhida === 'id') {
-        id.classList.add('ativo');
-        nome.classList.remove('ativo');
-
-        button.classList.remove('nao-mostrar');
-        paginacao.classList.add('nao-mostrar');
-
-        tabela1.classList.remove('mostrar');
-        tabela2.classList.add('mostrar');
-      } else if (opcaoEscolhida === 'nome') {
-        nome.classList.add('ativo');
-        id.classList.remove('ativo');
-
-        button.classList.remove('nao-mostrar');
-        paginacao.classList.add('nao-mostrar');
-
-        tabela1.classList.remove('mostrar');
-        tabela2.classList.add('mostrar');
-      } else if (opcaoEscolhida === 'todos') {
-        id.classList.remove('ativo');
-        nome.classList.remove('ativo');
-
-        button.classList.add('nao-mostrar');
-        paginacao.classList.remove('nao-mostrar');
-
-        tabela1.classList.add('mostrar');
-        tabela2.classList.remove('mostrar');
-      }
-    }
-  });
-});
-
-const cargos = dados.querySelectorAll('.cargo');
-const suspensos = dados.querySelectorAll('.suspenso');
-
-cargos.forEach((cargo) => {
-  cargo.addEventListener('click', function () {
-    const cargoBotao = cargo.querySelector('button');
-
-    switch (cargoBotao.textContent) {
-      case 'Administrador':
-        cargoBotao.textContent = 'Moderador';
-
-        cargo.classList.add('moderador');
-        cargo.classList.remove('administrador');
-        cargo.classList.remove('colaborador');
-        break;
-      case 'Moderador':
-        cargoBotao.textContent = 'Colaborador';
-
-        cargo.classList.add('colaborador');
-        cargo.classList.remove('administrador');
-        cargo.classList.remove('moderador');
-        break;
-      case 'Colaborador':
-        cargoBotao.textContent = 'Administrador';
-
-        cargo.classList.add('administrador');
-        cargo.classList.remove('moderador');
-        cargo.classList.remove('colaborador');
-        break;
-    }
-  });
-});
-
-suspensos.forEach((suspenso) => {
-  suspenso.addEventListener('click', function () {
-    const suspensoBotao = suspenso.querySelector('button');
-
-    switch (suspensoBotao.textContent) {
-      case 'Sim':
-        suspensoBotao.textContent = 'Não';
-
-        suspenso.classList.add('nao');
-        suspenso.classList.remove('sim');
-        break;
-      case 'Não':
-        suspensoBotao.textContent = 'Sim';
-
-        suspenso.classList.add('sim');
-        suspenso.classList.remove('nao');
-        break;
-    }
-  });
-});
-
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
-});
+const tabela = dados.querySelector('.usuarios-tabela');
 
 formCriarConta.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -162,6 +51,111 @@ const execute = async () => {
 
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  const usuarios = await listarUsuarios();
+
+  tabela.innerHTML = `
+  <thead>
+    <tr>
+      <th>
+        <span>Colaborador <i class="fas fa-sort-down"></i></span>
+      </th>
+      <th id="cargo">
+        <span>Cargo <i class="fas fa-sort-down"></i></span>
+      </th>
+      <th id="suspenso">
+        <span>Suspenso <i class="fas fa-sort-down"></i></span>
+      </th>
+      <th></th>
+    </tr>
+  </thead>`;
+
+  tabela.innerHTML += usuarios
+    .map(
+      (usuario) => `
+      <tbody>
+      <tr>
+        <td class="colaborador">
+          <div id="colaborador">
+            <div class="avatar">
+              <img src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}" />
+            </div>
+            <div class="nome">
+              ${usuario.nome_completo}
+            </div>
+          </div>
+        </td>
+        <td class="cargo ${usuario.cargo.toLowerCase()}">
+          <button>${usuario.cargo}</button>
+        </td>
+        <td class="suspenso ${usuario.esta_suspenso ? 'sim' : 'nao'}">
+          <button>${usuario.esta_suspenso ? 'Sim' : 'Não'}</button>
+        </td>
+        <td class="acao">
+          <div>
+            <button>Resetar senha</button>
+            <button>Deletar conta</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  `,
+    )
+    .join('');
+
+  const cargos = dados.querySelectorAll('.cargo');
+  const suspensos = dados.querySelectorAll('.suspenso');
+
+  cargos.forEach((cargo) => {
+    cargo.addEventListener('click', function () {
+      const cargoBotao = cargo.querySelector('button');
+
+      switch (cargoBotao.textContent) {
+        case 'Administrador':
+          cargoBotao.textContent = 'Moderador';
+
+          cargo.classList.add('moderador');
+          cargo.classList.remove('administrador');
+          cargo.classList.remove('colaborador');
+          break;
+        case 'Moderador':
+          cargoBotao.textContent = 'Colaborador';
+
+          cargo.classList.add('colaborador');
+          cargo.classList.remove('administrador');
+          cargo.classList.remove('moderador');
+          break;
+        case 'Colaborador':
+          cargoBotao.textContent = 'Administrador';
+
+          cargo.classList.add('administrador');
+          cargo.classList.remove('moderador');
+          cargo.classList.remove('colaborador');
+          break;
+      }
+    });
+  });
+
+  suspensos.forEach((suspenso) => {
+    suspenso.addEventListener('click', function () {
+      const suspensoBotao = suspenso.querySelector('button');
+
+      switch (suspensoBotao.textContent) {
+        case 'Sim':
+          suspensoBotao.textContent = 'Não';
+
+          suspenso.classList.add('nao');
+          suspenso.classList.remove('sim');
+          break;
+        case 'Não':
+          suspensoBotao.textContent = 'Sim';
+
+          suspenso.classList.add('sim');
+          suspenso.classList.remove('nao');
+          break;
+      }
+    });
+  });
 };
 
 loggedIn && (await execute());

@@ -27,6 +27,24 @@
 					"response": []
 				},
 				{
+					"name": "Mais buscados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pergunta/mais-buscados",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pergunta",
+								"mais-buscados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Buscar",
 					"request": {
 						"method": "GET",
