@@ -147,11 +147,14 @@ class UsuarioGateway
   public function updateSuspensao(bool $suspender, string $id): void
   {
     $sql = "UPDATE usuario
-            SET esta_suspenso = :esta_suspenso
+            SET esta_suspenso = :esta_suspenso, access_token = :access_token, refresh_token = :refresh_token, refresh_token_expiration = :refresh_token_expiration
             WHERE id = :id";
 
     $stmt = $this->conn->prepare($sql);
     $stmt->bindValue(":esta_suspenso", $suspender, PDO::PARAM_BOOL);
+    $stmt->bindValue(":access_token", null, PDO::PARAM_STR);
+    $stmt->bindValue(":refresh_token", null, PDO::PARAM_STR);
+    $stmt->bindValue(":refresh_token_expiration", null, PDO::PARAM_STR);
 
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
