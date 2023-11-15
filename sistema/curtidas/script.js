@@ -3,6 +3,8 @@
 import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
+import { listarPerguntas } from '../../scripts/perguntas/listarPerguntas.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 
@@ -59,3 +61,132 @@ const execute = async () => {
 };
 
 loggedIn && (await execute());
+
+const spinnerContainer = document.querySelector('.spinnerContainer');
+const tablePerguntas = document.querySelector('.perguntas-table');
+const tbody = tablePerguntas.querySelector('tbody');
+const curtidasTable = document.querySelector('#curtidas');
+const curtidasIcon = curtidasTable.querySelector('span');
+
+let perguntas = [];
+
+try {
+  perguntas = await listarPerguntas();
+  perguntas.sort((a, b) => b.curtidas - a.curtidas);
+} catch (error) {
+  toast('Houve um erro ao carregar as perguntas', true);
+  console.log(error);
+} finally {
+  // spinnerContainer.classList.remove('mostrar');
+}
+
+//ordena as perguntas pra trazer as mais curtidas primeiro
+
+curtidasIcon.addEventListener('click', () => {
+  const isClicked = curtidasIcon.getAttribute('isclicked') === 'true';
+
+  if (isClicked) {
+    perguntas.sort((a, b) => b.curtidas - a.curtidas);
+  } else {
+    perguntas.sort((a, b) => a.curtidas - b.curtidas);
+  }
+
+  tbody.innerHTML = '';
+
+  tbody.innerHTML += perguntas.map(
+    (pergunta) =>
+      `<tr>
+                <td>
+                  <div id="id">
+                    <span>${pergunta.id}</span>
+                  </div>
+                </td>
+                <td class="nao-mostrar">
+                  <div id="colaborador">
+                    <div class="avatar">
+                      <img src="../../img/junior.jpeg" />
+                    </div>
+                    <div class="nome">
+                      <span>Júnior</span>
+                      <span>Gonçalves</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div id="pergunta">
+                   ${pergunta.pergunta}
+                  </div>
+                </td>
+                <td>
+                  <div id="curtidas"><span>${pergunta.curtidas}</span></div>
+                </td>
+                <td>
+                  <div id="acao">
+                    <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                    <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+                  </div>
+                </td>
+              </tr>
+             `,
+  );
+
+  curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
+});
+
+tbody.innerHTML += perguntas.map(
+  (pergunta) =>
+    `<tr>
+              <td>
+                <div id="id">
+                  <span>${pergunta.id}</span>
+                </div>
+              </td>
+              <td class="nao-mostrar">
+                <div id="colaborador">
+                  <div class="avatar">
+                    <img src="../../img/junior.jpeg" />
+                  </div>
+                  <div class="nome">
+                    <span>Júnior</span>
+                    <span>Gonçalves</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div id="pergunta">
+                 ${pergunta.pergunta}
+                </div>
+              </td>
+              <td>
+                <div id="curtidas"><span>${pergunta.curtidas}</span></div>
+              </td>
+              <td>
+                <div id="acao">
+                  <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+                  <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+                </div>
+              </td>
+            </tr>
+           `,
+);
+//logica para deletar a pergunta
+const botaoDeletar = document.querySelectorAll('.click');
+
+botaoDeletar.forEach((botao) => {
+  botao.addEventListener('click', () => {
+    const id = botao.dataset.id;
+
+    Swal.fire({
+      title: 'Tem certezar que quer deletar a pergunta?',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, confirmar!',
+      cancelButtonText: 'Não',
+      icon: 'question',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deletarPergunta(id);
+        window.location.reload();
+      }
+    });
+  });
+});

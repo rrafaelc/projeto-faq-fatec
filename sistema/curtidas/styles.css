@@ -320,7 +320,8 @@ td #curtidas {
   color: var(--preto-escuro);
   font-weight: 500;
   font-size: 2rem;
-  text-align: center;
+  text-align: left;
+  padding-left: 30px;
 }
 
 td #acao {
@@ -380,4 +381,8 @@ td #acao .fa-trash-can {
   background-color: var(--vermelho-base);
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
+}
+
+.click {
+  all: initial;
 }
