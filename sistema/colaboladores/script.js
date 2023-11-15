@@ -5,6 +5,7 @@ import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { alterarCargoUsuario } from '../../scripts/user/alterarCargoUsuario.js';
 import { criarContaUsuario } from '../../scripts/user/criarContaUsuario.js';
+import { deletarContaUsuario } from '../../scripts/user/deletarContaUsuario.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
 import { suspenderContaUsuario } from '../../scripts/user/suspenderContaUsuario.js';
@@ -158,7 +159,7 @@ const execute = async () => {
         <td class="acao">
           <div>
             <button>Resetar senha</button>
-            <button>Deletar conta</button>
+            <button data-id="${usuario.id}" class="deletar-usuario">Deletar conta</button>
           </div>
         </td>
       </tr>
@@ -169,6 +170,7 @@ const execute = async () => {
 
   const cargos = dados.querySelectorAll('.cargo');
   const suspensos = dados.querySelectorAll('.suspenso');
+  const deletarButtons = dados.querySelectorAll('.deletar-usuario');
 
   cargos.forEach((cargo) => {
     cargo.addEventListener('click', async function () {
@@ -269,6 +271,34 @@ const execute = async () => {
                 toast(error.message, true);
               }
               break;
+          }
+        }
+      });
+    });
+  });
+
+  deletarButtons.forEach((botao) => {
+    botao.addEventListener('click', async function () {
+      const id = this.getAttribute('data-id');
+
+      Swal.fire({
+        title: 'Tem certeza que quer deletar a conta?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await deletarContaUsuario({ id });
+
+            toast('Conta deletada com sucesso');
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } catch (error) {
+            toast(error.message, true);
           }
         }
       });
