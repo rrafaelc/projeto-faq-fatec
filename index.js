@@ -28,7 +28,6 @@ const replaceLineBreaks = (content) => {
   return content.replace(/\n/g, '<br>');
 };
 
-
 questionsContainer.innerHTML += perguntas
   .map(
     (question) =>
@@ -55,7 +54,6 @@ questionsContainer.innerHTML += perguntas
 
 const form = document.querySelector('form');
 
-
 // pega todas as divs containers que tem a tag faq-container para filtrar
 const containers = document.querySelectorAll('.faq-container');
 form.addEventListener('keyup', (event) => {
@@ -75,36 +73,33 @@ form.addEventListener('keyup', (event) => {
 
 //deixa o coração vermelho ao clicar e chama a funçao de incrementar
 const hearts = document.querySelectorAll('.heart');
-let curtidasLocalStorage = []
-
+let curtidasLocalStorage = [];
 
 hearts.forEach((heart) => {
   heart.addEventListener('click', async function () {
     const id = this.getAttribute('data-id');
     if (localStorage.getItem('idCurtidas').includes(id)) {
       await decrementarCurtidas(id);
-      const index = curtidasLocalStorage.findIndex(item => item.id === id)
-      curtidasLocalStorage.splice(index, 1)
+      const index = curtidasLocalStorage.findIndex((item) => item.id === id);
+      curtidasLocalStorage.splice(index, 1);
       localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
       heart.classList.remove('heart-clicked');
     } else {
       await incrementarCurtidas(id);
-      curtidasLocalStorage.push({id: id})
+      curtidasLocalStorage.push({ id: id });
       localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
       heart.classList.add('heart-clicked');
     }
   });
 });
 
+hearts.forEach(function (heart) {
+  const dataId = heart.getAttribute('data-id');
 
-hearts.forEach(function(heart){
-  const dataId = heart.getAttribute('data-id')
-
-  if(localStorage.getItem('idCurtidas').includes(dataId)){
-    heart.classList.add('heart-clicked')
+  if (localStorage.getItem('idCurtidas').includes(dataId)) {
+    heart.classList.add('heart-clicked');
   }
-})
-
+});
 
 //efeito no click na pergunta
 

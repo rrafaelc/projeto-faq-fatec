@@ -1,10 +1,8 @@
-import { listarPerguntasMaisBuscadas } from "../scripts/perguntas/listarPerguntasMaisBuscadas.js";
+import { listarPerguntasMaisBuscadas } from '../scripts/perguntas/listarPerguntasMaisBuscadas.js';
 const mostSearchedQuestionsContainer = document.querySelector('.container');
 
 const perguntasMaisBuscadas = await listarPerguntasMaisBuscadas();
-console.log(perguntasMaisBuscadas)
-
-
+console.log(perguntasMaisBuscadas);
 
 // Mostrar as perguntas na tela
 mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas
@@ -20,7 +18,7 @@ mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas
         </div>
         <div class="content">
           <p>
-            ${pergunta.resposta }
+            ${pergunta.resposta}
           </p>
           <p>${pergunta.curtidas} likes <i class="fa-regular fa-thumbs-up"></i> </p>
         </div>

@@ -10,5 +10,3 @@ export const decrementarCurtidas = async (id) => {
     throw new Error(error.message);
   }
 };
-
-

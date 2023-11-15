@@ -10,5 +10,3 @@ export const incrementarCurtidas = async (id) => {
     throw new Error(error.message);
   }
 };
-
-
