@@ -61,9 +61,24 @@ formCriarConta.addEventListener('submit', async function (event) {
   event.preventDefault();
 
   const nome = formCriarConta.querySelector('#conta-nome').value;
-  const email = formCriarConta.querySelector('#conta-email').value;
-  const senha = formCriarConta.querySelector('#conta-senha').value;
-  const confirmarSenha = formCriarConta.querySelector('#conta-confirmar-senha').value;
+  const email = formCriarConta.querySelector('#conta-email').value.trim();
+  const senha = formCriarConta.querySelector('#conta-senha').value.trim();
+  const confirmarSenha = formCriarConta.querySelector('#conta-confirmar-senha').value.trim();
+
+  if (!nome || !email || !senha || !confirmarSenha) {
+    toast('Preencha todos os campos', true);
+    return;
+  }
+
+  if (senha.length < 8) {
+    toast('Senha precisa de no mínimo 8 caracteres', true);
+    return;
+  }
+
+  if (senha !== confirmarSenha) {
+    toast('Senha e confirmar senha não são iguais', true);
+    return;
+  }
 
   try {
     await criarContaUsuario({
