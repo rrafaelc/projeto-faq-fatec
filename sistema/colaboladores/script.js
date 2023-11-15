@@ -6,6 +6,7 @@ import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarContaUsuario } from '../../scripts/user/criarContaUsuario.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
+import { suspenderContaUsuario } from '../../scripts/user/suspenderContaUsuario.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
 import { toast } from '../../scripts/utils/toast.js';
 
@@ -150,7 +151,7 @@ const execute = async () => {
         <td class="cargo ${usuario.cargo.toLowerCase()}">
           <button>${usuario.cargo}</button>
         </td>
-        <td class="suspenso ${usuario.esta_suspenso ? 'sim' : 'nao'}">
+        <td data-id="${usuario.id}" class="suspenso ${usuario.esta_suspenso ? 'sim' : 'nao'}">
           <button>${usuario.esta_suspenso ? 'Sim' : 'Não'}</button>
         </td>
         <td class="acao">
@@ -199,23 +200,55 @@ const execute = async () => {
   });
 
   suspensos.forEach((suspenso) => {
-    suspenso.addEventListener('click', function () {
+    suspenso.addEventListener('click', async function () {
       const suspensoBotao = suspenso.querySelector('button');
+      const id = this.getAttribute('data-id');
 
-      switch (suspensoBotao.textContent) {
-        case 'Sim':
-          suspensoBotao.textContent = 'Não';
+      Swal.fire({
+        title: 'Tem certezar que quer mudar a suspensão?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          switch (suspensoBotao.textContent) {
+            case 'Sim':
+              try {
+                await suspenderContaUsuario({
+                  id,
+                  esta_suspenso: false,
+                });
+                suspensoBotao.textContent = 'Não';
 
-          suspenso.classList.add('nao');
-          suspenso.classList.remove('sim');
-          break;
-        case 'Não':
-          suspensoBotao.textContent = 'Sim';
+                suspenso.classList.add('nao');
+                suspenso.classList.remove('sim');
 
-          suspenso.classList.add('sim');
-          suspenso.classList.remove('nao');
-          break;
-      }
+                toast('Suspensão alterada com sucesso');
+              } catch (error) {
+                toast(error.message, true);
+              }
+              break;
+            case 'Não':
+              try {
+                await suspenderContaUsuario({
+                  id,
+                  esta_suspenso: true,
+                });
+
+                suspensoBotao.textContent = 'Sim';
+
+                suspenso.classList.add('sim');
+                suspenso.classList.remove('nao');
+
+                toast('Suspensão alterada com sucesso');
+              } catch (error) {
+                toast(error.message, true);
+              }
+              break;
+          }
+        }
+      });
     });
   });
 };

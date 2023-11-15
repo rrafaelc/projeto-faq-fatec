@@ -1,15 +1,12 @@
 import { apiUrl } from '../constants/apiUrl.js';
 import { getAuthorization } from '../utils/getAuthorization.js';
 
-export const criarContaUsuario = async ({ nome_completo, email, senha, cargo }) => {
+export const suspenderContaUsuario = async ({ id, esta_suspenso }) => {
   try {
-    const response = await fetch(`${apiUrl}/usuario`, {
+    const response = await fetch(`${apiUrl}/usuario/suspender/${id}`, {
       method: 'POST',
       body: JSON.stringify({
-        nome_completo,
-        email,
-        senha,
-        cargo,
+        esta_suspenso,
       }),
       headers: {
         'Content-Type': 'application/json',

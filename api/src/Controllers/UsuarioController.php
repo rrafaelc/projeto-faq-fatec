@@ -51,7 +51,7 @@ class UsuarioController
       http_response_code(404);
       echo json_encode([
         "status" => "error",
-        "error" => ["Usuário não encontrado"]
+        "errors" => ["Usuário não encontrado"]
       ]);
 
       return;
@@ -103,7 +103,7 @@ class UsuarioController
           http_response_code(403);
           echo json_encode([
             "status" => "error",
-            "error" => ["Não permitido excluir sua própria conta"]
+            "errors" => ["Não permitido excluir sua própria conta"]
           ]);
 
           return;
@@ -306,7 +306,7 @@ class UsuarioController
       http_response_code(404);
       echo json_encode([
         "status" => "error",
-        "error" => ["Usuário não encontrado"]
+        "errors" => ["Usuário não encontrado"]
       ]);
 
       return;
@@ -316,7 +316,7 @@ class UsuarioController
       http_response_code(403);
       echo json_encode([
         "status" => "error",
-        "error" => ["Não permitido alterar a suspensão da sua própria conta"]
+        "errors" => ["Não permitido alterar a suspensão da sua própria conta"]
       ]);
 
       return;
@@ -393,7 +393,7 @@ class UsuarioController
       http_response_code(404);
       echo json_encode([
         "status" => "error",
-        "error" => ["Usuário não encontrado"]
+        "errors" => ["Usuário não encontrado"]
       ]);
 
       return;
