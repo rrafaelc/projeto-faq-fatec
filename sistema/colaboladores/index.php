@@ -19,7 +19,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="module" src="script.js" defer></script>
-  <title>Sistema FAQ | Colaboladores</title>
+  <title>Sistema FAQ | Colaboradores</title>
 </head>
 
 <body class="no-scroll">
@@ -33,11 +33,11 @@
   <main>
     <div class="header">
       <div class="grupo">
-        <h1 class="title">Colaboladores</h1>
+        <h1 class="title">Colaboradores</h1>
         <div class="subgrupo">
           <a href="../../sistema">Início</a>
           <i class="fas fa-angle-right"></i>
-          <span>Colaboladores</span>
+          <span>Colaboradores</span>
         </div>
       </div>
       <div class="usuario">
