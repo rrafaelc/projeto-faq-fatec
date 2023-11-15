@@ -1,6 +1,10 @@
 import { decrementarCurtidas } from './scripts/perguntas/decrementarCurtidas.js';
 import { incrementarCurtidas } from './scripts/perguntas/incrementarCurtidas.js';
 import { listarPerguntas } from './scripts/perguntas/listarPerguntas.js';
+import {
+  addLinksToContent,
+  replaceLineBreaks,
+} from './scripts/utils/addLinksAndReplaceLineBreaks.js';
 import { toast } from './scripts/utils/toast.js';
 
 const spinnerContainer = document.querySelector('.spinnerContainer');
@@ -16,17 +20,6 @@ try {
 } finally {
   spinnerContainer.classList.remove('mostrar');
 }
-
-const addLinksToContent = (content) => {
-  const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
-  const linkReplacement = '<a href="$1" target="_blank" style="display: inline">clique aqui</a>';
-
-  return content.replace(linkRegex, linkReplacement);
-};
-
-const replaceLineBreaks = (content) => {
-  return content.replace(/\n/g, '<br>');
-};
 
 questionsContainer.innerHTML += perguntas
   .map(
@@ -45,13 +38,12 @@ questionsContainer.innerHTML += perguntas
           </p>
           <p>
             Essa resposta foi útil?
-            <i data-id="${question.id}" class="fa-solid fa-heart heart"></i>
+            <i data-id="${question.id}" class="fa-regular fa-thumbs-up heart"></i>
           </p>
         </div>
       </div>`,
   )
   .join('');
-
 const form = document.querySelector('form');
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
@@ -74,11 +66,12 @@ form.addEventListener('keyup', (event) => {
 //deixa o coração vermelho ao clicar e chama a funçao de incrementar
 const hearts = document.querySelectorAll('.heart');
 let curtidasLocalStorage = [];
+const idCurtidasLocalstorage = localStorage.getItem('idCurtidas');
 
 hearts.forEach((heart) => {
   heart.addEventListener('click', async function () {
     const id = this.getAttribute('data-id');
-    if (localStorage.getItem('idCurtidas').includes(id)) {
+    if (idCurtidasLocalstorage && idCurtidasLocalstorage.includes(id)) {
       await decrementarCurtidas(id);
       const index = curtidasLocalStorage.findIndex((item) => item.id === id);
       curtidasLocalStorage.splice(index, 1);
@@ -95,14 +88,12 @@ hearts.forEach((heart) => {
 
 hearts.forEach(function (heart) {
   const dataId = heart.getAttribute('data-id');
-
-  if (localStorage.getItem('idCurtidas').includes(dataId)) {
+  if (idCurtidasLocalstorage && idCurtidasLocalstorage.includes(dataId)) {
     heart.classList.add('heart-clicked');
   }
 });
 
 //efeito no click na pergunta
-
 questionsContainer.addEventListener('click', (e) => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {

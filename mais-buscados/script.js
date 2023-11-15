@@ -1,4 +1,8 @@
 import { listarPerguntasMaisBuscadas } from '../scripts/perguntas/listarPerguntasMaisBuscadas.js';
+import {
+  addLinksToContent,
+  replaceLineBreaks,
+} from '../scripts/utils/addLinksAndReplaceLineBreaks.js';
 const mostSearchedQuestionsContainer = document.querySelector('.container');
 
 const perguntasMaisBuscadas = await listarPerguntasMaisBuscadas();
@@ -18,9 +22,9 @@ mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas
         </div>
         <div class="content">
           <p>
-            ${pergunta.resposta}
+            ${replaceLineBreaks(addLinksToContent(pergunta.resposta))}
           </p>
-          <p>${pergunta.curtidas} likes <i class="fa-regular fa-thumbs-up"></i> </p>
+          <p>${pergunta.curtidas} likes <i class="fa-regular fa-thumbs-up"></i></p>
         </div>
       </div>`,
   )
