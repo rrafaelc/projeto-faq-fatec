@@ -184,6 +184,7 @@ class UsuarioController
         $usuarioExisteEmail = $this->gateway->getByEmail($data["email"]);
 
         if ($usuarioExisteEmail) {
+          http_response_code(400);
           echo json_encode([
             "status" => "error",
             "errors" => ["Usuário já existe com esse email"]

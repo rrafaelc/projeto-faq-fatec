@@ -4,9 +4,12 @@ body {
   padding-right: 30px;
 
   display: flex;
-  gap: 30px;
 
   background-color: var(--cinza-fraco);
+}
+
+.painel-lateral {
+  margin-right: 30px;
 }
 
 main {
@@ -204,7 +207,8 @@ main {
 
 .criar-conta form input {
   margin-bottom: 30px;
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
 
   font-size: 2.4rem;
   padding: 15px 20px;
@@ -289,7 +293,6 @@ main {
   color: var(--cinza-texto);
 }
 
-/* Para não pegar os inputs do colaboladores */
 .pesquisar-por .input > input {
   padding: 15px 20px;
   border-radius: 10px;
@@ -569,4 +572,31 @@ td.acao button + button {
   background-color: var(--vermelho-base);
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
+}
+
+#senha,
+#confirmarSenha {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+#senha input,
+#confirmarSenha input {
+  margin-bottom: 0;
+}
+
+.eye-container {
+  cursor: pointer;
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.eye {
+  font-size: 20px;
 }

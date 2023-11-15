@@ -3,9 +3,11 @@
 import { deslogar } from '../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
+import { criarContaUsuario } from '../../scripts/user/criarContaUsuario.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { listarUsuarios } from '../../scripts/user/listarUsuarios.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -18,11 +20,33 @@ botaoUsuario.addEventListener('click', function () {
 });
 //==============================================================================
 
-// Gambiarras temporárias, depois sera feito com o backend
 const criarConta = document.querySelector('.criar-conta');
 const tituloCriarConta = criarConta.querySelector('.titulo');
 const botaoAngleDown = criarConta.querySelector('.botao');
 const formCriarConta = criarConta.querySelector('form');
+
+const eyeContainers = document.querySelectorAll('.eye-container');
+const eyes = document.querySelectorAll('.eye');
+const senha = formCriarConta.querySelector('#conta-senha');
+const confirmarSenha = formCriarConta.querySelector('#conta-confirmar-senha');
+
+eyeContainers.forEach((eyeContainer) =>
+  eyeContainer.addEventListener('click', () => {
+    eyes.forEach((eye) => {
+      if (eye.classList.contains('bi-eye-slash')) {
+        eye.classList.remove('bi-eye-slash');
+        eye.classList.add('bi-eye');
+        senha.type = 'text';
+        confirmarSenha.type = 'text';
+      } else {
+        eye.classList.add('bi-eye-slash');
+        eye.classList.remove('bi-eye');
+        senha.type = 'password';
+        confirmarSenha.type = 'password';
+      }
+    });
+  }),
+);
 
 tituloCriarConta.addEventListener('click', function () {
   botaoAngleDown.classList.toggle('aberto');
@@ -33,8 +57,31 @@ const dados = document.querySelector('.dados');
 const paginacao = dados.querySelector('.paginacao');
 const tabela = dados.querySelector('.usuarios-tabela');
 
-formCriarConta.addEventListener('submit', function (event) {
+formCriarConta.addEventListener('submit', async function (event) {
   event.preventDefault();
+
+  const nome = formCriarConta.querySelector('#conta-nome').value;
+  const email = formCriarConta.querySelector('#conta-email').value;
+  const senha = formCriarConta.querySelector('#conta-senha').value;
+  const confirmarSenha = formCriarConta.querySelector('#conta-confirmar-senha').value;
+
+  try {
+    await criarContaUsuario({
+      nome_completo: nome,
+      email,
+      senha,
+      cargo: 'Moderador',
+    });
+
+    toast('Conta criada com sucesso');
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  } catch (error) {
+    toast(error.message, true);
+    console.error(error);
+  }
 });
 
 const spinner = document.querySelector('.spinnerFull');
