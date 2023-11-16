@@ -189,7 +189,7 @@ main {
   font-size: 3.2rem;
   font-weight: 300;
 }
-#heart {
+.heart {
   cursor: pointer;
 }
 .heart-clicked {
