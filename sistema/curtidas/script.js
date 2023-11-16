@@ -101,14 +101,13 @@ curtidasIcon.addEventListener('click', () => {
                     <span>${pergunta.id}</span>
                   </div>
                 </td>
-                <td class="nao-mostrar">
+                <td>
                   <div id="colaborador">
                     <div class="avatar">
-                      <img src="../../img/junior.jpeg" />
+                      <img src="../../img/userFallback.jpg" />
                     </div>
                     <div class="nome">
-                      <span>Júnior</span>
-                      <span>Gonçalves</span>
+                      <span>Nome do criador</span>
                     </div>
                   </div>
                 </td>
@@ -141,14 +140,13 @@ tbody.innerHTML += perguntas.map(
                   <span>${pergunta.id}</span>
                 </div>
               </td>
-              <td class="nao-mostrar">
+              <td>
                 <div id="colaborador">
                   <div class="avatar">
-                    <img src="../../img/junior.jpeg" />
+                  <img src="../../img/userFallback.jpg" />
                   </div>
                   <div class="nome">
-                    <span>Júnior</span>
-                    <span>Gonçalves</span>
+                  <span>Nome do criador</span>
                   </div>
                 </div>
               </td>

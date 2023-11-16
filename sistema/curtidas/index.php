@@ -76,7 +76,7 @@
             <th>
               <span>ID <i class="fas fa-sort-down"></i></span>
             </th>
-            <th class="nao-mostrar">
+            <th>
               <span>Colaborador <i class="fas fa-sort-down"></i></span>
             </th>
             <th id="pergunta">
