@@ -14,6 +14,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script type="module" src="script.js" defer></script>
   <script src="../scripts/global.js" defer></script>
 </head>
