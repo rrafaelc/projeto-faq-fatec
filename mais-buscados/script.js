@@ -6,7 +6,6 @@ import {
 const mostSearchedQuestionsContainer = document.querySelector('.container');
 
 const perguntasMaisBuscadas = await listarPerguntasMaisBuscadas();
-console.log(perguntasMaisBuscadas);
 
 // Mostrar as perguntas na tela
 mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas
