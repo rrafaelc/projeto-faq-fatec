@@ -2,6 +2,7 @@ import { login } from '../scripts/auth/login.js';
 import { serverUrl } from '../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../scripts/middlewares/isLoggedIn.js';
 import { temUsuarios } from '../scripts/user/temUsuarios.js';
+import { toast } from '../scripts/utils/toast.js';
 
 const form = document.querySelector('form');
 const inputs = form.querySelectorAll('input');
@@ -62,5 +63,7 @@ form.addEventListener('submit', async (e) => {
 
     button.classList.toggle('hideElement');
     spinner.classList.toggle('hideElement');
+
+    toast(error.message, true);
   }
 });
