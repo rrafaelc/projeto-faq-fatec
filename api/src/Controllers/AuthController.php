@@ -113,6 +113,15 @@ class AuthController
           return;
         }
 
+        if ((bool) $usuario["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
         $dataAtual = new DateTime();
 
         // 15 minutos à data atual
