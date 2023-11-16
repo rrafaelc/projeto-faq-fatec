@@ -52,23 +52,6 @@
         </div>
       </div>
     </div>
-    <div class="opcoes-div">
-      <div class="titulo">
-        <h1>Opções</h1>
-      </div>
-      <form>
-        <div class="opcoes">
-          <div class="opcao">
-            <input type="radio" name="opcao" id="suas-perguntas" value="suas-perguntas" checked />
-            <label for="suas-perguntas">Suas perguntas</label>
-          </div>
-          <div class="opcao">
-            <input type="radio" name="opcao" id="outros" value="outros" />
-            <label for="outros">Outros</label>
-          </div>
-        </div>
-      </form>
-    </div>
     <div class="dados">
       <table class="perguntas perguntas-table">
         <thead>
