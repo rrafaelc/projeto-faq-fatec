@@ -13,6 +13,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../../img/favicon/site.webmanifest" />
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="module" src="script.js" defer></script>
   <title>Sistema FAQ | Curtidas</title>
@@ -51,31 +52,14 @@
         </div>
       </div>
     </div>
-    <div class="opcoes-div">
-      <div class="titulo">
-        <h1>Opções</h1>
-      </div>
-      <form>
-        <div class="opcoes">
-          <div class="opcao">
-            <input type="radio" name="opcao" id="suas-perguntas" value="suas-perguntas" checked />
-            <label for="suas-perguntas">Suas perguntas</label>
-          </div>
-          <div class="opcao">
-            <input type="radio" name="opcao" id="outros" value="outros" />
-            <label for="outros">Outros</label>
-          </div>
-        </div>
-      </form>
-    </div>
     <div class="dados">
-      <table class="perguntas">
+      <table class="perguntas perguntas-table">
         <thead>
           <tr>
             <th>
               <span>ID <i class="fas fa-sort-down"></i></span>
             </th>
-            <th class="nao-mostrar">
+            <th>
               <span>Colaborador <i class="fas fa-sort-down"></i></span>
             </th>
             <th id="pergunta">
@@ -90,180 +74,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div id="id">
-                <span>1</span>
-              </div>
-            </td>
-            <td class="nao-mostrar">
-              <div id="colaborador">
-                <div class="avatar">
-                  <img src="../../img/junior.jpeg" />
-                </div>
-                <div class="nome">
-                  <span>Júnior</span>
-                  <span>Gonçalves</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div id="pergunta">
-                A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                aprendizagem?
-              </div>
-            </td>
 
-            <td>
-              <div id="curtidas"><span>16</span></div>
-            </td>
-            <td>
-              <div id="acao">
-                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-                <a href="#"><i class="fas fa-trash-can"></i></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>
-              <div id="id">
-                <span>2</span>
-              </div>
-            </td>
-            <td class="nao-mostrar">
-              <div id="colaborador">
-                <div class="avatar">
-                  <img src="../../img/thiago.jpeg" />
-                </div>
-                <div class="nome">
-                  <span>Thiago</span>
-                  <span>Alves</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div id="pergunta">
-                Quais são as possibilidades de carreira para os profissionais formados na Fatec?
-              </div>
-            </td>
-
-            <td>
-              <div id="curtidas"><span>7</span></div>
-            </td>
-            <td>
-              <div id="acao">
-                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-                <a href="#"><i class="fas fa-trash-can"></i></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>
-              <div id="id">
-                <span>3</span>
-              </div>
-            </td>
-            <td class="nao-mostrar">
-              <div id="colaborador">
-                <div class="avatar">
-                  <img src="../../img/marcia.jpeg" />
-                </div>
-                <div class="nome">
-                  <span>Marcia</span>
-                  <span>Reggiolli</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div id="pergunta">Quais são as formas de ingresso na Fatec?</div>
-            </td>
-
-            <td>
-              <div id="curtidas"><span>4</span></div>
-            </td>
-            <td>
-              <div id="acao">
-                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-                <a href="#"><i class="fas fa-trash-can"></i></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>
-              <div id="id">
-                <span>4</span>
-              </div>
-            </td>
-            <td class="nao-mostrar">
-              <div id="colaborador">
-                <div class="avatar">
-                  <img src="../../img/thiago.jpeg" />
-                </div>
-                <div class="nome">
-                  <span>Thiago</span>
-                  <span>Alves</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div id="pergunta">
-                A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                aprendizagem?
-              </div>
-            </td>
-
-            <td>
-              <div id="curtidas"><span>10</span></div>
-            </td>
-            <td>
-              <div id="acao">
-                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-                <a href="#"><i class="fas fa-trash-can"></i></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td>
-              <div id="id">
-                <span>5</span>
-              </div>
-            </td>
-            <td class="nao-mostrar">
-              <div id="colaborador">
-                <div class="avatar">
-                  <img src="../../img/junior.jpeg" />
-                </div>
-                <div class="nome">
-                  <span>Júnior</span>
-                  <span>Gonçalves</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div id="pergunta">
-                A Fatec oferece algum tipo de suporte para alunos com dificuldades de
-                aprendizagem?
-              </div>
-            </td>
-
-            <td>
-              <div id="curtidas"><span>12</span></div>
-            </td>
-            <td>
-              <div id="acao">
-                <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-                <a href="#"><i class="fas fa-trash-can"></i></a>
-              </div>
-            </td>
-          </tr>
         </tbody>
       </table>
       <div class="paginacao nao-mostrar">
