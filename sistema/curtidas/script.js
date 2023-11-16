@@ -70,10 +70,10 @@ const execute = async () => {
           <td>
             <div id="colaborador">
               <div class="avatar">
-                <img src="../../img/userFallback.jpg" />
+                <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
               </div>
               <div class="nome">
-                <span>Nome do criador</span>
+                <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
               </div>
             </div>
           </td>
@@ -88,7 +88,9 @@ const execute = async () => {
           <td>
             <div id="acao">
               <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-              <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+              <button class='click' data-id=${
+                pergunta.id
+              } href="#"><i class="fas fa-trash-can"></i></button>
             </div>
           </td>
       </tr>
@@ -109,10 +111,10 @@ const execute = async () => {
         <td>
           <div id="colaborador">
             <div class="avatar">
-            <img src="../../img/userFallback.jpg" />
+            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
             </div>
             <div class="nome">
-            <span>Nome do criador</span>
+            <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
             </div>
           </div>
         </td>
@@ -127,7 +129,9 @@ const execute = async () => {
         <td>
           <div id="acao">
             <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+            <button class='click' data-id=${
+              pergunta.id
+            } href="#"><i class="fas fa-trash-can"></i></button>
           </div>
         </td>
     </tr>
