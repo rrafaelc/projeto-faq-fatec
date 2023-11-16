@@ -65,23 +65,25 @@ form.addEventListener('keyup', (event) => {
 
 //deixa o coração vermelho ao clicar e chama a funçao de incrementar
 const hearts = document.querySelectorAll('.heart');
-let curtidasLocalStorage = [];
-const idCurtidasLocalstorage = localStorage.getItem('idCurtidas');
+let idCurtidasLocalstorage = localStorage.getItem('idCurtidas');
+let curtidasLocalStorage = JSON.parse(idCurtidasLocalstorage) || [];
 
 hearts.forEach((heart) => {
   heart.addEventListener('click', async function () {
     const id = this.getAttribute('data-id');
-    if (idCurtidasLocalstorage && idCurtidasLocalstorage.includes(id)) {
-      await decrementarCurtidas(id);
-      const index = curtidasLocalStorage.findIndex((item) => item.id === id);
-      curtidasLocalStorage.splice(index, 1);
-      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
-      heart.classList.remove('heart-clicked');
-    } else {
+
+    if (!idCurtidasLocalstorage || !idCurtidasLocalstorage.includes(id)) {
       await incrementarCurtidas(id);
       curtidasLocalStorage.push({ id: id });
       localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      idCurtidasLocalstorage = localStorage.getItem('idCurtidas');
       heart.classList.add('heart-clicked');
+    } else {
+      await decrementarCurtidas(id);
+      curtidasLocalStorage = curtidasLocalStorage.filter((item) => item.id !== id);
+      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      idCurtidasLocalstorage = localStorage.getItem('idCurtidas');
+      heart.classList.remove('heart-clicked');
     }
   });
 });
