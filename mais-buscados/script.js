@@ -3,9 +3,20 @@ import {
   addLinksToContent,
   replaceLineBreaks,
 } from '../scripts/utils/addLinksAndReplaceLineBreaks.js';
+import { toast } from '../scripts/utils/toast.js';
 const mostSearchedQuestionsContainer = document.querySelector('.container');
 
-const perguntasMaisBuscadas = await listarPerguntasMaisBuscadas();
+const spinnerContainer = document.querySelector('.spinnerContainer');
+let perguntasMaisBuscadas = [];
+
+try {
+  perguntasMaisBuscadas = await listarPerguntasMaisBuscadas();
+} catch (error) {
+  toast('Houve um erro ao carregar as perguntas', true);
+  console.log(error);
+} finally {
+  spinnerContainer.classList.remove('mostrar');
+}
 
 // Mostrar as perguntas na tela
 mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas
