@@ -74,10 +74,7 @@ try {
   perguntas = await listarPerguntas();
   perguntas.sort((a, b) => b.curtidas - a.curtidas);
 } catch (error) {
-  toast('Houve um erro ao carregar as perguntas', true);
   console.log(error);
-} finally {
-  // spinnerContainer.classList.remove('mostrar');
 }
 
 //ordena as perguntas pra trazer as mais curtidas primeiro
