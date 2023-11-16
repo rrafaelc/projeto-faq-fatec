@@ -1,4 +1,10 @@
+import { decrementarCurtidas } from './scripts/perguntas/decrementarCurtidas.js';
+import { incrementarCurtidas } from './scripts/perguntas/incrementarCurtidas.js';
 import { listarPerguntas } from './scripts/perguntas/listarPerguntas.js';
+import {
+  addLinksToContent,
+  replaceLineBreaks,
+} from './scripts/utils/addLinksAndReplaceLineBreaks.js';
 import { toast } from './scripts/utils/toast.js';
 
 const spinnerContainer = document.querySelector('.spinnerContainer');
@@ -14,17 +20,6 @@ try {
 } finally {
   spinnerContainer.classList.remove('mostrar');
 }
-
-const addLinksToContent = (content) => {
-  const linkRegex = /((http|https):\/\/[^\s.]+[^\s]*[^\s.])/g;
-  const linkReplacement = '<a href="$1" target="_blank" style="display: inline">clique aqui</a>';
-
-  return content.replace(linkRegex, linkReplacement);
-};
-
-const replaceLineBreaks = (content) => {
-  return content.replace(/\n/g, '<br>');
-};
 
 questionsContainer.innerHTML += perguntas
   .map(
@@ -43,17 +38,15 @@ questionsContainer.innerHTML += perguntas
           </p>
           <p>
             Essa resposta foi útil?
-            <i id="heart" class="fa-solid fa-heart"></i>
+            <i data-id="${question.id}" class="fa-regular fa-thumbs-up heart"></i>
           </p>
         </div>
       </div>`,
   )
   .join('');
 
-const form = document.querySelector('form');
-const hearts = document.querySelectorAll('#heart');
-
 // pega todas as divs containers que tem a tag faq-container para filtrar
+const form = document.querySelector('form');
 const containers = document.querySelectorAll('.faq-container');
 form.addEventListener('keyup', (event) => {
   event.preventDefault();
@@ -70,15 +63,39 @@ form.addEventListener('keyup', (event) => {
   });
 });
 
-//deixa o coração vermelho ao clicar
+//deixa o coração vermelho ao clicar e chama a funçao de incrementar
+const hearts = document.querySelectorAll('.heart');
+let idCurtidasLocalStorage = localStorage.getItem('idCurtidas');
+let curtidasLocalStorage = JSON.parse(idCurtidasLocalStorage) || [];
+
 hearts.forEach((heart) => {
-  heart.addEventListener('click', () => {
-    heart.classList.toggle('heart-clicked');
+  heart.addEventListener('click', async function () {
+    const id = this.getAttribute('data-id');
+
+    if (!idCurtidasLocalStorage || !idCurtidasLocalStorage.includes(id)) {
+      await incrementarCurtidas(id);
+      curtidasLocalStorage.push({ id: id });
+      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      idCurtidasLocalStorage = localStorage.getItem('idCurtidas');
+      heart.classList.add('heart-clicked');
+    } else {
+      await decrementarCurtidas(id);
+      curtidasLocalStorage = curtidasLocalStorage.filter((item) => item.id !== id);
+      localStorage.setItem('idCurtidas', JSON.stringify(curtidasLocalStorage));
+      idCurtidasLocalStorage = localStorage.getItem('idCurtidas');
+      heart.classList.remove('heart-clicked');
+    }
   });
 });
 
-//efeito no click na pergunta
+hearts.forEach(function (heart) {
+  const dataId = heart.getAttribute('data-id');
+  if (idCurtidasLocalStorage && idCurtidasLocalStorage.includes(dataId)) {
+    heart.classList.add('heart-clicked');
+  }
+});
 
+//efeito no click na pergunta
 questionsContainer.addEventListener('click', (e) => {
   const questionTitle = e.target.closest('.question-title');
   if (questionTitle) {

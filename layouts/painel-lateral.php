@@ -18,11 +18,11 @@
     </a>
     <a href=<?= "$dir/sistema/curtidas" ?>>Curtidas</a>
   </div>
-  <div class="colaboladores">
-    <a href=<?= "$dir/sistema/colaboladores" ?> class="icone">
+  <div class="colaboradores">
+    <a href=<?= "$dir/sistema/colaboradores" ?> class="icone">
       <i class="fas fa-people-group"></i>
     </a>
-    <a href=<?= "$dir/sistema/colaboladores" ?>>Colaboradores</a>
+    <a href=<?= "$dir/sistema/colaboradores" ?>>Colaboradores</a>
   </div>
   <div class="voltar">
     <a href=<?= "$dir/" ?> class="icone">
