@@ -44,9 +44,9 @@ questionsContainer.innerHTML += perguntas
       </div>`,
   )
   .join('');
-const form = document.querySelector('form');
 
 // pega todas as divs containers que tem a tag faq-container para filtrar
+const form = document.querySelector('form');
 const containers = document.querySelectorAll('.faq-container');
 form.addEventListener('keyup', (event) => {
   event.preventDefault();
