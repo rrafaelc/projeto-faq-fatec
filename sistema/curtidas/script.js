@@ -48,6 +48,78 @@ const execute = async () => {
     console.log(error);
   }
 
+  tbody.innerHTML += perguntas
+    .map(
+      (pergunta) =>
+        `<tr>
+      <td>
+        <div id="id">
+          <span>${pergunta.id}</span>
+        </div>
+      </td>
+      <td>
+        <div id="colaborador">
+          <div class="avatar">
+          <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+          </div>
+          <div class="nome">
+          <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div id="pergunta">
+          ${pergunta.pergunta}
+        </div>
+      </td>
+      <td>
+        <div id="curtidas"><span>${pergunta.curtidas}</span></div>
+      </td>
+      <td>
+        ${
+          user.cargo === 'Administrador'
+            ? `<div id="acao">
+          <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+          <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+        </div>`
+            : pergunta.criado_por === user.id
+            ? `<div id="acao">
+            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+          </div>`
+            : ''
+        }
+      </td>
+  </tr>
+  `,
+    )
+    .join('');
+
+  let botaoDeletar = document.querySelectorAll('.click');
+
+  botaoDeletar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      Swal.fire({
+        title: 'Tem certezar que quer deletar a pergunta?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await deletarPergunta(id);
+            window.location.reload();
+          } catch (error) {
+            toast(error.message, true);
+          }
+        }
+      });
+    });
+  });
+
   //ordena as perguntas pra trazer as mais curtidas primeiro
   curtidasIcon.addEventListener('click', () => {
     const isClicked = curtidasIcon.getAttribute('isclicked') === 'true';
@@ -60,9 +132,10 @@ const execute = async () => {
 
     tbody.innerHTML = '';
 
-    tbody.innerHTML += perguntas.map(
-      (pergunta) =>
-        `<tr>
+    tbody.innerHTML += perguntas
+      .map(
+        (pergunta) =>
+          `<tr>
           <td>
             <div id="id">
               <span>${pergunta.id}</span>
@@ -87,47 +160,6 @@ const execute = async () => {
             <div id="curtidas"><span>${pergunta.curtidas}</span></div>
           </td>
           <td>
-            <div id="acao">
-              <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-              <button class='click' data-id=${
-                pergunta.id
-              } href="#"><i class="fas fa-trash-can"></i></button>
-            </div>
-          </td>
-      </tr>
-      `,
-    );
-
-    curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
-  });
-
-  tbody.innerHTML += perguntas.map(
-    (pergunta) =>
-      `<tr>
-        <td>
-          <div id="id">
-            <span>${pergunta.id}</span>
-          </div>
-        </td>
-        <td>
-          <div id="colaborador">
-            <div class="avatar">
-            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
-            </div>
-            <div class="nome">
-            <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div id="pergunta">
-            ${pergunta.pergunta}
-          </div>
-        </td>
-        <td>
-          <div id="curtidas"><span>${pergunta.curtidas}</span></div>
-        </td>
-        <td>
           ${
             user.cargo === 'Administrador'
               ? `<div id="acao">
@@ -135,39 +167,42 @@ const execute = async () => {
             <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
           </div>`
               : pergunta.criado_por === user.id
-                ? `<div id="acao">
+              ? `<div id="acao">
               <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
               <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
             </div>`
-                : ''
+              : ''
           }
         </td>
-    </tr>
-    `,
-  );
+      </tr>
+      `,
+      )
+      .join('');
 
-  //logica para deletar a pergunta
-  const botaoDeletar = document.querySelectorAll('.click');
+    curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
 
-  botaoDeletar.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const id = botao.dataset.id;
+    botaoDeletar = document.querySelectorAll('.click');
 
-      Swal.fire({
-        title: 'Tem certezar que quer deletar a pergunta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await deletarPergunta(id);
-            window.location.reload();
-          } catch (error) {
-            toast(error.message, true);
+    botaoDeletar.forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const id = botao.dataset.id;
+
+        Swal.fire({
+          title: 'Tem certezar que quer deletar a pergunta?',
+          showCancelButton: true,
+          confirmButtonText: 'Sim, confirmar!',
+          cancelButtonText: 'Não',
+          icon: 'question',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await deletarPergunta(id);
+              window.location.reload();
+            } catch (error) {
+              toast(error.message, true);
+            }
           }
-        }
+        });
       });
     });
   });
