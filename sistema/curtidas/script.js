@@ -81,7 +81,7 @@ const execute = async () => {
       </td>
       <td>
         <div id="acao">
-          <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+          <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
           <button class='click' data-id=${
             pergunta.id
           } href="#"><i class="fas fa-trash-can"></i></button>
@@ -93,6 +93,7 @@ const execute = async () => {
     .join('');
 
   let botaoDeletar = document.querySelectorAll('.click');
+  let botaoEditar = document.querySelectorAll('.editar-pergunta');
 
   botaoDeletar.forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -114,6 +115,14 @@ const execute = async () => {
           }
         }
       });
+    });
+  });
+
+  botaoEditar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
     });
   });
 
@@ -142,8 +151,8 @@ const execute = async () => {
             <div id="colaborador">
               <div class="avatar">
                 <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
-                  pergunta.foto_usuario ?? '../../img/userFallback.jpg'
-                }" />
+            pergunta.foto_usuario ?? '../../img/userFallback.jpg'
+          }" />
               </div>
               <div class="nome">
                 <span>${pergunta.nome_usuario ?? 'N/A'}</span>
@@ -160,7 +169,7 @@ const execute = async () => {
           </td>
           <td>
           <div id="acao">
-            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+            <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
             <button class='click' data-id=${
               pergunta.id
             } href="#"><i class="fas fa-trash-can"></i></button>
@@ -174,6 +183,7 @@ const execute = async () => {
     curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
 
     botaoDeletar = document.querySelectorAll('.click');
+    botaoEditar = document.querySelectorAll('.editar-pergunta');
 
     botaoDeletar.forEach((botao) => {
       botao.addEventListener('click', () => {
@@ -195,6 +205,14 @@ const execute = async () => {
             }
           }
         });
+      });
+    });
+
+    botaoEditar.forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const id = botao.dataset.id;
+
+        window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
       });
     });
   });

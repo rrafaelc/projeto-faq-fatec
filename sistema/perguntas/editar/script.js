@@ -93,6 +93,14 @@ const execute = async () => {
 
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  const url = new URL(window.location.href);
+
+  const id = url.searchParams.get('id');
+
+  if (!id) {
+    window.location.href = `${serverUrl}/sistema`;
+  }
 };
 
 loggedIn && (await execute());
