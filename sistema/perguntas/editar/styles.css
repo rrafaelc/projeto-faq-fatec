@@ -184,7 +184,7 @@ main {
 .editar-pergunta form label {
   font-size: 2.4rem;
   font-weight: 500;
-  color: var(--vermelho-base);
+  color: var(--titulos);
   margin-bottom: 5px;
 }
 

@@ -144,7 +144,11 @@ const execute = async () => {
         <td class="colaborador">
           <div id="colaborador">
             <div class="avatar">
-              <img src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}" />
+              <img
+              src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}"
+              title="${usuario.nome_completo}"
+              onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
+               />
             </div>
             <div class="nome">
               ${usuario.nome_completo}
