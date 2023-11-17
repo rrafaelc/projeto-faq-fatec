@@ -124,13 +124,13 @@ const execute = async () => {
   <thead>
     <tr>
       <th>
-        <span>Colaborador <i class="fas fa-sort-down"></i></span>
+        <span>Colaborador</span>
       </th>
       <th id="cargo">
-        <span>Cargo <i class="fas fa-sort-down"></i></span>
+        <span>Cargo</span>
       </th>
       <th id="suspenso">
-        <span>Suspenso <i class="fas fa-sort-down"></i></span>
+        <span>Suspenso</span>
       </th>
       <th></th>
     </tr>
