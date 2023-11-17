@@ -12,7 +12,9 @@
   font-size: 20px;
   margin: 50px auto;
   min-height: 80vh;
+  padding: 0 20px;
 }
+
 #suaduvida {
   display: flex;
   justify-content: center;
@@ -20,7 +22,6 @@
   align-items: center;
   color: var(--vermelho-escuro);
   margin: 3rem 0;
-  width: 70%;
   font-weight: 500;
   font-size: 3rem;
   text-align: center;
@@ -32,15 +33,19 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 800px;
   gap: 20px;
 }
 
 .inputs > div {
-  width: 70%;
+  width: 100%;
 }
 
 .inputs input {
-  min-width: 100%;
+  width: 100%;
+}
+
+.inputs input {
   border-radius: 8px;
   padding: 10px;
   font-size: 2rem;
@@ -60,7 +65,8 @@
 
 .duvida-sugestao {
   margin-top: 10px;
-  width: 70%;
+  max-width: 800px;
+  width: 100%;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -70,7 +76,7 @@
   height: 250px;
   font-weight: 500;
   resize: none;
-  min-width: 250px;
+  width: 100%;
   border: 2px solid black;
   border-radius: 10px;
   padding: 15px 10px;
@@ -79,7 +85,8 @@
 
 .botao {
   display: none;
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   margin: 20px 0;
   background-color: var(--azul-destaque);
   border: none;
@@ -108,17 +115,17 @@
 }
 
 @media (max-width: 1000px) {
-  #suaduvida {
-    width: 90%;
+  .box-sugestao {
+    width: 100%;
   }
-}
 
-@media (max-width: 650px) {
   .box-sugestao {
     border: none;
     margin-top: 1rem;
   }
+}
 
+@media (max-width: 650px) {
   #suaduvida {
     margin-top: 0;
     font-size: 2.5rem;
@@ -126,10 +133,9 @@
 }
 
 @media (max-width: 500px) {
+  .inputs,
   .inputs > div,
-  .duvida-sugestao,
-  .aluno,
-  #sim-nao {
+  .inputs input {
     width: 100%;
   }
 }
