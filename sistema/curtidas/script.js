@@ -60,9 +60,11 @@ const execute = async () => {
       <td>
         <div id="colaborador">
           <div class="avatar">
-          <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
-            pergunta.foto_usuario ?? '../../img/userFallback.jpg'
-          }" />
+          <img
+          title="${pergunta.nome_usuario ?? 'N/A'}"
+          src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}"
+          onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
+          />
           </div>
           <div class="nome">
           <span>${pergunta.nome_usuario ?? 'N/A'}</span>
@@ -140,8 +142,8 @@ const execute = async () => {
             <div id="colaborador">
               <div class="avatar">
                 <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
-                  pergunta.foto_usuario ?? '../../img/userFallback.jpg'
-                }" />
+            pergunta.foto_usuario ?? '../../img/userFallback.jpg'
+          }" />
               </div>
               <div class="nome">
                 <span>${pergunta.nome_usuario ?? 'N/A'}</span>
