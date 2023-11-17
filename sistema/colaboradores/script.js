@@ -316,6 +316,7 @@ const execute = async () => {
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
+        allowEnterKey: false,
         icon: 'question',
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -325,6 +326,7 @@ const execute = async () => {
             showCancelButton: true,
             confirmButtonText: 'Sim, irei anotar!',
             cancelButtonText: 'Não',
+            allowEnterKey: false,
             icon: 'info',
           }).then(async (result) => {
             if (result.isConfirmed) {

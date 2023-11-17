@@ -22,7 +22,7 @@ class PerguntaGateway
       ue.foto_uri AS foto_usuario_editado
       FROM pergunta p
       LEFT JOIN usuario u ON p.criado_por = u.id
-      LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+      LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
       LEFT JOIN usuario ue ON pe.usuario_id = ue.id";
 
     if (isset($ordenacao["MaisAlta"]) && $ordenacao["MaisAlta"]) {
@@ -37,7 +37,7 @@ class PerguntaGateway
         ue.foto_uri AS foto_usuario_editado
         FROM pergunta p
         LEFT JOIN usuario u ON p.criado_por = u.id
-        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
         ORDER BY
           CASE
@@ -59,7 +59,7 @@ class PerguntaGateway
         ue.foto_uri AS foto_usuario_editado
         FROM pergunta p
         LEFT JOIN usuario u ON p.criado_por = u.id
-        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
         ORDER BY curtidas DESC";
     }
