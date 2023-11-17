@@ -7,6 +7,7 @@ import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
 import { listarPerguntas } from '../../scripts/perguntas/listarPerguntas.js';
 import { getLoggedUseInfo } from '../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -127,12 +128,19 @@ const execute = async () => {
           <div id="curtidas"><span>${pergunta.curtidas}</span></div>
         </td>
         <td>
-          <div id="acao">
+          ${
+            user.cargo === 'Administrador'
+              ? `<div id="acao">
             <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-            <button class='click' data-id=${
-              pergunta.id
-            } href="#"><i class="fas fa-trash-can"></i></button>
-          </div>
+            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+          </div>`
+              : pergunta.criado_por === user.id
+                ? `<div id="acao">
+              <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+              <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
+            </div>`
+                : ''
+          }
         </td>
     </tr>
     `,
@@ -151,10 +159,14 @@ const execute = async () => {
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
         icon: 'question',
-      }).then((result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
-          deletarPergunta(id);
-          window.location.reload();
+          try {
+            await deletarPergunta(id);
+            window.location.reload();
+          } catch (error) {
+            toast(error.message, true);
+          }
         }
       });
     });
