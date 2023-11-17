@@ -157,7 +157,7 @@ const execute = async () => {
           }
 
           setTimeout(() => {
-            window.location = `${serverUrl}/sistema/perguntas`;
+            window.location.reload();
           }, 1000);
         } catch (error) {
           toast('Houve um problema ao atualizar a sugestão', true);
@@ -191,6 +191,10 @@ const execute = async () => {
       });
 
       toast('Pergunta criada com sucesso');
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       botaoEnviar.disabled = false;
       botaoEnviar.textContent = 'Adicionar';
@@ -290,7 +294,7 @@ const execute = async () => {
 
   suasPerguntasTbody.innerHTML += perguntasDoUsuario
     .map((pergunta) => {
-      const data = new Date(pergunta.criado_em);
+      const dataEditado = new Date(pergunta.atualizado_em);
 
       return `
       <tr>
@@ -304,7 +308,9 @@ const execute = async () => {
         </td>
         <td>
           <div id="editado" class="avatar">
-            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+            <img title="${pergunta.nome_usuario_editado ?? 'N/A'}" src="${
+        pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'
+      }" />
           </div>
         </td>
         <td>
@@ -313,7 +319,7 @@ const execute = async () => {
           </div>
         </td>
         <td>
-          <div id="edicao"><span>${data.toLocaleDateString()}</span></div>
+          <div id="edicao"><span>${dataEditado.toLocaleDateString()}</span></div>
         </td>
         <td>
           <div id="acao">

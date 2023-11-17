@@ -60,10 +60,12 @@ const execute = async () => {
       <td>
         <div id="colaborador">
           <div class="avatar">
-          <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+          <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
+          pergunta.foto_usuario ?? '../../img/userFallback.jpg'
+        }" />
           </div>
           <div class="nome">
-          <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
+          <span>${pergunta.nome_usuario ?? 'N/A'}</span>
           </div>
         </div>
       </td>
@@ -76,19 +78,12 @@ const execute = async () => {
         <div id="curtidas"><span>${pergunta.curtidas}</span></div>
       </td>
       <td>
-        ${
-          user.cargo === 'Administrador'
-            ? `<div id="acao">
+        <div id="acao">
           <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-          <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-        </div>`
-            : pergunta.criado_por === user.id
-            ? `<div id="acao">
-            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-          </div>`
-            : ''
-        }
+          <button class='click' data-id=${
+            pergunta.id
+          } href="#"><i class="fas fa-trash-can"></i></button>
+        </div>
       </td>
   </tr>
   `,
@@ -144,10 +139,12 @@ const execute = async () => {
           <td>
             <div id="colaborador">
               <div class="avatar">
-                <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+                <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
+            pergunta.foto_usuario ?? '../../img/userFallback.jpg'
+          }" />
               </div>
               <div class="nome">
-                <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
+                <span>${pergunta.nome_usuario ?? 'N/A'}</span>
               </div>
             </div>
           </td>
@@ -160,19 +157,12 @@ const execute = async () => {
             <div id="curtidas"><span>${pergunta.curtidas}</span></div>
           </td>
           <td>
-          ${
-            user.cargo === 'Administrador'
-              ? `<div id="acao">
+          <div id="acao">
             <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-          </div>`
-              : pergunta.criado_por === user.id
-              ? `<div id="acao">
-              <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-              <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-            </div>`
-              : ''
-          }
+            <button class='click' data-id=${
+              pergunta.id
+            } href="#"><i class="fas fa-trash-can"></i></button>
+          </div>
         </td>
       </tr>
       `,

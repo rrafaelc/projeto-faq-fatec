@@ -54,35 +54,6 @@
         </div>
       </div>
     </div>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">
-          <i class="fas fa-database"></i>
-        </div>
-        <div class="info">
-          <div class="numero">25</div>
-          <div class="descricao">Total de perguntas</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="icon prioridade">
-          <i class="fas fa-exclamation"></i>
-        </div>
-        <div class="info">
-          <div class="numero">4</div>
-          <div class="descricao">Total de prioridades</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <i class="fas fa-heart"></i>
-        </div>
-        <div class="info">
-          <div class="numero">84</div>
-          <div class="descricao">Total de curtidas</div>
-        </div>
-      </div>
-    </div>
 
     <div class="container sugestao-container">
       <div class="titulo titulo-sugestao">

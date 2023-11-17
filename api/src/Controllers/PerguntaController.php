@@ -46,16 +46,6 @@ class PerguntaController
           return;
         }
 
-        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Não permitido alterar pergunta de outro usuário"]
-          ]);
-
-          return;
-        }
-
         $data = (array) json_decode(file_get_contents("php://input"), true);
         $data["usuarioId"] = $usuarioLogado["id"];
 
@@ -84,16 +74,6 @@ class PerguntaController
             "status" => "error",
             "errors" => ["Usuário suspenso, acesso negado"]
           ]);
-          return;
-        }
-
-        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Não permitido deletar pergunta de outro usuário"]
-          ]);
-
           return;
         }
 
