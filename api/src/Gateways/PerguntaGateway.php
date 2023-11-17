@@ -11,22 +11,56 @@ class PerguntaGateway
 
   public function getAll(array $ordenacao)
   {
-    $sql = "SELECT *
-            FROM pergunta";
+    $sql = "SELECT p.*,
+      u.id AS id_usuario,
+      u.nome_completo AS nome_usuario,
+      u.email AS email_usuario,
+      u.foto_uri AS foto_usuario,
+      ue.id AS id_usuario_editado,
+      ue.nome_completo AS nome_usuario_editado,
+      ue.email AS email_usuario_editado,
+      ue.foto_uri AS foto_usuario_editado
+      FROM pergunta p
+      LEFT JOIN usuario u ON p.criado_por = u.id
+      LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+      LEFT JOIN usuario ue ON pe.usuario_id = ue.id";
 
     if (isset($ordenacao["MaisAlta"]) && $ordenacao["MaisAlta"]) {
-      $sql = "SELECT *
-              FROM pergunta
-              ORDER BY CASE
-                WHEN prioridade = 'Alta' THEN 1
-                WHEN prioridade = 'Normal' THEN 2
-              END";
+      $sql = "SELECT p.*,
+        u.id AS id_usuario,
+        u.nome_completo AS nome_usuario,
+        u.email AS email_usuario,
+        u.foto_uri AS foto_usuario,
+        ue.id AS id_usuario_editado,
+        ue.nome_completo AS nome_usuario_editado,
+        ue.email AS email_usuario_editado,
+        ue.foto_uri AS foto_usuario_editado
+        FROM pergunta p
+        LEFT JOIN usuario u ON p.criado_por = u.id
+        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+        ORDER BY
+          CASE
+              WHEN prioridade = 'Alta' THEN 1
+              WHEN prioridade = 'Normal' THEN 2
+          END;";
     }
 
     if (isset($ordenacao["MaisCurtidas"]) && $ordenacao["MaisCurtidas"]) {
-      $sql = "SELECT *
-              FROM pergunta
-              ORDER BY curtidas DESC";
+      $sql = "SELECT p.*,
+        u.id AS id_usuario,
+        u.nome_completo AS nome_usuario,
+        u.email AS email_usuario,
+        u.foto_uri AS foto_usuario,
+        ue.id AS id_usuario_editado,
+        ue.nome_completo AS nome_usuario_editado,
+        ue.email AS email_usuario_editado,
+        ue.foto_uri AS foto_usuario_editado
+        FROM pergunta p
+        LEFT JOIN usuario u ON p.criado_por = u.id
+        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+        ORDER BY curtidas DESC";
     }
 
     $stmt = $this->conn->query($sql);
