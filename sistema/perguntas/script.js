@@ -208,16 +208,16 @@ const execute = async () => {
   <thead>
       <tr>
         <th>
-          <span>Nome <i class="fas fa-sort-down"></i></span>
+          <span>Nome</span>
         </th>
         <th>
-          <span>Email <i class="fas fa-sort-down"></i></span>
+          <span>Email</span>
         </th>
         <th>
           <span>Telefone<i class="fas fa-sort-down"></i></span>
         </th>
         <th id="pergunta">
-          <span>Sugestão <i class="fas fa-sort-down"></i></span>
+          <span>Sugestão</span>
         </th>
         <th class="th-acao-sugestao">
           <span>Ações</span>

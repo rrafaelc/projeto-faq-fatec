@@ -112,19 +112,19 @@
         <thead>
           <tr>
             <th>
-              <span>ID <i class="fas fa-sort-down"></i></span>
+              <span>ID</span>
             </th>
             <th id="pergunta">
-              <span>Pergunta <i class="fas fa-sort-down"></i></span>
+              <span>Pergunta</span>
             </th>
             <th>
-              <span>Editado por <i class="fas fa-sort-down"></i></span>
+              <span>Editado por</span>
             </th>
             <th>
-              <span>Prioridade <i class="fas fa-sort-down"></i></span>
+              <span>Prioridade</span>
             </th>
             <th>
-              <span>Data de edição <i class="fas fa-sort-down"></i></span>
+              <span>Data de edição</span>
             </th>
             <th>
               <span>Ação</span>

@@ -59,7 +59,7 @@
           <i class="fas fa-database"></i>
         </div>
         <div class="info">
-          <div class="numero">135</div>
+          <div id="totais-pergunta" class="numero"></div>
           <div class="descricao">Total de perguntas</div>
         </div>
       </div>
@@ -68,16 +68,16 @@
           <i class="fas fa-exclamation"></i>
         </div>
         <div class="info">
-          <div class="numero">26</div>
+          <div id="totais-alta" class="numero"></div>
           <div class="descricao">Total de prioridades</div>
         </div>
       </div>
       <div class="card">
         <div class="icon">
-          <i class="fas fa-heart"></i>
+          <i class="fas fa-thumbs-up"></i>
         </div>
         <div class="info">
-          <div class="numero">541</div>
+          <div id="totais-curtidas" class="numero"></div>
           <div class="descricao">Total de curtidas</div>
         </div>
       </div>
@@ -87,22 +87,22 @@
         <thead>
           <tr>
             <th>
-              <span>ID <i class="fas fa-sort-down"></i></span>
+              <span>ID</span>
             </th>
             <th>
-              <span>Colaborador <i class="fas fa-sort-down"></i></span>
+              <span>Colaborador</span>
             </th>
             <th id="pergunta">
-              <span>Pergunta <i class="fas fa-sort-down"></i></span>
+              <span>Pergunta</span>
             </th>
             <th>
-              <span>Editado por <i class="fas fa-sort-down"></i></span>
+              <span>Editado por</span>
             </th>
             <th>
-              <span>Prioridade <i class="fas fa-sort-down"></i></span>
+              <span>Prioridade</span>
             </th>
             <th>
-              <span>Data de edição <i class="fas fa-sort-down"></i></span>
+              <span>Data de edição</span>
             </th>
             <th>
               <span>Ação</span>

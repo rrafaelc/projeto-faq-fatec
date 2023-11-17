@@ -25,7 +25,7 @@ class PerguntaSugeridaGateway
     return $data;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM pergunta_sugerida
@@ -40,7 +40,7 @@ class PerguntaSugeridaGateway
     return $data;
   }
 
-  public function create(array $data): array | false
+  public function create(array $data)
   {
     $sql = "INSERT INTO pergunta_sugerida (nome, pergunta, email, telefone) VALUES (:nome, :pergunta, :email, :telefone)";
 

@@ -160,6 +160,7 @@ class PerguntaController
         header("Allow: PATCH");
     }
   }
+
   public function decrementarCurtidas(string $method, string $id): void
   {
     switch ($method) {
@@ -190,6 +191,28 @@ class PerguntaController
       default:
         http_response_code(405);
         header("Allow: PATCH");
+    }
+  }
+
+  public function getTotais(string $method): void
+  {
+    switch ($method) {
+      case "GET":
+        $totalPerguntas = $this->gateway->getTotalPerguntas();
+        $totalPrioridadeAlta = $this->gateway->getTotalPrioridadeAlta();
+        $totalCurtidas = $this->gateway->getTotalCurtidas();
+
+        echo json_encode([
+          "total_perguntas" => $totalPerguntas,
+          "total_prioridade_alta" => $totalPrioridadeAlta,
+          "total_curtidas" => $totalCurtidas
+        ]);
+
+        break;
+
+      default:
+        http_response_code(405);
+        header("Allow: GET");
     }
   }
 
