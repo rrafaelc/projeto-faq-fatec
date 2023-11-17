@@ -57,74 +57,111 @@
     <div class="integrantes">
       <h1>Integrantes</h1>
 
-        <div class="integrantes-info">
+      <div class="integrantes-info">
+        <div>
           <div class="avatar">
             <img src="../img/sobre/claudinei_pereira.png" alt="Claudinei Rodrigues" />
             <div class="redes-sociais">
               <div>
                 <a href="https://www.linkedin.com/in/claudinei-pereira-rodrigues/" target="_blank">
-                <i class="fa-brands fa-linkedin"></i>
-                 Claudinei Rodrigues
-                </a>
-                </div>
-                <div>
-                <a href="https://github.com/claudinei1977" target="_blank">
-                <i class="fa-brands fa-github"></i>
-                claudinei1977
-                </a>
-                </div>
+                  <i class="fa-brands fa-linkedin"></i>Claudinei Rodrigues</a>
               </div>
+              <div>
+                <a href="https://github.com/claudinei1977" target="_blank">
+                  <i class="fa-brands fa-github"></i>
+                  claudinei1977
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="avatar">
             <img src="https://media.licdn.com/dms/image/D4D03AQE2bm-eA_R-QA/profile-displayphoto-shrink_800_800/0/1700004737170?e=1705536000&v=beta&t=fpUA1hf3t7KZ-JaCjbZBrYb8pxpWy7aKXtuUCB_3owk" />
-              <div class="redes-sociais">
-                <div>
-                  <a href="https://www.linkedin.com/in/Doni-Joao/" target="_blank">
+            <div class="redes-sociais">
+              <div>
+                <a href="https://www.linkedin.com/in/Doni-Joao/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                   João Pedro Doni
-                  </a>
-                </div>
-                <div>
-                  <a href="https://github.com/DoniJoao" target="_blank">
+                </a>
+              </div>
+              <div>
+                <a href="https://github.com/DoniJoao" target="_blank">
                   <i class="fa-brands fa-github"></i>
                   DoniJoao
-                  </a>
-                </div>
+                </a>
               </div>
             </div>
+          </div>
 
           <div class="avatar">
-              <img src="../img/sobre/Luan_Francisco.jpeg" alt="Luan Francisco" />
-              <div class="redes-sociais">
-                <div>
-                  <a href="https://www.linkedin.com/in/luan-frc/" target="_blank">
+            <img src="../img/sobre/Luis_Henrique.jpeg" alt="Luis Henrique" />
+            <div class="redes-sociais">
+              <div>
+                <a href="https://www.linkedin.com/in/luis-henrique-26350b241/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
-                  Luan Francisco
-                  </a>
-                </div>
-                <div>
-                  <a href="https://github.com/lzn1996" target="_blank">
+                  Luis Henrique
+                </a>
+              </div>
+              <div>
+                <a href="https://github.com/lui0908" target="_blank">
                   <i class="fa-brands fa-github"></i>
-                  lzn1996
-                  </a>
-                </div>
+                  lui0908
+                </a>
               </div>
             </div>
+          </div>
 
           <div class="avatar">
             <img src="../img/sobre/Erick_Silva.png" alt="Erick Vinicius Perereira Silva" />
             <div class="redes-sociais">
               <div>
                 <a href="https://www.linkedin.com/in/erickvps/" target="_blank">
-                <i class="fa-brands fa-linkedin"></i>
-                Erick P Silva
+                  <i class="fa-brands fa-linkedin"></i>
+                  Erick P Silva
                 </a>
               </div>
               <div>
                 <a href=https://github.com/rrafaelc/projeto-faq-fatec"" target="_blank">
-                <i class="fa-brands fa-github"></i>
-                github
+                  <i class="fa-brands fa-github"></i>
+                  github
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="avatar">
+            <img src="../img/sobre/Luan_Francisco.jpeg" alt="Luan Francisco" />
+            <div class="redes-sociais">
+              <div>
+                <a href="https://www.linkedin.com/in/luan-frc/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                  Luan Francisco
+                </a>
+              </div>
+              <div>
+                <a href="https://github.com/lzn1996" target="_blank">
+                  <i class="fa-brands fa-github"></i>
+                  lzn1996
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="avatar">
+            <img src="../img/sobre/Rafael_Costa.jpeg" alt="Rafael Costa" />
+            <div class="redes-sociais">
+              <div>
+                <a href="https://www.linkedin.com/in/rrafaelc/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                  Rafael Costa
+                </a>
+              </div>
+              <div>
+                <a href="https://github.com/rrafaelc" target="_blank">
+                  <i class="fa-brands fa-github"></i>
+                  rrafaelc
                 </a>
               </div>
             </div>
@@ -133,54 +170,22 @@
           <div class="avatar">
             <img src="../img/sobre/Leandro_Ribeiro.png" alt="Leandro Ribeiro" />
             <div class="redes-sociais">
-                <div>
-                  <a href="https://www.linkedin.com/in/leandro-ribeiro82/" target="_blank">
+              <div>
+                <a href="https://www.linkedin.com/in/leandro-ribeiro82/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
-                    Leandro Ribeiro
-                  </a>
-                </div>
-                <div>
-                    <a href="https://github.com/leandroribeiro82" target="_blank">
-                    <i class="fa-brands fa-github"></i>
-                    leandroribeiro82
-                    </a>
-                  </div>
+                  Leandro Ribeiro
+                </a>
               </div>
-          </div>
-          <div class="avatar">
-            <img src="../img/sobre/Rafael_Costa.jpeg" alt="Rafael Costa" />
-            <div class="redes-sociais">
-                <div>
-                  <a href="https://www.linkedin.com/in/rrafaelc/" target="_blank">
-                  <i class="fa-brands fa-linkedin"></i>
-                  Rafael Costa
-                  </a>
-                  </div>
-                <div>
-                    <a href="https://github.com/rrafaelc" target="_blank">
-                    <i class="fa-brands fa-github"></i>
-                    rrafaelc
-                    </a>
-                  </div>
-              </div>
-          </div>
-
-          <div class="avatar">
-          <img src="../img/sobre/Luis_Henrique.jpeg" alt="Luis Henrique" />
-          <div class="redes-sociais">
-            <div>
-              <a href="https://www.linkedin.com/in/luis-henrique-26350b241/" target="_blank">
-              <i class="fa-brands fa-linkedin"></i>
-              Luis Henrique
-              </a>
-              </div>
-            <div>
-                <a href="https://github.com/lui0908" target="_blank">
-                <i class="fa-brands fa-github"></i>
-                lui0908
+              <div>
+                <a href="https://github.com/leandroribeiro82" target="_blank">
+                  <i class="fa-brands fa-github"></i>
+                  leandroribeiro82
                 </a>
               </div>
             </div>
+          </div>
+
+
         </div>
       </div>
     </div>
