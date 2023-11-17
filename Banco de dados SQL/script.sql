@@ -101,3 +101,7 @@ INSERT INTO pergunta (pergunta, resposta) VALUES
 
       - CST em Desenvolvimento de Software Multiplataforma – saiba mais em https://fatecitapira.edu.br/dsm.html'),
 ('Posso trocar de curso?', 'De acordo com o Regulamento dos Cursos de Graduação das Fatecs existe a opção de transferência intercursos dentro das Fatecs, porém como pré-requisito o aluno deve possuir pelo menos metade das disciplinas do 1º semestre do curso desejado eliminadas com aproveitamento de estudos. Em seguida o candidato deverá acessar o site da Fatec de Itapira https://fatecitapira.edu.br e fazer o download do Edital de Transferência Interna. A divulgação do edital ocorre um pouco antes período das inscrições para transferência cujas datas estão especificadas no Calendário Escolar também disponível no site https://fatecitapira.edu.br.');
+
+INSERT INTO pergunta_editada_por (pergunta_id) VALUES
+(1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12);
+
