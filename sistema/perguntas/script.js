@@ -288,10 +288,11 @@ const execute = async () => {
 
   suasPerguntasTbody.innerHTML = '';
 
-  suasPerguntasTbody.innerHTML += perguntasDoUsuario.map((pergunta) => {
-    const data = new Date(pergunta.criado_em);
+  suasPerguntasTbody.innerHTML += perguntasDoUsuario
+    .map((pergunta) => {
+      const data = new Date(pergunta.criado_em);
 
-    return `
+      return `
       <tr>
         <td>
           <div id="id">
@@ -321,7 +322,8 @@ const execute = async () => {
           </div>
         </td>
       </tr>`;
-  });
+    })
+    .join('');
 
   const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
 
