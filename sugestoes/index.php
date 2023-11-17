@@ -48,7 +48,7 @@
       </div>
       <div class="duvida-sugestao">
         <label for="mensagem">Dúvida/Sugestão</label>
-        <textarea cols="50" rows="50" class="texto-sugestao" id="mensagem" name="mensagem" required placeholder="Digite sua dúvida ou sugestão"></textarea>
+        <textarea class="texto-sugestao" id="mensagem" name="mensagem" required placeholder="Digite sua dúvida ou sugestão"></textarea>
       </div>
       <button class="botao mostrar" type="submit">ENVIAR</button>
       <div class="spinner loader"></div>
