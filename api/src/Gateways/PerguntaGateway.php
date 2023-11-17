@@ -11,7 +11,7 @@ class PerguntaGateway
 
   public function getAll(array $ordenacao): array
   {
-    $sql = "SELECT p.*,
+    $sql = "SELECT DISTINCT p.*,
       u.id AS id_usuario,
       u.nome_completo AS nome_usuario,
       u.email AS email_usuario,
@@ -26,7 +26,7 @@ class PerguntaGateway
       LEFT JOIN usuario ue ON pe.usuario_id = ue.id";
 
     if (isset($ordenacao["MaisAlta"]) && $ordenacao["MaisAlta"]) {
-      $sql = "SELECT p.*,
+      $sql = "SELECT DISTINCT p.*,
         u.id AS id_usuario,
         u.nome_completo AS nome_usuario,
         u.email AS email_usuario,
@@ -43,11 +43,12 @@ class PerguntaGateway
           CASE
               WHEN prioridade = 'Alta' THEN 1
               WHEN prioridade = 'Normal' THEN 2
-          END;";
+          END
+          ";
     }
 
     if (isset($ordenacao["MaisCurtidas"]) && $ordenacao["MaisCurtidas"]) {
-      $sql = "SELECT p.*,
+      $sql = "SELECT DISTINCT p.*,
         u.id AS id_usuario,
         u.nome_completo AS nome_usuario,
         u.email AS email_usuario,
