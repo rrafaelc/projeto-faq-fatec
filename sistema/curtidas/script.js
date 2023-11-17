@@ -135,11 +135,11 @@ const execute = async () => {
             <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
           </div>`
               : pergunta.criado_por === user.id
-              ? `<div id="acao">
+                ? `<div id="acao">
               <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
               <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
             </div>`
-              : ''
+                : ''
           }
         </td>
     </tr>
