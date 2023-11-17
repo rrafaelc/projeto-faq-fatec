@@ -5,6 +5,7 @@ import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
 import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
+import { listarPerguntas } from '../../scripts/perguntas/listarPerguntas.js';
 import { deletarSugestao } from '../../scripts/sugestoes/deletarSugestao.js';
 import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
 import { responderSugestao } from '../../scripts/sugestoes/responderSugestao.js';
@@ -275,6 +276,73 @@ const execute = async () => {
       }).then((result) => {
         if (result.isConfirmed) {
           handleDeletarSugestao(id);
+        }
+      });
+    });
+  });
+
+  const suasPerguntasTbody = document.querySelector('.suas-perguntas-tbody');
+
+  const perguntas = await listarPerguntas();
+  const perguntasDoUsuario = perguntas.filter((p) => p.criado_por === user.id);
+
+  suasPerguntasTbody.innerHTML = '';
+
+  suasPerguntasTbody.innerHTML += perguntasDoUsuario.map((pergunta) => {
+    const data = new Date(pergunta.criado_em);
+
+    return `
+      <tr>
+        <td>
+          <div id="id">
+            <span>${pergunta.id}</span>
+          </div>
+        </td>
+        <td>
+          <div id="pergunta">${pergunta.pergunta}</div>
+        </td>
+        <td>
+          <div id="editado" class="avatar">
+            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+          </div>
+        </td>
+        <td>
+          <div id="prioridade" class="${pergunta.prioridade.toLowerCase()}">
+            <span>${pergunta.prioridade}</span>
+          </div>
+        </td>
+        <td>
+          <div id="edicao"><span>${data.toLocaleDateString()}</span></div>
+        </td>
+        <td>
+          <div id="acao">
+            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+            <a class="deletar-pergunta" data-id=${pergunta.id}><i class="fas fa-trash-can"></i></a>
+          </div>
+        </td>
+      </tr>`;
+  });
+
+  const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
+
+  botaoDeletar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      Swal.fire({
+        title: 'Tem certezar que quer deletar a pergunta?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, confirmar!',
+        cancelButtonText: 'Não',
+        icon: 'question',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await deletarPergunta(id);
+            window.location.reload();
+          } catch (error) {
+            toast(error.message, true);
+          }
         }
       });
     });
