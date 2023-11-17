@@ -146,13 +146,6 @@ const execute = async () => {
     `,
   );
 
-  // <div id="acao">
-  //           <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-  //           <button class='click' data-id=${
-  //             pergunta.id
-  //           } href="#"><i class="fas fa-trash-can"></i></button>
-  //         </div>
-
   //logica para deletar a pergunta
   const botaoDeletar = document.querySelectorAll('.click');
 
