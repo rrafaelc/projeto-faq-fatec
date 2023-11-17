@@ -48,106 +48,52 @@ const execute = async () => {
     console.log(error);
   }
 
-  //ordena as perguntas pra trazer as mais curtidas primeiro
-  curtidasIcon.addEventListener('click', () => {
-    const isClicked = curtidasIcon.getAttribute('isclicked') === 'true';
-
-    if (isClicked) {
-      perguntas.sort((a, b) => b.curtidas - a.curtidas);
-    } else {
-      perguntas.sort((a, b) => a.curtidas - b.curtidas);
-    }
-
-    tbody.innerHTML = '';
-
-    tbody.innerHTML += perguntas.map(
+  tbody.innerHTML += perguntas
+    .map(
       (pergunta) =>
         `<tr>
-          <td>
-            <div id="id">
-              <span>${pergunta.id}</span>
-            </div>
-          </td>
-          <td>
-            <div id="colaborador">
-              <div class="avatar">
-                <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
-              </div>
-              <div class="nome">
-                <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div id="pergunta">
-              ${pergunta.pergunta}
-            </div>
-          </td>
-          <td>
-            <div id="curtidas"><span>${pergunta.curtidas}</span></div>
-          </td>
-          <td>
-            <div id="acao">
-              <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-              <button class='click' data-id=${
-                pergunta.id
-              } href="#"><i class="fas fa-trash-can"></i></button>
-            </div>
-          </td>
-      </tr>
-      `,
-    );
-
-    curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
-  });
-
-  tbody.innerHTML += perguntas.map(
-    (pergunta) =>
-      `<tr>
-        <td>
-          <div id="id">
-            <span>${pergunta.id}</span>
+      <td>
+        <div id="id">
+          <span>${pergunta.id}</span>
+        </div>
+      </td>
+      <td>
+        <div id="colaborador">
+          <div class="avatar">
+          <img
+          title="${pergunta.nome_usuario ?? 'N/A'}"
+          src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}"
+          onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
+          />
           </div>
-        </td>
-        <td>
-          <div id="colaborador">
-            <div class="avatar">
-            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
-            </div>
-            <div class="nome">
-            <span>${pergunta.nome_usuario ?? 'Sem usuário'}</span>
-            </div>
+          <div class="nome">
+          <span>${pergunta.nome_usuario ?? 'N/A'}</span>
           </div>
-        </td>
-        <td>
-          <div id="pergunta">
-            ${pergunta.pergunta}
-          </div>
-        </td>
-        <td>
-          <div id="curtidas"><span>${pergunta.curtidas}</span></div>
-        </td>
-        <td>
-          ${
-            user.cargo === 'Administrador'
-              ? `<div id="acao">
-            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-            <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-          </div>`
-              : pergunta.criado_por === user.id
-                ? `<div id="acao">
-              <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
-              <button class='click' data-id=${pergunta.id} href="#"><i class="fas fa-trash-can"></i></button>
-            </div>`
-                : ''
-          }
-        </td>
-    </tr>
-    `,
-  );
+        </div>
+      </td>
+      <td>
+        <div id="pergunta">
+          ${pergunta.pergunta}
+        </div>
+      </td>
+      <td>
+        <div id="curtidas"><span>${pergunta.curtidas}</span></div>
+      </td>
+      <td>
+        <div id="acao">
+          <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
+          <button class='click' data-id=${
+            pergunta.id
+          } href="#"><i class="fas fa-trash-can"></i></button>
+        </div>
+      </td>
+  </tr>
+  `,
+    )
+    .join('');
 
-  //logica para deletar a pergunta
-  const botaoDeletar = document.querySelectorAll('.click');
+  let botaoDeletar = document.querySelectorAll('.click');
+  let botaoEditar = document.querySelectorAll('.editar-pergunta');
 
   botaoDeletar.forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -168,6 +114,105 @@ const execute = async () => {
             toast(error.message, true);
           }
         }
+      });
+    });
+  });
+
+  botaoEditar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
+    });
+  });
+
+  //ordena as perguntas pra trazer as mais curtidas primeiro
+  curtidasIcon.addEventListener('click', () => {
+    const isClicked = curtidasIcon.getAttribute('isclicked') === 'true';
+
+    if (isClicked) {
+      perguntas.sort((a, b) => b.curtidas - a.curtidas);
+    } else {
+      perguntas.sort((a, b) => a.curtidas - b.curtidas);
+    }
+
+    tbody.innerHTML = '';
+
+    tbody.innerHTML += perguntas
+      .map(
+        (pergunta) =>
+          `<tr>
+          <td>
+            <div id="id">
+              <span>${pergunta.id}</span>
+            </div>
+          </td>
+          <td>
+            <div id="colaborador">
+              <div class="avatar">
+                <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
+                  pergunta.foto_usuario ?? '../../img/userFallback.jpg'
+                }" />
+              </div>
+              <div class="nome">
+                <span>${pergunta.nome_usuario ?? 'N/A'}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div id="pergunta">
+              ${pergunta.pergunta}
+            </div>
+          </td>
+          <td>
+            <div id="curtidas"><span>${pergunta.curtidas}</span></div>
+          </td>
+          <td>
+          <div id="acao">
+            <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
+            <button class='click' data-id=${
+              pergunta.id
+            } href="#"><i class="fas fa-trash-can"></i></button>
+          </div>
+        </td>
+      </tr>
+      `,
+      )
+      .join('');
+
+    curtidasIcon.setAttribute('isclicked', isClicked ? 'false' : 'true');
+
+    botaoDeletar = document.querySelectorAll('.click');
+    botaoEditar = document.querySelectorAll('.editar-pergunta');
+
+    botaoDeletar.forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const id = botao.dataset.id;
+
+        Swal.fire({
+          title: 'Tem certezar que quer deletar a pergunta?',
+          showCancelButton: true,
+          confirmButtonText: 'Sim, confirmar!',
+          cancelButtonText: 'Não',
+          icon: 'question',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await deletarPergunta(id);
+              window.location.reload();
+            } catch (error) {
+              toast(error.message, true);
+            }
+          }
+        });
+      });
+    });
+
+    botaoEditar.forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const id = botao.dataset.id;
+
+        window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
       });
     });
   });

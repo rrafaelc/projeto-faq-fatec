@@ -63,6 +63,24 @@
 					"response": []
 				},
 				{
+					"name": "Totais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pergunta/totais",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pergunta",
+								"totais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Incrementar curtidas",
 					"request": {
 						"method": "PATCH",

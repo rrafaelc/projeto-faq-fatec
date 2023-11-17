@@ -124,13 +124,13 @@ const execute = async () => {
   <thead>
     <tr>
       <th>
-        <span>Colaborador <i class="fas fa-sort-down"></i></span>
+        <span>Colaborador</span>
       </th>
       <th id="cargo">
-        <span>Cargo <i class="fas fa-sort-down"></i></span>
+        <span>Cargo</span>
       </th>
       <th id="suspenso">
-        <span>Suspenso <i class="fas fa-sort-down"></i></span>
+        <span>Suspenso</span>
       </th>
       <th></th>
     </tr>
@@ -144,7 +144,11 @@ const execute = async () => {
         <td class="colaborador">
           <div id="colaborador">
             <div class="avatar">
-              <img src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}" />
+              <img
+              src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}"
+              title="${usuario.nome_completo}"
+              onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
+               />
             </div>
             <div class="nome">
               ${usuario.nome_completo}
@@ -316,6 +320,7 @@ const execute = async () => {
         showCancelButton: true,
         confirmButtonText: 'Sim, confirmar!',
         cancelButtonText: 'Não',
+        allowEnterKey: false,
         icon: 'question',
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -325,6 +330,7 @@ const execute = async () => {
             showCancelButton: true,
             confirmButtonText: 'Sim, irei anotar!',
             cancelButtonText: 'Não',
+            allowEnterKey: false,
             icon: 'info',
           }).then(async (result) => {
             if (result.isConfirmed) {

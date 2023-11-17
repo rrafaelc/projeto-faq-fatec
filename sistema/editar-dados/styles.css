@@ -180,7 +180,7 @@ form {
 form label {
   font-size: 2.4rem;
   font-weight: 500;
-  color: var(--vermelho-base);
+  color: var(--titulos);
   margin-bottom: 5px;
 }
 
@@ -235,4 +235,31 @@ form button.disabled {
   form button {
     font-size: 1.6rem;
   }
+}
+
+#senha,
+#confirmarSenha {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+#senha input,
+#confirmarSenha input {
+  margin-bottom: 0;
+}
+
+.eye-container {
+  cursor: pointer;
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.eye {
+  font-size: 20px;
 }

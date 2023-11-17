@@ -54,35 +54,6 @@
         </div>
       </div>
     </div>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">
-          <i class="fas fa-database"></i>
-        </div>
-        <div class="info">
-          <div class="numero">25</div>
-          <div class="descricao">Total de perguntas</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="icon prioridade">
-          <i class="fas fa-exclamation"></i>
-        </div>
-        <div class="info">
-          <div class="numero">4</div>
-          <div class="descricao">Total de prioridades</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <i class="fas fa-heart"></i>
-        </div>
-        <div class="info">
-          <div class="numero">84</div>
-          <div class="descricao">Total de curtidas</div>
-        </div>
-      </div>
-    </div>
 
     <div class="container sugestao-container">
       <div class="titulo titulo-sugestao">
@@ -141,19 +112,19 @@
         <thead>
           <tr>
             <th>
-              <span>ID <i class="fas fa-sort-down"></i></span>
+              <span>ID</span>
             </th>
             <th id="pergunta">
-              <span>Pergunta <i class="fas fa-sort-down"></i></span>
+              <span>Pergunta</span>
             </th>
             <th>
-              <span>Editado por <i class="fas fa-sort-down"></i></span>
+              <span>Editado por</span>
             </th>
             <th>
-              <span>Prioridade <i class="fas fa-sort-down"></i></span>
+              <span>Prioridade</span>
             </th>
             <th>
-              <span>Data de edição <i class="fas fa-sort-down"></i></span>
+              <span>Data de edição</span>
             </th>
             <th>
               <span>Ação</span>

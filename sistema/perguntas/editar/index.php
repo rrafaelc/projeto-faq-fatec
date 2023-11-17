@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../../../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon/favicon-16x16.png" />
   <link rel="manifest" href="../../../img/favicon/site.webmanifest" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
   <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/perguntas/editar/script.js" defer></script>
   <title>Sistema FAQ | Editar Perguntas</title>
@@ -58,10 +60,9 @@
       </div>
       <form>
         <label for="titulo">Título</label>
-        <input type="text" name="titulo" id="titulo" placeholder="Escreva o título da pergunta" value="Qual é a duração dos cursos na Fatec?" required />
+        <input type="text" name="titulo" id="titulo" placeholder="Escreva o título da pergunta" required />
         <label for="resposta">Resposta</label>
-        <textarea name="resposta" id="resposta" placeholder="Escreva a resposta da pergunta" required>
-Os cursos da Fatec tem duração de no mínimo 3 anos e no máximo 5 anos.</textarea>
+        <textarea name="resposta" id="resposta" placeholder="Escreva a resposta da pergunta" required></textarea>
         <div>
           <div class="prioridade">
             <label for="prioridade">Defina o nível de prioridade</label>
