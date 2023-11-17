@@ -52,8 +52,8 @@ const execute = async () => {
             <div id="colaborador">
               <div class="avatar">
                 <img title="${pergunta.nome_usuario ?? 'N/A'}" src="${
-        pergunta.foto_usuario ?? '../img/userFallback.jpg'
-      }" />
+                  pergunta.foto_usuario ?? '../img/userFallback.jpg'
+                }" />
               </div>
               <div class="nome">${pergunta.nome_usuario ?? 'N/A'}</div>
             </div>
@@ -64,8 +64,8 @@ const execute = async () => {
           <td>
             <div id="editado" class="avatar">
               <img title="${pergunta.nome_usuario_editado ?? 'N/A'}" src="${
-        pergunta.foto_usuario_editado ?? '../img/userFallback.jpg'
-      }" />
+                pergunta.foto_usuario_editado ?? '../img/userFallback.jpg'
+              }" />
             </div>
           </td>
           <td>

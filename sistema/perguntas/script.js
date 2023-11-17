@@ -309,8 +309,8 @@ const execute = async () => {
         <td>
           <div id="editado" class="avatar">
             <img title="${pergunta.nome_usuario_editado ?? 'N/A'}" src="${
-        pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'
-      }" />
+              pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'
+            }" />
           </div>
         </td>
         <td>
