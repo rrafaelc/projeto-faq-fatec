@@ -173,7 +173,7 @@ class AuthController
     }
   }
 
-  public function verifyAccessToken(array $config, ?string $access_token): array | false
+  public function verifyAccessToken(array $config, ?string $access_token)
   {
     if (empty($access_token)) {
       http_response_code(422);

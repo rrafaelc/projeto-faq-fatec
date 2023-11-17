@@ -4,9 +4,11 @@ import { deslogar } from '../scripts/auth/deslogar.js';
 import { serverUrl } from '../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../scripts/middlewares/isLoggedIn.js';
 import { deletarPergunta } from '../scripts/perguntas/deletarPergunta.js';
+import { getTotaisPerguntas } from '../scripts/perguntas/getTotaisPerguntas.js';
 import { listarPerguntas } from '../scripts/perguntas/listarPerguntas.js';
 import { getLoggedUseInfo } from '../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -32,6 +34,19 @@ const execute = async () => {
 
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  const totaisPergunta = document.querySelector('#totais-pergunta');
+  const totaisAlta = document.querySelector('#totais-alta');
+  const totaisCurtida = document.querySelector('#totais-curtidas');
+
+  try {
+    const { total_perguntas, total_prioridade_alta, total_curtidas } = await getTotaisPerguntas();
+    totaisPergunta.textContent = total_perguntas;
+    totaisAlta.textContent = total_prioridade_alta;
+    totaisCurtida.textContent = total_curtidas;
+  } catch (error) {
+    toast('Houve um erro ao carregar os totais', true);
+  }
 
   const perguntasTbody = document.querySelector('.perguntas-tbody');
 

@@ -65,6 +65,13 @@ if ($parts[1] == "pergunta") {
     return;
   }
 
+  if (isset($parts[2]) && $parts[2] == "totais") {
+
+    $controller->getTotais($_SERVER["REQUEST_METHOD"]);
+
+    return;
+  }
+
   $id = $parts[2] ?? null;
 
   $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => true]);

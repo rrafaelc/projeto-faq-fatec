@@ -75,7 +75,7 @@ class PerguntaGateway
     return $data;
   }
 
-  public function get(string $id): array | false
+  public function get(string $id)
   {
     $sql = "SELECT *
             FROM pergunta
@@ -126,7 +126,7 @@ class PerguntaGateway
     return $pergunta;
   }
 
-  public function update(array $current, array $new): array | false
+  public function update(array $current, array $new)
   {
     $sql = "UPDATE pergunta
             SET pergunta = :pergunta, resposta = :resposta, curtidas = :curtidas, prioridade = :prioridade
@@ -172,7 +172,7 @@ class PerguntaGateway
     $stmt->execute();
   }
 
-  public function updateCurtidas(array $current, array $new): array | false
+  public function updateCurtidas(array $current, array $new)
   {
     $sql = "UPDATE pergunta
             SET curtidas = :curtidas
@@ -191,5 +191,29 @@ class PerguntaGateway
     $pergunta = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $pergunta;
+  }
+
+  public function getTotalPerguntas()
+  {
+    $sql = "SELECT COUNT(*) AS total_perguntas FROM pergunta";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $data['total_perguntas'];
+  }
+
+  public function getTotalPrioridadeAlta()
+  {
+    $sql = "SELECT COUNT(*) AS total_prioridade_alta FROM pergunta WHERE prioridade = 'Alta'";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $data['total_prioridade_alta'];
+  }
+
+  public function getTotalCurtidas()
+  {
+    $sql = "SELECT SUM(curtidas) AS total_curtidas FROM pergunta";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return intval($data['total_curtidas']);
   }
 }
