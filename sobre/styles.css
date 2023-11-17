@@ -74,13 +74,13 @@ a:visited {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .avatar {
   margin: 2rem;
   width: 45%;
-  gap: 15px;
+  gap: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@ a:visited {
 }
 
 .redes-sociais {
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -113,39 +113,23 @@ a:visited {
   font-weight: 700;
 }
 
-.linkedin img {
-  width: 25px;
-  height: 25px;
-}
-
 @media (max-width: 500px) {
   .integrantes {
-    justify-content: flex-start;
+    justify-content: center;
   }
-}
-
-@media (max-width: 1000px) {
   .integrantes-info {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
   }
 
   .avatar {
-    width: 80%;
-    justify-content: space-evenly;
-    padding: 5rem;
-  }
-
-  .linkedin {
-    width: 70%;
-  }
-
-  .linkedin a {
     width: 100%;
+    justify-content: center;
+    padding: 5rem;
   }
 
   .lista {
@@ -153,6 +137,40 @@ a:visited {
     padding: 0 20px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .lista div {
+    height: 50px;
+  }
+
+  .lista p {
+    font-size: 20px;
+  }
+
+  .corpo-site h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .integrantes {
+    justify-content: center;
+  }
+
+  .integrantes-info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .avatar {
+    width: 80%;
+    justify-content: center;
+    padding: 5rem;
   }
 
   .lista div {
