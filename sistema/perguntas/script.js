@@ -157,7 +157,7 @@ const execute = async () => {
           }
 
           setTimeout(() => {
-            window.location = `${serverUrl}/sistema/perguntas`;
+            window.location.reload();
           }, 1000);
         } catch (error) {
           toast('Houve um problema ao atualizar a sugestão', true);
@@ -191,6 +191,10 @@ const execute = async () => {
       });
 
       toast('Pergunta criada com sucesso');
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       botaoEnviar.disabled = false;
       botaoEnviar.textContent = 'Adicionar';
@@ -204,16 +208,16 @@ const execute = async () => {
   <thead>
       <tr>
         <th>
-          <span>Nome <i class="fas fa-sort-down"></i></span>
+          <span>Nome</span>
         </th>
         <th>
-          <span>Email <i class="fas fa-sort-down"></i></span>
+          <span>Email</span>
         </th>
         <th>
           <span>Telefone<i class="fas fa-sort-down"></i></span>
         </th>
         <th id="pergunta">
-          <span>Sugestão <i class="fas fa-sort-down"></i></span>
+          <span>Sugestão</span>
         </th>
         <th class="th-acao-sugestao">
           <span>Ações</span>
@@ -288,10 +292,11 @@ const execute = async () => {
 
   suasPerguntasTbody.innerHTML = '';
 
-  suasPerguntasTbody.innerHTML += perguntasDoUsuario.map((pergunta) => {
-    const data = new Date(pergunta.criado_em);
+  suasPerguntasTbody.innerHTML += perguntasDoUsuario
+    .map((pergunta) => {
+      const dataEditado = new Date(pergunta.atualizado_em);
 
-    return `
+      return `
       <tr>
         <td>
           <div id="id">
@@ -303,7 +308,11 @@ const execute = async () => {
         </td>
         <td>
           <div id="editado" class="avatar">
-            <img src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}" />
+            <img
+            title="${pergunta.nome_usuario_editado ?? 'N/A'}"
+            src="${pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'}"
+            onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
+             />
           </div>
         </td>
         <td>
@@ -312,18 +321,20 @@ const execute = async () => {
           </div>
         </td>
         <td>
-          <div id="edicao"><span>${data.toLocaleDateString()}</span></div>
+          <div id="edicao"><span>${dataEditado.toLocaleDateString()}</span></div>
         </td>
         <td>
           <div id="acao">
-            <a href="../../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+            <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
             <a class="deletar-pergunta" data-id=${pergunta.id}><i class="fas fa-trash-can"></i></a>
           </div>
         </td>
       </tr>`;
-  });
+    })
+    .join('');
 
   const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
+  const botaoEditar = document.querySelectorAll('.editar-pergunta');
 
   botaoDeletar.forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -345,6 +356,14 @@ const execute = async () => {
           }
         }
       });
+    });
+  });
+
+  botaoEditar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
     });
   });
 };

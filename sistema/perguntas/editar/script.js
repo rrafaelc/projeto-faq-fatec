@@ -3,8 +3,11 @@
 import { deslogar } from '../../../scripts/auth/deslogar.js';
 import { serverUrl } from '../../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../../scripts/middlewares/isLoggedIn.js';
+import { buscarPergunta } from '../../../scripts/perguntas/buscarPergunta.js';
+import { editarPergunta } from '../../../scripts/perguntas/editarPergunta.js';
 import { getLoggedUseInfo } from '../../../scripts/user/getLoggedUserInfo.js';
 import { fillHeaderUserData } from '../../../scripts/utils/fillHeaderUserData.js';
+import { toast } from '../../../scripts/utils/toast.js';
 
 // Header
 const usuario = document.querySelector('.usuario');
@@ -45,25 +48,38 @@ botaoPrioridade.addEventListener('click', function () {
     botaoPrioridade.classList.add('normal');
     botaoPrioridade.value = 'Normal';
   } else {
-    console.log('Erro ao mudar prioridade');
+    toast('Erro ao mudar prioridade', true);
   }
 });
 
 const form = document.querySelector('form');
+const url = new URL(window.location.href);
 
-form.addEventListener('submit', function (event) {
+const id = url.searchParams.get('id');
+
+if (!id) {
+  window.location.href = `${serverUrl}/sistema`;
+}
+
+form.addEventListener('submit', async function (event) {
   event.preventDefault();
   const button = form.querySelector('button[type="submit"]');
   const botaoVoltar = form.querySelector('button#voltar');
 
-  const titulo = form.querySelector('#titulo');
-  const resposta = form.querySelector('#resposta');
+  const titulo = form.querySelector('#titulo').value.trim();
+  const resposta = form.querySelector('#resposta').value.trim();
+  const prioridade = botaoPrioridade.value;
 
-  if (titulo.value === '') {
-    titulo.focus();
+  if (prioridade !== 'Alta' && prioridade !== 'Normal') {
+    toast('Prioridade deve ser Alta ou Normal', true);
     return;
-  } else if (resposta.value === '') {
-    resposta.focus();
+  }
+
+  if (!titulo) {
+    toast('Título não pode estar vazio', true);
+    return;
+  } else if (!resposta) {
+    toast('Resposta não pode estar vazio', true);
     return;
   }
 
@@ -74,9 +90,25 @@ form.addEventListener('submit', function (event) {
   botaoVoltar.disabled = true;
   botaoVoltar.classList.add('disabled');
 
-  setTimeout(function () {
-    window.location.href = '../../../sistema/perguntas/';
-  }, 2000);
+  try {
+    await editarPergunta({
+      id,
+      pergunta: titulo,
+      resposta,
+      prioridade,
+    });
+
+    window.location.href = `${serverUrl}/sistema`;
+  } catch (error) {
+    toast(error.message, true);
+  } finally {
+    button.innerText = 'Editar';
+
+    button.disabled = false;
+    button.classList.remove('disabled');
+    botaoVoltar.disabled = false;
+    botaoVoltar.classList.remove('disabled');
+  }
 });
 
 const spinner = document.querySelector('.spinnerFull');
@@ -93,6 +125,21 @@ const execute = async () => {
 
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
+
+  try {
+    const titulo = document.querySelector('#titulo');
+    const resposta = document.querySelector('#resposta');
+    const prioridade = document.querySelector('#prioridade');
+
+    const pergunta = await buscarPergunta({ id });
+
+    titulo.value = pergunta.pergunta;
+    resposta.value = pergunta.resposta;
+    prioridade.value = pergunta.prioridade;
+    prioridade.className = pergunta.prioridade.toLowerCase();
+  } catch {
+    window.location.href = `${serverUrl}/sistema`;
+  }
 };
 
 loggedIn && (await execute());

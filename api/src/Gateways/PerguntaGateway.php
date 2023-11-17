@@ -11,7 +11,7 @@ class PerguntaGateway
 
   public function getAll(array $ordenacao)
   {
-    $sql = "SELECT p.*,
+    $sql = "SELECT DISTINCT p.*,
       u.id AS id_usuario,
       u.nome_completo AS nome_usuario,
       u.email AS email_usuario,
@@ -22,11 +22,11 @@ class PerguntaGateway
       ue.foto_uri AS foto_usuario_editado
       FROM pergunta p
       LEFT JOIN usuario u ON p.criado_por = u.id
-      LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+      LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
       LEFT JOIN usuario ue ON pe.usuario_id = ue.id";
 
     if (isset($ordenacao["MaisAlta"]) && $ordenacao["MaisAlta"]) {
-      $sql = "SELECT p.*,
+      $sql = "SELECT DISTINCT p.*,
         u.id AS id_usuario,
         u.nome_completo AS nome_usuario,
         u.email AS email_usuario,
@@ -37,17 +37,18 @@ class PerguntaGateway
         ue.foto_uri AS foto_usuario_editado
         FROM pergunta p
         LEFT JOIN usuario u ON p.criado_por = u.id
-        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
         ORDER BY
           CASE
               WHEN prioridade = 'Alta' THEN 1
               WHEN prioridade = 'Normal' THEN 2
-          END;";
+          END
+          ";
     }
 
     if (isset($ordenacao["MaisCurtidas"]) && $ordenacao["MaisCurtidas"]) {
-      $sql = "SELECT p.*,
+      $sql = "SELECT DISTINCT p.*,
         u.id AS id_usuario,
         u.nome_completo AS nome_usuario,
         u.email AS email_usuario,
@@ -58,7 +59,7 @@ class PerguntaGateway
         ue.foto_uri AS foto_usuario_editado
         FROM pergunta p
         LEFT JOIN usuario u ON p.criado_por = u.id
-        LEFT JOIN pergunta_editada_por pe ON u.id = pe.usuario_id
+        LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
         ORDER BY curtidas DESC";
     }
@@ -190,5 +191,29 @@ class PerguntaGateway
     $pergunta = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $pergunta;
+  }
+
+  public function getTotalPerguntas()
+  {
+    $sql = "SELECT COUNT(*) AS total_perguntas FROM pergunta";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $data['total_perguntas'];
+  }
+
+  public function getTotalPrioridadeAlta()
+  {
+    $sql = "SELECT COUNT(*) AS total_prioridade_alta FROM pergunta WHERE prioridade = 'Alta'";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $data['total_prioridade_alta'];
+  }
+
+  public function getTotalCurtidas()
+  {
+    $sql = "SELECT SUM(curtidas) AS total_curtidas FROM pergunta";
+    $stmt = $this->conn->query($sql);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    return intval($data['total_curtidas']);
   }
 }

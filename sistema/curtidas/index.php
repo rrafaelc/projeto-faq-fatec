@@ -59,13 +59,13 @@
         <thead>
           <tr>
             <th>
-              <span>ID <i class="fas fa-sort-down"></i></span>
+              <span>ID</span>
             </th>
             <th>
-              <span>Colaborador <i class="fas fa-sort-down"></i></span>
+              <span>Colaborador</span>
             </th>
             <th id="pergunta">
-              <span>Pergunta <i class="fas fa-sort-down"></i></span>
+              <span>Pergunta</span>
             </th>
             <th id="curtidas">
               <span>Curtidas <i class="fas fa-sort-down"></i></span>

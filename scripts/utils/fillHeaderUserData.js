@@ -8,4 +8,8 @@ export const fillHeaderUserData = (user) => {
   foto.src = user.foto_uri ?? `${serverUrl}/img/userFallback.jpg`;
   nome_completo.textContent = user.nome_completo;
   cargo.textContent = `${user.cargo}(a)`;
+
+  foto.onerror = () => {
+    foto.src = `${serverUrl}/img/userFallback.jpg`;
+  };
 };

@@ -55,16 +55,6 @@ class PerguntaController
           return;
         }
 
-        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Não permitido alterar pergunta de outro usuário"]
-          ]);
-
-          return;
-        }
-
         $data = (array) json_decode(file_get_contents("php://input"), true);
         $data["usuarioId"] = $usuarioLogado["id"];
 
@@ -93,16 +83,6 @@ class PerguntaController
             "status" => "error",
             "errors" => ["Usuário suspenso, acesso negado"]
           ]);
-          return;
-        }
-
-        if ($usuarioLogado["cargo"] == CargoEnum::MODERADOR && $pergunta["criado_por"] != $usuarioLogado["id"]) {
-          http_response_code(403);
-          echo json_encode([
-            "status" => "error",
-            "errors" => ["Não permitido deletar pergunta de outro usuário"]
-          ]);
-
           return;
         }
 
@@ -189,6 +169,7 @@ class PerguntaController
         header("Allow: PATCH");
     }
   }
+
   public function decrementarCurtidas(string $method, string $id)
   {
     switch ($method) {
@@ -219,6 +200,28 @@ class PerguntaController
       default:
         http_response_code(405);
         header("Allow: PATCH");
+    }
+  }
+
+  public function getTotais(string $method): void
+  {
+    switch ($method) {
+      case "GET":
+        $totalPerguntas = $this->gateway->getTotalPerguntas();
+        $totalPrioridadeAlta = $this->gateway->getTotalPrioridadeAlta();
+        $totalCurtidas = $this->gateway->getTotalCurtidas();
+
+        echo json_encode([
+          "total_perguntas" => $totalPerguntas,
+          "total_prioridade_alta" => $totalPrioridadeAlta,
+          "total_curtidas" => $totalCurtidas
+        ]);
+
+        break;
+
+      default:
+        http_response_code(405);
+        header("Allow: GET");
     }
   }
 
