@@ -83,7 +83,7 @@ const execute = async () => {
           </td>
           <td>
             <div id="acao">
-              <a href="../sistema/perguntas/editar/"><i class="fas fa-pencil"></i></a>
+              <a class="editar-pergunta" data-id=${pergunta.id}><i class="fas fa-pencil"></i></a>
               <a class="deletar-pergunta" data-id=${
                 pergunta.id
               }><i class="fas fa-trash-can"></i></a>
@@ -94,6 +94,7 @@ const execute = async () => {
     .join('');
 
   const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
+  const botaoEditar = document.querySelectorAll('.editar-pergunta');
 
   botaoDeletar.forEach((botao) => {
     botao.addEventListener('click', () => {
@@ -115,6 +116,14 @@ const execute = async () => {
           }
         }
       });
+    });
+  });
+
+  botaoEditar.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const id = botao.dataset.id;
+
+      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
     });
   });
 };
