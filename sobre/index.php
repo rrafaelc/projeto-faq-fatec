@@ -121,7 +121,7 @@
                 </a>
               </div>
               <div>
-                <a href=https://github.com/rrafaelc/projeto-faq-fatec"" target="_blank">
+                <a href=https://github.com/rrafaelc/projeto-faq-fatec target="_blank">
                   <i class="fa-brands fa-github"></i>
                   github
                 </a>
