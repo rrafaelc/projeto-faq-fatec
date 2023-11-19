@@ -138,6 +138,36 @@ class PerguntaController
     }
   }
 
+  public function porUsuarioLogado(string $method): void
+  {
+    switch ($method) {
+      case "GET":
+        $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);
+
+        if (!$usuarioLogado) return;
+
+        if ((bool) $usuarioLogado["esta_suspenso"]) {
+          http_response_code(403);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Usuário suspenso, acesso negado"]
+          ]);
+          return;
+        }
+
+        $pagina = filter_input(INPUT_GET, "pagina", FILTER_SANITIZE_NUMBER_INT) ?? 1;
+
+        $qtdPorPg = filter_input(INPUT_GET, "quantidade_por_pagina", FILTER_SANITIZE_NUMBER_INT) ?? 10;
+
+        echo json_encode($this->gateway->getAllPorUsuario($usuarioLogado["id"], $pagina, $qtdPorPg, isset($_GET["order"]) ? $_GET["order"] : ''));
+        break;
+
+      default:
+        http_response_code(405);
+        header("Allow: GET");
+    }
+  }
+
   public function incrementarCurtidas(string $method, string $id): void
   {
     switch ($method) {

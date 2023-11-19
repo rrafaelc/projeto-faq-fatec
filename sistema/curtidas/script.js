@@ -61,7 +61,7 @@ const execute = async () => {
     topCurtidas = true,
     maisAlta = false,
     pagina = 1,
-    qtdPorPg = 5,
+    qtdPorPg = 20,
     order = 'asc',
   } = {}) => {
     try {

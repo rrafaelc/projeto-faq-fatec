@@ -156,21 +156,19 @@
         <tbody class="suas-perguntas-tbody">
         </tbody>
       </table>
+      <div class="spinnerContainerSuasPerguntas mostrar">
+        <div class="spinner loader spinner-suas-perguntas"></div>
+      </div>
       <div class="paginacao">
         <div class="pg">
-          <span title="Ínicio" class="disabled"><i class="bi bi-chevron-double-left"></i></span>
-          <span title="Anterior" class="disabled"><i class="bi bi-chevron-left"></i></span>
+          <span class="pg-inicio-suas-perguntas disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+          <span class="pg-anterior-suas-perguntas disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
         </div>
-        <div class="numeros">
-          <div class="numero active">1</div>
-          <div class="numero">2</div>
-          <div class="numero">3</div>
-          <div class="numero">4</div>
-          <div class="numero">5</div>
+        <div class="numeros pg-numeros-suas-perguntas">
         </div>
         <div class="pg">
-          <span title="Próximo"><i class="bi bi-chevron-right"></i></span>
-          <span title="Último"><i class="bi bi-chevron-double-right"></i></span>
+          <span class="pg-proximo-suas-perguntas" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+          <span class="pg-ultimo-suas-perguntas" title="Último"><i class="bi bi-chevron-double-right"></i></span>
         </div>
       </div>
     </div>

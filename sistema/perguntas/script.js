@@ -5,7 +5,7 @@ import { serverUrl } from '../../scripts/constants/serverUrl.js';
 import { isLoggedIn } from '../../scripts/middlewares/isLoggedIn.js';
 import { criarPergunta } from '../../scripts/perguntas/criarPergunta.js';
 import { deletarPergunta } from '../../scripts/perguntas/deletarPergunta.js';
-import { listarPerguntas } from '../../scripts/perguntas/listarPerguntas.js';
+import { listarPerguntasPorUsuario } from '../../scripts/perguntas/listarPerguntasPorUsuario.js';
 import { deletarSugestao } from '../../scripts/sugestoes/deletarSugestao.js';
 import { listarSugestoes } from '../../scripts/sugestoes/listarSugestoes.js';
 import { responderSugestao } from '../../scripts/sugestoes/responderSugestao.js';
@@ -386,17 +386,59 @@ const execute = async () => {
   });
 
   const suasPerguntasTbody = document.querySelector('.suas-perguntas-tbody');
+  const spinnerContainerSuasPerguntas = document.querySelector('.spinnerContainerSuasPerguntas');
+  const pgInicioSuasPerguntas = document.querySelector('.pg-inicio-suas-perguntas');
+  const pgAnteriorSuasPerguntas = document.querySelector('.pg-anterior-suas-perguntas');
+  const pgProximoSuasPerguntas = document.querySelector('.pg-proximo-suas-perguntas');
+  const pgUltimoSuasPerguntas = document.querySelector('.pg-ultimo-suas-perguntas');
+  const pgNumerosSuasPerguntas = document.querySelector('.pg-numeros-suas-perguntas');
 
-  const perguntas = await listarPerguntas();
-  const perguntasDoUsuario = perguntas.filter((p) => p.criado_por === user.id);
+  pgNumerosSuasPerguntas.innerHTML = `
+  <div class="numero">1</div>
+  <div class="numero">2</div>
+  <div class="numero active">3</div>
+  <div class="numero">4</div>
+  <div class="numero">5</div>
+  `;
 
-  suasPerguntasTbody.innerHTML = '';
+  let paginas = 1;
+  let qtdPgs = 0;
+  const renderSuasPerguntas = async ({ pagina = 1, qtdPorPg = 20, order = 'asc' } = {}) => {
+    try {
+      spinnerContainerSuasPerguntas.classList.add('mostrar');
+      suasPerguntasTbody.innerHTML = '';
+      pgNumerosSuasPerguntas.innerHTML = '';
 
-  suasPerguntasTbody.innerHTML += perguntasDoUsuario
-    .map((pergunta) => {
-      const dataEditado = new Date(pergunta.atualizado_em);
+      const perguntas = await listarPerguntasPorUsuario({
+        pagina,
+        qtdPorPg,
+        order,
+      });
 
-      return `
+      paginas = perguntas.pagina;
+      qtdPgs = perguntas.qtd_pg;
+
+      const maxLinks = 2;
+      const numBotoesLado = maxLinks * 2 + 1;
+
+      let startPage = Math.max(1, paginas - maxLinks);
+      let endPage = Math.min(qtdPgs, startPage + numBotoesLado - 1);
+
+      if (endPage - startPage + 1 < numBotoesLado) {
+        startPage = Math.max(1, endPage - numBotoesLado + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pgNumerosSuasPerguntas.innerHTML += `<div class="numero ${
+          i === paginas ? 'active' : ''
+        }">${i}</div>`;
+      }
+
+      suasPerguntasTbody.innerHTML += perguntas.resultado
+        .map((pergunta) => {
+          const dataEditado = new Date(pergunta.atualizado_em);
+
+          return `
       <tr>
         <td>
           <div id="id">
@@ -412,7 +454,7 @@ const execute = async () => {
             title="${pergunta.nome_usuario_editado ?? 'N/A'}"
             src="${pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'}"
             onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
-             />
+          />
           </div>
         </td>
         <td>
@@ -430,40 +472,107 @@ const execute = async () => {
           </div>
         </td>
       </tr>`;
-    })
-    .join('');
+        })
+        .join('');
 
-  const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
-  const botaoEditar = document.querySelectorAll('.editar-pergunta');
+      const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
+      const botaoEditar = document.querySelectorAll('.editar-pergunta');
 
-  botaoDeletar.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const id = botao.dataset.id;
+      botaoDeletar.forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const id = botao.dataset.id;
 
-      Swal.fire({
-        title: 'Tem certezar que quer deletar a pergunta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await deletarPergunta(id);
-            window.location.reload();
-          } catch (error) {
-            toast(error.message, true);
-          }
-        }
+          Swal.fire({
+            title: 'Tem certezar que quer deletar a pergunta?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            icon: 'question',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              try {
+                await deletarPergunta(id);
+                window.location.reload();
+              } catch (error) {
+                toast(error.message, true);
+              }
+            }
+          });
+        });
       });
+
+      botaoEditar.forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const id = botao.dataset.id;
+
+          window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
+        });
+      });
+    } catch (error) {
+    } finally {
+      spinnerContainerSuasPerguntas.classList.remove('mostrar');
+    }
+
+    if (paginas === 1) {
+      pgInicioSuasPerguntas.classList.add('disabled');
+      pgAnteriorSuasPerguntas.classList.add('disabled');
+    } else {
+      pgInicioSuasPerguntas.classList.remove('disabled');
+      pgAnteriorSuasPerguntas.classList.remove('disabled');
+    }
+
+    if (paginas === qtdPgs) {
+      pgProximoSuasPerguntas.classList.add('disabled');
+      pgUltimoSuasPerguntas.classList.add('disabled');
+    } else {
+      pgProximoSuasPerguntas.classList.remove('disabled');
+      pgUltimoSuasPerguntas.classList.remove('disabled');
+    }
+
+    const numerosSuasPerguntas = pgNumerosSuasPerguntas.querySelectorAll('.numero');
+
+    numerosSuasPerguntas.forEach((numero) => {
+      numero.addEventListener('click', async function () {
+        await renderSuasPerguntas({
+          pagina: numero.textContent,
+        });
+      });
+    });
+  };
+
+  await renderSuasPerguntas();
+
+  pgInicioSuasPerguntas.addEventListener('click', async function () {
+    if (pgInicioSuasPerguntas.classList.contains('disabled')) return;
+
+    await renderSuasPerguntas({
+      pagina: 1,
     });
   });
 
-  botaoEditar.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const id = botao.dataset.id;
+  pgAnteriorSuasPerguntas.addEventListener('click', async function () {
+    if (pgAnteriorSuasPerguntas.classList.contains('disabled')) return;
 
-      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
+    const pgAnt = paginas - 1 >= 1 ? paginas - 1 : 1;
+    await renderSuasPerguntas({
+      pagina: pgAnt,
+    });
+  });
+
+  pgProximoSuasPerguntas.addEventListener('click', async function () {
+    if (pgProximoSuasPerguntas.classList.contains('disabled')) return;
+
+    const pgDep = paginas + 1 > qtdPgs ? qtdPgs : paginas + 1;
+    await renderSuasPerguntas({
+      pagina: pgDep,
+    });
+  });
+
+  pgUltimoSuasPerguntas.addEventListener('click', async function () {
+    if (pgUltimoSuasPerguntas.classList.contains('disabled')) return;
+
+    await renderSuasPerguntas({
+      pagina: qtdPgs,
     });
   });
 };

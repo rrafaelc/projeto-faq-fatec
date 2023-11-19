@@ -582,3 +582,13 @@ td #acao.td-acao-sugestao {
 .spinnerContainer.mostrar {
   display: flex;
 }
+
+.spinnerContainerSuasPerguntas {
+  display: none;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.spinnerContainerSuasPerguntas.mostrar {
+  display: flex;
+}
