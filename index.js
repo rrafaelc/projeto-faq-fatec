@@ -21,7 +21,7 @@ try {
   spinnerContainer.classList.remove('mostrar');
 }
 
-questionsContainer.innerHTML += perguntas
+questionsContainer.innerHTML += perguntas.resultado
   .map(
     (question) =>
       `

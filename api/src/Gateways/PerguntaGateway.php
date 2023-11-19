@@ -9,8 +9,20 @@ class PerguntaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(array $ordenacao): array
+  public function getAll(array $ordenacao, $pagina = 1, $qtdPorPg = 10, $order = "asc"): array
   {
+    $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta";
+    $stmt = $this->conn->query($sql);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $qtd_pg = ceil($result["qtd_pg"] / $qtdPorPg);
+
+    $offset = ($pagina - 1) * $qtdPorPg;
+
+    $order = strtoupper($order);
+    if ($order != "ASC" && $order != "DESC") {
+      $order = "ASC";
+    }
+
     $sql = "SELECT DISTINCT p.*,
       u.id AS id_usuario,
       u.nome_completo AS nome_usuario,
@@ -23,7 +35,9 @@ class PerguntaGateway
       FROM pergunta p
       LEFT JOIN usuario u ON p.criado_por = u.id
       LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
-      LEFT JOIN usuario ue ON pe.usuario_id = ue.id";
+      LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+      ORDER BY p.id $order LIMIT :limit OFFSET :offset
+      ";
 
     if (isset($ordenacao["MaisAlta"]) && $ordenacao["MaisAlta"]) {
       $sql = "SELECT DISTINCT p.*,
@@ -44,7 +58,7 @@ class PerguntaGateway
               WHEN prioridade = 'Alta' THEN 1
               WHEN prioridade = 'Normal' THEN 2
           END
-          ";
+        LIMIT :limit OFFSET :offset";
     }
 
     if (isset($ordenacao["MaisCurtidas"]) && $ordenacao["MaisCurtidas"]) {
@@ -61,10 +75,14 @@ class PerguntaGateway
         LEFT JOIN usuario u ON p.criado_por = u.id
         LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
-        ORDER BY curtidas DESC";
+        ORDER BY curtidas DESC
+        LIMIT :limit OFFSET :offset";
     }
 
-    $stmt = $this->conn->query($sql);
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(":limit", $qtdPorPg, PDO::PARAM_INT);
+    $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
+    $stmt->execute();
 
     $data = [];
 
@@ -72,7 +90,12 @@ class PerguntaGateway
       $data[] = $row;
     }
 
-    return $data;
+    return [
+      "pagina" => intval($pagina),
+      "qtd_pg" => $qtd_pg,
+      "total" => $result["qtd_pg"],
+      "resultado" => $data
+    ];
   }
 
   public function get(string $id)

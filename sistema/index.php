@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../styles/global.css" />
   <link rel="stylesheet" href="styles.css" />
@@ -99,7 +100,7 @@
               <span>Editado por</span>
             </th>
             <th>
-              <span>Prioridade</span>
+              <span class="prioridade-botao">Prioridade <i class="fas fa-sort-down"></i></span>
             </th>
             <th>
               <span>Data de edição</span>
@@ -112,19 +113,19 @@
         <tbody class="perguntas-tbody">
         </tbody>
       </table>
+      <div class="spinnerContainer mostrar">
+        <div class="spinner loader"></div>
+      </div>
       <div class="paginacao">
-        <div class="pg disabled">
-          <span>Anterior</span>
+        <div class="pg">
+          <span class="pg-inicio-sistema-perguntas disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+          <span class="pg-anterior-sistema-perguntas disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
         </div>
-        <div class="numeros">
-          <div class="numero active">1</div>
-          <div class="numero">2</div>
-          <div class="numero">3</div>
-          <div class="numero">4</div>
-          <div class="numero">5</div>
+        <div class="numeros pg-numeros-sistema-perguntas">
         </div>
         <div class="pg">
-          <span>Próximo</span>
+          <span class="pg-proximo-sistema-perguntas" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+          <span class="pg-ultimo-sistema-perguntas" title="Último"><i class="bi bi-chevron-double-right"></i></span>
         </div>
       </div>
     </div>

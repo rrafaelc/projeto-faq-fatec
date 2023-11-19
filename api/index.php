@@ -80,7 +80,9 @@ if ($parts[1] == "pergunta") {
 
   $id = $parts[2] ?? null;
 
-  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => true]);
+  $maisAlta = isset($_GET["mais-alta"]) ? ($_GET["mais-alta"] === "false" ? false : (bool)$_GET["mais-alta"]) : true;
+
+  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => $maisAlta]);
 } else if ($parts[1] == "pergunta-sugerida") {
   $perguntaSugeridaGateway = new PerguntaSugeridaGateway($database);
   $controller = new PerguntaSugeridaController($perguntaSugeridaGateway, $config, $authController, $token);
