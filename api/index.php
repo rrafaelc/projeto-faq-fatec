@@ -33,10 +33,10 @@ $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $
 $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
-// Pra poder pegar o valores do $_GET;
-$aux = explode("?", $parts[1]);
-if (isset($aux[1])) {
-  $parts[1] = $aux[0];
+// Pra poder usar os valores do $_GET;
+if (in_array("?", str_split($parts[count($parts) - 1]))) {
+  $aux = explode("?", $parts[count($parts) - 1]);
+  $parts[count($parts) - 1] = $aux[0];
 }
 
 $token = getBearerToken();
