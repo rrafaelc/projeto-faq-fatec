@@ -118,13 +118,13 @@ const execute = async () => {
         <div id="colaborador">
           <div class="avatar">
           <img
-          title="${pergunta.nome_usuario ?? 'N/A'}"
+          title="${pergunta.nome_usuario ?? 'Sistema'}"
           src="${pergunta.foto_usuario ?? '../../img/userFallback.jpg'}"
           onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
           />
           </div>
           <div class="nome">
-          <span>${pergunta.nome_usuario ?? 'N/A'}</span>
+          <span>${pergunta.nome_usuario ?? 'Sistema'}</span>
           </div>
         </div>
       </td>

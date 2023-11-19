@@ -119,12 +119,12 @@ const execute = async () => {
             <div id="colaborador">
               <div class="avatar">
                 <img
-                title="${pergunta.nome_usuario ?? 'N/A'}"
+                title="${pergunta.nome_usuario ?? 'Sistema'}"
                 src="${pergunta.foto_usuario ?? '../img/userFallback.jpg'}"
                 onerror="this.onerror=null;this.src='../img/userFallback.jpg';"
                  />
               </div>
-              <div class="nome">${pergunta.nome_usuario ?? 'N/A'}</div>
+              <div class="nome">${pergunta.nome_usuario ?? 'Sistema'}</div>
             </div>
           </td>
           <td>
@@ -133,7 +133,7 @@ const execute = async () => {
           <td>
             <div id="editado" class="avatar">
               <img
-              title="${pergunta.nome_usuario_editado ?? 'N/A'}"
+              title="${pergunta.nome_usuario_editado ?? 'Sistema'}"
               src="${pergunta.foto_usuario_editado ?? '../img/userFallback.jpg'}"
               onerror="this.onerror=null;this.src='../img/userFallback.jpg';"
        />

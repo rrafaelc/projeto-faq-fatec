@@ -451,7 +451,7 @@ const execute = async () => {
         <td>
           <div id="editado" class="avatar">
             <img
-            title="${pergunta.nome_usuario_editado ?? 'N/A'}"
+            title="${pergunta.nome_usuario_editado ?? 'Sistema'}"
             src="${pergunta.foto_usuario_editado ?? '../../img/userFallback.jpg'}"
             onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
           />
