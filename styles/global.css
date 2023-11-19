@@ -32,12 +32,9 @@ a,
 button {
   cursor: pointer;
 }
-body {
-  overflow-x: hidden;
-}
 /* Header */
 header {
-  width: 100vw;
+  width: 100%;
   background-color: var(--cinza-fraco);
   z-index: 999;
   height: 80px;

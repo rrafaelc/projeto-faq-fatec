@@ -125,7 +125,6 @@ main {
   justify-content: center;
   overflow: hidden;
   flex: 1;
-  min-height: 80vh;
 }
 
 .container {
@@ -171,26 +170,29 @@ main {
 }
 
 .faq-container {
-  margin: 2rem 0;
+  margin: 20px 0;
   font-size: 2rem;
   border-radius: 20px;
-  padding: 1rem;
 }
 
 .faq-container h2 > i {
   font-size: 25px;
 }
+
 .question {
   cursor: pointer;
 }
+
 .question-title {
   color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
 }
+
 .heart {
   cursor: pointer;
 }
+
 .heart-clicked {
   color: var(--vermelho-base) !important;
 }
@@ -201,6 +203,7 @@ main {
   .input-container i {
     display: none;
   }
+  
   /* formulario */
   .keyword-container h1 {
     font-size: 3.5rem;
@@ -221,4 +224,48 @@ main {
   .input-container i {
     display: none;
   }
+}
+
+.paginacao {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.paginacao.nao-mostrar {
+  display: none;
+}
+
+.paginacao .pg span {
+  color: var(--titulos);
+  cursor: pointer;
+}
+
+.paginacao .pg span.disabled {
+  color: var(--cinza-texto);
+  cursor: not-allowed;
+}
+
+.paginacao .numeros {
+  display: flex;
+  gap: 10px;
+  color: var(--cinza-texto);
+}
+
+.paginacao .numeros .numero {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid var(--cinza-texto);
+  border-radius: 6px;
+}
+
+.paginacao .numeros .numero.active {
+  background-color: var(--vermelho-base);
+  color: var(--prata-base);
+  border: 1px solid var(--vermelho-base);
 }
