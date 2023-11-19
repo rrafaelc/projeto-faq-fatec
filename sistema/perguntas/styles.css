@@ -544,12 +544,12 @@ td #acao.td-acao-sugestao {
   font-weight: 500;
 }
 
-.paginacao .pg {
+.paginacao .pg span {
   color: var(--titulos);
   cursor: pointer;
 }
 
-.paginacao .pg.disabled {
+.paginacao .pg span.disabled {
   color: var(--cinza-texto);
   cursor: not-allowed;
 }
@@ -571,4 +571,14 @@ td #acao.td-acao-sugestao {
   background-color: var(--vermelho-base);
   color: var(--prata-base);
   border: 1px solid var(--vermelho-base);
+}
+
+.spinnerContainer {
+  display: none;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.spinnerContainer.mostrar {
+  display: flex;
 }

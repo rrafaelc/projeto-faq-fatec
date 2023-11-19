@@ -53,7 +53,7 @@ const sugestaoContainer = document.querySelector('.sugestao-container');
 const tituloSugestao = sugestaoContainer.querySelector('.titulo-sugestao');
 const botaoSugestao = sugestaoContainer.querySelector('.botao');
 const dadosSugestoes = sugestaoContainer.querySelector('.dados-sugestoes');
-const sugestoesTable = sugestaoContainer.querySelector('.sugestoes-table');
+const sugestoesTbody = sugestaoContainer.querySelector('.sugestoes-tbody');
 
 tituloPerguntas.addEventListener('click', function () {
   botaoPerguntas.classList.toggle('aberto');
@@ -202,86 +202,186 @@ const execute = async () => {
     }
   });
 
-  const sugestoes = await listarSugestoes();
+  const spinnerContainer = document.querySelector('.spinnerContainer');
+  const pgInicioSugestoes = document.querySelector('.pg-inicio-sugestoes');
+  const pgAnteriorSugestoes = document.querySelector('.pg-anterior-sugestoes');
+  const pgProximoSugestoes = document.querySelector('.pg-proximo-sugestoes');
+  const pgUltimoSugestoes = document.querySelector('.pg-ultimo-sugestoes');
+  const pgNumerosSugestoes = document.querySelector('.pg-numeros-sugestoes');
 
-  sugestoesTable.innerHTML = `
-  <thead>
-      <tr>
-        <th>
-          <span>Nome</span>
-        </th>
-        <th>
-          <span>Email</span>
-        </th>
-        <th>
-          <span>Telefone<i class="fas fa-sort-down"></i></span>
-        </th>
-        <th id="pergunta">
-          <span>Sugestão</span>
-        </th>
-        <th class="th-acao-sugestao">
-          <span>Ações</span>
-        </th>
-      </tr>
-    </thead>`;
+  pgNumerosSugestoes.innerHTML = `
+  <div class="numero">1</div>
+  <div class="numero">2</div>
+  <div class="numero active">3</div>
+  <div class="numero">4</div>
+  <div class="numero">5</div>
+  `;
 
-  sugestoesTable.innerHTML += sugestoes
-    .map(
-      (sugestao) => `
-    <tbody>
-      <td>
-        <span>${sugestao.nome}</span>
-      </td>
-      <td>
-        <span>${sugestao.email}</span>
-      </td>
-      <td>
-        <span>${sugestao.telefone}</span>
-      </td>
-      <td>
-        <span>${sugestao.pergunta}</span>
-      </td>
-      <td>
-        <div id="acao" class="td-acao-sugestao">
-          <button class="botao-responder-sugestao" title="Responder a sugestão" data-id="${sugestao.id}" data-pergunta="${sugestao.pergunta}">
-            <i class="fas fa-comment"></i>
-          </button>
-          <button class="botao-deletar-sugestao" title="Deletar a sugestão" data-id="${sugestao.id}">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-      </td>
-    </tbody>
-  `,
-    )
-    .join('');
+  let paginaSugestoes = 1;
+  let qtdPgSugestoes = 0;
+  const renderSugestoes = async ({
+    mostrarRespondidas = false,
+    pagina = 1,
+    qtdPorPg = 5,
+    order = 'asc',
+  } = {}) => {
+    try {
+      spinnerContainer.classList.add('mostrar');
+      sugestoesTbody.innerHTML = '';
+      pgNumerosSugestoes.innerHTML = '';
 
-  const botoesResponderSugestao = document.querySelectorAll('.botao-responder-sugestao');
-  const botoesDeletarSugestao = document.querySelectorAll('.botao-deletar-sugestao');
+      const sugestoes = await listarSugestoes({
+        mostrarRespondidas,
+        pagina,
+        qtdPorPg,
+        order,
+      });
 
-  botoesResponderSugestao.forEach((botao) => {
-    botao.addEventListener('click', function () {
-      const id = this.getAttribute('data-id');
-      const pergunta = this.getAttribute('data-pergunta');
-      handleResponderSugestao(id, pergunta);
+      paginaSugestoes = sugestoes.pagina;
+      qtdPgSugestoes = sugestoes.qtd_pg;
+
+      const maxLinks = 2;
+      const numBotoesLado = maxLinks * 2 + 1; // Número total de botões à esquerda e à direita
+
+      let startPage = Math.max(1, paginaSugestoes - maxLinks);
+      let endPage = Math.min(qtdPgSugestoes, startPage + numBotoesLado - 1);
+
+      // Ajuste para garantir que o número total de botões seja consistente
+      if (endPage - startPage + 1 < numBotoesLado) {
+        startPage = Math.max(1, endPage - numBotoesLado + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pgNumerosSugestoes.innerHTML += `<div class="numero ${
+          i === paginaSugestoes ? 'active' : ''
+        }">${i}</div>`;
+      }
+
+      sugestoesTbody.innerHTML += sugestoes.resultado
+        .map(
+          (sugestao) => `
+        <tr>
+          <td>
+            <span>${sugestao.nome}</span>
+          </td>
+          <td>
+            <span>${sugestao.email}</span>
+          </td>
+          <td>
+            <span>${sugestao.telefone}</span>
+          </td>
+          <td>
+            <span>${sugestao.pergunta}</span>
+          </td>
+          <td>
+            <div id="acao" class="td-acao-sugestao">
+              <button class="botao-responder-sugestao" title="Responder a sugestão" data-id="${sugestao.id}" data-pergunta="${sugestao.pergunta}">
+                <i class="fas fa-comment"></i>
+              </button>
+              <button class="botao-deletar-sugestao" title="Deletar a sugestão" data-id="${sugestao.id}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `,
+        )
+        .join('');
+
+      const botoesResponderSugestao = document.querySelectorAll('.botao-responder-sugestao');
+      const botoesDeletarSugestao = document.querySelectorAll('.botao-deletar-sugestao');
+
+      botoesResponderSugestao.forEach((botao) => {
+        botao.addEventListener('click', function () {
+          const id = this.getAttribute('data-id');
+          const pergunta = this.getAttribute('data-pergunta');
+          handleResponderSugestao(id, pergunta);
+        });
+      });
+
+      botoesDeletarSugestao.forEach((botao) => {
+        botao.addEventListener('click', function () {
+          const id = this.getAttribute('data-id');
+
+          Swal.fire({
+            title: 'Tem certeza que quer excluir a sugestão?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            icon: 'question',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              handleDeletarSugestao(id);
+            }
+          });
+        });
+      });
+
+      if (paginaSugestoes === 1) {
+        pgInicioSugestoes.classList.add('disabled');
+        pgAnteriorSugestoes.classList.add('disabled');
+      } else {
+        pgInicioSugestoes.classList.remove('disabled');
+        pgAnteriorSugestoes.classList.remove('disabled');
+      }
+
+      if (paginaSugestoes === qtdPgSugestoes) {
+        pgProximoSugestoes.classList.add('disabled');
+        pgUltimoSugestoes.classList.add('disabled');
+      } else {
+        pgProximoSugestoes.classList.remove('disabled');
+        pgUltimoSugestoes.classList.remove('disabled');
+      }
+    } catch (error) {
+      toast(error.message, true);
+    } finally {
+      spinnerContainer.classList.remove('mostrar');
+    }
+
+    const numerosSugestoes = pgNumerosSugestoes.querySelectorAll('.numero');
+
+    numerosSugestoes.forEach((numero) => {
+      numero.addEventListener('click', async function () {
+        await renderSugestoes({
+          pagina: numero.textContent,
+        });
+      });
+    });
+  };
+
+  await renderSugestoes();
+
+  pgInicioSugestoes.addEventListener('click', async function () {
+    if (pgInicioSugestoes.classList.contains('disabled')) return;
+
+    await renderSugestoes({
+      pagina: 1,
     });
   });
 
-  botoesDeletarSugestao.forEach((botao) => {
-    botao.addEventListener('click', function () {
-      const id = this.getAttribute('data-id');
+  pgAnteriorSugestoes.addEventListener('click', async function () {
+    if (pgAnteriorSugestoes.classList.contains('disabled')) return;
 
-      Swal.fire({
-        title: 'Tem certeza que quer excluir a sugestão?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          handleDeletarSugestao(id);
-        }
-      });
+    const pgAnt = paginaSugestoes - 1 >= 1 ? paginaSugestoes - 1 : 1;
+    await renderSugestoes({
+      pagina: pgAnt,
+    });
+  });
+
+  pgProximoSugestoes.addEventListener('click', async function () {
+    if (pgProximoSugestoes.classList.contains('disabled')) return;
+
+    const pgDep = paginaSugestoes + 1 > qtdPgSugestoes ? qtdPgSugestoes : paginaSugestoes + 1;
+    await renderSugestoes({
+      pagina: pgDep,
+    });
+  });
+
+  pgUltimoSugestoes.addEventListener('click', async function () {
+    if (pgUltimoSugestoes.classList.contains('disabled')) return;
+
+    await renderSugestoes({
+      pagina: qtdPgSugestoes,
     });
   });
 
