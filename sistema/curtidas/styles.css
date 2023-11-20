@@ -233,6 +233,7 @@ th {
   padding: 0px;
   padding-bottom: 20px;
 }
+
 td.nao-mostrar,
 th.nao-mostrar {
   display: none;
@@ -240,6 +241,7 @@ th.nao-mostrar {
 
 th span {
   cursor: pointer;
+  user-select: none;
 
   display: flex;
   white-space: nowrap;
@@ -357,12 +359,12 @@ td #acao .fa-trash-can {
   font-weight: 500;
 }
 
-.paginacao .pg {
+.paginacao .pg span {
   color: var(--titulos);
   cursor: pointer;
 }
 
-.paginacao .pg.disabled {
+.paginacao .pg span.disabled {
   color: var(--cinza-texto);
   cursor: not-allowed;
 }
@@ -388,4 +390,14 @@ td #acao .fa-trash-can {
 
 .click {
   all: initial;
+}
+
+.spinnerContainer {
+  display: none;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.spinnerContainer.mostrar {
+  display: flex;
 }

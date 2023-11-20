@@ -14,7 +14,9 @@
   <link rel="manifest" href="./img/favicon/site.webmanifest" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="./scripts/autocomplete/css/autoComplete.custom.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="index.js" type="module" defer></script>
   <script src="./scripts/global.js" defer></script>
@@ -31,23 +33,35 @@
     <div class="keyword-container">
       <div class="keyword-content">
         <h1>Filtre sua dúvida</h1>
-        <form id="formulary">
-          <div class="input-container">
-            <i class="fas fa-search"></i>
-            <input id="search-input" type="text" placeholder="Ex: O que é a Fatec Itapira?" />
-          </div>
-        </form>
+        <div class="autoComplete_wrapper">
+          <input disabled placeholder="Quando abre o vestibular?" id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+        </div>
       </div>
     </div>
   </section>
+
   <main>
     <div class="spinnerContainer mostrar">
       <div class="spinner loader"></div>
     </div>
     <div class="wrapper">
       <div class="container"></div>
+
     </div>
   </main>
+
+  <div class="paginacao">
+    <div class="pg">
+      <span class="pg-inicio-perguntas disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+      <span class="pg-anterior-perguntas disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
+    </div>
+    <div class="numeros pg-numeros-perguntas">
+    </div>
+    <div class="pg">
+      <span class="pg-proximo-perguntas" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+      <span class="pg-ultimo-perguntas" title="Último"><i class="bi bi-chevron-double-right"></i></span>
+    </div>
+  </div>
 
   <?php include "./layouts/footer.php" ?>
 </body>

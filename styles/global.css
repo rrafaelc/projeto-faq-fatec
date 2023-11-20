@@ -16,6 +16,8 @@
   --cinza-hover: #e6e6e6;
   --preto-escuro: #121313;
   --preto-fraco: #262b2d;
+  --transition-1: all 0.3s ease-in-out;
+  --transition-2: all 0.2s ease-in-out;
   font-size: 62.5%;
 }
 
@@ -32,12 +34,9 @@ a,
 button {
   cursor: pointer;
 }
-body {
-  overflow-x: hidden;
-}
 /* Header */
 header {
-  width: 100vw;
+  width: 100%;
   background-color: var(--cinza-fraco);
   z-index: 999;
   height: 80px;

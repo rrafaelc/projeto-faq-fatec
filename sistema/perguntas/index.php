@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../styles/global.css" />
   <link rel="stylesheet" href="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/perguntas/styles.css" />
@@ -61,21 +62,42 @@
         <i class="fas fa-angle-down botao"></i>
       </div>
       <div class="dados-sugestoes">
-        <table class="sugestoes sugestoes-table">
+        <table class="sugestoes">
+          <thead>
+            <tr>
+              <th>
+                <span>Nome</span>
+              </th>
+              <th>
+                <span>Email</span>
+              </th>
+              <th>
+                <span>Telefone</span>
+              </th>
+              <th id="pergunta">
+                <span>Sugestão</span>
+              </th>
+              <th class="th-acao-sugestao">
+                <span>Ações</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="sugestoes-tbody">
+          </tbody>
         </table>
+        <div class="spinnerContainer mostrar">
+          <div class="spinner loader"></div>
+        </div>
         <div class="paginacao">
-          <div class="pg disabled">
-            <span>Anterior</span>
+          <div class="pg">
+            <span class="pg-inicio-sugestoes disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+            <span class="pg-anterior-sugestoes disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
           </div>
-          <div class="numeros">
-            <div class="numero active">1</div>
-            <div class="numero">2</div>
-            <div class="numero">3</div>
-            <div class="numero">4</div>
-            <div class="numero">5</div>
+          <div class="numeros pg-numeros-sugestoes">
           </div>
           <div class="pg">
-            <span>Próximo</span>
+            <span class="pg-proximo-sugestoes" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+            <span class="pg-ultimo-sugestoes" title="Último"><i class="bi bi-chevron-double-right"></i></span>
           </div>
         </div>
       </div>
@@ -134,19 +156,19 @@
         <tbody class="suas-perguntas-tbody">
         </tbody>
       </table>
+      <div class="spinnerContainerSuasPerguntas mostrar">
+        <div class="spinner loader spinner-suas-perguntas"></div>
+      </div>
       <div class="paginacao">
-        <div class="pg disabled">
-          <span>Anterior</span>
+        <div class="pg">
+          <span class="pg-inicio-suas-perguntas disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+          <span class="pg-anterior-suas-perguntas disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
         </div>
-        <div class="numeros">
-          <div class="numero active">1</div>
-          <div class="numero">2</div>
-          <div class="numero">3</div>
-          <div class="numero">4</div>
-          <div class="numero">5</div>
+        <div class="numeros pg-numeros-suas-perguntas">
         </div>
         <div class="pg">
-          <span>Próximo</span>
+          <span class="pg-proximo-suas-perguntas" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+          <span class="pg-ultimo-suas-perguntas" title="Último"><i class="bi bi-chevron-double-right"></i></span>
         </div>
       </div>
     </div>
