@@ -6,5 +6,6 @@
   "backend": {
     "platform": "php7.4"
   },
-  "hash": "f0be1640"
+  "hash": "f0be1640",
+  "domain": "fatecitapirafaq.mdbgo.io"
 }

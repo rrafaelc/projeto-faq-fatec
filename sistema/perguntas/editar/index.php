@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../../styles/global.css" />
-  <link rel="stylesheet" href="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/perguntas/editar/styles.css" />
+  <link rel="stylesheet" href="https://fatecitapirafaq.mdbgo.io/sistema/perguntas/editar/styles.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="../../../img/favicon/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="../../../img/favicon/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../../../img/favicon/favicon-16x16.png" />
@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-  <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/sistema/perguntas/editar/script.js" defer></script>
+  <script type="module" src="https://fatecitapirafaq.mdbgo.io/sistema/perguntas/editar/script.js" defer></script>
   <title>Sistema FAQ | Editar Perguntas</title>
 </head>
 
