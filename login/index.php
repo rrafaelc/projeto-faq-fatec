@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login no Sistema FAQ</title>
   <link rel="stylesheet" href="../styles/global.css" />
-  <link rel="stylesheet" href="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/login/styles.css" />
+  <link rel="stylesheet" href="https://fatecitapirafaq.mdbgo.io/login/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png" />
@@ -16,7 +16,7 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script type="module" src="https://faqfatecitapira-projeto-faq-fatec.mdbgo.io/login/script.js" defer></script>
+  <script type="module" src="https://fatecitapirafaq.mdbgo.io/login/script.js" defer></script>
   <script src="../scripts/global.js" defer></script>
 </head>
 
