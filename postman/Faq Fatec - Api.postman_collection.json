@@ -27,6 +27,34 @@
 					"response": []
 				},
 				{
+					"name": "Listar Por Usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pergunta/usuario",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pergunta",
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Mais buscados",
 					"request": {
 						"method": "GET",
@@ -696,12 +724,26 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/pergunta-sugerida",
+							"raw": "{{base_url}}/pergunta-sugerida?pagina=1&quantidade_por_pagina=10&order=asc",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pergunta-sugerida"
+							],
+							"query": [
+								{
+									"key": "pagina",
+									"value": "1"
+								},
+								{
+									"key": "quantidade_por_pagina",
+									"value": "10"
+								},
+								{
+									"key": "order",
+									"value": "asc"
+								}
 							]
 						}
 					},

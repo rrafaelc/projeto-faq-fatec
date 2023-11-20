@@ -9,12 +9,25 @@ class PerguntaSugeridaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(): array
+  public function getAll($pagina = 1, $qtdPorPg = 10, $order = "asc"): array
   {
-    $sql = "SELECT *
-            FROM pergunta_sugerida";
-
+    $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta_sugerida";
     $stmt = $this->conn->query($sql);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $qtd_pg = ceil($result["qtd_pg"] / $qtdPorPg);
+
+    $offset = ($pagina - 1) * $qtdPorPg;
+
+    $order = strtoupper($order);
+    if ($order != "ASC" && $order != "DESC") {
+      $order = "ASC";
+    }
+
+    $sql = "SELECT * FROM pergunta_sugerida ORDER BY id $order LIMIT :limit OFFSET :offset";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(":limit", $qtdPorPg, PDO::PARAM_INT);
+    $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
+    $stmt->execute();
 
     $data = [];
 
@@ -22,7 +35,12 @@ class PerguntaSugeridaGateway
       $data[] = $row;
     }
 
-    return $data;
+    return [
+      "pagina" => intval($pagina),
+      "qtd_pg" => $qtd_pg,
+      "total" => $result["qtd_pg"],
+      "resultado" => $data
+    ];
   }
 
   public function get(string $id)

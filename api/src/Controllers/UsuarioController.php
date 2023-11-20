@@ -141,7 +141,11 @@ class UsuarioController
 
     switch ($method) {
       case "GET":
-        echo json_encode($this->gateway->getAll());
+        $pagina = filter_input(INPUT_GET, "pagina", FILTER_SANITIZE_NUMBER_INT) ?? 1;
+
+        $qtdPorPg = filter_input(INPUT_GET, "quantidade_por_pagina", FILTER_SANITIZE_NUMBER_INT) ?? 10;
+
+        echo json_encode($this->gateway->getAll($pagina, $qtdPorPg, isset($_GET["order"]) ? $_GET["order"] : ''));
         break;
       case "POST":
         $cargosPermitidos = [CargoEnum::ADMINISTRADOR];

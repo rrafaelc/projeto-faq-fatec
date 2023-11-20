@@ -57,10 +57,6 @@ tituloCriarConta.addEventListener('click', function () {
   formCriarConta.classList.toggle('aberto');
 });
 
-const dados = document.querySelector('.dados');
-const paginacao = dados.querySelector('.paginacao');
-const tabela = dados.querySelector('.usuarios-tabela');
-
 formCriarConta.addEventListener('submit', async function (event) {
   event.preventDefault();
 
@@ -118,28 +114,58 @@ const execute = async () => {
   const user = await getLoggedUseInfo();
   fillHeaderUserData(user);
 
-  const usuarios = await listarUsuarios();
+  const colaboradoresTbody = document.querySelector('.colaboradores-tbody');
+  const spinnerContainer = document.querySelector('.spinnerContainer');
+  const pgInicioSistemaUsuarios = document.querySelector('.pg-inicio-sistema-usuarios');
+  const pgAnteriorSistemaUsuarios = document.querySelector('.pg-anterior-sistema-usuarios');
+  const pgProximoSistemaUsuarios = document.querySelector('.pg-proximo-sistema-usuarios');
+  const pgUltimoSistemaUsuarios = document.querySelector('.pg-ultimo-sistema-usuarios');
+  const pgNumerosSistemaUsuarios = document.querySelector('.pg-numeros-sistema-usuarios');
 
-  tabela.innerHTML = `
-  <thead>
-    <tr>
-      <th>
-        <span>Colaborador</span>
-      </th>
-      <th id="cargo">
-        <span>Cargo</span>
-      </th>
-      <th id="suspenso">
-        <span>Suspenso</span>
-      </th>
-      <th></th>
-    </tr>
-  </thead>`;
+  pgNumerosSistemaUsuarios.innerHTML = `
+  <div class="numero">1</div>
+  <div class="numero">2</div>
+  <div class="numero active">3</div>
+  <div class="numero">4</div>
+  <div class="numero">5</div>
+  `;
 
-  tabela.innerHTML += usuarios
-    .map(
-      (usuario) => `
-      <tbody>
+  let paginas = 1;
+  let qtdPgs = 0;
+  const renderUsuarios = async ({ pagina = 1, qtdPorPg = 20, order = 'asc' } = {}) => {
+    try {
+      spinnerContainer.classList.add('mostrar');
+      colaboradoresTbody.innerHTML = '';
+      pgNumerosSistemaUsuarios.innerHTML = '';
+
+      const usuarios = await listarUsuarios({
+        pagina,
+        qtdPorPg,
+        order,
+      });
+
+      paginas = usuarios.pagina;
+      qtdPgs = usuarios.qtd_pg;
+
+      const maxLinks = 2;
+      const numBotoesLado = maxLinks * 2 + 1;
+
+      let startPage = Math.max(1, paginas - maxLinks);
+      let endPage = Math.min(qtdPgs, startPage + numBotoesLado - 1);
+
+      if (endPage - startPage + 1 < numBotoesLado) {
+        startPage = Math.max(1, endPage - numBotoesLado + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pgNumerosSistemaUsuarios.innerHTML += `<div class="numero ${
+          i === paginas ? 'active' : ''
+        }">${i}</div>`;
+      }
+
+      colaboradoresTbody.innerHTML += usuarios.resultado
+        .map(
+          (usuario) => `
       <tr>
         <td class="colaborador">
           <div id="colaborador">
@@ -148,7 +174,7 @@ const execute = async () => {
               src="${usuario.foto_uri ?? `${serverUrl}/img/userFallback.jpg`}"
               title="${usuario.nome_completo}"
               onerror="this.onerror=null;this.src='../../img/userFallback.jpg';"
-               />
+            />
             </div>
             <div class="nome">
               ${usuario.nome_completo}
@@ -168,192 +194,259 @@ const execute = async () => {
           </div>
         </td>
       </tr>
-    </tbody>
-  `,
-    )
-    .join('');
+      `,
+        )
+        .join('');
 
-  const cargos = dados.querySelectorAll('.cargo');
-  const suspensos = dados.querySelectorAll('.suspenso');
-  const deletarButtons = dados.querySelectorAll('.deletar-usuario');
-  const resetarButtons = dados.querySelectorAll('.resetar-senha');
+      const cargos = document.querySelectorAll('.cargo');
+      const suspensos = document.querySelectorAll('.suspenso');
+      const deletarButtons = document.querySelectorAll('.deletar-usuario');
+      const resetarButtons = document.querySelectorAll('.resetar-senha');
 
-  cargos.forEach((cargo) => {
-    cargo.addEventListener('click', async function () {
-      const cargoBotao = cargo.querySelector('button');
-      const id = this.getAttribute('data-id');
+      cargos.forEach((cargo) => {
+        cargo.addEventListener('click', async function () {
+          const cargoBotao = cargo.querySelector('button');
+          const id = this.getAttribute('data-id');
 
-      Swal.fire({
-        title: 'Tem certeza que quer mudar o cargo dessa conta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          switch (cargoBotao.textContent) {
-            case 'Administrador':
-              try {
-                await alterarCargoUsuario({
-                  id,
-                  cargo: 'Moderador',
-                });
-                cargoBotao.textContent = 'Moderador';
-
-                cargo.classList.add('moderador');
-                cargo.classList.remove('administrador');
-
-                toast('Cargo alterado com sucesso');
-              } catch (error) {
-                toast(error.message, true);
-              }
-              break;
-            case 'Moderador':
-              try {
-                await alterarCargoUsuario({
-                  id,
-                  cargo: 'Administrador',
-                });
-                cargoBotao.textContent = 'Administrador';
-
-                cargo.classList.add('administrador');
-                cargo.classList.remove('moderador');
-
-                toast('Cargo alterado com sucesso');
-              } catch (error) {
-                toast(error.message, true);
-              }
-              break;
-          }
-        }
-      });
-    });
-  });
-
-  suspensos.forEach((suspenso) => {
-    suspenso.addEventListener('click', async function () {
-      const suspensoBotao = suspenso.querySelector('button');
-      const id = this.getAttribute('data-id');
-
-      Swal.fire({
-        title: 'Tem certeza que quer mudar a suspensão dessa conta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          switch (suspensoBotao.textContent) {
-            case 'Sim':
-              try {
-                await suspenderContaUsuario({
-                  id,
-                  esta_suspenso: false,
-                });
-                suspensoBotao.textContent = 'Não';
-
-                suspenso.classList.add('nao');
-                suspenso.classList.remove('sim');
-
-                toast('Suspensão alterada com sucesso');
-              } catch (error) {
-                toast(error.message, true);
-              }
-              break;
-            case 'Não':
-              try {
-                await suspenderContaUsuario({
-                  id,
-                  esta_suspenso: true,
-                });
-
-                suspensoBotao.textContent = 'Sim';
-
-                suspenso.classList.add('sim');
-                suspenso.classList.remove('nao');
-
-                toast('Suspensão alterada com sucesso');
-              } catch (error) {
-                toast(error.message, true);
-              }
-              break;
-          }
-        }
-      });
-    });
-  });
-
-  deletarButtons.forEach((botao) => {
-    botao.addEventListener('click', async function () {
-      const id = this.getAttribute('data-id');
-
-      Swal.fire({
-        title: 'Tem certeza que quer deletar essa conta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await deletarContaUsuario({ id });
-
-            toast('Conta deletada com sucesso');
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
-          } catch (error) {
-            toast(error.message, true);
-          }
-        }
-      });
-    });
-  });
-
-  resetarButtons.forEach((botao) => {
-    botao.addEventListener('click', async function () {
-      const id = this.getAttribute('data-id');
-
-      Swal.fire({
-        title: 'Tem certeza que quer resetar a senha dessa conta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        allowEnterKey: false,
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
           Swal.fire({
-            title:
-              'Importante: Após redefinir a senha do usuário, informe-a imediatamente e faça login. Altere a senha após o login para segurança. Se esquecer, a recuperação só é possível ao redefinir a senha. Mantenha a senha segura. Se esta for sua conta, copie-a e faça login novamente.',
+            title: 'Tem certeza que quer mudar o cargo dessa conta?',
             showCancelButton: true,
-            confirmButtonText: 'Sim, irei anotar!',
+            confirmButtonText: 'Sim, confirmar!',
             cancelButtonText: 'Não',
-            allowEnterKey: false,
-            icon: 'info',
+            icon: 'question',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              switch (cargoBotao.textContent) {
+                case 'Administrador':
+                  try {
+                    await alterarCargoUsuario({
+                      id,
+                      cargo: 'Moderador',
+                    });
+                    cargoBotao.textContent = 'Moderador';
+
+                    cargo.classList.add('moderador');
+                    cargo.classList.remove('administrador');
+
+                    toast('Cargo alterado com sucesso');
+                  } catch (error) {
+                    toast(error.message, true);
+                  }
+                  break;
+                case 'Moderador':
+                  try {
+                    await alterarCargoUsuario({
+                      id,
+                      cargo: 'Administrador',
+                    });
+                    cargoBotao.textContent = 'Administrador';
+
+                    cargo.classList.add('administrador');
+                    cargo.classList.remove('moderador');
+
+                    toast('Cargo alterado com sucesso');
+                  } catch (error) {
+                    toast(error.message, true);
+                  }
+                  break;
+              }
+            }
+          });
+        });
+      });
+
+      suspensos.forEach((suspenso) => {
+        suspenso.addEventListener('click', async function () {
+          const suspensoBotao = suspenso.querySelector('button');
+          const id = this.getAttribute('data-id');
+
+          Swal.fire({
+            title: 'Tem certeza que quer mudar a suspensão dessa conta?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            icon: 'question',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              switch (suspensoBotao.textContent) {
+                case 'Sim':
+                  try {
+                    await suspenderContaUsuario({
+                      id,
+                      esta_suspenso: false,
+                    });
+                    suspensoBotao.textContent = 'Não';
+
+                    suspenso.classList.add('nao');
+                    suspenso.classList.remove('sim');
+
+                    toast('Suspensão alterada com sucesso');
+                  } catch (error) {
+                    toast(error.message, true);
+                  }
+                  break;
+                case 'Não':
+                  try {
+                    await suspenderContaUsuario({
+                      id,
+                      esta_suspenso: true,
+                    });
+
+                    suspensoBotao.textContent = 'Sim';
+
+                    suspenso.classList.add('sim');
+                    suspenso.classList.remove('nao');
+
+                    toast('Suspensão alterada com sucesso');
+                  } catch (error) {
+                    toast(error.message, true);
+                  }
+                  break;
+              }
+            }
+          });
+        });
+      });
+
+      deletarButtons.forEach((botao) => {
+        botao.addEventListener('click', async function () {
+          const id = this.getAttribute('data-id');
+
+          Swal.fire({
+            title: 'Tem certeza que quer deletar essa conta?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            icon: 'question',
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                const novaSenha = await resetarSenhaUsuario({ id });
+                await deletarContaUsuario({ id });
 
-                Swal.fire({
-                  title: `Por favor, copie cuidadosamente a nova senha e forneça-a ao usuário correspondente.\n\nNova senha: ${novaSenha}\n\n\n\n`,
-                  showCancelButton: false,
-                  allowOutsideClick: false,
-                  allowEscapeKey: false,
-                  allowEnterKey: false,
-                  stopKeydownPropagation: true,
-                  confirmButtonText: 'Certo, copiei a nova senha!',
-                  icon: 'info',
-                });
+                toast('Conta deletada com sucesso');
+
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
               } catch (error) {
                 toast(error.message, true);
               }
             }
           });
-        }
+        });
       });
+
+      resetarButtons.forEach((botao) => {
+        botao.addEventListener('click', async function () {
+          const id = this.getAttribute('data-id');
+
+          Swal.fire({
+            title: 'Tem certeza que quer resetar a senha dessa conta?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            allowEnterKey: false,
+            icon: 'question',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title:
+                  'Importante: Após redefinir a senha do usuário, informe-a imediatamente e faça login. Altere a senha após o login para segurança. Se esquecer, a recuperação só é possível ao redefinir a senha. Mantenha a senha segura. Se esta for sua conta, copie-a e faça login novamente.',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, irei anotar!',
+                cancelButtonText: 'Não',
+                allowEnterKey: false,
+                icon: 'info',
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  try {
+                    const novaSenha = await resetarSenhaUsuario({ id });
+
+                    Swal.fire({
+                      title: `Por favor, copie cuidadosamente a nova senha e forneça-a ao usuário correspondente.\n\nNova senha: ${novaSenha}\n\n\n\n`,
+                      showCancelButton: false,
+                      allowOutsideClick: false,
+                      allowEscapeKey: false,
+                      allowEnterKey: false,
+                      stopKeydownPropagation: true,
+                      confirmButtonText: 'Certo, copiei a nova senha!',
+                      icon: 'info',
+                    });
+                  } catch (error) {
+                    toast(error.message, true);
+                  }
+                }
+              });
+            }
+          });
+        });
+      });
+    } catch (error) {
+      toast(error.message, true);
+    } finally {
+      spinnerContainer.classList.remove('mostrar');
+    }
+
+    if (paginas === 1) {
+      pgInicioSistemaUsuarios.classList.add('disabled');
+      pgAnteriorSistemaUsuarios.classList.add('disabled');
+    } else {
+      pgInicioSistemaUsuarios.classList.remove('disabled');
+      pgAnteriorSistemaUsuarios.classList.remove('disabled');
+    }
+
+    if (paginas === qtdPgs) {
+      pgProximoSistemaUsuarios.classList.add('disabled');
+      pgUltimoSistemaUsuarios.classList.add('disabled');
+    } else {
+      pgProximoSistemaUsuarios.classList.remove('disabled');
+      pgUltimoSistemaUsuarios.classList.remove('disabled');
+    }
+
+    const numerosUsuarios = pgNumerosSistemaUsuarios.querySelectorAll('.numero');
+
+    numerosUsuarios.forEach((numero) => {
+      numero.addEventListener('click', async function () {
+        await renderUsuarios({
+          pagina: numero.textContent,
+        });
+      });
+    });
+  };
+
+  await renderUsuarios();
+
+  pgInicioSistemaUsuarios.addEventListener('click', async function () {
+    if (pgInicioSistemaUsuarios.classList.contains('disabled')) return;
+
+    await renderUsuarios({
+      pagina: 1,
+    });
+  });
+
+  pgAnteriorSistemaUsuarios.addEventListener('click', async function () {
+    if (pgAnteriorSistemaUsuarios.classList.contains('disabled')) return;
+
+    const pgAnt = paginas - 1 >= 1 ? paginas - 1 : 1;
+    await renderUsuarios({
+      pagina: pgAnt,
+    });
+  });
+
+  pgProximoSistemaUsuarios.addEventListener('click', async function () {
+    if (pgProximoSistemaUsuarios.classList.contains('disabled')) return;
+
+    const pgDep = paginas + 1 > qtdPgs ? qtdPgs : paginas + 1;
+    await renderUsuarios({
+      pagina: pgDep,
+    });
+  });
+
+  pgUltimoSistemaUsuarios.addEventListener('click', async function () {
+    if (pgUltimoSistemaUsuarios.classList.contains('disabled')) return;
+
+    await renderUsuarios({
+      pagina: qtdPgs,
     });
   });
 };

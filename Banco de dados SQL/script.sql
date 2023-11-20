@@ -28,7 +28,7 @@ CREATE TABLE pergunta (
   criado_por INT(11),
   criado_em DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  FOREIGN KEY (criado_por) REFERENCES usuario(id)
+  FOREIGN KEY (criado_por) REFERENCES usuario(id) ON DELETE SET NULL
 );
 
 CREATE TABLE pergunta_editada_por (

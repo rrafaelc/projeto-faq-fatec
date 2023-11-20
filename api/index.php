@@ -33,6 +33,12 @@ $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $
 $getPath = explode("/projeto-faq-fatec/api", $_SERVER["REQUEST_URI"]);
 $parts = explode("/", $getPath[1]);
 
+// Pra poder usar os valores do $_GET;
+if (in_array("?", str_split($parts[count($parts) - 1]))) {
+  $aux = explode("?", $parts[count($parts) - 1]);
+  $parts[count($parts) - 1] = $aux[0];
+}
+
 $token = getBearerToken();
 
 $usuarioGateway = new UsuarioGateway($database);
@@ -41,6 +47,13 @@ $authController = new AuthController($usuarioGateway, $config);
 if ($parts[1] == "pergunta") {
   $perguntaGateway = new PerguntaGateway($database);
   $controller = new PerguntaController($perguntaGateway, $config, $authController, $token);
+
+  if (isset($parts[2]) && $parts[2] == "usuario") {
+    $controller->porUsuarioLogado($_SERVER["REQUEST_METHOD"]);
+
+    return;
+  }
+
 
   if (isset($parts[2]) && $parts[2] == "incrementar-curtidas") {
     $id =  isset($parts[3]) ? $parts[3] : "";
@@ -74,7 +87,9 @@ if ($parts[1] == "pergunta") {
 
   $id = $parts[2] ?? null;
 
-  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => true]);
+  $maisAlta = isset($_GET["mais-alta"]) ? ($_GET["mais-alta"] === "false" ? false : (bool)$_GET["mais-alta"]) : true;
+
+  $controller->processRequest($_SERVER["REQUEST_METHOD"], $id, ["MaisAlta" => $maisAlta]);
 } else if ($parts[1] == "pergunta-sugerida") {
   $perguntaSugeridaGateway = new PerguntaSugeridaGateway($database);
   $controller = new PerguntaSugeridaController($perguntaSugeridaGateway, $config, $authController, $token);

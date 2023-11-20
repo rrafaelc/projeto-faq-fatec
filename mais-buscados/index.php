@@ -14,8 +14,10 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
   <script type='module' src="script.js" defer></script>
   <script src="../scripts/global.js" defer></script>
 </head>
@@ -33,6 +35,18 @@
     </div>
     <div class="wrapper">
       <div class="container">
+      </div>
+    </div>
+    <div class="paginacao">
+      <div class="pg">
+        <span class="pg-inicio-mais-buscados disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+        <span class="pg-anterior-mais-buscados disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
+      </div>
+      <div class="numeros pg-numeros-mais-buscados">
+      </div>
+      <div class="pg">
+        <span class="pg-proximo-mais-buscados" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+        <span class="pg-ultimo-mais-buscados" title="Último"><i class="bi bi-chevron-double-right"></i></span>
       </div>
     </div>
   </main>
