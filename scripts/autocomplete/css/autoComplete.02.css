@@ -71,7 +71,7 @@
   background-color: rgba(#ffffff, 0);
 }
 
-.autoComplete_wrapper > ul > li[aria-selected="true"] {
+.autoComplete_wrapper > ul > li[aria-selected='true'] {
   background-color: rgba(123, 123, 123, 0.1);
 }
 

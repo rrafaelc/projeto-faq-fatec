@@ -1,17 +1,23 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.autoComplete = factory());
-})(this, (function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? (module.exports = factory())
+    : typeof define === 'function' && define.amd
+      ? define(factory)
+      : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self),
+        (global.autoComplete = factory()));
+})(this, function () {
+  'use strict';
 
   function ownKeys(object, enumerableOnly) {
     var keys = Object.keys(object);
 
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-      enumerableOnly && (symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      })), keys.push.apply(keys, symbols);
+      enumerableOnly &&
+        (symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        })),
+        keys.push.apply(keys, symbols);
     }
 
     return keys;
@@ -20,24 +26,39 @@
   function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = null != arguments[i] ? arguments[i] : {};
-      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
+      i % 2
+        ? ownKeys(Object(source), !0).forEach(function (key) {
+            _defineProperty(target, key, source[key]);
+          })
+        : Object.getOwnPropertyDescriptors
+          ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source))
+          : ownKeys(Object(source)).forEach(function (key) {
+              Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+            });
     }
 
     return target;
   }
 
   function _typeof(obj) {
-    "@babel/helpers - typeof";
+    '@babel/helpers - typeof';
 
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-      return typeof obj;
-    } : function (obj) {
-      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    }, _typeof(obj);
+    return (
+      (_typeof =
+        'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
+          ? function (obj) {
+              return typeof obj;
+            }
+          : function (obj) {
+              return obj &&
+                'function' == typeof Symbol &&
+                obj.constructor === Symbol &&
+                obj !== Symbol.prototype
+                ? 'symbol'
+                : typeof obj;
+            }),
+      _typeof(obj)
+    );
   }
 
   function _defineProperty(obj, key, value) {
@@ -46,7 +67,7 @@
         value: value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -56,7 +77,12 @@
   }
 
   function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+    return (
+      _arrayWithoutHoles(arr) ||
+      _iterableToArray(arr) ||
+      _unsupportedIterableToArray(arr) ||
+      _nonIterableSpread()
+    );
   }
 
   function _arrayWithoutHoles(arr) {
@@ -64,16 +90,21 @@
   }
 
   function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+    if (
+      (typeof Symbol !== 'undefined' && iter[Symbol.iterator] != null) ||
+      iter['@@iterator'] != null
+    )
+      return Array.from(iter);
   }
 
   function _unsupportedIterableToArray(o, minLen) {
     if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(o);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    if (n === 'Object' && o.constructor) n = o.constructor.name;
+    if (n === 'Map' || n === 'Set') return Array.from(o);
+    if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+      return _arrayLikeToArray(o, minLen);
   }
 
   function _arrayLikeToArray(arr, len) {
@@ -85,14 +116,20 @@
   }
 
   function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    throw new TypeError(
+      'Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.',
+    );
   }
 
   function _createForOfIteratorHelper(o, allowArrayLike) {
-    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+    var it = (typeof Symbol !== 'undefined' && o[Symbol.iterator]) || o['@@iterator'];
 
     if (!it) {
-      if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (
+        Array.isArray(o) ||
+        (it = _unsupportedIterableToArray(o)) ||
+        (allowArrayLike && o && typeof o.length === 'number')
+      ) {
         if (it) o = it;
         var i = 0;
 
@@ -101,27 +138,30 @@
         return {
           s: F,
           n: function () {
-            if (i >= o.length) return {
-              done: true
-            };
+            if (i >= o.length)
+              return {
+                done: true,
+              };
             return {
               done: false,
-              value: o[i++]
+              value: o[i++],
             };
           },
           e: function (e) {
             throw e;
           },
-          f: F
+          f: F,
         };
       }
 
-      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+      throw new TypeError(
+        'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.',
+      );
     }
 
     var normalCompletion = true,
-        didErr = false,
-        err;
+      didErr = false,
+      err;
     return {
       s: function () {
         it = it.call(o);
@@ -141,26 +181,26 @@
         } finally {
           if (didErr) throw err;
         }
-      }
+      },
     };
   }
 
   var select$1 = function select(element) {
-    return typeof element === "string" ? document.querySelector(element) : element();
+    return typeof element === 'string' ? document.querySelector(element) : element();
   };
   var create = function create(tag, options) {
-    var el = typeof tag === "string" ? document.createElement(tag) : tag;
+    var el = typeof tag === 'string' ? document.createElement(tag) : tag;
     for (var key in options) {
       var val = options[key];
-      if (key === "inside") {
+      if (key === 'inside') {
         val.append(el);
-      } else if (key === "dest") {
+      } else if (key === 'dest') {
         select$1(val[0]).insertAdjacentElement(val[1], el);
-      } else if (key === "around") {
+      } else if (key === 'around') {
         var ref = val;
         ref.parentNode.insertBefore(el, ref);
         el.append(ref);
-        if (ref.getAttribute("autofocus") != null) ref.focus();
+        if (ref.getAttribute('autofocus') != null) ref.focus();
       } else if (key in el) {
         el[key] = val;
       } else {
@@ -170,11 +210,18 @@
     return el;
   };
   var getQuery = function getQuery(field) {
-    return field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement ? field.value : field.innerHTML;
+    return field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement
+      ? field.value
+      : field.innerHTML;
   };
   var format = function format(value, diacritics) {
     value = String(value).toLowerCase();
-    return diacritics ? value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").normalize("NFC") : value;
+    return diacritics
+      ? value
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .normalize('NFC')
+      : value;
   };
   var debounce = function debounce(callback, duration) {
     var timer;
@@ -189,20 +236,26 @@
     return condition ? condition(query) : query.length >= threshold;
   };
   var mark = function mark(value, cls) {
-    return create("mark", _objectSpread2({
-      innerHTML: value
-    }, typeof cls === "string" && {
-      "class": cls
-    })).outerHTML;
+    return create(
+      'mark',
+      _objectSpread2(
+        {
+          innerHTML: value,
+        },
+        typeof cls === 'string' && {
+          class: cls,
+        },
+      ),
+    ).outerHTML;
   };
 
-  var configure = (function (ctx) {
+  var configure = function (ctx) {
     var name = ctx.name,
-        options = ctx.options,
-        resultsList = ctx.resultsList,
-        resultItem = ctx.resultItem;
+      options = ctx.options,
+      resultsList = ctx.resultsList,
+      resultItem = ctx.resultItem;
     for (var option in options) {
-      if (_typeof(options[option]) === "object") {
+      if (_typeof(options[option]) === 'object') {
         if (!ctx[option]) ctx[option] = {};
         for (var subOption in options[option]) {
           ctx[option][subOption] = options[option][subOption];
@@ -211,40 +264,44 @@
         ctx[option] = options[option];
       }
     }
-    ctx.selector = ctx.selector || "#" + name;
+    ctx.selector = ctx.selector || '#' + name;
     resultsList.destination = resultsList.destination || ctx.selector;
-    resultsList.id = resultsList.id || name + "_list_" + ctx.id;
-    resultItem.id = resultItem.id || name + "_result";
+    resultsList.id = resultsList.id || name + '_list_' + ctx.id;
+    resultItem.id = resultItem.id || name + '_result';
     ctx.input = select$1(ctx.selector);
-  });
+  };
 
-  var eventEmitter = (function (name, ctx) {
-    ctx.input.dispatchEvent(new CustomEvent(name, {
-      bubbles: true,
-      detail: ctx.feedback,
-      cancelable: true
-    }));
-  });
+  var eventEmitter = function (name, ctx) {
+    ctx.input.dispatchEvent(
+      new CustomEvent(name, {
+        bubbles: true,
+        detail: ctx.feedback,
+        cancelable: true,
+      }),
+    );
+  };
 
-  var search = (function (query, record, options) {
+  var search = function (query, record, options) {
     var _ref = options || {},
-        mode = _ref.mode,
-        diacritics = _ref.diacritics,
-        highlight = _ref.highlight;
+      mode = _ref.mode,
+      diacritics = _ref.diacritics,
+      highlight = _ref.highlight;
     var nRecord = format(record, diacritics);
     record = String(record);
     query = format(query, diacritics);
-    if (mode === "loose") {
-      query = query.replace(/ /g, "");
+    if (mode === 'loose') {
+      query = query.replace(/ /g, '');
       var qLength = query.length;
       var cursor = 0;
-      var match = Array.from(record).map(function (character, index) {
-        if (cursor < qLength && nRecord[index] === query[cursor]) {
-          character = highlight ? mark(character, highlight) : character;
-          cursor++;
-        }
-        return character;
-      }).join("");
+      var match = Array.from(record)
+        .map(function (character, index) {
+          if (cursor < qLength && nRecord[index] === query[cursor]) {
+            character = highlight ? mark(character, highlight) : character;
+            cursor++;
+          }
+          return character;
+        })
+        .join('');
       if (cursor === qLength) return match;
     } else {
       var _match = nRecord.indexOf(query);
@@ -254,7 +311,7 @@
         return _match;
       }
     }
-  });
+  };
 
   var getData = function getData(ctx, query) {
     return new Promise(function ($return, $error) {
@@ -262,14 +319,14 @@
       data = ctx.data;
       if (data.cache && data.store) return $return();
       return new Promise(function ($return, $error) {
-        if (typeof data.src === "function") {
+        if (typeof data.src === 'function') {
           return data.src(query).then($return, $error);
         }
         return $return(data.src);
       }).then(function ($await_4) {
         try {
           ctx.feedback = data.store = $await_4;
-          eventEmitter("response", ctx);
+          eventEmitter('response', ctx);
           return $return();
         } catch ($boundEx) {
           return $error($boundEx);
@@ -279,29 +336,32 @@
   };
   var findMatches = function findMatches(query, ctx) {
     var data = ctx.data,
-        searchEngine = ctx.searchEngine;
+      searchEngine = ctx.searchEngine;
     var matches = [];
     data.store.forEach(function (value, index) {
       var find = function find(key) {
         var record = key ? value[key] : value;
-        var match = typeof searchEngine === "function" ? searchEngine(query, record) : search(query, record, {
-          mode: searchEngine,
-          diacritics: ctx.diacritics,
-          highlight: ctx.resultItem.highlight
-        });
+        var match =
+          typeof searchEngine === 'function'
+            ? searchEngine(query, record)
+            : search(query, record, {
+                mode: searchEngine,
+                diacritics: ctx.diacritics,
+                highlight: ctx.resultItem.highlight,
+              });
         if (!match) return;
         var result = {
           match: match,
-          value: value
+          value: value,
         };
         if (key) result.key = key;
         matches.push(result);
       };
       if (data.keys) {
         var _iterator = _createForOfIteratorHelper(data.keys),
-            _step;
+          _step;
         try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          for (_iterator.s(); !(_step = _iterator.n()).done; ) {
             var key = _step.value;
             find(key);
           }
@@ -319,39 +379,48 @@
     ctx.feedback = {
       query: query,
       matches: matches,
-      results: results
+      results: results,
     };
-    eventEmitter("results", ctx);
+    eventEmitter('results', ctx);
   };
 
-  var Expand = "aria-expanded";
-  var Active = "aria-activedescendant";
-  var Selected = "aria-selected";
+  var Expand = 'aria-expanded';
+  var Active = 'aria-activedescendant';
+  var Selected = 'aria-selected';
   var feedback = function feedback(ctx, index) {
-    ctx.feedback.selection = _objectSpread2({
-      index: index
-    }, ctx.feedback.results[index]);
+    ctx.feedback.selection = _objectSpread2(
+      {
+        index: index,
+      },
+      ctx.feedback.results[index],
+    );
   };
   var render = function render(ctx) {
     var resultsList = ctx.resultsList,
-        list = ctx.list,
-        resultItem = ctx.resultItem,
-        feedback = ctx.feedback;
+      list = ctx.list,
+      resultItem = ctx.resultItem,
+      feedback = ctx.feedback;
     var matches = feedback.matches,
-        results = feedback.results;
+      results = feedback.results;
     ctx.cursor = -1;
-    list.innerHTML = "";
+    list.innerHTML = '';
     if (matches.length || resultsList.noResults) {
       var fragment = new DocumentFragment();
       results.forEach(function (result, index) {
-        var element = create(resultItem.tag, _objectSpread2({
-          id: "".concat(resultItem.id, "_").concat(index),
-          role: "option",
-          innerHTML: result.match,
-          inside: fragment
-        }, resultItem["class"] && {
-          "class": resultItem["class"]
-        }));
+        var element = create(
+          resultItem.tag,
+          _objectSpread2(
+            {
+              id: ''.concat(resultItem.id, '_').concat(index),
+              role: 'option',
+              innerHTML: result.match,
+              inside: fragment,
+            },
+            resultItem['class'] && {
+              class: resultItem['class'],
+            },
+          ),
+        );
         if (resultItem.element) resultItem.element(element, result);
       });
       list.append(fragment);
@@ -364,22 +433,22 @@
   var open = function open(ctx) {
     if (ctx.isOpen) return;
     (ctx.wrapper || ctx.input).setAttribute(Expand, true);
-    ctx.list.removeAttribute("hidden");
+    ctx.list.removeAttribute('hidden');
     ctx.isOpen = true;
-    eventEmitter("open", ctx);
+    eventEmitter('open', ctx);
   };
   var close = function close(ctx) {
     if (!ctx.isOpen) return;
     (ctx.wrapper || ctx.input).setAttribute(Expand, false);
-    ctx.input.setAttribute(Active, "");
-    ctx.list.setAttribute("hidden", "");
+    ctx.input.setAttribute(Active, '');
+    ctx.list.setAttribute('hidden', '');
     ctx.isOpen = false;
-    eventEmitter("close", ctx);
+    eventEmitter('close', ctx);
   };
   var goTo = function goTo(index, ctx) {
     var resultItem = ctx.resultItem;
     var results = ctx.list.getElementsByTagName(resultItem.tag);
-    var cls = resultItem.selected ? resultItem.selected.split(" ") : false;
+    var cls = resultItem.selected ? resultItem.selected.split(' ') : false;
     if (ctx.isOpen && results.length) {
       var _results$index$classL;
       var state = ctx.cursor;
@@ -389,15 +458,24 @@
       if (state > -1) {
         var _results$state$classL;
         results[state].removeAttribute(Selected);
-        if (cls) (_results$state$classL = results[state].classList).remove.apply(_results$state$classL, _toConsumableArray(cls));
+        if (cls)
+          (_results$state$classL = results[state].classList).remove.apply(
+            _results$state$classL,
+            _toConsumableArray(cls),
+          );
       }
       results[index].setAttribute(Selected, true);
-      if (cls) (_results$index$classL = results[index].classList).add.apply(_results$index$classL, _toConsumableArray(cls));
+      if (cls)
+        (_results$index$classL = results[index].classList).add.apply(
+          _results$index$classL,
+          _toConsumableArray(cls),
+        );
       ctx.input.setAttribute(Active, results[ctx.cursor].id);
-      ctx.list.scrollTop = results[index].offsetTop - ctx.list.clientHeight + results[index].clientHeight + 5;
+      ctx.list.scrollTop =
+        results[index].offsetTop - ctx.list.clientHeight + results[index].clientHeight + 5;
       ctx.feedback.cursor = ctx.cursor;
       feedback(ctx, index);
-      eventEmitter("navigate", ctx);
+      eventEmitter('navigate', ctx);
     }
   };
   var next = function next(ctx) {
@@ -411,7 +489,7 @@
     if (index < 0) return;
     ctx.feedback.event = event;
     feedback(ctx, index);
-    eventEmitter("selection", ctx);
+    eventEmitter('selection', ctx);
     close(ctx);
   };
   var click = function click(event, ctx) {
@@ -437,13 +515,13 @@
         if (ctx.resultsList.tabSelect && ctx.cursor >= 0) select(ctx, event);
         break;
       case 27:
-        ctx.input.value = "";
+        ctx.input.value = '';
         close(ctx);
         break;
     }
   };
 
-  function start (ctx, q) {
+  function start(ctx, q) {
     var _this = this;
     return new Promise(function ($return, $error) {
       var queryVal, condition;
@@ -483,11 +561,14 @@
     var run = debounce(function () {
       return start(ctx);
     }, ctx.debounce);
-    var publicEvents = ctx.events = _objectSpread2({
-      input: _objectSpread2({}, events && events.input)
-    }, ctx.resultsList && {
-      list: events ? _objectSpread2({}, events.list) : {}
-    });
+    var publicEvents = (ctx.events = _objectSpread2(
+      {
+        input: _objectSpread2({}, events && events.input),
+      },
+      ctx.resultsList && {
+        list: events ? _objectSpread2({}, events.list) : {},
+      },
+    ));
     var privateEvents = {
       input: {
         input: function input() {
@@ -498,7 +579,7 @@
         },
         blur: function blur() {
           close(ctx);
-        }
+        },
       },
       list: {
         mousedown: function mousedown(event) {
@@ -506,11 +587,11 @@
         },
         click: function click$1(event) {
           click(event, ctx);
-        }
-      }
+        },
+      },
     };
     eventsManager(privateEvents, function (element, event) {
-      if (!ctx.resultsList && event !== "input") return;
+      if (!ctx.resultsList && event !== 'input') return;
       if (publicEvents[element][event]) return;
       publicEvents[element][event] = privateEvents[element][event];
     });
@@ -524,36 +605,59 @@
     });
   };
 
-  function init (ctx) {
+  function init(ctx) {
     var _this = this;
     return new Promise(function ($return, $error) {
       var placeHolder, resultsList, parentAttrs;
       placeHolder = ctx.placeHolder;
       resultsList = ctx.resultsList;
       parentAttrs = {
-        role: "combobox",
-        "aria-owns": resultsList.id,
-        "aria-haspopup": true,
-        "aria-expanded": false
+        role: 'combobox',
+        'aria-owns': resultsList.id,
+        'aria-haspopup': true,
+        'aria-expanded': false,
       };
-      create(ctx.input, _objectSpread2(_objectSpread2({
-        "aria-controls": resultsList.id,
-        "aria-autocomplete": "both"
-      }, placeHolder && {
-        placeholder: placeHolder
-      }), !ctx.wrapper && _objectSpread2({}, parentAttrs)));
-      if (ctx.wrapper) ctx.wrapper = create("div", _objectSpread2({
-        around: ctx.input,
-        "class": ctx.name + "_wrapper"
-      }, parentAttrs));
-      if (resultsList) ctx.list = create(resultsList.tag, _objectSpread2({
-        dest: [resultsList.destination, resultsList.position],
-        id: resultsList.id,
-        role: "listbox",
-        hidden: "hidden"
-      }, resultsList["class"] && {
-        "class": resultsList["class"]
-      }));
+      create(
+        ctx.input,
+        _objectSpread2(
+          _objectSpread2(
+            {
+              'aria-controls': resultsList.id,
+              'aria-autocomplete': 'both',
+            },
+            placeHolder && {
+              placeholder: placeHolder,
+            },
+          ),
+          !ctx.wrapper && _objectSpread2({}, parentAttrs),
+        ),
+      );
+      if (ctx.wrapper)
+        ctx.wrapper = create(
+          'div',
+          _objectSpread2(
+            {
+              around: ctx.input,
+              class: ctx.name + '_wrapper',
+            },
+            parentAttrs,
+          ),
+        );
+      if (resultsList)
+        ctx.list = create(
+          resultsList.tag,
+          _objectSpread2(
+            {
+              dest: [resultsList.destination, resultsList.position],
+              id: resultsList.id,
+              role: 'listbox',
+              hidden: 'hidden',
+            },
+            resultsList['class'] && {
+              class: resultsList['class'],
+            },
+          ),
+        );
       addEvents(ctx);
       if (ctx.data.cache) {
         return getData(ctx).then(function ($await_2) {
@@ -565,14 +669,14 @@
         }, $error);
       }
       function $If_1() {
-        eventEmitter("init", ctx);
+        eventEmitter('init', ctx);
         return $return();
       }
       return $If_1.call(_this);
     });
   }
 
-  function extend (autoComplete) {
+  function extend(autoComplete) {
     var prototype = autoComplete.prototype;
     prototype.init = function () {
       init(this);
@@ -614,17 +718,17 @@
   function autoComplete(config) {
     this.options = config;
     this.id = autoComplete.instances = (autoComplete.instances || 0) + 1;
-    this.name = "autoComplete";
+    this.name = 'autoComplete';
     this.wrapper = 1;
     this.threshold = 1;
     this.debounce = 0;
     this.resultsList = {
-      position: "afterend",
-      tag: "ul",
-      maxResults: 5
+      position: 'afterend',
+      tag: 'ul',
+      maxResults: 5,
     };
     this.resultItem = {
-      tag: "li"
+      tag: 'li',
     };
     configure(this);
     extend.call(this, autoComplete);
@@ -632,5 +736,4 @@
   }
 
   return autoComplete;
-
-}));
+});
