@@ -1,3 +1,4 @@
+import './scripts/autocomplete/autoComplete.js';
 import { decrementarCurtidas } from './scripts/perguntas/decrementarCurtidas.js';
 import { incrementarCurtidas } from './scripts/perguntas/incrementarCurtidas.js';
 import { listarPerguntas } from './scripts/perguntas/listarPerguntas.js';
@@ -25,13 +26,16 @@ pgNumerosPerguntas.innerHTML = `
 
 let paginas = 1;
 let qtdPgs = 0;
+let loading = false;
 const renderPerguntas = async ({
   maisAlta = true,
   pagina = 1,
   qtdPorPg = 20,
   order = 'asc',
+  titulo = '',
 } = {}) => {
   try {
+    loading = true;
     spinnerContainer.classList.add('mostrar');
     questionsContainer.innerHTML = '';
     pgNumerosPerguntas.innerHTML = '';
@@ -41,6 +45,7 @@ const renderPerguntas = async ({
       pagina,
       qtdPorPg,
       order,
+      titulo,
     });
 
     paginas = perguntas.pagina;
@@ -85,26 +90,6 @@ const renderPerguntas = async ({
       </div>`,
       )
       .join('');
-
-    // pega todas as divs containers que tem a tag faq-container para filtrar
-    const form = document.querySelector('form');
-    const containers = document.querySelectorAll('.faq-container');
-    form.addEventListener('keyup', (event) => {
-      event.preventDefault();
-      const searchValue = form.querySelector('input').value.toLowerCase();
-      containers.forEach((container) => {
-        const questionTitleText = container
-          .querySelector('.question-title')
-          .textContent.toLowerCase();
-        const content = container.querySelector('.content').textContent.toLowerCase();
-
-        if (questionTitleText.includes(searchValue) || content.includes(searchValue)) {
-          container.style.display = 'block';
-        } else {
-          container.style.display = 'none';
-        }
-      });
-    });
 
     //deixa o coração vermelho ao clicar e chama a funçao de incrementar
     const hearts = document.querySelectorAll('.heart');
@@ -159,6 +144,7 @@ const renderPerguntas = async ({
     toast('Houve um erro ao carregar as perguntas', true);
     console.log(error);
   } finally {
+    loading = false;
     spinnerContainer.classList.remove('mostrar');
     window.scrollTo({
       top: 0,
@@ -226,5 +212,91 @@ pgUltimoPerguntas.addEventListener('click', async function () {
 
   await renderPerguntas({
     pagina: qtdPgs,
+  });
+});
+
+const autoCompleteJS = new autoComplete({
+  data: {
+    src: async () => {
+      try {
+        document.getElementById('autoComplete').disabled = true;
+        document.getElementById('autoComplete').setAttribute('placeholder', 'Carregando...');
+
+        const data = await listarPerguntas({ qtdPorPg: 2000 });
+
+        document
+          .getElementById('autoComplete')
+          .setAttribute('placeholder', autoCompleteJS.placeHolder);
+
+        const { resultado } = data;
+
+        const perguntasArray = resultado.map((item) => item.pergunta);
+
+        return perguntasArray;
+      } catch (error) {
+        return error;
+      } finally {
+        document.getElementById('autoComplete').disabled = false;
+      }
+    },
+    cache: true,
+  },
+  placeHolder: 'Quando abre o vestibular?',
+  resultsList: {
+    element: (list, data) => {
+      const info = document.createElement('p');
+      if (data.results.length > 0) {
+        info.innerHTML = `Mostrando <strong>${data.results.length}</strong> de <strong>${data.matches.length}</strong> resultados`;
+      } else {
+        info.innerHTML = `Encontrado <strong>${data.matches.length}</strong> resultados que combinam com <strong>"${data.query}"</strong>`;
+      }
+      list.prepend(info);
+    },
+    noResults: true,
+    tabSelect: true,
+  },
+  resultItem: {
+    element: (item, data) => {
+      item.style = 'display: flex; justify-content: space-between;';
+      item.innerHTML = `
+      <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+        ${data.match}
+      </span>
+      `;
+    },
+    highlight: true,
+  },
+  events: {
+    input: {
+      focus: () => {
+        if (autoCompleteJS.input.value.length) autoCompleteJS.start();
+      },
+    },
+  },
+});
+
+autoCompleteJS.input.addEventListener('input', async function (event) {
+  if (loading) return;
+  if (!event.target.value) {
+    await renderPerguntas();
+  }
+});
+
+autoCompleteJS.input.addEventListener('results', async function (event) {
+  if (loading) return;
+  await renderPerguntas({
+    titulo: event.detail.query,
+  });
+});
+
+autoCompleteJS.input.addEventListener('selection', async function (event) {
+  if (loading) return;
+  const feedback = event.detail;
+  autoCompleteJS.input.blur();
+
+  document.querySelector('#autoComplete');
+  autoCompleteJS.input.value = feedback.selection.value;
+  await renderPerguntas({
+    titulo: feedback.selection.value,
   });
 });

@@ -5,10 +5,11 @@ export const listarPerguntas = async ({
   pagina = 1,
   qtdPorPg = 5,
   order = 'asc',
+  titulo = '',
 } = {}) => {
   try {
     const response = await fetch(
-      `${apiUrl}/pergunta?mais-alta=${maisAlta}&pagina=${pagina}&quantidade_por_pagina=${qtdPorPg}&order=${order}`,
+      `${apiUrl}/pergunta?mais-alta=${maisAlta}&pagina=${pagina}&quantidade_por_pagina=${qtdPorPg}&order=${order}&titulo=${titulo}`,
       {
         method: 'GET',
       },
