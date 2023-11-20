@@ -9,10 +9,15 @@ class PerguntaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll(array $ordenacao, $pagina = 1, $qtdPorPg = 10, $order = "asc"): array
+  public function getAll(array $ordenacao, $pagina = 1, $qtdPorPg = 10, $order = "asc", $titulo = ''): array
   {
-    $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta";
-    $stmt = $this->conn->query($sql);
+    $tituloParam = '%' . $titulo . '%';
+
+    $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta WHERE pergunta LIKE :titulo";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':titulo', $tituloParam, PDO::PARAM_STR);
+    $stmt->execute();
+
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $qtd_pg = ceil($result["qtd_pg"] / $qtdPorPg);
 
@@ -36,6 +41,7 @@ class PerguntaGateway
       LEFT JOIN usuario u ON p.criado_por = u.id
       LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
       LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+      WHERE p.pergunta LIKE :titulo
       ORDER BY p.id $order LIMIT :limit OFFSET :offset
       ";
 
@@ -53,6 +59,7 @@ class PerguntaGateway
         LEFT JOIN usuario u ON p.criado_por = u.id
         LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+        WHERE p.pergunta LIKE :titulo
         ORDER BY
           CASE
               WHEN prioridade = 'Alta' THEN 1
@@ -75,11 +82,15 @@ class PerguntaGateway
         LEFT JOIN usuario u ON p.criado_por = u.id
         LEFT JOIN pergunta_editada_por pe ON p.id = pe.pergunta_id
         LEFT JOIN usuario ue ON pe.usuario_id = ue.id
+        WHERE p.pergunta LIKE :titulo
         ORDER BY curtidas DESC
         LIMIT :limit OFFSET :offset";
     }
 
+
+
     $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':titulo', $tituloParam, PDO::PARAM_STR);
     $stmt->bindParam(":limit", $qtdPorPg, PDO::PARAM_INT);
     $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
     $stmt->execute();

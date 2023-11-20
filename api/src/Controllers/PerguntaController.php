@@ -96,7 +96,9 @@ class PerguntaController
 
         $qtdPorPg = filter_input(INPUT_GET, "quantidade_por_pagina", FILTER_SANITIZE_NUMBER_INT) ?? 10;
 
-        echo json_encode($this->gateway->getAll($ordenacao, $pagina, $qtdPorPg, isset($_GET["order"]) ? $_GET["order"] : ''));
+        $titulo = $_GET['titulo'] ?? '';
+
+        echo json_encode($this->gateway->getAll($ordenacao, $pagina, $qtdPorPg, isset($_GET["order"]) ? $_GET["order"] : '', $titulo));
         break;
       case "POST":
         $usuarioLogado = $this->authController->verifyAccessToken($this->config, $this->token);

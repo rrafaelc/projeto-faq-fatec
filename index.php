@@ -16,6 +16,7 @@
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="./scripts/autocomplete/css/autoComplete.custom.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="index.js" type="module" defer></script>
   <script src="./scripts/global.js" defer></script>
@@ -32,12 +33,9 @@
     <div class="keyword-container">
       <div class="keyword-content">
         <h1>Filtre sua dúvida</h1>
-        <form id="formulary">
-          <div class="input-container">
-            <i class="fas fa-search"></i>
-            <input id="search-input" type="text" placeholder="Ex: O que é a Fatec Itapira?" />
-          </div>
-        </form>
+        <div class="autoComplete_wrapper">
+          <input disabled placeholder="Quando abre o vestibular?" id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" maxlength="2048" tabindex="1">
+        </div>
       </div>
     </div>
   </section>
