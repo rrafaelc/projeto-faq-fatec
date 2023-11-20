@@ -85,20 +85,35 @@
     </div>
     <div class="dados">
       <table id="tabela" class="usuarios-tabela">
+        <thead>
+          <tr>
+            <th>
+              <span>Colaborador</span>
+            </th>
+            <th id="cargo">
+              <span>Cargo</span>
+            </th>
+            <th id="suspenso">
+              <span>Suspenso</span>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="colaboradores-tbody"></tbody>
       </table>
+      <div class="spinnerContainer mostrar">
+        <div class="spinner loader"></div>
+      </div>
       <div class="paginacao">
-        <div class="pg disabled">
-          <span>Anterior</span>
+        <div class="pg">
+          <span class="pg-inicio-sistema-usuarios disabled" title="Ínicio"><i class="bi bi-chevron-double-left"></i></span>
+          <span class="pg-anterior-sistema-usuarios disabled" title="Anterior"><i class="bi bi-chevron-left"></i></span>
         </div>
-        <div class="numeros">
-          <div class="numero active">1</div>
-          <div class="numero">2</div>
-          <div class="numero">3</div>
-          <div class="numero">4</div>
-          <div class="numero">5</div>
+        <div class="numeros pg-numeros-sistema-usuarios">
         </div>
         <div class="pg">
-          <span>Próximo</span>
+          <span class="pg-proximo-sistema-usuarios" title="Próximo"><i class="bi bi-chevron-right"></i></span>
+          <span class="pg-ultimo-sistema-usuarios" title="Último"><i class="bi bi-chevron-double-right"></i></span>
         </div>
       </div>
     </div>

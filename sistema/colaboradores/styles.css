@@ -421,6 +421,7 @@ th {
 
 th span {
   cursor: pointer;
+  user-select: none;
 
   display: flex;
   white-space: nowrap;
@@ -545,12 +546,12 @@ td.acao button + button {
   display: none;
 }
 
-.paginacao .pg {
+.paginacao .pg span {
   color: var(--titulos);
   cursor: pointer;
 }
 
-.paginacao .pg.disabled {
+.paginacao .pg span.disabled {
   color: var(--cinza-texto);
   cursor: not-allowed;
 }
@@ -599,4 +600,14 @@ td.acao button + button {
 
 .eye {
   font-size: 20px;
+}
+
+.spinnerContainer {
+  display: none;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.spinnerContainer.mostrar {
+  display: flex;
 }

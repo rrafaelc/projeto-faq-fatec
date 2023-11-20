@@ -49,14 +49,66 @@ const execute = async () => {
   }
 
   const perguntasTbody = document.querySelector('.perguntas-tbody');
+  const spinnerContainer = document.querySelector('.spinnerContainer');
+  const pgInicioSistemaPerguntas = document.querySelector('.pg-inicio-sistema-perguntas ');
+  const pgAnteriorSistemaPerguntas = document.querySelector('.pg-anterior-sistema-perguntas ');
+  const pgProximoSistemaPerguntas = document.querySelector('.pg-proximo-sistema-perguntas ');
+  const pgUltimoSistemaPerguntas = document.querySelector('.pg-ultimo-sistema-perguntas ');
+  const pgNumerosSistemaPerguntas = document.querySelector('.pg-numeros-sistema-perguntas ');
 
-  const perguntas = await listarPerguntas();
+  pgNumerosSistemaPerguntas.innerHTML = `
+  <div class="numero">1</div>
+  <div class="numero">2</div>
+  <div class="numero active">3</div>
+  <div class="numero">4</div>
+  <div class="numero">5</div>
+  `;
 
-  perguntasTbody.innerHTML += perguntas
-    .map((pergunta) => {
-      const dataEditado = new Date(pergunta.atualizado_em);
+  let prioridadeAlta = false;
+  let paginas = 1;
+  let qtdPgs = 0;
+  const renderPerguntas = async ({
+    maisAlta = false,
+    pagina = 1,
+    qtdPorPg = 20,
+    order = 'asc',
+  } = {}) => {
+    try {
+      spinnerContainer.classList.add('mostrar');
+      perguntasTbody.innerHTML = '';
+      pgNumerosSistemaPerguntas.innerHTML = '';
 
-      return `
+      const perguntas = await listarPerguntas({
+        maisAlta,
+        pagina,
+        qtdPorPg,
+        order,
+      });
+
+      paginas = perguntas.pagina;
+      qtdPgs = perguntas.qtd_pg;
+
+      const maxLinks = 2;
+      const numBotoesLado = maxLinks * 2 + 1;
+
+      let startPage = Math.max(1, paginas - maxLinks);
+      let endPage = Math.min(qtdPgs, startPage + numBotoesLado - 1);
+
+      if (endPage - startPage + 1 < numBotoesLado) {
+        startPage = Math.max(1, endPage - numBotoesLado + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pgNumerosSistemaPerguntas.innerHTML += `<div class="numero ${
+          i === paginas ? 'active' : ''
+        }">${i}</div>`;
+      }
+
+      perguntasTbody.innerHTML += perguntas.resultado
+        .map((pergunta) => {
+          const dataEditado = new Date(pergunta.atualizado_em);
+
+          return `
         <tr>
           <td>
             <div id="id">
@@ -67,12 +119,12 @@ const execute = async () => {
             <div id="colaborador">
               <div class="avatar">
                 <img
-                title="${pergunta.nome_usuario ?? 'N/A'}"
+                title="${pergunta.nome_usuario ?? 'Sistema'}"
                 src="${pergunta.foto_usuario ?? '../img/userFallback.jpg'}"
                 onerror="this.onerror=null;this.src='../img/userFallback.jpg';"
                  />
               </div>
-              <div class="nome">${pergunta.nome_usuario ?? 'N/A'}</div>
+              <div class="nome">${pergunta.nome_usuario ?? 'Sistema'}</div>
             </div>
           </td>
           <td>
@@ -81,7 +133,7 @@ const execute = async () => {
           <td>
             <div id="editado" class="avatar">
               <img
-              title="${pergunta.nome_usuario_editado ?? 'N/A'}"
+              title="${pergunta.nome_usuario_editado ?? 'Sistema'}"
               src="${pergunta.foto_usuario_editado ?? '../img/userFallback.jpg'}"
               onerror="this.onerror=null;this.src='../img/userFallback.jpg';"
        />
@@ -105,40 +157,137 @@ const execute = async () => {
             </div>
           </td>
         </tr>`;
-    })
-    .join('');
+        })
+        .join('');
 
-  const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
-  const botaoEditar = document.querySelectorAll('.editar-pergunta');
+      const botaoDeletar = document.querySelectorAll('.deletar-pergunta');
+      const botaoEditar = document.querySelectorAll('.editar-pergunta');
 
-  botaoDeletar.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const id = botao.dataset.id;
+      botaoDeletar.forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const id = botao.dataset.id;
 
-      Swal.fire({
-        title: 'Tem certezar que quer deletar a pergunta?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim, confirmar!',
-        cancelButtonText: 'Não',
-        icon: 'question',
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await deletarPergunta(id);
-            window.location.reload();
-          } catch (error) {
-            toast(error.message, true);
-          }
-        }
+          Swal.fire({
+            title: 'Tem certezar que quer deletar a pergunta?',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, confirmar!',
+            cancelButtonText: 'Não',
+            icon: 'question',
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              try {
+                await deletarPergunta(id);
+                window.location.reload();
+              } catch (error) {
+                toast(error.message, true);
+              }
+            }
+          });
+        });
       });
+
+      botaoEditar.forEach((botao) => {
+        botao.addEventListener('click', () => {
+          const id = botao.dataset.id;
+
+          window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
+        });
+      });
+    } catch (error) {
+      toast(error.message, true);
+    } finally {
+      spinnerContainer.classList.remove('mostrar');
+    }
+
+    if (paginas === 1) {
+      pgInicioSistemaPerguntas.classList.add('disabled');
+      pgAnteriorSistemaPerguntas.classList.add('disabled');
+    } else {
+      pgInicioSistemaPerguntas.classList.remove('disabled');
+      pgAnteriorSistemaPerguntas.classList.remove('disabled');
+    }
+
+    if (paginas === qtdPgs) {
+      pgProximoSistemaPerguntas.classList.add('disabled');
+      pgUltimoSistemaPerguntas.classList.add('disabled');
+    } else {
+      pgProximoSistemaPerguntas.classList.remove('disabled');
+      pgUltimoSistemaPerguntas.classList.remove('disabled');
+    }
+
+    const numerosPerguntas = pgNumerosSistemaPerguntas.querySelectorAll('.numero');
+
+    numerosPerguntas.forEach((numero) => {
+      numero.addEventListener('click', async function () {
+        await renderPerguntas({
+          pagina: numero.textContent,
+          maisAlta: prioridadeAlta,
+        });
+      });
+    });
+  };
+
+  await renderPerguntas();
+
+  const prioridadeBotao = document.querySelector('.prioridade-botao');
+
+  prioridadeBotao.addEventListener('click', async function () {
+    const icone = prioridadeBotao.querySelector('i');
+
+    if (icone.classList.contains('fa-sort-down')) {
+      icone.classList.remove('fa-sort-down');
+      icone.classList.add('fa-sort-up');
+
+      prioridadeAlta = true;
+      await renderPerguntas({
+        maisAlta: prioridadeAlta,
+      });
+    } else {
+      icone.classList.remove('fa-sort-up');
+      icone.classList.add('fa-sort-down');
+
+      prioridadeAlta = false;
+      await renderPerguntas({
+        maisAlta: prioridadeAlta,
+      });
+    }
+  });
+
+  pgInicioSistemaPerguntas.addEventListener('click', async function () {
+    if (pgInicioSistemaPerguntas.classList.contains('disabled')) return;
+
+    await renderPerguntas({
+      pagina: 1,
+      maisAlta: prioridadeAlta,
     });
   });
 
-  botaoEditar.forEach((botao) => {
-    botao.addEventListener('click', () => {
-      const id = botao.dataset.id;
+  pgAnteriorSistemaPerguntas.addEventListener('click', async function () {
+    if (pgAnteriorSistemaPerguntas.classList.contains('disabled')) return;
 
-      window.location.href = `${serverUrl}/sistema/perguntas/editar?id=${id}`;
+    const pgAnt = paginas - 1 >= 1 ? paginas - 1 : 1;
+    await renderPerguntas({
+      pagina: pgAnt,
+      maisAlta: prioridadeAlta,
+    });
+  });
+
+  pgProximoSistemaPerguntas.addEventListener('click', async function () {
+    if (pgProximoSistemaPerguntas.classList.contains('disabled')) return;
+
+    const pgDep = paginas + 1 > qtdPgs ? qtdPgs : paginas + 1;
+    await renderPerguntas({
+      pagina: pgDep,
+      maisAlta: prioridadeAlta,
+    });
+  });
+
+  pgUltimoSistemaPerguntas.addEventListener('click', async function () {
+    if (pgUltimoSistemaPerguntas.classList.contains('disabled')) return;
+
+    await renderPerguntas({
+      pagina: qtdPgs,
+      maisAlta: prioridadeAlta,
     });
   });
 };
