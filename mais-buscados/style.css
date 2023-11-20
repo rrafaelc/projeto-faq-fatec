@@ -1,19 +1,22 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   width: 100%;
-  min-height: 100%;
   justify-content: center;
   overflow: hidden;
 }
 
 .wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden;
-  flex: 1;
-  min-height: 80vh;
 }
 
 .container {
+  width: 80%;
   max-width: 1300px;
   height: 100%;
   padding: 0 2rem;
@@ -25,6 +28,7 @@ main {
   overflow: hidden;
   transition: max-height 0.5s ease-out;
 }
+
 .content a {
   color: var(--vermelho-base);
   font-style: italic;
@@ -75,4 +79,52 @@ main {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.pg-container {
+  flex: 1;
+}
+
+.paginacao {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.paginacao.nao-mostrar {
+  display: none;
+}
+
+.paginacao .pg span {
+  color: var(--titulos);
+  cursor: pointer;
+}
+
+.paginacao .pg span.disabled {
+  color: var(--cinza-texto);
+  cursor: not-allowed;
+}
+
+.paginacao .numeros {
+  display: flex;
+  gap: 10px;
+  color: var(--cinza-texto);
+}
+
+.paginacao .numeros .numero {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid var(--cinza-texto);
+  border-radius: 6px;
+}
+
+.paginacao .numeros .numero.active {
+  background-color: var(--vermelho-base);
+  color: var(--prata-base);
+  border: 1px solid var(--vermelho-base);
 }
