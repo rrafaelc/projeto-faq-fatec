@@ -10,11 +10,11 @@ import { toast } from './scripts/utils/toast.js';
 
 const spinnerContainer = document.querySelector('.spinnerContainer');
 const questionsContainer = document.querySelector('.container');
-const pgInicioPerguntas = document.querySelector('.pg-inicio-perguntas ');
-const pgAnteriorPerguntas = document.querySelector('.pg-anterior-perguntas ');
-const pgProximoPerguntas = document.querySelector('.pg-proximo-perguntas ');
-const pgUltimoPerguntas = document.querySelector('.pg-ultimo-perguntas ');
-const pgNumerosPerguntas = document.querySelector('.pg-numeros-perguntas ');
+const pgInicioPerguntas = document.querySelector('.pg-inicio-perguntas');
+const pgAnteriorPerguntas = document.querySelector('.pg-anterior-perguntas');
+const pgProximoPerguntas = document.querySelector('.pg-proximo-perguntas');
+const pgUltimoPerguntas = document.querySelector('.pg-ultimo-perguntas');
+const pgNumerosPerguntas = document.querySelector('.pg-numeros-perguntas');
 
 pgNumerosPerguntas.innerHTML = `
   <div class="numero">1</div>
@@ -276,6 +276,13 @@ const autoCompleteJS = new autoComplete({
 });
 
 autoCompleteJS.input.addEventListener('input', async function (event) {
+  if (loading) return;
+  if (!event.target.value) {
+    await renderPerguntas();
+  }
+});
+
+autoCompleteJS.input.addEventListener('blur', async function (event) {
   if (loading) return;
   if (!event.target.value) {
     await renderPerguntas();
