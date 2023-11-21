@@ -39,28 +39,6 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
     paginas = perguntasMaisBuscadas.pagina;
     qtdPgs = perguntasMaisBuscadas.qtd_pg;
 
-    const tam = perguntasMaisBuscadas.resultado.length;
-
-    switch (tam) {
-      case 1:
-        main.style.marginBottom = '500px';
-        break;
-      case 2:
-        main.style.marginBottom = '400px';
-        break;
-      case 3:
-        main.style.marginBottom = '300px';
-        break;
-      case 4:
-        main.style.marginBottom = '200px';
-        break;
-      case 5:
-        main.style.marginBottom = '100px';
-        break;
-      default:
-        main.style.marginBottom = '0px';
-    }
-
     const maxLinks = 2;
     const numBotoesLado = maxLinks * 2 + 1;
 
