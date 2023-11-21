@@ -12,6 +12,12 @@
     </a>
     <a href=<?= "$dir/sistema/perguntas" ?>>Perguntas</a>
   </div>
+  <div class="pesquisar">
+    <a href=<?= "$dir/sistema/pesquisar" ?> class="icone">
+      <i class="fas fa-search"></i>
+    </a>
+    <a href=<?= "$dir/sistema/pesquisar" ?>>Pesquisar</a>
+  </div>
   <div class="curtidas">
     <a href=<?= "$dir/sistema/curtidas" ?> class="icone">
       <i class="fas fa-heart"></i>
