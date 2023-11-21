@@ -146,10 +146,6 @@ const renderPerguntas = async ({
   } finally {
     loading = false;
     spinnerContainer.classList.remove('mostrar');
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   }
 
   if (paginas === 1) {
