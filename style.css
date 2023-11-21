@@ -123,17 +123,17 @@ main {
 }
 
 .wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden;
-  flex: 1;
+  min-height: 80vh;
 }
 
 .container {
   width: 80%;
   height: 100%;
   padding: 0 2rem;
-  max-width: 1300px;
+  max-width: 1000px;
 }
 
 .drop {
