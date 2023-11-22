@@ -78,11 +78,12 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
       .join('');
 
     //efeito no click na pergunta
-    mostSearchedQuestionsContainer.addEventListener('click', (e) => {
-      const questionTitle = e.target.closest('.question-title');
-      if (questionTitle) {
-        const dropIcon = questionTitle.querySelector('.drop');
-        const content = questionTitle.parentElement.nextElementSibling;
+    const faqContainer = document.querySelectorAll('.faq-container');
+
+    faqContainer.forEach((container) => {
+      container.addEventListener('click', function () {
+        const dropIcon = container.querySelector('.drop');
+        const content = container.querySelector('.content');
 
         content.classList.toggle('show');
         dropIcon.classList.toggle('rotate');
@@ -92,7 +93,7 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
         } else {
           content.style.maxHeight = null;
         }
-      }
+      });
     });
 
     window.scrollTo({
