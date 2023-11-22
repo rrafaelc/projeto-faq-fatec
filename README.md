@@ -2,8 +2,6 @@
 
 ## Portal de FAQ(Frequently Asked Questions) da Fatec de Itapira
 
-https://www.notion.so/Projeto-FAQ-Fatec-57a94a09bd444afc8256ab1aed52f651
-
 Este repositório contém um site de perguntas frequentes (FAQ) desenvolvido para a Fatec de Itapira. O objetivo deste projeto é fornecer um local centralizado para responder às dúvidas mais comuns dos alunos, professores, funcionários da instituição e qualquer pessoa interessada.
 <br>
 
