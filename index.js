@@ -124,11 +124,12 @@ const renderPerguntas = async ({
     });
 
     //efeito no click na pergunta
-    questionsContainer.addEventListener('click', (e) => {
-      const questionTitle = e.target.closest('.question-title');
-      if (questionTitle) {
-        const dropIcon = questionTitle.querySelector('.drop');
-        const content = questionTitle.parentElement.nextElementSibling;
+    const faqContainer = document.querySelectorAll('.faq-container');
+
+    faqContainer.forEach((container) => {
+      container.addEventListener('click', function () {
+        const dropIcon = container.querySelector('.drop');
+        const content = container.querySelector('.content');
 
         content.classList.toggle('show');
         dropIcon.classList.toggle('rotate');
@@ -138,7 +139,7 @@ const renderPerguntas = async ({
         } else {
           content.style.maxHeight = null;
         }
-      }
+      });
     });
   } catch (error) {
     toast('Houve um erro ao carregar as perguntas', true);
