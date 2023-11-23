@@ -133,9 +133,6 @@
       <table class="perguntas">
         <thead>
           <tr>
-            <th>
-              <span>ID</span>
-            </th>
             <th id="pergunta">
               <span>Pergunta</span>
             </th>
