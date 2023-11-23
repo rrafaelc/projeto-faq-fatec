@@ -111,11 +111,6 @@ const execute = async () => {
           return `
         <tr>
           <td>
-            <div id="id">
-              <span>${pergunta.id}</span>
-            </div>
-          </td>
-          <td>
             <div id="colaborador">
               <div class="avatar">
                 <img

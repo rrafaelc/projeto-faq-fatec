@@ -441,11 +441,6 @@ const execute = async () => {
           return `
       <tr>
         <td>
-          <div id="id">
-            <span>${pergunta.id}</span>
-          </div>
-        </td>
-        <td>
           <div id="pergunta">${pergunta.pergunta}</div>
         </td>
         <td>

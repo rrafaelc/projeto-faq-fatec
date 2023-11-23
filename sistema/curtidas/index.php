@@ -60,9 +60,6 @@
         <thead>
           <tr>
             <th>
-              <span>ID</span>
-            </th>
-            <th>
               <span>Colaborador</span>
             </th>
             <th id="pergunta">
