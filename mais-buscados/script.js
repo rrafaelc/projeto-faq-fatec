@@ -81,7 +81,9 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
     const faqContainer = document.querySelectorAll('.faq-container');
 
     faqContainer.forEach((container) => {
-      container.addEventListener('click', function () {
+      const question = container.querySelector('.question');
+
+      question.addEventListener('click', function () {
         const dropIcon = container.querySelector('.drop');
         const content = container.querySelector('.content');
 
