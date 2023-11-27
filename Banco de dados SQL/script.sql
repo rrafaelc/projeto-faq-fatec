@@ -73,7 +73,7 @@ INSERT INTO pergunta (pergunta, resposta) VALUES
 
     CST em Desenvolvimento de Software Multiplataforma – Profa. Márcia Regina Reggiolli (marcia.reggiolli@fatec.sp.gov.br)
 
-    CST em Gestão da Tecnologia da Informação – Prof. Mateus Guilherme Fuini (mateus.fuini@fatec.sp.gov.br)> '),
+    CST em Gestão da Tecnologia da Informação – Prof. Mateus Guilherme Fuini (mateus.fuini@fatec.sp.gov.br)'),
 ('Posso usar a biblioteca/laboratório fora do horário de aula?', 'Sim, os alunos da Fatec de Itapira têm permissão para utilizar a biblioteca e as salas de estudos fora do horário de aula, desde que esses espaços estejam abertos e haja funcionários presentes. A Fatec de Itapira reconhece a importância do acesso a recursos educacionais e espaços adequados para estudo, e, portanto, permite que os alunos façam uso dessas instalações quando disponíveis.
       É importante ressaltar que o acesso à biblioteca e às salas de estudos fora do horário de aula pode variar de acordo com as políticas internas da instituição e as restrições aplicáveis em determinados períodos. Por isso, é recomendável verificar os horários de funcionamento e as regras específicas junto à administração da Fatec de Itapira ou com os responsáveis pela biblioteca e pelas salas de estudos.
       '),

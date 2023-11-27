@@ -56,7 +56,6 @@ main {
 }
 
 .faq-container {
-  cursor: pointer;
   font-size: 2rem;
   border-radius: 20px;
   padding: 1rem 0;
@@ -70,6 +69,7 @@ main {
   color: var(--titulos);
   font-size: 3.2rem;
   font-weight: 300;
+  cursor: pointer;
 }
 
 .spinnerContainer {
