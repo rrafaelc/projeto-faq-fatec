@@ -50,7 +50,8 @@
     </div>
     <div class="login">
       <a href=<?= "$dir/login" ?> class=<?= $pagina == 'login' ? 'active' : ''  ?>>
-        <p>Login</p>
+        <p>Área</p>
+        <p>Restrita</p>
       </a>
     </div>
     <div class="menu-hamburger">
@@ -60,7 +61,7 @@
         <a href=<?= "$dir/mais-buscados" ?>>Mais buscados</a>
         <a href=<?= "$dir/sugestoes" ?>>Sugestões</a>
         <a href=<?= "$dir/sobre" ?>>Sobre</a>
-        <a href=<?= "$dir/login" ?>>Login</a>
+        <a href=<?= "$dir/login" ?>>Área Restrita</a>
       </div>
     </div>
   </div>
