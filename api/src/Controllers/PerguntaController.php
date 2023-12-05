@@ -128,6 +128,17 @@ class PerguntaController
           break;
         }
 
+        $perguntaExiste = $this->gateway->perguntaExists($data["pergunta"]);
+
+        if ($perguntaExiste) {
+          http_response_code(422);
+          echo json_encode([
+            "status" => "error",
+            "errors" => ["Essa pergunta já existe no banco"]
+          ]);
+          break;
+        }
+
         $perguntaCriada = $this->gateway->create($data);
 
         http_response_code(201);
