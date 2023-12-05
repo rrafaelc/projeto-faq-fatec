@@ -16,7 +16,11 @@ export const criarPergunta = async ({ pergunta, resposta, prioridade }) => {
       }),
     });
 
-    if (!response.ok) return false;
+    if (!response.ok) {
+      const err = await response.json();
+      console.log(err.errors[0]);
+      return false;
+    }
   } catch (error) {
     console.log(error);
     return false;
