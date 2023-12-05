@@ -281,18 +281,19 @@ autoCompleteJS.input.addEventListener('input', async function (event) {
   }
 });
 
-autoCompleteJS.input.addEventListener('blur', async function (event) {
-  if (loading) return;
-  if (!event.target.value) {
-    await renderPerguntas();
-  }
-});
+let timeoutId;
 
 autoCompleteJS.input.addEventListener('results', async function (event) {
+  clearTimeout(timeoutId);
   if (loading) return;
-  await renderPerguntas({
-    titulo: event.detail.query,
-  });
+
+  timeoutId = setTimeout(async () => {
+    if (autoCompleteJS.input.value) {
+      await renderPerguntas({
+        titulo: event.detail.query,
+      });
+    }
+  }, 300);
 });
 
 autoCompleteJS.input.addEventListener('selection', async function (event) {
