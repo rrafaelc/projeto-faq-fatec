@@ -304,4 +304,18 @@ class PerguntaGateway
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
     return intval($data['total_curtidas']);
   }
+
+  public function perguntaExists(string $pergunta)
+  {
+    $perguntaLowerCase = strtolower($pergunta);
+
+    $sql = "SELECT COUNT(*) AS total FROM pergunta WHERE LOWER(pergunta) = :pergunta";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':pergunta', $perguntaLowerCase, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result['total'] > 0;
+  }
 }
