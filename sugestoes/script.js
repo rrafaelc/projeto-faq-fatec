@@ -99,8 +99,9 @@ form.addEventListener('submit', async (e) => {
         toast('Houve um erro ao criar a sugestão', true);
       }
     } catch (err) {
-      toast('Houve um erro ao criar a sugestão', true);
-      console.error(err);
+      err.message.split(',').forEach((erro) => {
+        toast(erro, true);
+      });
     } finally {
       VMasker(celular).maskPattern('(99) 9-9999-9999');
       spinner.classList.toggle('mostrar');
