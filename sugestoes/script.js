@@ -111,5 +111,5 @@ form.addEventListener('submit', async (e) => {
       celular.disabled = false;
       pergunta.disabled = false;
     }
-  }, 500);
+  }, 1000);
 });
