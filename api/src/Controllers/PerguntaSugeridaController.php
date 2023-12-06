@@ -118,14 +118,6 @@ class PerguntaSugeridaController
           break;
         }
 
-        if (!isset($data["email"]) || empty($data["email"])) {
-          $data["email"] = "";
-        }
-
-        if (!isset($data["telefone"]) || empty($data["telefone"])) {
-          $data["telefone"] = "";
-        }
-
         $perguntaSugeridaCriada = $this->gateway->create($data);
 
         http_response_code(201);
@@ -146,6 +138,18 @@ class PerguntaSugeridaController
       $errors[] = "nome é obrigatório";
     } else if (strlen($data["nome"]) < 3 || strlen($data["nome"]) > 100) {
       $errors[] = "nome mínimo 3 e máximo 100 caracteres";
+    }
+
+    if (empty($data["email"])) {
+      $errors[] = "e-mail é obrigatório";
+    } else if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
+      $errors[] = "e-mail inválido";
+    }
+
+    if (empty($data["telefone"])) {
+      $errors[] = "celular é obrigatório";
+    } else if (!preg_match("/^\d{11,}$/", $data["telefone"])) {
+      $errors[] = "celular deve ter 11 dígitos";
     }
 
     if (empty($data["pergunta"])) {

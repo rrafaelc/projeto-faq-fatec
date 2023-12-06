@@ -49,6 +49,10 @@
             <i class="fa-brands fa-js"></i>
             <p>JavaScript</p>
           </div>
+          <div>
+            <i class="fa-brands fa-github"></i>
+            <p>GitHub</p>
+          </div>
         </div>
       </div>
     </div>
