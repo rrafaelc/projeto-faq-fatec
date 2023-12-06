@@ -72,7 +72,7 @@
                 <span>Email</span>
               </th>
               <th>
-                <span>Telefone</span>
+                <span>Celular</span>
               </th>
               <th id="pergunta">
                 <span>Sugestão</span>

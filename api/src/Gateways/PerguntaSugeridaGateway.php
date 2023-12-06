@@ -9,9 +9,13 @@ class PerguntaSugeridaGateway
     $this->conn = $database->getConnection();
   }
 
-  public function getAll($pagina = 1, $qtdPorPg = 10, $order = "asc"): array
+  public function getAll($pagina = 1, $qtdPorPg = 10, $order = "asc", $trazerRespondidas = false): array
   {
-    $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta_sugerida";
+    if (!$trazerRespondidas) {
+      $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta_sugerida WHERE foi_respondido = 0";
+    } else {
+      $sql = "SELECT COUNT(*) AS qtd_pg FROM pergunta_sugerida";
+    }
     $stmt = $this->conn->query($sql);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $qtd_pg = ceil($result["qtd_pg"] / $qtdPorPg);
@@ -23,7 +27,11 @@ class PerguntaSugeridaGateway
       $order = "ASC";
     }
 
-    $sql = "SELECT * FROM pergunta_sugerida ORDER BY id $order LIMIT :limit OFFSET :offset";
+    if (!$trazerRespondidas) {
+      $sql = "SELECT * FROM pergunta_sugerida WHERE foi_respondido = 0 ORDER BY id $order LIMIT :limit OFFSET :offset";
+    } else {
+      $sql = "SELECT * FROM pergunta_sugerida ORDER BY id $order LIMIT :limit OFFSET :offset";
+    }
     $stmt = $this->conn->prepare($sql);
     $stmt->bindParam(":limit", $qtdPorPg, PDO::PARAM_INT);
     $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);

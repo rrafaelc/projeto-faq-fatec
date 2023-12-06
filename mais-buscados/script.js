@@ -30,6 +30,11 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
     mostSearchedQuestionsContainer.innerHTML = '';
     pgNumerosMaisBuscadas.innerHTML = '';
 
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     const perguntasMaisBuscadas = await listarPerguntasMaisBuscadas({
       pagina,
       qtdPorPg,
@@ -58,13 +63,12 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
     // Mostrar as perguntas na tela
     mostSearchedQuestionsContainer.innerHTML = perguntasMaisBuscadas.resultado
       .map(
-        (pergunta) =>
-          `
+        (pergunta) => `
       <div class="faq-container">
         <div class="question">
           <h2 class="question-title">
             ${pergunta.pergunta}
-            <i class="fa-solid fa-chevron-down drop"> </i>
+            <i class="fa-solid fa-chevron-down drop"></i>
           </h2>
         </div>
         <div class="content">
@@ -96,11 +100,6 @@ const renderMaisBuscadas = async ({ pagina = 1, qtdPorPg = 20, order = 'desc' } 
           content.style.maxHeight = null;
         }
       });
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
     });
   } catch (error) {
     toast('Houve um erro ao carregar as perguntas', true);
