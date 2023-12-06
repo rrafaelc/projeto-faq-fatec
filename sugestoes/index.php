@@ -16,6 +16,8 @@
   <script src="https://kit.fontawesome.com/1aacb3a88a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script defer src="../scripts/masker/index.js"></script>
+  <script defer src="https://unpkg.com/validator@latest/validator.min.js"></script>
   <script src="../scripts/global.js" defer></script>
   <script type="module" src="https://fatecitapirafaq.mdbgo.io/sugestoes/script.js" defer></script>
 </head>
@@ -39,11 +41,11 @@
         </div>
         <div>
           <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required placeholder="Digite seu E-mail" />
+          <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
         </div>
         <div>
-          <label for="telefone">Telefone</label>
-          <input type="text" id="phone" name="telefone" required placeholder="Digite seu telefone" />
+          <label for="telefone">Celular</label>
+          <input type="tel" id="phone" name="telefone" required placeholder="Digite seu celular" />
         </div>
       </div>
       <div class="duvida-sugestao">

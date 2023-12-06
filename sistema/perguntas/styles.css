@@ -404,10 +404,6 @@ td {
   justify-content: center;
 }
 
-td:not(:last-child) {
-  padding-right: 5px;
-}
-
 th {
   padding: 0px;
   padding-bottom: 20px;
@@ -440,8 +436,8 @@ td {
   color: var(--preto-escuro);
 }
 
-.dados-sugestoes td {
-  padding: 20px 10px;
+td:not(:last-child) {
+  padding-right: 5px;
 }
 
 td #id {
