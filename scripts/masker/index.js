@@ -2,8 +2,8 @@
   'function' == typeof define && define.amd
     ? define(b)
     : 'object' == typeof exports
-    ? (module.exports = b())
-    : (a.VMasker = b());
+      ? (module.exports = b())
+      : (a.VMasker = b());
 })(this, function () {
   var a = '9',
     b = 'A',
