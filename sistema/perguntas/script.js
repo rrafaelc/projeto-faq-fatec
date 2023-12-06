@@ -219,19 +219,13 @@ const execute = async () => {
 
   let paginaSugestoes = 1;
   let qtdPgSugestoes = 0;
-  const renderSugestoes = async ({
-    mostrarRespondidas = false,
-    pagina = 1,
-    qtdPorPg = 5,
-    order = 'asc',
-  } = {}) => {
+  const renderSugestoes = async ({ pagina = 1, qtdPorPg = 5, order = 'asc' } = {}) => {
     try {
       spinnerContainer.classList.add('mostrar');
       sugestoesTbody.innerHTML = '';
       pgNumerosSugestoes.innerHTML = '';
 
       const sugestoes = await listarSugestoes({
-        mostrarRespondidas,
         pagina,
         qtdPorPg,
         order,
