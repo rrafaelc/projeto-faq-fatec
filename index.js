@@ -170,6 +170,11 @@ const renderPerguntas = async ({
 
   numerosPerguntas.forEach((numero) => {
     numero.addEventListener('click', async function () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+
       await renderPerguntas({
         pagina: numero.textContent,
       });
@@ -182,6 +187,11 @@ await renderPerguntas();
 pgInicioPerguntas.addEventListener('click', async function () {
   if (pgInicioPerguntas.classList.contains('disabled')) return;
 
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
   await renderPerguntas({
     pagina: 1,
   });
@@ -189,6 +199,11 @@ pgInicioPerguntas.addEventListener('click', async function () {
 
 pgAnteriorPerguntas.addEventListener('click', async function () {
   if (pgAnteriorPerguntas.classList.contains('disabled')) return;
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 
   const pgAnt = paginas - 1 >= 1 ? paginas - 1 : 1;
   await renderPerguntas({
@@ -199,6 +214,11 @@ pgAnteriorPerguntas.addEventListener('click', async function () {
 pgProximoPerguntas.addEventListener('click', async function () {
   if (pgProximoPerguntas.classList.contains('disabled')) return;
 
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
   const pgDep = paginas + 1 > qtdPgs ? qtdPgs : paginas + 1;
   await renderPerguntas({
     pagina: pgDep,
@@ -207,6 +227,11 @@ pgProximoPerguntas.addEventListener('click', async function () {
 
 pgUltimoPerguntas.addEventListener('click', async function () {
   if (pgUltimoPerguntas.classList.contains('disabled')) return;
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 
   await renderPerguntas({
     pagina: qtdPgs,

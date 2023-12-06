@@ -358,5 +358,10 @@ main {
 
   .paginacao {
     font-size: 1.2rem;
+    gap: 10px;
+  }
+
+  .paginacao .numeros {
+    gap: 5px;
   }
 }

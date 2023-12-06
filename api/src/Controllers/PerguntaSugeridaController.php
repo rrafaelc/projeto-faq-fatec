@@ -109,14 +109,6 @@ class PerguntaSugeridaController
           break;
         }
 
-        // if (!isset($data["email"]) || empty($data["email"])) {
-        //   $data["email"] = "";
-        // }
-
-        // if (!isset($data["telefone"]) || empty($data["telefone"])) {
-        //   $data["telefone"] = "";
-        // }
-
         $perguntaSugeridaCriada = $this->gateway->create($data);
 
         http_response_code(201);
