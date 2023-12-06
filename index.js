@@ -69,8 +69,7 @@ const renderPerguntas = async ({
 
     questionsContainer.innerHTML += perguntas.resultado
       .map(
-        (question) =>
-          `
+        (question) => `
       <div class="faq-container">
         <div class="question">
           <h2 class="question-title">
