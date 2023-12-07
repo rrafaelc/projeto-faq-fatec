@@ -44,8 +44,8 @@
           <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
         </div>
         <div>
-          <label for="telefone">Celular</label>
-          <input type="tel" id="phone" name="telefone" required placeholder="Digite seu celular" />
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="phone" name="telefone" required placeholder="Digite seu telefone ou celular" />
         </div>
       </div>
       <div class="duvida-sugestao">

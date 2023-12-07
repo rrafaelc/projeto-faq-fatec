@@ -92,7 +92,7 @@ formCriarConta.addEventListener('submit', async function (event) {
 
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 500);
   } catch (error) {
     toast(error.message, true);
     console.error(error);
@@ -327,7 +327,7 @@ const execute = async () => {
 
                 setTimeout(() => {
                   window.location.reload();
-                }, 1000);
+                }, 500);
               } catch (error) {
                 toast(error.message, true);
               }
