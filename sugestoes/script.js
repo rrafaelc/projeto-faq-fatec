@@ -6,78 +6,77 @@ const botao = document.querySelector('.botao');
 
 const nome = form.querySelector('#nome');
 const email = form.querySelector('#email');
-const celular = form.querySelector('#phone');
+const telefone = form.querySelector('#phone');
 const pergunta = form.querySelector('#mensagem');
 
-VMasker(celular).maskPattern('(99) 9-9999-9999');
+telefone.addEventListener('input', function (e) {
+  if (e.target.value.replace(/\D/g, '').length < 11) {
+    VMasker(telefone).maskPattern('(99) 9999-9999');
+  } else {
+    VMasker(telefone).maskPattern('(99) 9-9999-9999');
+  }
+});
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  VMasker(celular).unMask();
-
   spinner.classList.toggle('mostrar');
   botao.classList.toggle('mostrar');
 
   if (nome.value.length < 3) {
     toast('Nome precisa de no mínimo 3 caracteres', true);
-
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
   } else if (nome.value.length > 100) {
     toast('Nome máximo permitido 100 caracteres', true);
-
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
   }
 
   if (!validator.isEmail(email.value.trim())) {
     toast('Digite um e-mail válido', true);
-
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
   }
 
-  if (!celular.value.trim()) {
-    toast('Celular obrigatório', true);
-
+  if (!telefone.value.trim()) {
+    toast('telefone obrigatório', true);
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
-  } else if (celular.value.length !== 11) {
-    toast('Celular deve ter 11 dígitos', true);
-
+  } else if (
+    telefone.value.replace(/\D/g, '').length < 10 ||
+    telefone.value.replace(/\D/g, '').length > 11
+  ) {
+    toast('telefone deve ter 10 ou 11 dígitos', true);
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
     return;
   }
 
   if (pergunta.value.length < 10) {
     toast('Dúvida precisa de no mínimo 10 caracteres', true);
-
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
   } else if (pergunta.value.length > 2000) {
     toast('Dúvida máximo permitido 2000 caracteres', true);
-
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
-    VMasker(celular).maskPattern('(99) 9-9999-9999');
+
     return;
   }
 
   nome.disabled = true;
   email.disabled = true;
-  celular.disabled = true;
+  telefone.disabled = true;
   pergunta.disabled = true;
 
   setTimeout(async () => {
@@ -85,7 +84,7 @@ form.addEventListener('submit', async (e) => {
       const sugestaoCriada = await criarSugestao({
         nome: nome.value,
         email: email.value,
-        telefone: celular.value,
+        telefone: telefone.value,
         pergunta: pergunta.value,
       });
 
@@ -93,7 +92,7 @@ form.addEventListener('submit', async (e) => {
         toast('Sugestão enviada com sucesso');
         nome.value = '';
         email.value = '';
-        celular.value = '';
+        telefone.value = '';
         pergunta.value = '';
       } else {
         toast('Houve um erro ao criar a sugestão', true);
@@ -103,12 +102,11 @@ form.addEventListener('submit', async (e) => {
         toast(erro, true);
       });
     } finally {
-      VMasker(celular).maskPattern('(99) 9-9999-9999');
       spinner.classList.toggle('mostrar');
       botao.classList.toggle('mostrar');
       nome.disabled = false;
       email.disabled = false;
-      celular.disabled = false;
+      telefone.disabled = false;
       pergunta.disabled = false;
     }
   }, 1000);
