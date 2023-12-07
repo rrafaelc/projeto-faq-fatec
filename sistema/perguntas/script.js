@@ -255,16 +255,16 @@ const execute = async () => {
         .map(
           (sugestao) => `
         <tr>
-          <td>
+          <td class="sugestao-nome">
             <span>${sugestao.nome}</span>
           </td>
-          <td>
+          <td class="sugestao-email">
             <span>${sugestao.email}</span>
           </td>
-          <td>
+          <td class="sugestao-telefone">
             <span>${sugestao.telefone}</span>
           </td>
-          <td>
+          <td class="sugestao-pergunta">
             <span>${sugestao.pergunta}</span>
           </td>
           <td>
