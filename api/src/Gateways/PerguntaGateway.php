@@ -64,7 +64,8 @@ class PerguntaGateway
           CASE
               WHEN prioridade = 'Alta' THEN 1
               WHEN prioridade = 'Normal' THEN 2
-          END
+          END,
+        p.atualizado_em DESC
         LIMIT :limit OFFSET :offset";
     }
 
