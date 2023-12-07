@@ -146,10 +146,12 @@ class PerguntaSugeridaController
       $errors[] = "e-mail inválido";
     }
 
-    if (empty($data["telefone"])) {
-      $errors[] = "celular é obrigatório";
-    } else if (!preg_match("/^\d{11,}$/", $data["telefone"])) {
-      $errors[] = "celular deve ter 11 dígitos";
+    $numeroLimpo = preg_replace("/[^0-9]/", "", $data["telefone"]);
+
+    if (empty($numeroLimpo)) {
+      $errors[] = "telefone é obrigatório";
+    } else if (strlen($numeroLimpo) < 10 || strlen($numeroLimpo) > 11) {
+      $errors[] = "telefone deve ter 10 ou 11 dígitos";
     }
 
     if (empty($data["pergunta"])) {

@@ -132,7 +132,7 @@ const execute = async () => {
 
     setTimeout(() => {
       window.location = `${serverUrl}/sistema/perguntas`;
-    }, 1000);
+    }, 500);
   };
 
   form.addEventListener('submit', async function (event) {
@@ -158,7 +158,7 @@ const execute = async () => {
 
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
+          }, 500);
         } catch (error) {
           toast('Houve um problema ao atualizar a sugestão', true);
           console.log(error);
@@ -194,7 +194,7 @@ const execute = async () => {
 
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 500);
     } else {
       botaoEnviar.disabled = false;
       botaoEnviar.textContent = 'Adicionar';
