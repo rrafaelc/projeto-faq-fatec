@@ -156,8 +156,8 @@ class PerguntaSugeridaController
 
     if (empty($data["pergunta"])) {
       $errors[] = "pergunta é obrigatório";
-    } else if (strlen($data["pergunta"]) < 10 || strlen($data["pergunta"]) > 2000) {
-      $errors[] = "pergunta mínimo 10 e máximo 2000 caracteres";
+    } else if (strlen($data["pergunta"]) < 10 || strlen($data["pergunta"]) > 650) {
+      $errors[] = "pergunta mínimo 10 e máximo 650 caracteres";
     }
 
     return $errors;

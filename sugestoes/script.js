@@ -66,8 +66,8 @@ form.addEventListener('submit', async (e) => {
     botao.classList.toggle('mostrar');
 
     return;
-  } else if (pergunta.value.length > 2000) {
-    toast('Dúvida máximo permitido 2000 caracteres', true);
+  } else if (pergunta.value.length > 650) {
+    toast('Dúvida máximo permitido 650 caracteres', true);
     spinner.classList.toggle('mostrar');
     botao.classList.toggle('mostrar');
 
