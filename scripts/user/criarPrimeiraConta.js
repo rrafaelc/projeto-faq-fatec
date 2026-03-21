@@ -14,9 +14,7 @@ export const criarPrimeiraConta = async ({ nome_completo, email, senha, captchaT
 
     if (!response.ok) {
       const msg =
-        responseData.errors?.[0] ||
-        responseData.message ||
-        'Não foi possível criar a conta';
+        responseData.errors?.[0] || responseData.message || 'Não foi possível criar a conta';
       throw new Error(msg);
     }
   } catch (error) {
