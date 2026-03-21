@@ -80,7 +80,7 @@
           </div>
 
           <div class="avatar">
-            <img src="https://media.licdn.com/dms/image/D4D03AQE2bm-eA_R-QA/profile-displayphoto-shrink_800_800/0/1700004737170?e=1705536000&v=beta&t=fpUA1hf3t7KZ-JaCjbZBrYb8pxpWy7aKXtuUCB_3owk" />
+            <img src="../img/sobre/doni.jpg" alt="João Pedro Doni" />
             <div class="redes-sociais">
               <div>
                 <a href="https://www.linkedin.com/in/Doni-Joao/" target="_blank">
@@ -154,7 +154,7 @@
           </div>
 
           <div class="avatar">
-            <img src="../img/sobre/Rafael_Costa.jpeg" alt="Rafael Costa" />
+            <img src="../img/sobre/Rafael_Costa.png" alt="Rafael Costa" />
             <div class="redes-sociais">
               <div>
                 <a href="https://www.linkedin.com/in/rrafaelc/" target="_blank">

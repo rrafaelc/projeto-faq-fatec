@@ -8,7 +8,7 @@
     "80": { "label": "Apache", "onAutoForward": "notify" },
     "3306": { "label": "MySQL", "onAutoForward": "silent" }
   },
-  "postCreateCommand": "cd api && cp -n .env.example .env && sed -i 's/DB_HOST=\"localhost\"/DB_HOST=\"mysql\"/' .env && sed -i 's/DB_PASS=/DB_PASS=\"root\"/' .env && composer install",
+  "postCreateCommand": "cd api && cp -n .env.example .env && composer install",
   "customizations": {
     "vscode": {
       "extensions": [
