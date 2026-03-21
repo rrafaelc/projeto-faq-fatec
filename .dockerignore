@@ -1,0 +1,10 @@
+.git
+.github
+.devcontainer
+.vscode
+.env
+.env.example
+api/.env
+api/vendor
+*.md
+LICENSE

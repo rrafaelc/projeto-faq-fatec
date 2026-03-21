@@ -1,1 +1,1 @@
-export const serverUrl = 'http://localhost/projeto-faq-fatec';
+export const serverUrl = '';
