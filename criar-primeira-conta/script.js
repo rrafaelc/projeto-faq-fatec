@@ -1,6 +1,11 @@
 import { serverUrl } from '../scripts/constants/serverUrl.js';
 import { criarPrimeiraConta } from '../scripts/user/criarPrimeiraConta.js';
 import { temUsuarios } from '../scripts/user/temUsuarios.js';
+import { initTurnstile, isTurnstileMisconfigured } from '../scripts/utils/turnstile.js';
+
+const siteKey = window.turnstileSiteKey || '';
+const turnstileApi = await initTurnstile(siteKey, '#turnstile-container');
+const turnstileMisconfigured = isTurnstileMisconfigured();
 
 const form = document.querySelector('form');
 const inputs = form.querySelectorAll('input');
@@ -14,6 +19,16 @@ const eyes = document.querySelectorAll('.eye');
 
 if (await temUsuarios()) {
   window.location.href = `${serverUrl}/login`;
+} else if (turnstileMisconfigured) {
+  erro.classList.add('erro');
+  erro.textContent =
+    'Defina TURNSTILE_SITE_KEY (chave pública) no servidor. A API exige verificação Turnstile.';
+  inputs.forEach((input) => {
+    input.disabled = true;
+  });
+  button.disabled = true;
+  button.classList.remove('hideElement');
+  spinner.classList.add('hideElement');
 } else {
   button.classList.toggle('hideElement');
   spinner.classList.toggle('hideElement');
@@ -39,6 +54,12 @@ eyeContainers.forEach((eyeContainer) =>
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  if (isTurnstileMisconfigured()) {
+    erro.classList.add('erro');
+    erro.textContent = 'Defina TURNSTILE_SITE_KEY no servidor para criar a conta.';
+    return;
+  }
 
   erro.classList.remove('erro');
   inputs.forEach((input) => input.classList.remove('erro'));
@@ -99,12 +120,27 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  if (turnstileApi.isEnforced && !turnstileApi.getToken()) {
+    erro.classList.add('erro');
+    erro.textContent = 'Complete a verificação de segurança';
+    button.classList.toggle('hideElement');
+    spinner.classList.toggle('hideElement');
+    return;
+  }
+
   try {
-    await criarPrimeiraConta({ nome_completo: nome, email, senha });
+    await criarPrimeiraConta({
+      nome_completo: nome,
+      email,
+      senha,
+      captchaToken: turnstileApi.getToken(),
+    });
 
     window.location.href = `${serverUrl}/login`;
   } catch (error) {
+    turnstileApi.reset();
     erro.classList.add('erro');
+    erro.textContent = error instanceof Error ? error.message : 'Erro ao criar conta';
     inputs.forEach((input) => {
       input.value = '';
       input.classList.add('erro');

@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <?php $socialMeta = ['title' => 'Login', 'description' => 'Acesso ao painel administrativo do FAQ da Fatec de Itapira.']; include __DIR__ . '/../includes/social-meta.php'; ?>
   <title>Login no Sistema FAQ</title>
   <link rel="stylesheet" href="../styles/global.css" />
   <link rel="stylesheet" href="styles.css" />
@@ -16,7 +17,12 @@
   <link rel="manifest" href="../img/favicon/site.webmanifest" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script type="module" src="script.js" defer></script>
+  <?php include __DIR__ . '/../includes/turnstile-site-key.php'; ?>
+  <script>window.turnstileSiteKey = <?= json_encode($turnstileSiteKey, JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>;</script>
+  <script>window.faqTurnstileMustConfigureSiteKey = <?= json_encode((bool) $faqTurnstileMustConfigureSiteKey) ?>;</script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+  <?php include __DIR__ . '/../includes/faq-module-script-href.php'; ?>
+  <script type="module" src="<?= htmlspecialchars($faqModuleScriptHref, ENT_QUOTES, 'UTF-8') ?>" defer></script>
   <script src="../scripts/global.js" defer></script>
 </head>
 
@@ -44,6 +50,8 @@
           </div>
         </div>
       </div>
+
+      <div id="turnstile-container" class="turnstile-container"></div>
 
       <div class="submit">
         <button class="hideElement" type="submit">

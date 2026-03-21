@@ -77,6 +77,18 @@ class AuthController
           return;
         }
 
+        $captchaToken = TurnstileVerifier::tokenFromPayload($data);
+        if (TurnstileVerifier::isEnforced($config)) {
+          if ($captchaToken === '' || !TurnstileVerifier::verify($config, $captchaToken, TurnstileVerifier::clientIp())) {
+            http_response_code(422);
+            echo json_encode([
+              "status" => "error",
+              "errors" => ["Verificação de segurança inválida ou ausente."]
+            ]);
+            return;
+          }
+        }
+
         $errors = $this->loginValidationErrors($data);
 
         if (!empty($errors)) {

@@ -1,6 +1,6 @@
 import { apiUrl } from '../constants/apiUrl.js';
 
-export const criarSugestao = async ({ nome, email, telefone, pergunta }) => {
+export const criarSugestao = async ({ nome, email, telefone, pergunta, captchaToken = '' }) => {
   try {
     const response = await fetch(`${apiUrl}/pergunta-sugerida`, {
       method: 'POST',
@@ -12,6 +12,7 @@ export const criarSugestao = async ({ nome, email, telefone, pergunta }) => {
         email,
         telefone,
         pergunta,
+        captchaToken,
       }),
     });
 

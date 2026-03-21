@@ -98,6 +98,20 @@ class PerguntaSugeridaController
       case "POST":
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
+        $captchaToken = TurnstileVerifier::tokenFromPayload($data);
+        if (TurnstileVerifier::isEnforced($this->config)) {
+          if ($captchaToken === '' || !TurnstileVerifier::verify($this->config, $captchaToken, TurnstileVerifier::clientIp())) {
+            http_response_code(422);
+            echo json_encode([
+              "status" => "error",
+              "errors" => ["Verificação de segurança inválida ou ausente."]
+            ]);
+            break;
+          }
+        }
+
+        unset($data['captchaToken']);
+
         $errors = $this->createValidationErrors($data);
 
         if (!empty($errors)) {

@@ -476,6 +476,11 @@ footer {
   overflow: hidden;
 }
 
+.turnstile-widget-mount {
+  display: flex;
+  justify-content: center;
+}
+
 .hideElement {
   display: none;
 }

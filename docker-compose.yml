@@ -27,7 +27,10 @@ services:
       db:
         condition: service_healthy
     environment:
+      SITE_URL: ${SITE_URL:-}
       JWT_KEY: ${JWT_KEY}
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
       DB_HOST: db
       DB_NAME: ${DB_NAME}
       DB_USER: root

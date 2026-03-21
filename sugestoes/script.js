@@ -1,5 +1,10 @@
 import { criarSugestao } from '../scripts/sugestoes/criarSugestao.js';
 import { toast } from '../scripts/utils/toast.js';
+import { initTurnstile, isTurnstileMisconfigured } from '../scripts/utils/turnstile.js';
+
+const siteKey = window.turnstileSiteKey || '';
+const turnstileApi = await initTurnstile(siteKey, 'form.box-sugestao #turnstile-container');
+
 const form = document.querySelector('form');
 const spinner = document.querySelector('.spinner');
 const botao = document.querySelector('.botao');
@@ -8,6 +13,15 @@ const nome = form.querySelector('#nome');
 const email = form.querySelector('#email');
 const telefone = form.querySelector('#phone');
 const pergunta = form.querySelector('#mensagem');
+
+if (isTurnstileMisconfigured()) {
+  nome.disabled = true;
+  email.disabled = true;
+  telefone.disabled = true;
+  pergunta.disabled = true;
+  botao.disabled = true;
+  toast('Defina TURNSTILE_SITE_KEY no servidor para enviar sugestões.', true);
+}
 
 telefone.addEventListener('input', function (e) {
   if (e.target.value.replace(/\D/g, '').length < 11) {
@@ -19,6 +33,12 @@ telefone.addEventListener('input', function (e) {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  if (isTurnstileMisconfigured()) {
+    toast('Defina TURNSTILE_SITE_KEY no servidor para enviar sugestões.', true);
+    return;
+  }
+
   spinner.classList.toggle('mostrar');
   botao.classList.toggle('mostrar');
 
@@ -74,6 +94,13 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  if (turnstileApi.isEnforced && !turnstileApi.getToken()) {
+    toast('Complete a verificação de segurança', true);
+    spinner.classList.toggle('mostrar');
+    botao.classList.toggle('mostrar');
+    return;
+  }
+
   nome.disabled = true;
   email.disabled = true;
   telefone.disabled = true;
@@ -86,6 +113,7 @@ form.addEventListener('submit', async (e) => {
         email: email.value,
         telefone: telefone.value,
         pergunta: pergunta.value,
+        captchaToken: turnstileApi.getToken(),
       });
 
       if (sugestaoCriada) {
@@ -94,10 +122,13 @@ form.addEventListener('submit', async (e) => {
         email.value = '';
         telefone.value = '';
         pergunta.value = '';
+        turnstileApi.reset();
       } else {
         toast('Houve um erro ao criar a sugestão', true);
+        turnstileApi.reset();
       }
     } catch (err) {
+      turnstileApi.reset();
       err.message.split(',').forEach((erro) => {
         toast(erro, true);
       });
