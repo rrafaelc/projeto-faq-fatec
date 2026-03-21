@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <?php $socialMeta = ['title' => 'Sugestões', 'description' => 'Envie sugestões de perguntas para o FAQ da Fatec de Itapira.']; include __DIR__ . '/../includes/social-meta.php'; ?>
   <title>Sugestões</title>
   <link rel="stylesheet" href="../styles/global.css" />
   <link rel="stylesheet" href="style.css" />
@@ -19,7 +20,12 @@
   <script defer src="../scripts/masker/index.js"></script>
   <script defer src="https://unpkg.com/validator@latest/validator.min.js"></script>
   <script src="../scripts/global.js" defer></script>
-  <script type="module" src="script.js" defer></script>
+  <?php include __DIR__ . '/../includes/turnstile-site-key.php'; ?>
+  <script>window.turnstileSiteKey = <?= json_encode($turnstileSiteKey, JSON_HEX_TAG | JSON_UNESCAPED_UNICODE) ?>;</script>
+  <script>window.faqTurnstileMustConfigureSiteKey = <?= json_encode((bool) $faqTurnstileMustConfigureSiteKey) ?>;</script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+  <?php include __DIR__ . '/../includes/faq-module-script-href.php'; ?>
+  <script type="module" src="<?= htmlspecialchars($faqModuleScriptHref, ENT_QUOTES, 'UTF-8') ?>" defer></script>
 </head>
 
 <body>
@@ -52,6 +58,7 @@
         <label for="mensagem">Dúvida/Sugestão</label>
         <textarea class="texto-sugestao" id="mensagem" name="mensagem" required placeholder="Digite sua dúvida ou sugestão"></textarea>
       </div>
+      <div id="turnstile-container" class="turnstile-container"></div>
       <button class="botao mostrar" type="submit">ENVIAR</button>
       <div class="spinner loader"></div>
     </form>

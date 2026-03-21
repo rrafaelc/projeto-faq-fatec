@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <?php $socialMeta = ['title' => 'Sobre', 'description' => 'Tecnologias e informações sobre o projeto FAQ da Fatec de Itapira.']; include __DIR__ . '/../includes/social-meta.php'; ?>
   <link rel="stylesheet" href="../styles/global.css" />
   <link href="styles.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />

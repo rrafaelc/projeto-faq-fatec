@@ -1,6 +1,6 @@
 import { apiUrl } from '../constants/apiUrl.js';
 
-export const login = async ({ email, senha }) => {
+export const login = async ({ email, senha, captchaToken = '' }) => {
   localStorage.clear();
 
   try {
@@ -9,7 +9,7 @@ export const login = async ({ email, senha }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, senha }),
+      body: JSON.stringify({ email, senha, captchaToken }),
     });
 
     const responseData = await response.json();

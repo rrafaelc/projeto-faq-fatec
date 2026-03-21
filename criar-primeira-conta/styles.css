@@ -24,6 +24,13 @@
   text-align: center;
 }
 
+.turnstile-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
 /* Formulario */
 form {
   display: flex;

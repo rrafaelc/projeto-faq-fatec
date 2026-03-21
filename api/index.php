@@ -26,6 +26,7 @@ $config = [
   "iat" => $iat,
   "access_token_expiration" => $access_token_expiration,
   "refresh_token_expiration" => $refresh_token_expiration,
+  "turnstile_secret_key" => $_ENV["TURNSTILE_SECRET_KEY"] ?? getenv("TURNSTILE_SECRET_KEY") ?: '',
 ];
 
 $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"], $_ENV["DB_PORT"]);
