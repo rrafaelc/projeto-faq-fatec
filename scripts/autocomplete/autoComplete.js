@@ -13,11 +13,11 @@
 
     if (Object.getOwnPropertySymbols) {
       var symbols = Object.getOwnPropertySymbols(object);
-      enumerableOnly &&
+      (enumerableOnly &&
         (symbols = symbols.filter(function (sym) {
           return Object.getOwnPropertyDescriptor(object, sym).enumerable;
         })),
-        keys.push.apply(keys, symbols);
+        keys.push.apply(keys, symbols));
     }
 
     return keys;

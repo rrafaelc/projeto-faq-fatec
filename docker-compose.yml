@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: faq-fatec-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - "./Banco de dados SQL/script.sql:/docker-entrypoint-initdb.d/init.sql"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - faq-fatec-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: faq-fatec-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      JWT_KEY: ${JWT_KEY}
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: root
+      DB_PASS: ${DB_PASSWORD}
+      DB_PORT: "3306"
+    networks:
+      - faq-fatec-net
+      - nginx-proxy-network
+
+volumes:
+  mysqldata:
+
+networks:
+  faq-fatec-net:
+    driver: bridge
+  nginx-proxy-network:
+    external: true

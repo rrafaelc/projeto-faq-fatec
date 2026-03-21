@@ -1,0 +1,22 @@
+{
+  "name": "FAQ Fatec",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "php",
+  "workspaceFolder": "/var/www/projeto-faq-fatec",
+  "forwardPorts": [80, 3306],
+  "portsAttributes": {
+    "80": { "label": "Apache", "onAutoForward": "notify" },
+    "3306": { "label": "MySQL", "onAutoForward": "silent" }
+  },
+  "postCreateCommand": "cd api && cp -n .env.example .env && sed -i 's/DB_HOST=\"localhost\"/DB_HOST=\"mysql\"/' .env && sed -i 's/DB_PASS=/DB_PASS=\"root\"/' .env && composer install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "onecentlin.phpunit-snippets",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

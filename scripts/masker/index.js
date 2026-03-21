@@ -36,13 +36,13 @@
     h = function (a) {
       this.elements = a;
     };
-  (h.prototype.unbindElementToMask = function () {
+  ((h.prototype.unbindElementToMask = function () {
     for (var a = 0, b = this.elements.length; a < b; a++)
-      (this.elements[a].lastOutput = ''),
+      ((this.elements[a].lastOutput = ''),
         (this.elements[a].onkeyup = !1),
         (this.elements[a].onkeydown = !1),
         this.elements[a].value.length &&
-          (this.elements[a].value = this.elements[a].value.replace(/\D/g, ''));
+          (this.elements[a].value = this.elements[a].value.replace(/\D/g, '')));
   }),
     (h.prototype.bindElementToMask = function (a) {
       for (
@@ -52,12 +52,12 @@
             var d = c.target || c.srcElement;
             e(c.keyCode) &&
               setTimeout(function () {
-                (b.opts.lastOutput = d.lastOutput),
+                ((b.opts.lastOutput = d.lastOutput),
                   (d.value = i[a](d.value, b.opts)),
                   (d.lastOutput = d.value),
                   d.setSelectionRange &&
                     b.opts.suffixUnit &&
-                    d.setSelectionRange(d.value.length, d.value.length - b.opts.suffixUnit.length);
+                    d.setSelectionRange(d.value.length, d.value.length - b.opts.suffixUnit.length));
               }, 0);
           },
           d = 0,
@@ -65,26 +65,26 @@
         d < f;
         d++
       )
-        (this.elements[d].lastOutput = ''),
+        ((this.elements[d].lastOutput = ''),
           (this.elements[d].onkeyup = c),
           this.elements[d].value.length &&
-            (this.elements[d].value = i[a](this.elements[d].value, this.opts));
+            (this.elements[d].value = i[a](this.elements[d].value, this.opts)));
     }),
     (h.prototype.maskMoney = function (a) {
-      (this.opts = f(a)), this.bindElementToMask('toMoney');
+      ((this.opts = f(a)), this.bindElementToMask('toMoney'));
     }),
     (h.prototype.maskNumber = function () {
-      (this.opts = {}), this.bindElementToMask('toNumber');
+      ((this.opts = {}), this.bindElementToMask('toNumber'));
     }),
     (h.prototype.maskAlphaNum = function () {
-      (this.opts = {}), this.bindElementToMask('toAlphaNumeric');
+      ((this.opts = {}), this.bindElementToMask('toAlphaNumeric'));
     }),
     (h.prototype.maskPattern = function (a) {
-      (this.opts = { pattern: a }), this.bindElementToMask('toPattern');
+      ((this.opts = { pattern: a }), this.bindElementToMask('toPattern'));
     }),
     (h.prototype.unMask = function () {
       this.unbindElementToMask();
-    });
+    }));
   var i = function (a) {
     if (!a) throw new Error('VanillaMasker: There is no element to bind.');
     var b = 'length' in a ? (a.length ? a : []) : [a];
@@ -98,7 +98,7 @@
           d = new RegExp(c, 'g'),
           e = a.toString().replace(/[\D]/g, '').length || 0,
           g = b.lastOutput.toString().replace(/[\D]/g, '').length || 0;
-        (a = a.toString().replace(d, '')), e < g && (a = a.slice(0, a.length - 1));
+        ((a = a.toString().replace(d, '')), e < g && (a = a.slice(0, a.length - 1)));
       }
       var h = a.toString().replace(/[\D]/g, ''),
         i = new RegExp('^(0|\\' + b.delimiter + ')'),
@@ -107,7 +107,7 @@
         l = k.substr(0, k.length % 3),
         m = new Array(b.precision + 1).join('0');
       k = k.substr(k.length % 3, k.length);
-      for (var n = 0, o = k.length; n < o; n++) n % 3 === 0 && (l += b.delimiter), (l += k[n]);
+      for (var n = 0, o = k.length; n < o; n++) (n % 3 === 0 && (l += b.delimiter), (l += k[n]));
       if (((l = l.replace(i, '')), (l = l.length ? l : '0'), !b.zeroCents)) {
         var p = h.length - b.precision,
           q = h.substr(p, b.precision),

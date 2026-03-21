@@ -1,0 +1,23 @@
+name: Deploy FAQ Fatec
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          echo "JWT_KEY=${{ secrets.JWT_KEY }}" > .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
+      - name: Docker Build and Deploy
+        run: |
+          docker compose up -d --build --remove-orphans
+          docker image prune -f

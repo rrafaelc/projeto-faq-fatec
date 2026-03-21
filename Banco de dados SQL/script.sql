@@ -1,6 +1,9 @@
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
 DROP DATABASE IF EXISTS `projeto-faq`;
 
-CREATE DATABASE `projeto-faq`;
+CREATE DATABASE `projeto-faq` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE `projeto-faq`;
 

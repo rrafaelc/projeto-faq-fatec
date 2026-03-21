@@ -2,7 +2,7 @@
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 3000,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   "javascript.preferences.importModuleSpecifierEnding": "js"
 }
