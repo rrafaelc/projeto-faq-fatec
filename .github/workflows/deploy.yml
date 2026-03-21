@@ -16,6 +16,9 @@ jobs:
           echo "JWT_KEY=${{ secrets.JWT_KEY }}" > .env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "SITE_URL=${{ secrets.SITE_URL }}" >> .env
+          echo "TURNSTILE_SITE_KEY=${{ secrets.TURNSTILE_SITE_KEY }}" >> .env
+          echo "TURNSTILE_SECRET_KEY=${{ secrets.TURNSTILE_SECRET_KEY }}" >> .env
 
       - name: Docker Build and Deploy
         run: |
